@@ -1,6 +1,6 @@
 <% if signed_in? %>
-	<%= render 'static_pages/signed_in' %>
+	<%= render 'shared/signed_in' %>
 <% else %>
-	<%= render 'static_pages/sign_in' %>
-  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+	<%= render 'shared/sign_in' %>
+  <!--<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>-->
 <% end %>
