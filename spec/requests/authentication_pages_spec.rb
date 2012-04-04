@@ -9,6 +9,8 @@ describe "Authentication" do
 
     it { should have_header('Sign in') }
     it { should have_title('Sign in') }
+    it { should_not have_link('Profile') }
+    it { should_not have_link('Settings') }
   end
   
   describe "signin" do
@@ -59,6 +61,18 @@ describe "Authentication" do
           it "should render the desired protected page" do
             page.should have_title('Edit user')
           end
+          
+          describe "when signing in again" do
+            before do
+              #visit signout_path
+              visit signin_path
+              valid_signin(user)
+            end
+            
+            it "should render the default profile page" do
+              page.should have_title(user.name)
+            end
+          end
         end
       end
       
@@ -77,6 +91,22 @@ describe "Authentication" do
         describe "visiting the user index" do
           before { visit users_path }
           it { should have_title('Sign in') }
+        end
+      end
+      
+      describe "in the Microposts controller" do
+        
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+        
+        describe "submitting to the destroy action" do
+          before do
+            micropost = FactoryGirl.create(:micropost)
+            delete micropost_path(micropost)
+          end
+          specify { response.should redirect_to(signin_path) }
         end
       end
     end
