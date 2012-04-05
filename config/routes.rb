@@ -1,4 +1,4 @@
-SampleApp::Application.routes.draw do
+ShelterMe::Application.routes.draw do
   resources :users do
     member do
       get :following, :followers
