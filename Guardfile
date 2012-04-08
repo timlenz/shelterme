@@ -17,9 +17,9 @@ guard 'rspec', version: 2, all_after_pass: false, cli: '--drb' do
      "spec/acceptance/#{m[1]}_spec.rb",
      "spec/requests/#{m[1].singularize}_pages_spec.rb"]
   end
-  watch(%r{^app/views/(.+)/}) do |m|
-    "spec/requests/#{m[1].singularize}_pages_spec.rb"
-  end
+  #watch(%r{^app/views/(.+)/}) do |m|
+  #  "spec/requests/#{m[1].singularize}_pages_spec.rb"
+  #end
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('spec/spec_helper.rb')                        { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
@@ -39,3 +39,4 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
 end
+

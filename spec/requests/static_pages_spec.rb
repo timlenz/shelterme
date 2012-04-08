@@ -69,6 +69,30 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
   end
   
+  describe "FAQ page" do
+    before { visit faq_path }
+    let(:heading)     { 'Frequently Asked Questions' }
+    let(:page_title)  { 'FAQ' }
+
+    it_should_behave_like "all static pages"
+  end
+  
+  describe "Terms page" do
+    before { visit terms_path }
+    let(:heading)     { 'Terms of Use' }
+    let(:page_title)  { 'Terms of Use' }
+
+    it_should_behave_like "all static pages"
+  end
+  
+  describe "Privacy page" do
+    before { visit privacy_path }
+    let(:heading)     { 'Privacy Policy' }
+    let(:page_title)  { 'Privacy Policy' }
+
+    it_should_behave_like "all static pages"
+  end
+  
   it "should have the correct links on the layout" do
     visit root_path
     click_link "About"
@@ -77,9 +101,7 @@ describe "Static pages" do
     page.should have_title(full_title('Help'))
     click_link "Contact"
     page.should have_title(full_title('Contact'))
-    click_link "SHELTER ME"
+    click_link "logo"
     page.should have_title(full_title(''))
-    click_link "Sign up now!"
-    page.should have_title(full_title('Sign up'))
   end
 end

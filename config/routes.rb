@@ -1,4 +1,8 @@
 ShelterMe::Application.routes.draw do
+  get "pets/new"
+
+  get "shelters/new"
+
   resources :users do
     member do
       get :following, :followers
@@ -17,6 +21,11 @@ ShelterMe::Application.routes.draw do
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/faq',     to: 'static_pages#faq'
+  match '/terms',   to: 'static_pages#terms'
+  match '/privacy', to: 'static_pages#privacy'
+  
+  match '/users/:id' => redirect("/people/:id")
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

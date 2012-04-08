@@ -1,14 +1,14 @@
-<% provide(:title, 'Contact') %>
+<% provide(:title, 'FAQ') %>
 <div class="page-header">
-	<h1>Contact Us</h1>
+	<h1>Frequently Asked Questions</h1>
 </div>
 <div class="row">
 	<aside class="span3">
 		<ul class="nav nav-list">
-			<li><%= link_to "FAQ", faq_path %></li>
+			<li class="active"><%= link_to "FAQ", "#" %></li>
 			<li><%= link_to "Help", help_path %></li>
 			<li><%= link_to "About Us", about_path %></li>
-			<li class="active"><%= link_to "Contact", "#" %></li>
+			<li><%= link_to "Contact", contact_path %></li>
 			<li><%= link_to "Terms of Use", terms_path %></li>
 			<li><%= link_to "Privacy Policy", privacy_path %></li>
 		</ul>
@@ -28,3 +28,5 @@
 		</div>
 	</div>
 </div>
+
+	

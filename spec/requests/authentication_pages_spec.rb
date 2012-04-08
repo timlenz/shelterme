@@ -23,7 +23,7 @@ describe "Authentication" do
       it { should have_error_message('Invalid') }
       
       describe "before visiting another page" do
-        before { click_link "SHELTER ME" }
+        before { click_link "Help" }
         it { should_not have_error_message('') }
       end
     end
@@ -33,8 +33,7 @@ describe "Authentication" do
       before { sign_in user }
       
       it { should have_title(user.name) }
-      
-      it { should have_link('Users',        href: users_path) }
+
       it { should have_link('Profile',      href: user_path(user)) }
       it { should have_link('Settings',     href: edit_user_path(user)) }
       it { should have_link('Sign out',     href: signout_path) }
