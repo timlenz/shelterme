@@ -21,7 +21,7 @@
 	          <% if signed_in? %>
 	            <li id="fat-menu" class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	                <i class="icon-user icon-white"></i> <b class="caret"></b>
+	                <%= gravatar_for current_user, size: 20 %> <b class="caret"></b>
 	              </a>
 	              <ul class="dropdown-menu">
 	                <li><%= link_to "Profile", current_user %></li>

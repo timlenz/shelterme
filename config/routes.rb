@@ -1,4 +1,6 @@
 ShelterMe::Application.routes.draw do
+  get "shelter/new"
+
   get "pets/new"
 
   get "shelters/new"
