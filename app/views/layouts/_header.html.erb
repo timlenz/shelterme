@@ -11,9 +11,9 @@
 			<div class="nav-collapse">
  	     <nav>
 	        <ul class="nav pull-right">
-						<li><%= link_to "Add Pet", '#' %></li>
-						<li><%= link_to "Find Pet", '#' %></li>
-						<li><%= link_to "Find Shelter", '#' %></li>
+						<li><%= link_to "Add Pet", addpet_path %></li>
+						<li><%= link_to "Find Pet", pets_path %></li>
+						<li><%= link_to "Find Shelter", shelters_path %></li>
 						<% if signed_in? %>
 						<li><%= link_to "Match Me", '#' %></li>
 						<% end %>

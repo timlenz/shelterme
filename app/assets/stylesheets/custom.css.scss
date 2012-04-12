@@ -1,5 +1,5 @@
 @import "bootstrap";
-@import "bootstrap-responsive";
+/* @import "bootstrap-responsive"; */
 
 /* mixins, variables, etc. */
 
@@ -56,6 +56,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 10px;
   text-align: left;
+	display: inline;
 }
 
 h2 {
@@ -255,4 +256,54 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+/* profiles */
+
+.description {
+	display: block;
+	background-color: $grayLighter;
+	height: 150px;
+	padding: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.address {
+	display: block;
+	float: left;
+	background-color: $grayLighter;
+	padding-top: 10px;
+	margin: 0;
+	height: 150px;
+	text-align: center;
+	width: 50%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.map {
+	float: left;
+	overflow: hidden;
+	background-color: $grayLight;
+	padding: 0;
+	margin: 0;
+	height: 160px;
+	width: 50%;
+}
+
+.carousel {
+	height: 100%;
+	background-color: $grayLighter;
+}
+
+.btn-header {
+	float: right;
+	margin-right: 50px;
+}
+
+.pets {
+	margin-top: 20px;
 }

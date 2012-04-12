@@ -1,0 +1,21 @@
+<% provide(:title, @shelter.name) %>
+<div class="page-header">
+	<h1><%= @shelter.name %></h1>
+	<%= render "header_buttons" %>
+</div>
+<div class="row">
+	<div class="span6">
+		<div class="row description">
+			<%= @shelter.description %>
+		</div>
+		<%= render "hours" %>
+		<div class="row">
+			<%= render "address" %>
+			<%= render "map" %>
+		</div>
+	</div>
+	<div class="span6">
+		<%= render "photos" %>
+	</div>
+</div>
+<%= render "pets" %>

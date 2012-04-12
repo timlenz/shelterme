@@ -14,4 +14,11 @@ FactoryGirl.define do
     content "Filler text"
     user
   end
+  
+  factory :shelter do
+    name        "Example Shelter"
+    description "This is a very cool place."
+    email       "shelter@example.com"
+    phone       "555-345-6789"
+  end
 end
