@@ -1,0 +1,12 @@
+<%= provide(:title, 'Find Pets') %>
+<div class="page-header">
+	<h1>All Pets</h1>
+</div>
+
+<%= will_paginate %>
+
+<ul class="pets">
+	<%= render @pets %>
+</ul>
+
+<%= will_paginate %>

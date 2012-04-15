@@ -9,4 +9,8 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+  
+  def canonical_link_tag
+    tag(:link, rel: :canonical, href: @canonical_url) if @canonical_url
+  end
 end

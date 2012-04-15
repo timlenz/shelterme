@@ -39,6 +39,7 @@ describe User do
   it { should respond_to(:followers) }
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
+  it { should respond_to(:pets) }
   
   it { should be_valid }
   it { should_not be_admin }
@@ -194,6 +195,21 @@ describe User do
       
       it { should_not be_following(other_user) }
       its(:followed_users) { should_not include(other_user) }
+    end
+  end
+  
+  describe "pet associations" do
+    
+    before { @user.save }
+    let!(:older_pet) do 
+      FactoryGirl.create(:pet, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_pet) do
+      FactoryGirl.create(:pet, user: @user, created_at: 1.hour.ago)
+    end
+    
+    it "should have the right pets in the right order" do
+      @user.pets.should == [newer_pet, older_pet]
     end
   end
 end

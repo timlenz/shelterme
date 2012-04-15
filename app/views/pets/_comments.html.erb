@@ -1,0 +1,10 @@
+<div class="span4">
+	<div class="well">
+		<h3>FOLLOWING <%= @pet.name %> (#)</h3>
+		<% if signed_in? %>
+			render 'shared/micropost_form'
+			<hr>
+		<% end %>
+		render 'shared/feed'
+	</div>
+</div>

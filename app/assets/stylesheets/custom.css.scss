@@ -1,5 +1,4 @@
 @import "bootstrap";
-/* @import "bootstrap-responsive"; */
 
 /* mixins, variables, etc. */
 
@@ -306,4 +305,14 @@ aside {
 
 .pets {
 	margin-top: 20px;
+}
+
+.legend {
+	height:60px;
+	margin-bottom: 20px;
+}
+
+.btn-print {
+	display: inline;
+	margin-left: 50px;
 }

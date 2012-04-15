@@ -21,4 +21,10 @@ FactoryGirl.define do
     email       "shelter@example.com"
     phone       "555-345-6789"
   end
+  
+  factory :pet do
+    name "Sample Pet"
+    description "Loveable and fun. What a gem."
+    user
+  end
 end
