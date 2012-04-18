@@ -1,12 +1,14 @@
 <%= provide(:title, 'Find Shelters') %>
-<div class="page-header">
-	<h1>All Shelters</h1>
+<div class="container">
+	<div class="page-header">
+		<h1>All Shelters</h1>
+	</div>
+
+	<%= will_paginate %>
+
+	<ul class="shelters">
+		<%= render @shelters %>
+	</ul>
+
+	<%= will_paginate %>
 </div>
-
-<%= will_paginate %>
-
-<ul class="shelters">
-	<%= render @shelters %>
-</ul>
-
-<%= will_paginate %>

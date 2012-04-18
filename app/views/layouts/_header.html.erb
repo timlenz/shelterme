@@ -1,23 +1,23 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </a>
-  <!--<%= link_to image_tag("logo.png", alt: "Shelter Me"), root_path, id: "logo" %> -->
-			<%= link_to "SHELTER ME", root_path, id: "logo" %>
+	    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </a>
 			<div class="nav-collapse">
- 	     <nav>
-	        <ul class="nav pull-right">
-						<li><%= link_to "Add Pet", addpet_path %></li>
-						<li><%= link_to "Find Pet", pets_path %></li>
-						<li><%= link_to "Find Shelter", shelters_path %></li>
+ 	     <div>
+	        <ul class="nav pull-left">
+						<li style="display:none;"><%= link_to "SHELTER ME", root_path, id: "logo" %></li>
+						<li><%= link_to '<i class="icon-plus"></i> Add Pet'.html_safe, addpet_path %></li>
+						<li><%= link_to '<i class="icon-search"></i> Find Pet'.html_safe, pets_path %></li>
+						<li><%= link_to '<i class="icon-home"></i> Find Shelter'.html_safe, shelters_path %></li>
 						<% if signed_in? %>
-						<li><%= link_to "Match Me", '#' %></li>
+						<li><%= link_to '<i class="icon-heart"></i> Match Me'.html_safe, '#' %></li>
 						<% end %>
-						<li class="divider-vertical"></li>
+					</ul>
+					<ul class="nav pull-right">
 	          <% if signed_in? %>
 	            <li id="fat-menu" class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -33,11 +33,20 @@
 	              </ul>
 	            </li>
 	          <% else %>
-	            <li><%= link_to "Sign in", signin_path %></li>
+	            <li><%= link_to '<i class="icon-user"></i> Sign in'.html_safe, signin_path %></li>
 	          <% end %>
+							<li><%= link_to '<i class="icon-question-sign"></i> Help'.html_safe, help_path %></li>
 	        </ul>
-	      </nav>
+	      </div>
 			</div>
     </div>
   </div>
 </header>
+<% if request.path_parameters[:action] != 'home' %>
+	<div class="subnav">
+		<div class="container">
+			<%= link_to "Home", root_path %>
+		</div>
+	</div>
+<% end %>
+<!--<%= link_to image_tag("logo.png", alt: "Shelter Me"), root_path %> -->

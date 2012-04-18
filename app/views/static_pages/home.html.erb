@@ -1,7 +1,15 @@
-<div class="center hero-unit">
-  <h1>Welcome to Shelter Me</h1>
-
-  <h2>
-    This is the home page for the Shelter Me
-  </h2>
+<%= render "hero" %>
+<div class="container">
+	<div class="row front-content">
+		<div class="span8"> <!-- FEATURED CONTENT -->
+			<%= render "pets" %>
+			<div class="clearfix"></div>
+			<%= render "shelter" %>
+		</div>
+		<div class="span4 sidebar"> <!-- CALLOUTS -->
+			<%= render "adopted" %>
+			<%= render "blog_blurb" %>
+			<%= render "mobile_blurb" %>
+		</div>
+	</div>
 </div>

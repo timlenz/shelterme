@@ -14,10 +14,12 @@ describe "Static pages" do
     let(:heading)     { 'Shelter Me' }
     let(:page_title)  { '' }
 
-    it_should_behave_like "all static pages"
-    it { should_not have_selector 'title', text: '| Home' }
+    it { should_not have_title('| Home') }
+    it { should have_selector('div#heroCarousel') }
+    it { should have_selector('h2', text:"Featured Pets")}
+    it { should have_selector('h2', text:"Featured Shelter")}
+    it { should have_selector('div.sidebar-element') }
     
-
   end
 
   describe "Help page" do

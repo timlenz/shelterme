@@ -60,7 +60,7 @@ def make_pets
   users = User.all(limit: 1)
   100.times do
     name = Faker::Name.first_name
-    description = Faker::Lorem.paragraph(7)
+    description = Faker::Lorem.paragraph(8)
     users.each { |user| user.pets.create!(name: name, description: description)}
   end
 end
