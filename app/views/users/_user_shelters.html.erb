@@ -1,0 +1,10 @@
+<div class="userShelters rightColumn">
+  <h3><%= image_tag("favoriteShelters.png", alt: "Favorite Shelters") %></h3>
+  <ul class="shelterList">
+    <% @user.boosted_shelters.limit(3). each do |f|%>
+    <li>
+      <%= link_to(f.name, f) %><br><%= f.city %>, <%= f.state %>
+    </li>
+    <% end %>
+  </ul>
+</div>

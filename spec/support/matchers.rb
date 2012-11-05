@@ -21,3 +21,9 @@ RSpec::Matchers.define :have_success_message do |message|
     page.should have_selector('div.alert.alert-success', text: message)
   end
 end
+
+RSpec::Matchers.define :have_side_nav do |content|
+  match do |page|
+    page.should have_selector('h4', text: content)
+  end
+end

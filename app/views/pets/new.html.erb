@@ -1,4 +1,85 @@
-<div class="container">
-	<h1>Pets#new</h1>
-	<p>Find me in app/views/pets/new.html.erb</p>
+<% provide(:title, "Add Pet") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("addIcon.png", alt: "Add Pet") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Add Pet</h1><br>
+      </div>
+    </div>
+    <div class="fullEditForm">
+      <%= simple_form_for(@pet, html: {class: 'form-horizontal' }) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="leftEditForm">
+        <%= render 'pets/edit/code', f: f %>
+        <%= render 'pets/edit/select_shelter', f: f %>
+        <%= f.input :name %>
+        <%= f.label "Species", class: "control-label"%>
+				<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[species_id]">
+				  <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Dog</button>
+				</div>
+				<%= f.hidden_field :species_id, label: false %>
+				<%= f.label "Gender", class: "control-label"%>
+				<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
+				  <button type="button" data-toggle="button" class="btn" value="2">Female</button>
+				  <button type="button" data-toggle="button" class="btn" value="1">Male</button>
+				</div>
+				<%= f.hidden_field :gender_id, label: false %>
+        <%= render 'pets/edit/age', f: f %>
+        <%= render 'pets/edit/weight', f: f %>
+        <%= f.label "Size", class: "control-label"%>
+        <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
+				  <button type="button" data-toggle="button" class="btn" value="1">Small</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
+				  <button type="button" data-toggle="button" class="btn" value="3">Large</button>
+				</div>
+				<%= f.hidden_field :size_id, label: false %>
+        <%= render 'pets/edit/select_mix', f: f %>
+        <div style="display:none;">
+          <%= f.association :pet_state, label_method: :status, include_blank: false %>
+        </div>
+      </div>
+      <div class="rightEditForm">
+	      <%= f.label "Fur Length", class: "control-label"%>
+        <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[fur_length_id]">
+				  <button type="button" data-toggle="button" class="btn" value="1">Short</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
+				  <button type="button" data-toggle="button" class="btn" value="3">Long</button>
+				</div>
+				<%= f.hidden_field :fur_length_id, label: false %>
+				<%= f.association :primary_color, label_method: :color, include_blank: false %>
+				<%= f.association :secondary_color, label_method: :color %>
+				<%= f.label "Energy Level", class: "control-label"%>
+        <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[energy_level_id]">
+				  <button type="button" data-toggle="button" class="btn" value="1">Relaxed</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Balanced</button>
+				  <button type="button" data-toggle="button" class="btn" value="3">Tireless</button>
+				</div>
+				<%= f.hidden_field :energy_level_id, label: false %>
+				<%= f.label "Nature", class: "control-label"%>
+				<div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[nature_id]">
+				  <button type="button" data-toggle="button" class="btn" value="1">Submissive</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Playful</button>
+				  <button type="button" data-toggle="button" class="btn" value="3">Dominant</button>
+				</div>
+				<%= f.hidden_field :nature_id, label: false %>
+				<%= f.label "Affection", class: "control-label"%>
+				<div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[affection_id]">
+				  <button type="button" data-toggle="button" class="btn" value="3">Reserved</button>
+				  <button type="button" data-toggle="button" class="btn" value="2">Friendly</button>
+				  <button type="button" data-toggle="button" class="btn" value="1">Devoted</button>
+				</div>
+				<%= f.hidden_field :affection_id, label: false %>
+        <%= f.input :description, as: :text %>
+      </div>
+      <div class="clearfix"></div>
+      <br>
+      <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+      <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;")%>
+      <% end %>
+    </div>
+  </div>  
 </div>

@@ -50,9 +50,12 @@ ShelterMe::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  
+  # Established mailer default host
+  config.action_mailer.default_url_options = { host: "shelterme.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
 
   # Enable threaded mode
-  # config.threadsafe!
+  # config.threadsafe! unless $rails_rake_task
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

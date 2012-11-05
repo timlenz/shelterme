@@ -1,12 +1,22 @@
-<%= provide(:title, 'All users') %>
-<div class="container">
-	<h1>All users</h1>
-
-	<%= will_paginate %>
-
-	<ul class="users">
-	  <%= render @users %>
-	</ul>
-
-	<%= will_paginate %>
+<%= provide(:title, 'All Users') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo">
+        <h1><%= User.count('id') %> Users</h1>
+      </div>
+      <div class="searchButton">
+        <%= form_tag users_path, :method => 'get', id: "users_search" do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="users" class="row">
+      <%= render 'users' %>
+    </div>
+  </div>
 </div>

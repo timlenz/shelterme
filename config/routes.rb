@@ -1,27 +1,75 @@
 ShelterMe::Application.routes.draw do
 
+  get "pet_photos/new"
+
+  get "shelter_admins/new"
+
+  get "pet_media/new"
+
+  get "favorites/new"
+
+  get "bonds/new"
+
+  get "addresses/new"
+
+  get "password_resets/new"
+
   resources :users do
     member do
       get :following, :followers
+      get :watching
+      get :boosting
+      get :managing
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :password_resets
+  resources :pet_photos
   resources :shelters
-  resources :pets
+  resources :pets do
+    get :autocomplete_shelter_name, :on => :collection
+  end
+  resources :bonds, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy]
+  resources :shelter_admins
+  resources :breeds
+  resources :searches
 
   root to: 'static_pages#home'
   
-  match '/shelters',    to: 'shelters#find'
-  match '/addshelter',  to: 'shelters#new'
+  match '/addphoto',    to: 'pet_photos#new'
+  match '/crop',        to: 'pet_photos#crop'
   
-  match '/pets',        to: 'pets#find'
-  match '/addpet',      to: 'pets#new'
+  match '/s',           to: 'shelters#index'
+  match '/shelters',    to: 'shelters#index'
+  match '/s/new',       to: 'shelters#new'
+  match '/s/:id',       to: 'shelters#show'
+  match '/findshelter', to: 'shelters#find'
+  match '/listshelters', to: 'shelters#list'
+  
+  match '/p',           to: 'pets#index'
+  match '/addpet',      to: 'pets#addpet'
+  match '/newpet',      to: 'pets#new'
+  match '/p/:id',       to: 'pets#show'
+  match '/findpet',     to: 'searches#new'
+  match '/searches/:id', to: 'searches#new'
+  match '/potd',        to: 'pets#potd'
   
   match '/signup',      to: 'users#new'
   match '/signin',      to: 'sessions#new'
+  match '/matchme',     to: 'users#matchme'
   match '/signout',     to: 'sessions#destroy', via: :delete
+  
+  match '/u',           to: 'users#index'
+  match '/users',       to: 'users#index'
+  match '/u/:id',       to: 'users#show'
+  match '/sponsored',   to: 'users#sponsored'
+  match '/followed',    to: 'users#followed'
+  match '/activity',    to: 'users#activity'
+  
+  match '/sa',          to: 'shelter_admins#index'
   
   match '/help',        to: 'static_pages#help'
   match '/about',       to: 'static_pages#about'
@@ -29,6 +77,7 @@ ShelterMe::Application.routes.draw do
   match '/faq',         to: 'static_pages#faq'
   match '/terms',       to: 'static_pages#terms'
   match '/privacy',     to: 'static_pages#privacy'
+  match '/statistics',  to: 'static_pages#statistics'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

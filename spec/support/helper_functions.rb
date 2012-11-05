@@ -1,7 +1,7 @@
 def valid_signin(user)
   fill_in "Email",    with: user.email
   fill_in "Password", with: user.password
-  click_button "Sign in"
+  find('input.submitButton').click
 end
 
 def valid_information
@@ -15,7 +15,7 @@ def sign_in(user)
   visit signin_path
   fill_in "Email",    with: user.email
   fill_in "Password", with: user.password
-  click_button "Sign in"
+  find('input.submitButton').click
   # Sign in when not using Capybara as well.
   cookies[:remember_token] = user.remember_token
 end
@@ -31,6 +31,6 @@ def edit_profile(user)
   visit edit_user_path(user)
   fill_in "Email",    with: user.email
   fill_in "Password", with: user.password
-  click_button "Sign in"
+  find('input.submitButton').click
 end
 

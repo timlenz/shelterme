@@ -1,8 +1,12 @@
 module SessionsHelper
   
   def sign_in(user)
-    cookies.permanent[:remember_token] = user.remember_token
-    current_user = user
+    if params[:remember_me]
+      cookies.permanent[:remember_token] = user.remember_token
+      current_user = user
+    else
+      cookies[:remember_token] = user.remember_token
+    end
   end
   
   def signed_in?
@@ -24,7 +28,7 @@ module SessionsHelper
   def signed_in_user
     unless signed_in?
       store_location
-      redirect_to signin_path, notice: "Please sign in."
+      redirect_to signin_path
     end
   end
   

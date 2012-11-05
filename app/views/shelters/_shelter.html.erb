@@ -1,3 +1,11 @@
-<li>
-	<%= link_to shelter.name, shelter %>
+<li class="subAdmin">
+  <table class="table-condensed">
+    <tr>
+      <td class="adminId"><%= shelter.id %></td>
+      <td class="adminAdded"><%= shelter.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminFollowers"><%= shelter.boosters.count %></td>
+      <td class="adminFollowers"><%= shelter.pets.count %></td>
+      <td class="adminName"><%= link_to shelter.name, shelter %></td>
+    </tr>
+  </table>
 </li>

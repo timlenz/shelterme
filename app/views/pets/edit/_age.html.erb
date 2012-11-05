@@ -1,0 +1,7 @@
+<%= f.input :age, wrapper: :append do %>
+  <%= f.input_field :age, class: "input-mini", style: "margin-top: -22px;" %>
+  <%= f.association :age_period, label_method: :length, label: false, 
+                      include_blank: false, 
+                      wrapper_html: { class: 'input-inline', style: 'margin-bottom:0;' },
+                      hint: "Age when profile created" %>
+<% end %>

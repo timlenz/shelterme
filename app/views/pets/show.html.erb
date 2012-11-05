@@ -1,21 +1,24 @@
 <% provide(:title, @pet.name) %>
-<div class="container">
-	<div class="page-header">
-		<h1><%= @pet.name %></h1>
-		<%= render "header_buttons" %>
-		<p class="lead">Breed/mix at Shelter name</p>
-	</div>
-	<div class="row">
-		<div class="span8">
-			<%= render "legend" %>
-			<%= render "photos" %>
-			<%= render "add_media" %>
-			<%= render "videos" %>
-		</div>
-		<div class="span4">
-			<%= render "description" %>
-			<%= render "social" %>
-			<%= render "comments" %>
-		</div>
-	</div>
+<div class="container content">
+  <div class="profile-section <%= @pet.pet_state.status %>">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <%= render "pet_info" %>
+      <%= render "header_buttons" %>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <%= render "photos" %>
+        <%= render "legend" %>
+        <%= render "add_media" %>
+        <%= render "videos" %>
+      </div>
+      <div class="rightColumn">
+        <%= render "description" %>
+        <%= render "sponsor" %>
+        <%= render "social" %>
+        <%= render "comments" %>
+      </div>
+    </div>
+  </div>
 </div>

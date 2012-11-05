@@ -1,0 +1,4 @@
+<%= form_for(current_user.favorites.build(shelter_id: @shelter.id), remote: true) do |f| %>
+  <div><%= f.hidden_field :shelter_id %></div>
+  <%= f.submit "Follow Us", class: "btn btn-header btn-follow" %>
+<% end %>

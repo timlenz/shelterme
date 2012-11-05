@@ -1,0 +1,22 @@
+<% provide(:title, "Add Pet") %> 
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <div class="headerLogo">
+        <%= image_tag("addIcon.png", alt: "Add Pet") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Add Pet</h1><br>
+      </div>
+      <div class="searchButton">
+        <%= form_tag addpet_path, method: 'get' do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Enter cage card ID", class: "smallField" %>
+          <%= submit_tag "Search", :animal_code => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="addContent" class="addContent">
+      <%= render 'add_initial' %>
+    </div>
+  </div>  
+</div>

@@ -1,0 +1,40 @@
+<%= simple_form_for(@pet, html: {class: 'form-horizontal' }) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="leftEditForm">
+  <%= render 'pets/edit/code', f: f %>
+  <%= render 'pets/edit/created_at', f: f %>
+  <%= render 'pets/edit/shelter', f: f %>
+  <%= f.input :name %>
+  <%= render 'pets/edit/species', f: f %>
+	<%= f.label "Gender", class: "control-label"%>
+	<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
+	  <button type="button" data-toggle="button" class="btn" value="2">Female</button>
+	  <button type="button" data-toggle="button" class="btn" value="1">Male</button>
+	</div>
+	<%= f.hidden_field :gender_id, label: false %>
+  <%= render 'pets/edit/age', f: f %>
+  <%= render 'pets/edit/weight', f: f %>
+  <%= f.label "Size", class: "control-label"%>
+  <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
+	  <button type="button" data-toggle="button" class="btn" value="1">Small</button>
+	  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
+	  <button type="button" data-toggle="button" class="btn" value="3">Large</button>
+	</div>
+	<%= f.hidden_field :size_id, label: false %>
+  <%= render 'pets/edit/mix', f: f %>
+  <% if signed_in? and current_user.admin? %>
+    <%= f.association :pet_state, label_method: :status, include_blank: false %>
+  <% end %>
+</div>
+<div class="rightEditForm">
+  <%= render 'pets/edit/coat', f: f %>
+  <%= render 'pets/edit/energy', f: f %>
+  <%= render 'pets/edit/nature', f: f %>
+  <%= render 'pets/edit/affection', f: f %>
+  <%= f.input :description, as: :text %>
+</div>
+<div class="clearfix"></div>
+<br>
+<%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+<%= link_to("Cancel", @pet, style: "float:right;padding-top:4px;")%>
+<% end %>

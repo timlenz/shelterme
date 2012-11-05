@@ -1,0 +1,21 @@
+<% provide(:title, 'Match Me') %>
+<div class="container content">
+  <div class="form-section form-blue">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("matchMeIcon.png", alt: "Match Me") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Match Me</h1><br>
+      </div>
+    </div>
+	  <div class="row">
+		  <%= render 'matchme_form'%>
+	  </div>
+	</div>
+	<div class="row">
+    <div id="matchme" class="petResults profile-section">
+	    <%= render "matchme_intro" %>
+    </div>
+	</div>
+</div>

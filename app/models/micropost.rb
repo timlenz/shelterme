@@ -7,16 +7,21 @@
 #  user_id    :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  pet_id     :integer
 #
 
 class Micropost < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :pet_id
   belongs_to :user
+  belongs_to :pet
   
-  validates :content, presence: true, length: { maximum: 200 }
+  validates :content, presence: true, length: { maximum: 240 }
   validates :user_id, presence: true
+  validates :pet_id, presence: true
   
   default_scope order: 'microposts.created_at DESC'
+  
+  profanity_filter :content
   
   # Returns microposts from the users being followed by the given user.
   scope :from_users_followed_by, lambda { |user| followed_by(user) }

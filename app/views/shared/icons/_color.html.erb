@@ -1,0 +1,7 @@
+<% if f.secondary_color == nil %>
+  <%= link_to image_tag("#{f.fur_length.length}#{f.primary_color.color.capitalize.gsub(/-/,"")}Icon.png"),
+  "#", rel: "tooltip", title: f.fur_length.length.humanize + " " + f.primary_color.color.gsub(/-/,"") + " fur" %>
+<% else %>
+  <%= link_to image_tag("#{f.fur_length.length}#{f.primary_color.color.capitalize}#{f.secondary_color.color.capitalize}Icon.png"),
+       "#", rel: "tooltip", title: f.fur_length.length.humanize + " " + f.primary_color.color + " & " + f.secondary_color.color + " fur" %>
+<% end %>

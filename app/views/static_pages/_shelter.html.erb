@@ -1,15 +1,17 @@
 <div class="featured-shelter">
-	<h2>Featured Shelter</h2>
-	<div class="featured-shelter-map">
-		<div class="address-block">
-			<h3>Shelter Name</h3>
-			<p>street address, city, state</p>
-		</div>
-		<div class="address-map">
-			<%= render "shared/thin_map" %>
-		</div>
-	</div>
-	<h4>At this Shelter</h4>
-	<%= render "shared/pet_tile" %>
-	<%= render "shared/pet_tile" %>
+  <h2><%= image_tag("featuredShelter.png", alt: "Featured Shelter") %></h2>
+  <div class="featured-shelter-map">
+    <div class="address-block">
+      <% s = Shelter.all.max_by{|s| s.pets.select{|p| p.pet_state.status == 'available'}.count} %>
+      <h3><%= link_to s.name, s %></h3> <!-- Shelter with the most available pets -->
+      <p><%= s.street %>, <%= s.city %> <%= s.state %></p>
+    </div>
+    <div class="address-map">
+      <%= render "shared/thin_map", s: s %>
+    </div>
+  </div>
+  <h4>At this Shelter</h4>
+  <%= render partial: "shared/pet_tile", 
+      collection: s.available.first(2), 
+      as: :f %>
 </div>

@@ -1,7 +1,12 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Add comment" %>
+  <div>
+    <% pet_id = @pet.id %>
+    <%= f.hidden_field :pet_id %>
   </div>
-  <%= f.submit "Post", class: "btn btn-large" %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Share your thoughts..." %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-header", style: "width: 117px; height: 28px;" %>
+  <div id="char_count">240</div>
 <% end %>

@@ -1,0 +1,21 @@
+<div class="icon">
+  <% if @pet.species.name == 'cat' %>
+    <% if @pet.size.name == 'small' %>
+      <%= image_tag("lowSizeCatIcon.png") %>
+    <% elsif @pet.size.name == 'medium' %>
+      <%= image_tag("midSizeCatIcon.png") %>
+    <% else %>
+      <%= image_tag("highSizeCatIcon.png") %>
+    <% end %>
+  <% else %>
+    <% if @pet.size.name == 'small' %>
+      <%= image_tag("lowSizeDogIcon.png") %>
+    <% elsif @pet.size.name == 'medium' %>
+      <%= image_tag("midSizeDogIcon.png") %>
+    <% else %>
+      <%= image_tag("highSizeDogIcon.png") %>
+    <% end %>
+  <% end %>  
+  <span class="weight"><%= @pet.weight %></span>
+</div>
+<div class="tiletag"><%= @pet.size.name %> <%= @pet.weight %> lbs</div>

@@ -1,0 +1,9 @@
+<div class="icon">
+  <% if f.nature.name == 'submissive' %>
+    <%= link_to image_tag("low#{f.species.name.humanize}NatureIcon.png"), "#", rel: "tooltip", title: f.nature.name.humanize %>
+  <% elsif f.nature.name == 'playful' %>
+    <%= link_to image_tag("mid#{f.species.name.humanize}NatureIcon.png"), "#", rel: "tooltip", title: f.nature.name.humanize %>
+  <% else %>
+    <%= link_to image_tag("high#{f.species.name.humanize}NatureIcon.png"), "#", rel: "tooltip", title: f.nature.name.humanize %>
+  <% end %>
+</div>

@@ -1,0 +1,34 @@
+<% provide(:title, "#{@pet_photo.pet.name}") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("editIcon.png", alt: "Edit Pet") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Crop Photo of <%= @pet_photo.pet.name %></h1><br>
+      </div>
+      <div class="headerButtons">
+      </div>
+    </div>
+    <div class="fullEditForm">
+    	<div class="editLargePhoto">
+		    <%= image_tag @pet_photo.image_url, id: "cropbox" %>
+	    </div>
+	    <%= form_for @pet_photo do |f| %>
+			<div class="actions">
+		    <% %w[x y w h].each do |attribute| %>
+		      <%= f.hidden_field "crop_#{attribute}"%>
+		    <% end %>
+		  </div>
+			<br>
+			<%= f.submit "Crop", class: "formBtn", style: "width:145px;" %>
+			<%= link_to("Use as is", $pet, style: "float:right;padding-top:4px;")%>
+			<% end %>
+    </div>
+		<div id="loadingCrop" class="hide">
+    	<%= image_tag("wheel.gif")%>
+      <h2 style="text-align:center;">Loading...</h2>
+    </div>
+  </div>  
+</div>

@@ -1,23 +1,23 @@
 <% provide(:title, @shelter.name) %>
-<div class="container">
-	<div class="page-header">
-		<h1><%= @shelter.name %></h1>
-		<%= render "header_buttons" %>
-	</div>
-	<div class="row">
-		<div class="span6">
-			<div class="row description">
-				<%= @shelter.description %>
-			</div>
-			<%= render "hours" %>
-			<div class="row">
-				<%= render "address" %>
-				<%= render "map" %>
-			</div>
-		</div>
-		<div class="span6">
-			<%= render "photos" %>
-		</div>
-	</div>
-	<%= render "pets" %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <%= render "shelter_info" %>
+      <%= render "header_buttons" %>
+    </div>
+    <div class="row">
+      <div class="shelterDetails">
+        <div class="shelterBlurb">
+          <%= @shelter.description %>
+        </div>
+        <%= render "hours" %>
+        <%= render "contact" %>
+      </div>
+      <div class="rightColumn">
+        <%= render "map" %>
+      </div>
+    </div>
+  </div>  
+  <%= render "shelter_pets" %>
 </div>

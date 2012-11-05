@@ -1,4 +1,45 @@
-<div class="container">
-	<h1>Shelters#new</h1>
-	<p>Find me in app/views/shelters/new.html.erb</p>
+<% provide(:title, "Add Shelter") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("addIcon.png", alt: "Add Shelter") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Add Shelter</h1><br>
+      </div>
+    </div>
+    <div class="fullEditForm">
+      <%= simple_form_for(@shelter, html: { class: 'form-horizontal' }) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="leftEditForm">
+          <%= f.input :name %> 
+          <%= f.input :email %>
+          <%= f.input :phone %>
+          <%= f.input :description, as: :text %>
+          <% if current_user.admin? %>
+          <%= f.association :precedence, label_method: :rank, include_blank: false, hint: "Set the display order for your pets." %>
+          <% end %>
+        </div>
+        <div class="rightEditForm">
+          <%= f.input :street %>
+          <%= f.input :city %>
+          <%= f.input :state %>
+          <%= f.input :zipcode %>
+          <br>
+          <span class="formHeader">Hours of operation</span>
+          <%= f.input :sun_hours, label: "Sunday" %>
+          <%= f.input :mon_hours, label: "Monday" %>
+          <%= f.input :tue_hours, label: "Tuesday" %>
+          <%= f.input :wed_hours, label: "Wednesday" %>
+          <%= f.input :thu_hours, label: "Thursday" %>
+          <%= f.input :fri_hours, label: "Friday" %>
+          <%= f.input :sat_hours, label: "Saturday" %>
+        </div>
+        <div class="clearfix"></div>
+        <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+        <%= link_to("Cancel", @shelter, style: "float:right;padding-top:4px;")%>
+      <% end %>
+    </div>
+  </div>  
 </div>

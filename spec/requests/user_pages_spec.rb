@@ -6,10 +6,10 @@ describe "User pages" do
   
   describe "index" do
     
-    let(:user) { FactoryGirl.create(:user) }
-    
     before do
-      sign_in user
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
       visit users_path
     end
 
@@ -18,8 +18,8 @@ describe "User pages" do
     describe "pagination" do
       before(:all) { 30.times { FactoryGirl.create(:user) } }
       after(:all)  { User.delete_all }
-      
-      let(:first_page) { User.paginate(page: 1) }
+
+      let(:first_page)  { User.paginate(page: 1) }
       let(:second_page) { User.paginate(page: 2) }
 
       it { should have_link('Next') }
@@ -30,7 +30,7 @@ describe "User pages" do
           page.should have_selector('li', text: user.name)
         end
       end
-      
+
       it "should list the first page of users" do
         first_page.each do |user|
           page.should have_selector('li', text: user.name)
@@ -42,7 +42,7 @@ describe "User pages" do
           page.should_not have_selector('li', text: user.name)
         end
       end
-      
+
       describe "showing the second page" do
         before { visit users_path(page: 2) }
 
@@ -51,7 +51,7 @@ describe "User pages" do
             page.should have_selector('li', text: user.name)
           end
         end
-      end
+      end 
     end
     
     describe "delete links" do
@@ -138,7 +138,6 @@ describe "User pages" do
   describe "signup page" do
     before { visit signup_path }
 
-    it { should have_header('Sign up') }
     it { should have_title('Sign up') }
   end
   

@@ -1,23 +1,50 @@
-<div class="pet-tile">
-	<div class="tile-photo">
-		<%= image_tag("300x200.gif") %>
-	</div>
-	<div class="pet-icons">
-		<ul>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-	</div>
-	<div class="pet-info">
-		<h3>Pet Name</h3>
-		<p>
-			<span class="breed-tile">Breed</span>
-			 at 
-			<span class="shelter-tile">Shelter</span>
-		</p>
-	</div>
+<div class="pet-tile <%= f.pet_state.status %>">
+  <div class="tile-photo">
+    <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
+      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), f %>
+    <% elsif f.pet_photos.count == 1 %>
+      <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), f %>
+    <% else %>
+      <%= link_to "", f %>
+    <% end %>
+  </div>
+  <div class="pet-icons">
+    <ul>
+      <li><%= render 'shared/icons/ageGender', f: f %></li>
+      <li><%= render 'shared/icons/sizeWeight', f: f %></li>
+      <li><%= render 'shared/icons/color', f: f %></li>
+      <li><%= render 'shared/icons/energy', f: f %></li>
+      <li><%= render 'shared/icons/nature', f: f %></li>
+      <li><%= render 'shared/icons/affection', f: f %></li>
+    </ul>
+  </div>
+  <div class="pet-info">
+    <h3>
+      <% if f.pet_state.status == 'available' %>
+        <%= link_to f.name, f %>
+      <% elsif f.pet_state.status == 'adopted' %>
+        <%= link_to f.name + " has been Adopted", f %>
+      <% else %>
+        <%= link_to f.name, f %> is unavailable
+      <% end %>
+    </h3>
+    <p>
+      <span class="breed-tile">
+        <% if f.secondary_breed == nil %>
+          <%= f.primary_breed.name %>
+        <% else %>
+          <%= f.primary_breed.name %> <%= f.secondary_breed.name %>
+        <% end %>
+      </span>
+      <br>
+      <%= link_to f.shelter.name, f.shelter, class: "shelter-tile" %>
+    </p>
+  </div>
+  <div class="pet-state">
+    <% if f.pet_state.status == 'available' %>
+      <span class="commentCount"><%= link_to f.watchers.count, "#", rel: "tooltip", title: pluralize(f.watchers.count.to_s, " follower"), class: "unlink" %></span>
+    <% elsif f.pet_state.status == 'adopted' %>
+      <%= image_tag("adoptedIcon.png", style: "height:32px; width:32px;") %>
+    <% end %>
+  </div>
 </div>

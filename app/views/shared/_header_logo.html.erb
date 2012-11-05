@@ -1,0 +1,20 @@
+<!-- CONDITIONAL DEPENDING ON PAGE TYPE, AND, IF PET, SPECIES -->
+<div class="headerLogo">
+  <% if params[:controller] == 'pets' %>
+    <% if params[:action] == 'show' %>
+      <% if @pet.species.name == 'dog' %>
+        <%= image_tag("dogIcon.png", alt: "Dog") %>
+      <% else %>
+        <%= image_tag("catIcon.png", alt: "Cat") %>
+      <% end %>
+    <% else %>
+      <%= image_tag("dogIcon.png", alt: "Dog") %>
+    <% end %>
+  <% elsif params[:controller] == 'shelters' or params[:controller] == 'shelter_admins' %>
+    <%= image_tag("shelterIcon.png", alt: "Shelter") %>
+  <% elsif params[:controller] == 'users' and params[:action] == 'index'%>
+    <%= image_tag("editProfileIcon.png", alt: "Users") %>
+  <% elsif params[:controller] == 'users' %>
+    <%= gravatar_for @user, size: 63 %>
+  <% end %>
+</div>

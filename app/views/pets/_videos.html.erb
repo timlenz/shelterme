@@ -1,15 +1,16 @@
-<div class="span8" style="margin-top: 20px;">
-	<div id="videoCarousel" class="carousel slide">
-	  <div class="carousel-inner">
-	    <div class="item active">
-	      <iframe width="625" height="348" src="http://www.youtube.com/embed/-Zu4tav7Pzg?wmode=opaque" frameborder="0" allowfullscreen style="z-index: 0;"></iframe>
-	    </div>
-	    <div class="item">
-	      <iframe width="625" height="348" src="http://www.youtube.com/embed/VnsmdLZpwFw?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-	    </div>
-	  </div>
-	  <a class="right carousel-control" href="#videoCarousel" data-slide="next">&rsaquo;</a>
-	</div>
+<div id="videoCarousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="item active">
+      <!--<iframe width="592" height="394" src="http://www.youtube.com/embed/-Zu4tav7Pzg?wmode=opaque" frameborder="0" allowfullscreen style="z-index: 0;"></iframe>-->
+    </div>
+    <div class="item">
+      <!--<<iframe width="592" height="394" src="http://www.youtube.com/embed/VnsmdLZpwFw?wmode=opaque" frameborder="0" allowfullscreen></iframe>-->
+    </div>
+  </div>
+  <% if @pet.pet_photos.size > 1 %>  <!-- Switch to video based calculation -->
+  <a class="left carousel-control" href="#videoCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="right carousel-control" href="#videoCarousel" data-slide="next">&rsaquo;</a>
+  <% end %>
 </div>
 
 

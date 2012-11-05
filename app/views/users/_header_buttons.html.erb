@@ -1,0 +1,20 @@
+<div class="headerButtons">
+  <div class="headerEdit">
+    <% if signed_in? && @user == current_user %>
+      <%= link_to("Edit profile", edit_user_path(current_user)) %>
+    <% elsif signed_in? && @user.admin? %>
+      <p>System admin</p>
+    <% elsif signed_in? && current_user.admin? %>
+      <%= link_to("Edit profile", edit_user_path(@user)) %>
+    <% end %>
+  </div>
+  <% if signed_in? && current_user != @user %>
+    <span id="follow_form">
+      <% if current_user.following?(@user) %>
+        <%= render 'unfollow' %>
+      <% else %>
+        <%= render 'follow' %>
+      <% end %>
+    </span>
+  <% end %>
+</div>

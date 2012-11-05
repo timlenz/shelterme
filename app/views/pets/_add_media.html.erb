@@ -1,8 +1,13 @@
-<div class="span8">
-	<div class="span3">
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-camera icon-white"></i> Add Photo</div>
-	</div>
-	<div class="span3 offset1">
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-film icon-white"></i> Add Video</div>
-	</div>
+<div class="addMedia">
+  <div class="mediaButtons">
+    <p>Please contribute your photos and videos of <%= @pet.name %></p>
+    <% if signed_in? %>
+    <%= button_to('Add Photo', addphoto_path, remote: true, class: "btn", id: "photoClick") %>
+    <%= button_to('Add Video', "#", remote: true, class: "btn") %>
+    <% else %>
+    <%= button_to('Add Photo', signin_path, class: "btn") %>
+    <%= button_to('Add Video', signin_path, class: "btn") %>
+    <% end %>
+  </div>
 </div>
+<div id="modalTarget"></div>

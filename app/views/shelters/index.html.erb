@@ -1,14 +1,22 @@
-<%= provide(:title, 'Find Shelters') %>
-<div class="container">
-	<div class="page-header">
-		<h1>All Shelters</h1>
-	</div>
-
-	<%= will_paginate %>
-
-	<ul class="shelters">
-		<%= render @shelters %>
-	</ul>
-
-	<%= will_paginate %>
+<%= provide(:title, 'All Shelters') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo">
+        <h1><%= Shelter.count('id') %> Shelters</h1>
+      </div>
+      <div class="searchButton">
+        <%= form_tag shelters_path, :method => 'get', id: "shelters_search" do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="shelters" class="row">
+      <%= render "shelters" %>
+    </div>
+  </div>
 </div>

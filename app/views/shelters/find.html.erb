@@ -1,0 +1,37 @@
+<% provide(:title, 'Find Shelter') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <div class="headerLogo">
+        <%= image_tag("findIcon.png", alt: "Find Shelter") %>
+      </div>
+      <%= render 'shelter_location' %>
+      <%= render 'change_shelter_location' %>
+    </div>
+    <div class="row">
+      <div class="foundShelters">
+        <% if @nearbys.count == 0 %>
+        <div class="noShelters">
+	        <p>There are no shelters in our database within 30 miles of the specified location.</p>
+	        <p>Please change your target location using the search box on the right.</p>
+        <% if signed_in? %>			
+	        <p>Alternatively, you can add a shelter to the database with the link below.</p>	
+        <% end %>	
+        </div>
+        <% else %>  
+          <ul>
+            <%= render partial: 'found_shelters', collection: @nearbys, as: :f %>
+          </ul>
+        <% end %>
+        <ul>
+        <% if signed_in? %>
+        <li class="addShelter" style="border-bottom:none;">
+          <a href="s/new"><span style="font-weight:bold;font-size:28px;">+</span> Add Shelter</a>
+        </li>
+        <% end %>
+        </ul>
+      </div>
+      <%= render 'shelter_map' %>
+    </div>
+  </div>
+</div>

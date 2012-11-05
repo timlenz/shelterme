@@ -1,7 +1,17 @@
-<li>
-  <%= gravatar_for user, :size => 52 %>
-  <%= link_to user.name, user %>
-	<% if current_user.admin? && !current_user?(user) %>
-		| <%= link_to "delete", user, method: :delete, confirm: "You sure?" %>
-	<% end %>
+<li class="subAdmin">
+  <table class="table-condensed">
+    <tr>
+      <td class="adminId"><%= user.id %></td>
+      <td class="adminAdded"><%= user.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminCode"><%= user.pets.count %></td>
+      <td class="adminCode"><%= user.watched_pets.count %></td>
+      <td class="adminCode"><%= user.boosted_shelters.count %></td>
+      <td class="adminName"><%= gravatar_for user, size: 20 %> &nbsp;&nbsp; <%= link_to user.name, user %></td>
+      <% if current_user.admin? && !current_user?(user) && !user.admin? %>
+      <td class="adminDelete">
+        <%= link_to "delete", user, method: :delete, confirm: "Are you certain you want to delete #{user.name}?" %>
+      </td>
+      <% end %>
+    </tr>
+  </table>
 </li>

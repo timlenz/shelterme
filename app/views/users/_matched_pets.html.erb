@@ -1,0 +1,29 @@
+<% if @user.matchme.size > 0 %>
+  <div id="waiting" class="hide">
+	 <%= image_tag("wheel.gif")%>
+	 <br>
+	 <h2 style="text-align:center;">Searching...</h2>
+	</div>
+  <div id="results">
+  	<h2 style="margin-top:10px;">Your matches</h2>
+	  <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
+  </div>
+  <script>
+    $(function(){
+	    $('[rel=tooltip]').tooltip();
+	  });
+	</script>
+<% else %>
+  <div class="findBlurb" style="height:290px;">
+  <h3><%= image_tag("noPetsFound.png")%></h3><br>
+  <p>No pets were found within 50 miles of <%= @user.location %> that were a good match with you.
+  </div>
+  <div class="row">
+    <div class="noPets">
+      <%= image_tag("noPetsImage.png") %>
+    </div>
+    <div class="cornerLogo" style="margin-bottom: 10px;">
+      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+    </div>
+  </div>
+<% end %>

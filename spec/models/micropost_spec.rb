@@ -7,6 +7,7 @@
 #  user_id    :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  pet_id     :integer
 #
 
 require 'spec_helper'
@@ -14,19 +15,28 @@ require 'spec_helper'
 describe Micropost do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @micropost = user.microposts.build(content: "Filler text") }
+  let!(:pet) { FactoryGirl.create(:pet) }
+  before { @micropost = user.microposts.build(content: "Filler text", pet_id: pet.id) }
 
   subject { @micropost }
 
   it { should respond_to(:content) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:pet_id)}
+  it { should respond_to(:pet) } # maybe unnecessary
   its(:user) { should == user }
+  its(:pet) { should == pet }
   
   it { should be_valid }
   
   describe "when user_id is not present" do
     before { @micropost.user_id = nil }
+    it { should_not be_valid }
+  end
+  
+  describe "when pet_id is not present" do
+    before { @micropost.pet_id = nil }
     it { should_not be_valid }
   end
   
@@ -56,9 +66,9 @@ describe Micropost do
     
     before { user.follow!(other_user) }
     
-    let(:own_post)          {       user.microposts.create!(content: "foo") }
-    let(:followed_post)     { other_user.microposts.create!(content: "barry") }
-    let(:unfollowed_post)   { third_user.microposts.create!(content: "blah") }
+    let(:own_post)          {       user.microposts.create!(content: "foo", pet_id: pet.id) }
+    let(:followed_post)     { other_user.microposts.create!(content: "barry", pet_id: pet.id) }
+    let(:unfollowed_post)   { third_user.microposts.create!(content: "blah", pet_id: pet.id) }
     
     subject { Micropost.from_users_followed_by(user) }
     

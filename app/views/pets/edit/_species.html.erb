@@ -1,0 +1,6 @@
+<%= f.label "Species", class: "control-label"%>
+<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[species_id]">
+  <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
+  <button type="button" data-toggle="button" class="btn" value="2">Dog</button>
+</div>
+<%= f.hidden_field :species_id, label: false %>

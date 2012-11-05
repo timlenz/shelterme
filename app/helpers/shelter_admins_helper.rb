@@ -1,0 +1,2 @@
+module ShelterAdminsHelper
+end

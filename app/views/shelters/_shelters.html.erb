@@ -1,0 +1,17 @@
+<div class="span12 adminView">
+  <%= will_paginate %>
+  <table class="table table-condensed table-bordered">
+    <thead>
+      <th style="width:50px;"><%= sortable "id", "ID" %></th>
+      <th style="width:120px;"><%= sortable "created_at", "Added" %></th>
+      <th style="width:80px;">Followers</th>
+      <th style="width:80px;">Pets</th>
+      <th><%= sortable "name" %></th>
+    </thead>
+    </tr>
+  </table>
+  <ul>
+    <%= render @shelters %>
+  </ul>
+  <%= will_paginate %>
+</div>

@@ -1,0 +1,44 @@
+<% if !@user.matchme %>
+<div id="waiting" class="hide">
+ <%= image_tag("wheel.gif")%>
+ <br>
+ <h2 style="text-align:center;">Searching...</h2>
+</div>
+<div class="findBlurb" style="height:290px;">
+  <p>ShelterMe uses a simple personality profile to help find your ideal animal.<br><br>
+  Please describe yourself by making a selection for each of the choices above. There are no right or wrong answers, so pick the options you feel describe you best. If you prefer either a dog or a cat, please indicate your preference as well.<br><br>
+  Only pets available near your specified location will be displayed.
+  </p>
+</div>
+<div class="row" style="height:160px;">
+  <div class="matchMe">
+    <%= image_tag("matchMeImage.png") %>
+  </div>
+  <div class="cornerLogo" style="margin-bottom: 10px;">
+    <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+  </div>
+</div>
+<% elsif @user.matchme.size > 0 %>
+  <div id="waiting" class="hide">
+	 <%= image_tag("wheel.gif")%>
+	 <br>
+	 <h2 style="text-align:center;">Searching...</h2>
+	</div>
+  <div id="results">
+  	<h2 style="margin-top:10px;">Your matches</h2>
+	  <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
+  </div>
+<% else %>
+  <div class="findBlurb" style="height:290px;">
+  <h3><%= image_tag("noPetsFound.png")%></h3><br>
+  <p>No matches for you were found within 50 miles of <%= @user.location %>.
+  </div>
+  <div class="row">
+    <div class="noPets">
+      <%= image_tag("noPetsImage.png") %>
+    </div>
+    <div class="cornerLogo" style="margin-bottom: 10px;">
+      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+    </div>
+  </div>
+<% end %>

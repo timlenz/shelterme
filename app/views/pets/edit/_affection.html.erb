@@ -1,0 +1,7 @@
+<%= f.label "Affection", class: "control-label"%>
+<div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[affection_id]">
+  <button type="button" data-toggle="button" class="btn" value="3">Reserved</button>
+  <button type="button" data-toggle="button" class="btn" value="2">Friendly</button>
+  <button type="button" data-toggle="button" class="btn" value="1">Devoted</button>
+</div>
+<%= f.hidden_field :affection_id, label: false %>

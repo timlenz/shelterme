@@ -1,0 +1,75 @@
+<div class="profile-section">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#dogs" data-toggle="tab">
+        <span class="linkCount">
+          <%= @shelter.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %>
+        </span>
+         Available Dogs
+      </a>
+    </li>
+    <li>
+      <a href="#cats" data-toggle="tab">
+        <span class="linkCount">
+          <%= @shelter.pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %>
+        </span>
+         Available Cats
+      </a>
+    </li>
+    <li>
+      <a href="#adopted" data-toggle="tab">
+        <span class="linkCount">
+          <%= @shelter.pets.select{|p| p.pet_state.status == 'adopted'}.count %>
+        </span>
+         Adopted Pets
+      </a>
+    </li>
+    <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
+    <li>
+      <a href="#unavailable" data-toggle="tab">
+        <span class="linkCount">
+          <%= @shelter.pets.select{|p| p.pet_state.status == 'unavailable'}.count %>
+        </span>
+         Unavailable
+      </a>
+    </li>
+    <li>
+      <a href="#shelterAdmin" data-toggle="tab">
+        <span class="linkCount">
+          <%= User.all.select{|p| p.manager? && p.shelter_id == @shelter.id }.count %>
+        </span>
+         Managers
+      </a>
+    </li>
+    <% end %>
+  </ul>
+  <div class="possibleScroll">
+    <div class="tab-content shelterPets">
+      <div class="tab-pane active" id="dogs">
+        <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @available_dogs, param_name: 'dogs_page' %>
+      </div>
+      <div class="tab-pane" id="cats">        
+        <%= render partial: "shared/pet_tile", collection: @available_cats, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @available_cats, param_name: 'cats_page' %>
+      </div>
+      <div class="tab-pane" id="adopted">
+        <%= render partial: "shared/pet_tile", collection: @adopted, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @adopted, param_name: 'adopted_page' %>
+      </div>
+      <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
+      <div class="tab-pane" id="unavailable">
+        <%= render partial: "shared/pet_tile", collection: @unavailable, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @unavailable, param_name: 'unavailable_page' %>
+      </div>
+      <div class="tab-pane" id="shelterAdmin">
+        <%= render partial: "admins", collection: User.all.select{|p| p.manager? && p.shelter_id == @shelter.id}, as: :f %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

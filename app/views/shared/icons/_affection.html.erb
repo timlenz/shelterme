@@ -1,0 +1,9 @@
+<div class="icon">
+  <% if f.affection.name == 'reserved' %>
+    <%= link_to image_tag("lowAffectionIcon.png"), "#", rel: "tooltip", title: f.affection.name.humanize %>
+  <% elsif f.affection.name == 'friendly' %>
+    <%= link_to image_tag("midAffectionIcon.png"), "#", rel: "tooltip", title: f.affection.name.humanize %>
+  <% else %>
+    <%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: f.affection.name.humanize %>
+  <% end %>
+</div>

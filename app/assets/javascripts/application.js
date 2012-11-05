@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.Jcrop.min
 //= require bootstrap
 //= require_tree .
+//= require autocomplete-rails
+//= require jquery.infinitescroll
+//= require jquery.cookie

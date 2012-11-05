@@ -1,10 +1,11 @@
-<div class="span4">
-	<div class="well">
-		<h3>FOLLOWING <%= @pet.name %> (#)</h3>
-		<% if signed_in? %>
-			render 'shared/micropost_form'
-			<hr>
-		<% end %>
-		render 'shared/feed'
-	</div>
+<div class="comments">
+  <span class="commentCount"><%= @pet.watchers.size %></span>
+  <h3><%= image_tag("followingMe.png", alt: "Following Me", class: "noPrint") %><span class="print">Following Me</span></h3>
+  <%= render 'shared/feed' %>
+  <% if signed_in? and (!current_user.bonds.find_by_pet_id(@pet).nil? or !current_user.pets.find_by_id(@pet).nil?) %>
+  <div class="commentEntry">
+    <h3><%= image_tag("comment.png", alt: "Comment") %></h3>
+       <%= render 'shared/micropost_form' %>
+  </div>
+  <% end %>
 </div>

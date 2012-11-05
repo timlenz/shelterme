@@ -1,0 +1,48 @@
+<% provide(:title, "Edit Shelter") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("editIcon.png", alt: "Edit Shelter") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Edit Shelter</h1><br>
+      </div>
+      <div class="headerButtons">
+        <div class="headerEdit">
+          <%= link_to "Delete shelter", @shelter, method: :delete, confirm: "Are you certain you want to delete this shelter? All pets associated with this shelter will also be deleted." %>
+        </div>
+      </div>
+    </div>
+      <%= simple_form_for(@shelter, html: { class: 'form-horizontal' }) do |f| %>
+      <div class="fullEditForm">
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="leftEditForm">
+          <%= f.input :name %> 
+          <%= f.input :email %>
+          <%= f.input :phone %>
+          <%= f.input :description, as: :text %>
+          <%= f.association :precedence, label_method: :rank, include_blank: false, hint: "Set the display order for your pets." %>
+        </div>
+        <div class="rightEditForm">
+          <%= f.input :street %>
+          <%= f.input :city %>
+          <%= f.input :state %>
+          <%= f.input :zipcode %>
+          <br>
+          <span class="formHeader">Hours of operation</span>
+          <%= f.input :sun_hours, label: "Sunday" %>
+          <%= f.input :mon_hours, label: "Monday" %>
+          <%= f.input :tue_hours, label: "Tuesday" %>
+          <%= f.input :wed_hours, label: "Wednesday" %>
+          <%= f.input :thu_hours, label: "Thursday" %>
+          <%= f.input :fri_hours, label: "Friday" %>
+          <%= f.input :sat_hours, label: "Saturday" %>
+        </div>
+        <div class="clearfix"></div>
+        <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+        <%= link_to("Cancel", @shelter, style: "float:right;padding-top:4px;")%>
+      </div>
+      <% end %>
+  </div>  
+</div>

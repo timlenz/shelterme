@@ -1,2 +1,16 @@
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-heart icon-white"></i> Follow Me</div>
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-pencil icon-white"></i> Edit Me</div>
+<div class="headerButtons">
+  <div class="headerEdit">
+    <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
+      <%= link_to("Edit shelter", edit_shelter_path(@shelter)) %>
+    <% end %>
+  </div>
+  <% if signed_in? %>
+    <span id="boost_form">
+      <% if current_user.boosting?(@shelter) %>
+        <%= render 'unboost' %>
+      <% else %>
+        <%= render 'boost' %>
+      <% end %>
+    </span>
+  <% end %>
+</div>

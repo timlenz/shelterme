@@ -1,0 +1,37 @@
+<%= provide(:title, 'Reset Password') %>
+<div class="container">
+  <div class="signinDialog">
+    <div class="row">
+      <div class="span6 offset3">
+        <%= image_tag("resetPassword.png", alt: "Reset Password", class: "formHeader") %>
+        <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+          <% if @user.errors.any? %>
+            <div class="error_messages">
+              <h2>Try that again</h2>
+              <ul>
+                <% for message in @user.errors.full_messages %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul><br>
+            </div>
+          <% end %>
+          <div class="field">
+            <%= f.label :password, style: "display:none;" %>
+            <%= f.password_field :password, placeholder: "Password" %>
+          </div>
+          <div class="field">
+            <%= f.label :password_confirmation, style: "display:none;" %>
+            <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
+          </div>
+          <div class="actions"><%= f.submit "", class: "updateButton", style: "width:120px;height:34px;" %></div>
+        <% end %>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cornerLogo">
+        <%= image_tag("logo_small.png", alt: "Shelter Me", class: "logoLR") %>
+      </div>
+    </div>
+  </div>
+</div>

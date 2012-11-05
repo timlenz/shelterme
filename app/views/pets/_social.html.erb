@@ -1,12 +1,17 @@
-	<div class="span4">
-		<div class="well">
-			<h3>SHARE ME</h3>
-			<br>
-			<%= render 'twitter' %>
-			<%= render 'googleplus' %><br><br>
-			<%= render 'pinterest' %>
-			<a class="btn btn-mini btn-info btn-print" href="#" target="_blank">PRINT ME</a>
-			<br><br>
-			<%= render 'facebook' %>
-		</div>
-	</div>
+<div class="social">
+  <h3><%= image_tag("shareMe.png", alt: "Share Me", class: "noPrint") %><span class="print">Share Me</span></h3>
+  <br>
+  <%= render 'facebook' %>
+  <%= render 'twitter' %>
+  <%= render 'googleplus' %>
+  <div class="socialItem noPrint">
+    <a class="btn btn-mini btn-print" href="JavaScript:window.print();"><i class="icon-print"></i> Print</a>
+  </div>
+  <%= render 'pinterest' %>
+  <div class="socialItem short">
+    <%= simple_form_for @pet, :html => {style: "float:left;"} do |f| %>
+    <%= f.input :text, label: false, :input_html => { :value => "http://shlt.me#{request.fullpath} " } %>
+    <% end %>
+  </div>
+  <div class="clearfix"></div>
+</div>

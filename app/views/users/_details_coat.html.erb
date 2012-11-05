@@ -1,0 +1,13 @@
+<%= image_tag("#{ ["short", "medium", "long"].fetch( number_with_precision( ( (@user.pets.select{|p| p.fur_length.length == 'short'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'short'}.count) * 1 +
+(@user.pets.select{|p| p.fur_length.length == 'medium'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'medium'}.count) * 2 +
+(@user.pets.select{|p| p.fur_length.length == 'long'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'long'}.count) * 3 ) / 
+( (@user.pets.select{|p| p.fur_length.length == 'short'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'short'}.count) +
+(@user.pets.select{|p| p.fur_length.length == 'medium'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'medium'}.count) +
+(@user.pets.select{|p| p.fur_length.length == 'long'}.count + @user.watched_pets.select{|p| p.fur_length.length == 'long'}.count) ), precision: 0).to_i - 1 ) }#{ number_with_precision((@user.pets.map{|p| p.primary_color}.compact.count + @user.watched_pets.map{|p| p.primary_color}.compact.count +
+@user.pets.map{|p| p.secondary_color}.compact.count + @user.watched_pets.map{|p| p.secondary_color}.compact.count).to_f /
+(@user.pets.count.to_f + @user.watched_pets.count.to_f), precision: 0) == 1 ?
+(@user.pets.map{|p| p.primary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.primary_color}.compact.map{|c| c.color} +
+@user.pets.map{|p| p.secondary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.secondary_color}.compact.map{|c| c.color}).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.max_by {|entry| entry.last}.first.capitalize.gsub(/Tri-color/,"") :
+(@user.pets.map{|p| p.primary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.primary_color}.compact.map{|c| c.color} +
+@user.pets.map{|p| p.secondary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.secondary_color}.compact.map{|c| c.color}).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse.first.first.capitalize.gsub(/Tri-color/,"") + (@user.pets.map{|p| p.primary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.primary_color}.compact.map{|c| c.color} +
+@user.pets.map{|p| p.secondary_color}.compact.map{|c| c.color} + @user.watched_pets.map{|p| p.secondary_color}.compact.map{|c| c.color}).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse.second.first.capitalize.gsub(/Tri-color/,"") }Icon.png")%>

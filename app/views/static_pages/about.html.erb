@@ -1,32 +1,110 @@
 <% provide(:title, 'About Us') %>
-<div class="container">
-	<div class="page-header">
-			<h1>About Us</h1>
-	</div>
-	<div class="row">
-		<aside class="span3">
-			<ul class="nav nav-list">
-				<li><%= link_to "FAQ", faq_path %></li>
-				<li><%= link_to "Help", help_path %></li>
-				<li class="active"><%= link_to "About Us", "#" %></li>
-				<li><%= link_to "Contact", contact_path %></li>
-				<li><%= link_to "Terms of Use", terms_path %></li>
-				<li><%= link_to "Privacy Policy", privacy_path %></li>
-			</ul>
-		</aside>
-		<div class="span9">
-			<div class="static-header">
-				<h3>Title</h3>
-			</div>
-			<div style="min-height:200px;background-color:#eee;padding:20px;">
-				<p>This opera's as lousy as it is brilliant! Your lyrics lack subtlety. You can't just have your characters announce how they feel. That makes me feel angry! No! I want to live! There are still too many things I don't own! What are you hacking off? Is it my torso?! 'It is!' My precious torso!</p>
-			</div>
-			<div class="static-header">
-				<h3>Title</h3>
-			</div>
-			<div style="min-height:200px;background-color:#eee;padding:20px;">
-				<p>This opera's as lousy as it is brilliant! Your lyrics lack subtlety. You can't just have your characters announce how they feel. That makes me feel angry! No! I want to live! There are still too many things I don't own! What are you hacking off? Is it my torso?! 'It is!' My precious torso!</p>
-			</div>
-		</div>
-	</div>
+<div class="container content">
+  <div class="profile-section">
+    <div class="row">
+      <div class="rowContent">
+        <div class="staticNav">
+          <ul>
+            <li><%= link_to "FAQ", faq_path %></li>
+            <li><%= link_to "Help", help_path %></li>
+            <li class="active">
+              <h4>About Us</h4>
+              <%= link_to "Ady Gil", "#ady" %>
+              <%= link_to "Steven Latham", "#steven" %>
+              <%= link_to "Tim Lenz", "#tim" %>
+            </li>
+            <li><%= link_to "Contact Us", contact_path %></li>
+            <li><%= link_to "Terms of Use", terms_path %></li>
+            <li><%= link_to "Privacy Policy", privacy_path %></li>
+          </ul>
+        </div>
+        <div class="staticContent">
+          <a name="ady"></a>
+          <div class="staticEntry">
+            <h3>Ady Gil</h3>
+            <div class="staticImage">
+              <%= image_tag("adyKayla.jpg") %>
+            </div>
+            <div class="staticBlurb">
+              <div class="pet-icons">
+                <ul>
+                  <li><%= link_to image_tag("adultFemaleIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("highSizeDogIcon.png"), "#", rel: "tooltip", title: "asdf" %><span class="weight">80</span></li>
+                  <li><%= link_to image_tag("shortBrownIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midDogNatureIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                </ul>
+              </div><br><br><br>
+              <h4>Kayla</h4>
+              <span class="breed">breed</span><br><br>
+              <p>The alien mothership is in orbit here. If we can hit that bullseye, the rest of the dominoes will fall like a house of cards. Checkmate. A true inspiration for the children. Are you crazy? I can't swallow that. In our darkest hour, we can stand erect, with proud upthrust bosoms. I saw you with those two "ladies of the evening" at Elzars. Explain that. No! The cat shelter's on to me.</p>
+              <p>Son, as your lawyer, I declare y'all are in a 12-piece bucket o' trouble. But I done struck you a deal: Five hours of community service cleanin' up that ol' mess you caused. Yes, except the Dave Matthews Band doesn't rock. Actually, that's still true. You'll have all the Slurm you can drink when you're partying with Slurms McKenzie! I suppose I could part with 'one' and still be feared… That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="staticEntry">
+            <a name="steven"></a>
+            <h3>Steven Latham</h3>
+            <div class="staticImage">
+              <%= image_tag("stevenDogs.jpg") %>
+            </div>
+            <div class="staticBlurb">
+              <div class="pet-icons">
+                <ul>
+                  <li><%= link_to image_tag("adultMaleIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midSizeDogIcon.png"), "#", rel: "tooltip", title: "asdf" %><span class="weight">80</span></li>
+                  <li><%= link_to image_tag("mediumBlackWhiteIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midDogNatureIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                </ul>
+              </div><br><br><br>
+              <h4>Blue</h4>
+              <span class="breed">breed</span><br>
+              <div class="pet-icons">
+                <ul>
+                  <li><%= link_to image_tag("adultMaleIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midSizeDogIcon.png"), "#", rel: "tooltip", title: "asdf" %><span class="weight">80</span></li>
+                  <li><%= link_to image_tag("mediumBlackWhiteIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("midDogNatureIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                  <li><%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: "asdf" %></li>
+                </ul>
+              </div><br><br><br>
+              <h4>Blue</h4>
+              <span class="breed">breed</span><br><br>
+              <p>The alien mothership is in orbit here. If we can hit that bullseye, the rest of the dominoes will fall like a house of cards. Checkmate. A true inspiration for the children. Are you crazy? I can't swallow that. In our darkest hour, we can stand erect, with proud upthrust bosoms. I saw you with those two "ladies of the evening" at Elzars. Explain that. No! The cat shelter's on to me.</p>
+              <p>Son, as your lawyer, I declare y'all are in a 12-piece bucket o' trouble. But I done struck you a deal: Five hours of community service cleanin' up that ol' mess you caused. Yes, except the Dave Matthews Band doesn't rock. Actually, that's still true. You'll have all the Slurm you can drink when you're partying with Slurms McKenzie! I suppose I could part with 'one' and still be feared… That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="staticEntry last">
+            <a name="tim"></a>
+            <h3>Tim Lenz</h3>
+            <div class="staticImage">
+              <%= image_tag("timYogi.jpg") %>
+            </div>
+            <div class="staticBlurb">
+              <div class="pet-icons">
+                <ul>
+                  <li><%= link_to image_tag("seniorMaleIcon.png"), "#", rel: "tooltip", title: "Senior male" %></li>
+                  <li><%= link_to image_tag("midSizeDogIcon.png"), "#", rel: "tooltip", title: "80 lb medium dog"%><span class="weight">80</span></li>
+                  <li><%= link_to image_tag("mediumBlackWhiteIcon.png"), "#", rel: "tooltip", title: "Medium black & white fur"%></li>
+                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "Balanced"%></li>
+                  <li><%= link_to image_tag("midDogNatureIcon.png"), "#", rel: "tooltip", title: "Playful"%></li>
+                  <li><%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: "Devoted"%></li>
+                </ul>
+              </div><br><br><br>
+              <h4>Yogi</h4>
+              <span class="breed">Bassett Hound Labrador Retriever</span><br><br>
+              <p>The alien mothership is in orbit here. If we can hit that bullseye, the rest of the dominoes will fall like a house of cards. Checkmate. A true inspiration for the children. Are you crazy? I can't swallow that. In our darkest hour, we can stand erect, with proud upthrust bosoms. I saw you with those two "ladies of the evening" at Elzars. Explain that. No! The cat shelter's on to me.</p>
+              <p>Son, as your lawyer, I declare y'all are in a 12-piece bucket o' trouble. But I done struck you a deal: Five hours of community service cleanin' up that ol' mess you caused. Yes, except the Dave Matthews Band doesn't rock. Actually, that's still true. You'll have all the Slurm you can drink when you're partying with Slurms McKenzie! I suppose I could part with 'one' and still be feared… That's right, baby. I ain't your loverboy Flexo, the guy you love so much. You even love anyone pretending to be him!</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

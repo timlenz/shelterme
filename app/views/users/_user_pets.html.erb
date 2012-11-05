@@ -1,0 +1,28 @@
+<div class="span8 profile-section sectionGap">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#sponsored" data-toggle="tab"><span class="linkCount"><%= @user.pets.count %></span> Sponsored Pets</a>
+    </li>
+    <li>
+      <a href="#watched" data-toggle="tab"><span class="linkCount"><%= @user.watched_pets.count %></span> Followed Pets</a>
+    </li>
+    <li>
+      <a href="#followed" data-toggle="tab"><span class="linkCount"><%= @user.followed_users.count %></span> Followed Users</a>
+    </li>
+  </ul>
+  <div class="petHolder">
+    <div class="tab-content pets">
+      <div class="tab-pane active" id="sponsored">
+        <%= render partial: "shared/pet_tile", collection: @user.pets, as: :f %>
+      </div>
+      <div class="tab-pane" id="watched">
+        <%= render partial: "shared/pet_tile", collection: @user.watched_pets, as: :f %>
+      </div>
+      <div class="tab-pane" id="followed">
+        <ul>
+        <%= render partial: "followed_users", collection: @user.followed_users, as: :f %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

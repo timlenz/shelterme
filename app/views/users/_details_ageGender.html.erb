@@ -1,0 +1,10 @@
+<%= image_tag("#{ ["young", "adult", "senior"].fetch( number_with_precision(( (@user.pets.select{|p| p.age_group == 'young'}.count + @user.watched_pets.select{|p| p.age_group == 'young'}.count) * 1 +
+(@user.pets.select{|p| p.age_group == 'adult'}.count + @user.watched_pets.select{|p| p.age_group == 'adult'}.count) * 2 +
+(@user.pets.select{|p| p.age_group == 'senior'}.count + @user.watched_pets.select{|p| p.age_group == 'senior'}.count) * 3 ) / 
+( (@user.pets.select{|p| p.age_group == 'young'}.count + @user.watched_pets.select{|p| p.age_group == 'young'}.count) +
+(@user.pets.select{|p| p.age_group == 'adult'}.count + @user.watched_pets.select{|p| p.age_group == 'adult'}.count) +
+(@user.pets.select{|p| p.age_group == 'senior'}.count + @user.watched_pets.select{|p| p.age_group == 'senior'}.count) ), precision: 0).to_i - 1 ) }
+#{ (@user.pets.select{|p| p.gender.sex == 'male'}.count + @user.watched_pets.select{|p| p.gender.sex == 'male'}.count) >
+(@user.pets.select{|p| p.gender.sex == 'female'}.count + @user.watched_pets.select{|p| p.gender.sex == 'female'}.count) ?
+"Male" : "Female" }
+Icon.png")%>

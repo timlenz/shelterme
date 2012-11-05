@@ -1,0 +1,4 @@
+<%= image_tag("#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.affection.name == 'reserved'}.count + @user.watched_pets.select{|p| p.affection.name == 'reserved'}.count) * 1 + (@user.pets.select{|p| p.affection.name == 'friendly'}.count + @user.watched_pets.select{|p| p.affection.name == 'friendly'}.count) * 2 + (@user.pets.select{|p| p.affection.name == 'devoted'}.count + @user.watched_pets.select{|p| p.affection.name == 'devoted'}.count) * 3 ) / 
+( (@user.pets.select{|p| p.affection.name == 'reserved'}.count + @user.watched_pets.select{|p| p.affection.name == 'reserved'}.count) +
+(@user.pets.select{|p| p.affection.name == 'friendly'}.count + @user.watched_pets.select{|p| p.affection.name == 'friendly'}.count) +
+(@user.pets.select{|p| p.affection.name == 'devoted'}.count + @user.watched_pets.select{|p| p.affection.name == 'devoted'}.count) ), precision: 0).to_i - 1 ) }AffectionIcon.png")%>

@@ -1,0 +1,20 @@
+<div class="shelterAdmin">
+  <div class="admin">
+    <%= link_to gravatar_for(f), f, size: 50 %>
+    &nbsp;&nbsp; <%= link_to f.name, f %>
+    <br>
+    &nbsp;&nbsp; <%= f.location %>
+  </div>
+  <div class="userIcon">
+    <%= link_to image_tag("addIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.pets.count, "Sponsored Pet") %><br>
+    <p><%= f.pets.count %></p>
+  </div>
+  <div class="userIcon">
+    <%= link_to image_tag("editIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.microposts.count, "Comment") + " Added" %><br>
+    <p><%= f.microposts.count %></p>
+  </div>
+  <div class="userIcon">
+    <%= link_to image_tag("matchMeIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.watched_pets.count, "Watched Pet") %><br>
+    <p><%= f.watched_pets.count %></p>
+  </div>
+</div>

@@ -1,20 +1,19 @@
-<div class="span8">
-	<div id="photoCarousel" class="carousel slide">
-	  <div class="carousel-inner">
-	    <div class="item active">
-	      <%= image_tag("sammy_61.jpg", alt: "Sammy") %>
-	    </div>
-	    <div class="item">
-	      <%= image_tag("sammy_72.jpg", alt: "Sammy") %>
-	    </div>
-	    <div class="item">
-	      <%= image_tag("sammy_105.jpg", alt: "Sammy") %>
-	    </div>
-	    <div class="item">
-	      <%= image_tag("sammy_108.jpg", alt: "Sammy") %>
-	    </div>
-	  </div>
-	  <a class="right carousel-control" href="#photoCarousel" data-slide="next">&rsaquo;</a>
-	</div>
+<div id="photoCarousel" class="carousel slide<%= @pet.pet_photos.size == 0 ? ' noPhoto' : '' %>">
+  <div class="carousel-inner">
+    <% @pet.pet_photos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
+      <% if i == 0 %>
+      <div class="item active">
+        <%= image_tag m.image_url(:large).to_s %>
+      </div>
+      <% else %>
+      <div class="item">
+        <%= image_tag m.image_url(:large).to_s %>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
+  <% if @pet.pet_photos.size > 1 %> 
+  <a class="left carousel-control" href="#photoCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="right carousel-control" href="#photoCarousel" data-slide="next">&rsaquo;</a>
+  <% end %>
 </div>
-

@@ -1,0 +1,114 @@
+<ol class="activity">
+  <% wp = current_user.bonds.map{|b| [b.user, b.pet, b.created_at, "Started Following"]} %>
+  <% sp = current_user.pets.map{|p| [current_user, p, p.created_at, "Added"]} %>
+  <% fu = current_user.relationships.map{|r| [current_user, r.followed, r.created_at, "Followed"]} %>
+  <% fme = current_user.reverse_relationships.map{|r| [current_user, r.follower, r.created_at, "Following"]} %>
+  <% bs = current_user.boosted_shelters.map{|b| [current_user, b, b.created_at, "Favorite"]} %>
+  <% wpst = current_user.bonds.map{|b| [b.user, b.pet, b.updated_at, "state", b.pet.pet_state.status]} %>
+  <% spst = current_user.pets.map{|p| [current_user, p, p.updated_at, "state", p.pet_state.status]} %>
+  <% wwp = wp.map{|wp| wp[1]}.map{|wwp| wwp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]} %>
+  <% wsp = sp.map{|sp| sp[1]}.map{|wsp| wsp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]} %>
+  <% wm = wwp.map{|wwp| wwp[1].microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]} %>
+  <% sm = wsp.map{|wsp| wsp[1].microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]} %>
+  <% ap = (wp + sp + fu + fme + bs + wwp + wsp + wm + sm + wpst + spst).uniq.sort!{|a,b| a[2] <=> b[2]}.reverse %>
+  <% ap.each do |p| %>
+    <% if current_user.name == p[0].name and (p[3] == 'Started Following' or p[3] == 'Added') %> <!-- user added & followed pets -->
+      <li>
+        <div class="innerComment">
+          <% if p[3] == 'Added' %>
+          <div class="avatar"><%= image_tag("addIcon.png", class: "icon") %></div>
+          <% end %>
+          <div class="post wide">
+            <span class="action"><%= p[3]%></span>
+            <%= link_to p[1].name, p[1] %>
+            <span class="action"> at </span>
+            <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
+            <br>
+            <span class="time"><%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div> 
+      </li>
+    <% elsif current_user.name != p[0].name and p[3] == 'watch' %> <!-- watchers of user added/watched pets -->
+      <li>
+        <div class="innerComment">
+          <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+          <div class="post wide">
+            <%= link_to p[0].name, p[0] %>
+            <span class="action"> also started following </span>
+            <%= link_to p[1].name, p[1] %>
+            <br>
+            <span class="time"> <%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div>
+      </li>
+    <% elsif p[3] == "Followed" %> <!-- followed users -->
+      <li>
+        <div class="innerComment">
+          <div class="avatar"><%= link_to gravatar_for(p[1]), p[1] %></div>
+          <div class="post wide">
+            <span class="action"><%= p[3]%></span>
+            <%= link_to p[1].name, p[1] %>
+            <br>
+            <span class="time"><%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div>
+      </li>
+    <% elsif p[3] == "Following" %> <!-- followed by users -->
+      <li>
+        <div class="innerComment">
+          <div class="avatar"><%= link_to gravatar_for(p[1]), p[1] %></div>
+          <div class="post wide">
+            <%= link_to p[1].name, p[1] %>
+            <span class="action">is <%= p[3]%> you</span>
+            <br>
+            <span class="time"><%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div>
+      </li>
+    <% elsif p[3] == "Favorite" %> <!-- favorited shelters -->
+      <li>
+        <div class="innerComment">
+          <div class="post wide"> 
+            <span class="action">Selected </span>
+            <%= link_to p[1].name, p[1] %>
+            <span class="action">as a <%= p[3]%> shelter</span>
+            <br>
+            <span class="time"><%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div>
+      </li>
+    <% elsif p[3] == 'post' %> <!-- microposts -->
+      <li>
+        <div class="innerComment">
+          <% if current_user != p[0]%>
+          <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+          <% end %>
+          <div class="post wide">
+            <% if current_user != p[0] %>
+            <%= link_to p[0].name, p[0] %> 
+            <% end %>
+            <span class="action">commented on</span>
+            <%= link_to p[1].name, p[1] %> 
+            <span class="time"><%= time_ago_in_words(p[2]) %></span>
+            <p><%= p[4] %></p>
+          </div>
+        </div>
+      </li>
+    <% elsif p[3] == 'state' and p[4] != 'available' %> <!-- status changes -->
+      <li>
+        <div class="innerComment">
+          <% if p[4] == 'adopted' %>
+          <div class="avatar"><%= image_tag("adoptedIcon.png", class: "icon") %></div>
+          <% end %>
+          <div class="post wide">
+            <%= link_to p[1].name, p[1] %> 
+            <span class="action"><%= p[4] == 'adopted' ? "has been" : "is now" %></span>
+            <span class="status"><%= p[4]%></span>
+            <br>
+            <span class="time"> <%= time_ago_in_words(p[2]) %></span>
+          </div>
+        </div>
+      </li>
+    <% end %>  
+  <% end %>
+</ol>

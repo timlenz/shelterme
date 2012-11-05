@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   
   def new
-    
+    session[:return_to] ||= request.referer
   end
   
   def create

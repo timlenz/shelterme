@@ -1,3 +1,45 @@
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-heart icon-white"></i> Follow Me</div>
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-home icon-white"></i> Visit Me</div>
-		<div class="btn btn-inverse btn-header btn-large"><i class="icon-pencil icon-white"></i> Edit Me</div>
+<div class="headerButtons">
+  <div class="headerEdit">
+    <% if @pet.pet_state.status == 'adopted' %>
+      <%= image_tag("adoptedIcon.png") %>
+      <br>
+    <% end %>
+    <% if signed_in? and (current_user.admin? or @pet.user == current_user or
+      (current_user.manager? && current_user.shelter_id == @pet.shelter.id))  %>
+      <%= link_to("Edit pet", edit_pet_path(@pet)) %>
+    <% end %>
+  </div>
+  <div class="button">
+    <% if signed_in? and @pet.pet_state.status == 'available' %>
+    <span id="watch_form">
+      <% if current_user.watching?(@pet) %>
+        <%= render 'unwatch' %>
+      <% else %>
+        <%= render 'watch' %>
+      <% end %>
+    </span>
+    <% end %>
+  </div>
+  <% if @pet.pet_state.status == 'available' %>
+  <div class="button">
+    <a class="btn btn-header" data-toggle="modal" href="#visitMe" data-backdrop="static" data-keyboard="false" >Visit Me</a>
+  </div>
+  <% end %>
+</div>
+
+<div id="visitMe" class="modal hide">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <h3>Vist <%= @pet.name %></h3>
+      <button class="close" data-dismiss="modal"><i class="icon-remove" style="margin-top:5px;"></i></button>
+    </div>
+    <div class="modal-body">
+      <ul>
+        <%= render 'visit_one' %>
+        <%= render 'visit_two' %>
+        <%= render 'visit_three' %>
+      </ul>
+      <%= render 'visit_map' %>
+    </div>
+  </div>
+</div>

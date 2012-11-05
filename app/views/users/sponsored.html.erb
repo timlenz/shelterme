@@ -1,0 +1,18 @@
+<%= provide(:title, 'My Sponsored Pets') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <div class="headerLogo">
+        <%= image_tag("dogIcon.png")%>
+      </div>
+      <div class="headerInfo">
+        <h1>My <%= pluralize(current_user.pets.count, 'Sponsored Pet') %></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <%= render partial: "shared/pet_tile", collection: current_user.pets, as: :f %>
+      </div>
+    </div>
+  </div>
+</div>

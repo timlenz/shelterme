@@ -1,7 +1,10 @@
 <li>
-  <span class="content"><%= wrap(micropost.content) %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-  </span>
-	<%= render 'shared/delete_link', object: micropost %>
+  <div class="innerComment">
+    <div class="post">
+      <%= link_to micropost.pet.name, micropost.pet %>
+      <span class="time"><%= time_ago_in_words(micropost.created_at) %></span>
+      <%= render 'shared/delete_link', object: micropost %>
+      <p><%= wrap(micropost.content) %></p>
+    </div>
+  </div>
 </li>

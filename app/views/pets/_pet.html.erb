@@ -1,3 +1,11 @@
-<li>
-	<%= link_to pet.name, pet %>
+<li class="subAdmin">
+  <table class="table-condensed">
+    <tr>
+      <td class="adminId"><%= pet.id %></td>
+      <td class="adminAdded"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminFollowers"><%= pet.watchers.size %></td>
+      <td class="adminCode"><%= pet.animal_code %></td>
+      <td class="adminName"><%= link_to pet.name, pet %></td>
+    </tr>
+  </table>
 </li>

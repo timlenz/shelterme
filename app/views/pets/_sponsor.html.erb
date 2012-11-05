@@ -1,0 +1,17 @@
+<div class="sponsor">
+  <h3>
+    <%= image_tag("mySponsor.png", alt: "My Sponsor", class: "noPrint", style: "padding-top:6px;") %>
+    <span class="print" style="float:left;margin-top:8px;">My Sponsor</span>
+    <span class="added"><%= time_ago_in_words(@pet.created_at) %> ago</span>
+  </h3>
+  <div class="print clearfix"><br></div>
+  <% if !@pet.user.nil? %>
+  <%= link_to gravatar_for(@pet.user), @pet.user %><%= link_to @pet.user.name, @pet.user %>
+  <br>
+  <p><%= @pet.user.location %></p>
+  <% elsif @pet.pet_state.status == "adopted" %>
+    <p>I've got my own human.</p>
+  <% else %>
+    <p>I'm an orphan.</p>
+  <% end %>
+</div>

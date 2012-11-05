@@ -1,0 +1,4 @@
+<div class="icon">
+  <%= link_to image_tag("#{f.age_group}#{f.gender.sex.capitalize}Icon.png"), 
+  "#", rel: "tooltip", title: f.age_group.humanize + " (" + f.current_age + ") " + f.gender.sex %>
+</div>

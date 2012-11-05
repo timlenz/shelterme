@@ -1,0 +1,26 @@
+<%= provide(:title, 'Reset Password') %>
+<div class="container">
+  <div class="signinDialog">
+    <div class="row">
+      <div class="span6 offset3">
+        <%= image_tag("resetPassword.png", alt: "Reset Password", class: "formHeader") %>
+        <%= form_tag password_resets_path, method: :post do %>
+          <div class="field">
+            <%= label_tag :email, nil, style: "display:none;" %>
+            <%= text_field_tag :email, params[:email], placeholder: "Email" %>
+          </div>
+          <div class="actions"><%= submit_tag "", class: "resetButton", style: "width:120px;height:34px;" %></div>
+        <% end %>
+        <div class="clearfix"></div>
+        <div class="center subtlep">
+          <p>We will email you instructions for resetting your password.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cornerLogo">
+        <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+      </div>
+    </div>
+  </div>
+</div>

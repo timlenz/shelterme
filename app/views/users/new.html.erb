@@ -1,25 +1,38 @@
 <%= provide(:title, 'Sign up') %>
 <div class="container">
-	<h1>Sign up</h1>
+  <div class="signinDialog">
+    <div class="row">
+      <div class="span6 offset3">
+        <%= image_tag("createAccount.png", alt: "Create an account", class: "formHeader") %>
+        <%= form_for(@user) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
 
-	<div class="row">
-	  <div class="span6 offset3">
-	    <%= form_for(@user) do |f| %>
-				<%= render 'shared/error_messages', object: f.object %>
+          <%= f.label :name, style: "display:none;" %>
+          <%= f.text_field :name, placeholder: "Name" %>
+    
+          <%= f.label :location, style: "display:none;" %>
+          <%= f.text_field :location, placeholder: "Location" %>
 
-	      <%= f.label :name %>
-	      <%= f.text_field :name %>
+          <%= f.label :email, style: "display:none;" %>
+          <%= f.text_field :email, placeholder: "Email" %>
 
-	      <%= f.label :email %>
-	      <%= f.text_field :email %>
+          <%= f.label :password, style: "display:none;" %>
+          <%= f.password_field :password, placeholder: "Password" %>
 
-	      <%= f.label :password %>
-	      <%= f.password_field :password %>
-
-	      <%= f.label :password_confirmation, "Confirmation" %>
-	      <%= f.password_field :password_confirmation %>
-	      <%= f.submit "Create my account", :class => "btn btn-large btn-primary" %>
-	    <% end %>
-	  </div>
-	</div>
+          <%= f.label :password_confirmation, "Confirmation", style: "display:none;" %>
+          <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
+          <%= f.submit "", class: "submitButton", style: "width:120px;height:34px;" %>
+        <% end %>
+        <br><br><br>
+        <div class="center subtlep">
+          <p>An account grants you access to ShelterMe's full set of social interactions. You can still use ShelterMe without an account, but you not be able to add, follow, comment on, add media to, or be matched with pets.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cornerLogo">
+        <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+      </div>
+    </div>
+  </div>
 </div>

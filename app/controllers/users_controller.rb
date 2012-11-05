@@ -4,13 +4,33 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
   
+  helper_method :sort_column, :sort_direction
+  
+  autocomplete :shelter, :name, full: true
+  
+  respond_to :html, :js, only: [:matchme, :update]
+  
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts#.paginate(page: params[:page])
   end
   
   def index
-    @users = User.paginate(page: params[:page])
+    if signed_in?
+      if current_user.admin?
+        @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      end
+    else
+      redirect_to root_path
+    end
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
   
   def new
@@ -24,9 +44,9 @@ class UsersController < ApplicationController
   def create
     unless signed_in?
       @user = User.new(params[:user])
+      $match = false
       if @user.save
         sign_in @user
-        flash[:success] = "Welcome to Shelter Me."
         redirect_to @user
       else
         render 'new'
@@ -37,22 +57,60 @@ class UsersController < ApplicationController
   end
   
   def edit
+    $match = false
   end
   
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_path
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:success] = "#{@user.name} has been destroyed."
+    redirect_to root_path
   end
   
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated"
-      sign_in @user
+      if current_user == @user
+        if $match == true
+          sign_in @user
+          #redirect_to matchme_path
+          render :matchme
+          return
+        end
+        flash[:success] = "Your profile has been updated."
+        sign_in @user
+      else
+        flash[:success] = "Profile for #{@user.name} has been updated."
+      end  
       redirect_to @user
     else
       render 'edit'
     end
+  end
+  
+  def matchme
+    @user = current_user
+    if location.present?
+      @current_location = location
+    elsif signed_in? and current_user.location?
+      @current_location = current_user.location
+    else      
+      s = Geocoder.search(remote_ip)
+      @current_location = s[0].city + ", " + s[0].state_code
+    end
+    @current_location
+    @user.matchme
+  end
+  
+  def sponsored
+    @user = current_user
+  end
+
+  def followed
+    @user = current_user
+  end
+  
+  def activity
+    @user = current_user
   end
   
   def following
@@ -73,10 +131,18 @@ class UsersController < ApplicationController
     
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      redirect_to(root_path) unless current_user?(@user) or current_user.admin?
     end
     
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def sort_column
+      params[:sort] || "name"
+    end
+
+    def sort_direction
+      params[:direction] || "asc"
     end
 end

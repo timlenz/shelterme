@@ -1,0 +1,19 @@
+<div class="headerInfo">
+  <h1><%= @pet.name %>
+    <% if @pet.pet_state.status == 'adopted' %>
+      has been Adopted
+    <% elsif @pet.pet_state.status == 'unavailable' %>
+     is no longer available
+    <% end %></h1><br>
+  <p>
+    <span class="breed">
+      <% if @pet.secondary_breed == nil %>
+        <%= @pet.primary_breed.name %>
+      <% else %>
+        <%= @pet.primary_breed.name %> <%= @pet.secondary_breed.name %>
+      <% end %>
+    </span>
+     at 
+    <%= link_to @pet.shelter.name, @pet.shelter %>
+  </p>
+</div>

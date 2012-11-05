@@ -1,28 +1,110 @@
-<% provide(:title, "Edit user") %> 
-<div class="container">
-	<h1>Update your profile</h1>
-
-	<div class="row">
-	  <div class="span6 offset3">
-	  <%= form_for(@user) do |f| %>
-				<%= render 'shared/error_messages', object: f.object %>
-
-	      <%= f.label :name %>
-	      <%= f.text_field :name %>
-
-	      <%= f.label :email %>
-	      <%= f.text_field :email %>
-
-	      <%= f.label :password %>
-	      <%= f.password_field :password %>
-
-	      <%= f.label :password_confirmation, "Confirm Password" %>
-	      <%= f.password_field :password_confirmation %>
-	      <%= f.submit "Save changes", :class => "btn btn-large btn-primary" %>
-	    <% end %>
-
-	    <%= gravatar_for @user %>
-	    <a href="http://gravatar.com/emails" target="_blank">change</a>
-	  </div>
-	</div>
+<% provide(:title, "Edit Profile") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("editProfileIcon.png", alt: "Edit Profile") %>
+      </div>
+      <div class="headerInfo">
+        <% if @user == current_user %>
+        <h1>Edit My Profile</h1><br>
+        <% else %>
+        <h1>Edit <%= @user.name %>'s Profile</h1><br>
+        <% end %>
+      </div>
+      <% if current_user == @user %>
+      <div class="headerButtons">
+        <div class="headerEdit">
+          <%= link_to "Delete account", @user, method: :delete, confirm: "Are you certain you want to delete your account?" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="editTabs">
+        <ul class="nav nav-tabs" style="border-bottom:1px solid #ddd8d5;">
+          <% if current_user == @user %>
+          <li class="active">
+            <a href="#info" data-toggle="tab">Public Information</a>
+          </li>
+          <li>
+            <a href="#account" data-toggle="tab">Private Information</a>
+          </li>
+          <% end %>
+          <% if current_user.admin? && @user != current_user %>
+          <li class="active">
+            <a href="#admin" data-toggle="tab">Admin Access</a>
+          </li>
+          <% end %>
+        </ul>
+        <div class="possibleScroll">
+          <div class="tab-content">
+            <div class="tab-pane <%= 'active' if current_user == @user %>" id="info">            
+              <div class="editGravatar">
+                <%= gravatar_for @user, size: 150 %>
+                <a href="http://gravatar.com/emails" target="_blank">Edit Photo</a>
+              </div>
+              <div class="editForm">
+                <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+                  <%= f.input :name %> 
+                  <%= f.input :location %>
+                  <%= f.input :bio, as: :text %>
+                  <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+                  <%= link_to("Cancel", @user, style: "float:right;padding-top:4px;")%>
+                <% end %>
+              </div>
+            </div>
+            <div class="tab-pane offset2" id="account">
+              <div class="editForm">
+                <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+                  <%= f.input :email %>
+                  <%= f.input :password %>
+                  <%= f.input :password_confirmation, label: 'Re-enter Password'  %>
+                  <%= f.input :phone, as: :tel, hint: "Optional - used only for Update Me alerts" %>
+                  <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+                  <%= link_to("Cancel", @user, style: "float:right;padding-top:4px;")%>
+                <% end %>
+              </div>
+            </div>
+            <div class="tab-pane <%= 'active' if current_user != @user && current_user.admin? %>" id="admin">
+              <div class="editForm">
+                <h3>Shelter Management</h3>
+                <br><br>
+                <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <div class="control-group string optional">
+									<label class="string optional control-label" for="user_shelter_name">Select Shelter</label>
+									<div class="controls">
+										<%= f.text_field :shelter_name, as: :autocomplete, data: {autocomplete_source: listshelters_path}, style: "width:280px;" %>
+									</div>
+								</div>
+                <%= f.input :manager, as: :boolean, label: "Manager" %>
+                <br>
+                <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", confirm: "This will modify the ability of #{@user.name} to edit this shelter and its pets. Are you certain this is what you want?" %>
+                <%= link_to("Cancel", @user, style: "float:right;padding-top:4px;")%>
+                <% end %>
+              </div>
+              <div style="border-left:1px solid white;width:1px;height:500px;float:left;margin-left:20px;margin-right:20px;"></div>
+              <% if !@user.admin? %>
+              <div class="editForm" style="width:350px;">
+                <h3>System Administration</h3>
+                <br><br>
+                <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <%= f.input :admin, as: :boolean, label: "Admin", style: "width:150px;" %>
+                <h2 style="text-align:center;">This cannot be undone</h2>
+                <br><br>
+                <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", confirm: "#{@user.name} will have admin access to the entire ShelterMe site. Are you certain this is what you want? " %>
+                <%= link_to("Cancel", @user, style: "float:right;padding-top:4px;")%>
+                <% end %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>

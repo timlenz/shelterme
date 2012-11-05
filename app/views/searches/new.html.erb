@@ -1,0 +1,21 @@
+<% provide(:title, "Find Pet") %> 
+<div class="container content">
+	<div class="form-section">
+		<div class="pageHeader pageFormHeader">
+			<div class="headerLogo">
+				<%= image_tag("findIcon.png", alt: "Find Pet") %>
+			</div>
+			<div class="headerInfo">
+				<h1>Find Pet</h1><br>
+			</div>
+		</div>
+		<div class="row">
+			<%= render "search_form" %>
+		</div>
+	</div>
+	<div class="row">
+		<div id="pets" class="petResults profile-section">
+	    <%= render "adoptPet" %>
+		</div>
+	</div>
+</div>

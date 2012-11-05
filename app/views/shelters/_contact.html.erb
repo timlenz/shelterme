@@ -1,0 +1,9 @@
+<div class="shelterContact">
+  <div class="digits">
+    <%= @shelter.phone %><br><%= mail_to(@shelter.email, nil, target: "_blank") %>
+  </div>
+  <div class="address">
+    <%= @shelter.street %><br>
+    <%= @shelter.city %>, <%= @shelter.state %> <%= @shelter.zipcode %>
+  </div>
+</div>

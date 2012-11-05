@@ -1,0 +1,46 @@
+<% provide(:title, "Edit #{@pet.name}") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("editIcon.png", alt: "Edit Pet") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Edit <%= @pet.name %></h1><br>
+      </div>
+      <div class="headerButtons">
+        <div class="headerEdit">
+          <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name}?" %>
+        </div>
+      </div>
+    </div>
+    <ul class="nav nav-tabs darkNav">
+	    <li class="active"><a href="#data" data-toggle="tab">Data</a></li>
+		  <li><a href="#photos" data-toggle="tab">Photos</a></li>
+		  <li><a href="#videos" data-toggle="tab">Videos</a></li>
+	  </ul>
+    <div class="fullEditForm">
+	    <div class="tab-content">
+	    	<div class="tab-pane active" id="data">
+	        <%= render "edit_data" %>
+	      </div>
+				<div class="tab-pane" id="photos">
+					<div id="editPhotos">
+						<%= render partial: "edit_photos", collection: @pet.pet_photos, as: :f %>
+					</div>
+	        <div class="clearfix"></div>
+	        <hr>
+					<%= link_to("Back to profile", @pet, style: "float:right;padding-top:4px;")%>
+	      </div>
+				<div class="tab-pane" id="videos">
+					<div id="editVideos">
+					  <%= render "edit_videos" %>	
+					</div>
+		      <div class="clearfix"></div>
+		      <hr>
+				  <%= link_to("Back to profile", @pet, style: "float:right;padding-top:4px;")%>
+	      </div>
+	    </div>
+    </div>
+  </div>  
+</div>

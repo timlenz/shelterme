@@ -1,14 +1,22 @@
-<%= provide(:title, 'Find Pets') %>
-<div class="container">
-	<div class="page-header">
-		<h1>All Pets</h1>
-	</div>
-
-	<%= will_paginate %>
-
-	<ul class="pets">
-		<%= render @pets %>
-	</ul>
-
-	<%= will_paginate %>
+<%= provide(:title, 'All Pets') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo">
+        <h1><%= Pet.count('id') %> Pets</h1>
+      </div>
+      <div class="searchButton">
+        <%= form_tag pets_path, :method => 'get', id: "pets_search" do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="pets" class="row">
+      <%= render 'pets' %>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,10 @@
+<div class="icon">
+  <% if @pet.energy_level.level == 'relaxed' %>
+    <%= image_tag("lowEnergyIcon.png") %>
+  <% elsif @pet.nature.name == 'balanced' %>
+    <%= image_tag("midEnergyIcon.png") %>
+  <% else %>
+    <%= image_tag("highEnergyIcon.png") %>
+  <% end %>
+</div>
+<div class="tiletag"><%= @pet.energy_level.level %></div>

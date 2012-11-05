@@ -1,0 +1,10 @@
+<div class="icon">
+  <% if @pet.affection.name == 'reserved' %>
+    <%= image_tag("lowAffectionIcon.png") %>
+  <% elsif @pet.affection.name == 'friendly' %>
+    <%= image_tag("midAffectionIcon.png") %>
+  <% else %>
+    <%= image_tag("highAffectionIcon.png") %>
+  <% end %>
+</div>
+<div class="tiletag"><%= @pet.affection.name %></div>

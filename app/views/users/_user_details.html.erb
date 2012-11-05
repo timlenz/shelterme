@@ -1,0 +1,18 @@
+<div class="span8 userDetails">
+  <strong>Joined on:&nbsp;</strong> <%= @user.created_at.to_date.to_formatted_s(:long) %>
+  <div class="bio">
+    <%= @user.bio %>
+  </div>
+  <% if @user.pets.size > 0 or @user.watched_pets.size > 0 %>
+  <div class="petTiles">
+    <ul>
+      <li><%= render 'details_ageGender' %></li>
+      <li><%= render 'details_sizeSpecies' %></li>
+      <li><%= render 'details_coat' %></li>
+      <li><%= render 'details_energy' %></li>
+      <li><%= render 'details_nature' %></li>
+      <li><%= render 'details_affection' %></li>
+    </ul>
+  </div>
+  <% end %>
+</div>

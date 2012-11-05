@@ -1,7 +1,6 @@
-<div style="margin-top:-6px;">
-	<h2>Featured Pets</h2>
-	<%= render "shared/pet_tile" %>
-	<%= render "shared/pet_tile" %>
-	<%= render "shared/pet_tile" %>
-	<%= render "shared/pet_tile" %>
+<div>
+  <h2><%= image_tag("featuredPets.png", alt: "Featured Pets") %></h2> <!-- Pets available the longest -->
+  <%= render partial: "shared/pet_tile", 
+      collection: Pet.all.select{|p| p.pet_state.status == 'available'}.first(4), 
+      as: :f %>
 </div>

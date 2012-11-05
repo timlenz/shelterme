@@ -1,21 +1,23 @@
 <footer>
-	<div class="container">
-	  <div class="pull-left">
-	    <ul>
-				<li><%= link_to "Help",		 help_path %></li>
-	      <li><%= link_to "About",   about_path %></li>
-				<li><%= link_to "FAQ", 		 faq_path %></li>
-				<li><%= link_to "Terms",	 terms_path %></li>
-				<li><%= link_to "Privacy", privacy_path %></li>
-	      <li><%= link_to "Contact", contact_path %></li>
-				<li><small>&copy; 2012 Shelter Me. All rights reserved.</small></li>
-	    </ul>
-	  </div>
-		<div class="pull-right social-footer">
-			<img src="" style="width:100px;height:36px;background-color:gray;margin-top:-30px;margin-left:10px;"><br>
-			<h3>FOLLOW ShelterMe</h3>
-			<img src="" style="width:36px;height:36px;background-color:gray;margin-top:-36px;margin-right:10px;">
-			<img src="" style="width:36px;height:36px;background-color:gray;margin-top:-36px;">
-		</div>
-	</div>
+  <div class="container">
+    <div class="pull-left">
+      <ul>
+        <li><%= link_to "Help",     help_path %></li>
+        <li><%= link_to "About",   about_path %></li>
+        <li><%= link_to "FAQ",      faq_path %></li>
+        <li><%= link_to "Terms",   terms_path %></li>
+        <li><%= link_to "Privacy", privacy_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
+      </ul>
+    </div>
+    <div class="pull-right">
+      <div class="social-links">
+        <%= link_to image_tag("facebook.png", class: "facebook"), "#" %>
+        <%= link_to image_tag("twitter.png", class: "twitter"), "http://www.twitter.com/HelpShelterMe", target: "_blank" %>
+        <%= link_to image_tag("shelterMeSmall.png", class: "logo"), root_path %>
+        <br><br>
+        <div class="bottomBit">&copy; 2012 Shelter Me. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
 </footer>

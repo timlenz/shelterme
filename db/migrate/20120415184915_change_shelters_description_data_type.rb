@@ -7,7 +7,7 @@ class ChangeSheltersDescriptionDataType < ActiveRecord::Migration
 
   def down
     change_table :shelters do |t|
-      t.chante :description, :string
+      t.change :description, :string
     end
   end
 end

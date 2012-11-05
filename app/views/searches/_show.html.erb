@@ -1,0 +1,39 @@
+<% if $search.pets.size > 0 %>
+  <div id="waiting" class="hide">
+	 <%= image_tag("wheel.gif")%>
+	 <br>
+	 <h2 style="text-align:center;">Searching...</h2>
+	</div>
+  <div id="results">
+  	<h2 style="margin-top:10px;"><%= pluralize($search.pets.size, "Pet") %> Found</h2>
+	  <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
+	  <div class="clearfix"></div>
+	  <%= will_paginate @search_results %>
+  </div>
+  <script>
+    $(function(){
+	    $('[rel=tooltip]').tooltip();
+	  });
+	</script>
+<% else %>
+  <div class="findBlurb" style="height:290px;">
+  <h3><%= image_tag("noPetsFound.png")%></h3><br>
+  <p>No available pets were found within 50 miles of <%= $search.location %>.
+ <br>Please modify or simplify your search.</p>
+  <br>
+  <p>You can also visit your <%= link_to "local shelter", findshelter_path %> and add pets there<br> that are not yet in our database.</p>
+  <!-- SAVED SEARCH FUNCTIONALITY
+  <br>
+  <p>If you prefer, you can save your search and we will contact you<br> when pets meeting your criteria become available.<br><br>
+  <button type="button" class="btn btn-header" style="width:">Save</button>
+  -->
+  </div>
+  <div class="row">
+    <div class="noPets">
+      <%= image_tag("noPetsImage.png") %>
+    </div>
+    <div class="cornerLogo" style="margin-bottom: 10px;">
+      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+    </div>
+  </div>
+<% end %>
