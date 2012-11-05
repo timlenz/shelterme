@@ -4,5 +4,4 @@
 (@user.pets.select{|p| p.energy_level.level == 'tireless'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'tireless'}.count) * 3 ) / 
 ( (@user.pets.select{|p| p.energy_level.level == 'relaxed'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count) +
 (@user.pets.select{|p| p.energy_level.level == 'balanced'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'balanced'}.count) +
-(@user.pets.select{|p| p.energy_level.level == 'tireless'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'tireless'}.count) ), precision: 0).to_i - 1 ) }
-EnergyIcon.png")%>
+(@user.pets.select{|p| p.energy_level.level == 'tireless'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'tireless'}.count) ), precision: 0).to_i - 1 ) }EnergyIcon.png")%>

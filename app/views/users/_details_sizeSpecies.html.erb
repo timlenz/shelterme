@@ -5,8 +5,6 @@
 (@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) * 3 ) / 
 ( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) +
 (@user.pets.select{|p| p.size.name == 'medium'}.count + @user.watched_pets.select{|p| p.size.name == 'medium'}.count) +
-(@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) ), precision: 0).to_i - 1 ) }
-Size
-#{(@user.pets.select{|p| p.species.name == 'cat'}.count + @user.watched_pets.select{|p| p.species.name == 'cat'}.count) >
+(@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) ), precision: 0).to_i - 1 ) }Size#{(@user.pets.select{|p| p.species.name == 'cat'}.count + @user.watched_pets.select{|p| p.species.name == 'cat'}.count) >
 (@user.pets.select{|p| p.species.name == 'dog'}.count + @user.watched_pets.select{|p| p.species.name == 'dog'}.count) ?
 "Cat" : "Dog"}Icon.png")%>
