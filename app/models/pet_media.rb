@@ -18,7 +18,7 @@ class PetMedia < ActiveRecord::Base
   
   validates :media, presence: true
   validates :photo, presence: true
-  validates :primary, presence: truep
+  validates :primary, presence: true
   
   validates :pet_id, presence: true
   
