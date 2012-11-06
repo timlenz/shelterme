@@ -62,7 +62,7 @@ class Shelter < ActiveRecord::Base
   
   def self.search(search)
     if search
-      where('name LIKE ?', "%#{search}%")
+      where('name iLIKE ?', "%#{search}%")
     else
       scoped
     end
