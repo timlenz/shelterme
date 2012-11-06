@@ -1,6 +1,5 @@
 <span class="weight"><%= number_with_precision((@user.pets.map{|p| p.weight}.inject{|sum, el| sum + el}.to_f + @user.watched_pets.map{|p| p.weight}.inject{|sum, el| sum + el}.to_f) / (@user.pets.size + @user.watched_pets.size), precision: 0) %></span>
-  <%= image_tag("
-#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) * 1 +
+  <%= image_tag("#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) * 1 +
 (@user.pets.select{|p| p.size.name == 'medium'}.count + @user.watched_pets.select{|p| p.size.name == 'medium'}.count) * 2 +
 (@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) * 3 ) / 
 ( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) +

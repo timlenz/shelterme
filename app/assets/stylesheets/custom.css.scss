@@ -246,6 +246,9 @@ a {
 
 .navbar-inner {
   @include orange_gradient;
+  .container {
+    padding-bottom: 0;
+  }
 }
 
 .navbar .nav > li {
