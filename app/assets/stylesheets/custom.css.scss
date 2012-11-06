@@ -116,9 +116,6 @@ body {
   -webkit-box-shadow: inset 3px 4px 136px rgba(111, 41, 3, 0.16);
   -moz-box-shadow:    inset 3px 4px 136px rgba(111, 41, 3, 0.16);
   box-shadow:         inset 3px 4px 136px rgba(111, 41, 3, 0.16);
-	.container {
-	  padding-bottom: 20px;
-	}
 }
 
 .content {
@@ -246,9 +243,6 @@ a {
 
 .navbar-inner {
   @include orange_gradient;
-  .container {
-    padding-bottom: 0;
-  }
 }
 
 .navbar .nav > li {
@@ -399,6 +393,7 @@ footer {
   right: 0;
   left: 0;
   z-index: 1030;
+  margin-top: 20px;
   a {
     color: $gray;
     text-transform: uppercase;
@@ -434,7 +429,7 @@ footer {
 }
 
 .social-links {
-  width: 300px;
+  width: 288px;
   height: $stickyOffset;
   @include orange_gradient;
   -webkit-border-top-left-radius: 8px;
