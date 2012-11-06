@@ -1,5 +1,4 @@
-<%= image_tag("
-#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.energy_level.level == 'relaxed'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count) * 1 +
+<%= image_tag("#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.energy_level.level == 'relaxed'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count) * 1 +
 (@user.pets.select{|p| p.energy_level.level == 'balanced'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'balanced'}.count) * 2 +
 (@user.pets.select{|p| p.energy_level.level == 'tireless'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'tireless'}.count) * 3 ) / 
 ( (@user.pets.select{|p| p.energy_level.level == 'relaxed'}.count + @user.watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count) +
