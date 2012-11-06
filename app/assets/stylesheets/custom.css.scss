@@ -116,14 +116,13 @@ body {
   -webkit-box-shadow: inset 3px 4px 136px rgba(111, 41, 3, 0.16);
   -moz-box-shadow:    inset 3px 4px 136px rgba(111, 41, 3, 0.16);
   box-shadow:         inset 3px 4px 136px rgba(111, 41, 3, 0.16);
+	.container {
+	  padding-bottom: 20px;
+	}
 }
 
 .content {
   margin-top: 5px;
-}
-
-.container {
-  padding-bottom: 20px;
 }
 
 section {
