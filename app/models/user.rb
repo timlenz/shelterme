@@ -167,10 +167,10 @@ class User < ActiveRecord::Base
               [0, 0.5, 1, 0, 0.5, 1, 0.5, 1, -0.5]]
     mo = [1, 0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 1, -2, 0, 0, 1, 1, -0.5, 0.5, -2, 2, 1, 1,
           1.5, -1.5, 0, -1, 1, 0, -2, 1, -1, 2, 0, 0, 2, 1, 1, 1, 1]      
-    nearbys = Shelter.near(location, 50, order: "distance").map{|s| s.id} if location.present?
+    nearbys = Shelter.near(location, 50, order: "distance").map{|s| s.id}# if location.present?
     scores = Array.new
     @matches = Pet.order(:name)
-    @matches = @matches.where('shelter_id in (?)', nearbys) if location.present?
+    @matches = @matches.where('shelter_id in (?)', nearbys)# if location.present?
     @matches = @matches.where(species_id: species_id) if species_id.present?
     @matches = @matches.select{|p| p.pet_state.status == "available"}
     # Calculate match scores for pets in array against user's characteristics
@@ -216,7 +216,7 @@ class User < ActiveRecord::Base
     #recapture just the array of pets, stripping out match values
     @matches = @matches.map{|p| p[0]}
     # sort by closest shelter
-    @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?
+    @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}# if location.present?
     $match = true
     @matches
   end
