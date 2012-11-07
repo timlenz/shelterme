@@ -1,3 +1,7 @@
 <%= f.simple_fields_for :shelter do |shelter| %>
+  <% if current_user.admin? %>
+  <%= shelter.input :name, label: "Shelter" %>
+  <% else %>
   <%= shelter.input :name, label: "Shelter", readonly: true %>
+  <% end %>
 <% end %>

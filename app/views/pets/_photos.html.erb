@@ -1,4 +1,4 @@
-<div id="photoCarousel" class="carousel slide<%= @pet.pet_photos.size == 0 ? ' noPhoto' : '' %>">
+<div id="photoCarousel" class="carousel slide<%= @pet.pet_photos.size == 0 and @pet.user == current_user ? ' noPhoto' : '' %>">
   <div class="carousel-inner">
     <% @pet.pet_photos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
       <% if i == 0 %>

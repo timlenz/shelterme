@@ -2,10 +2,12 @@
   <div class="innerComment">
     <div class="avatar"><%= link_to gravatar_for(feed_item.user), feed_item.user %></div>
     <div class="post wide">
-      <%= link_to feed_item.user.name, feed_item.user %>
-       <% if signed_in? and feed_item.user == current_user %> 
-          <span class="action"><%= ["is awesome", "rocks", "is wonderful", "is amazing", "is incredible", "is terrific"][Random.rand(0..5)] %></span>
-       <% end %> 
+      <% if signed_in? and feed_item.user == current_user %> 
+        <%= link_to "You", feed_item.user %>
+        <span class="action"><%= ["are awesome", "rock", "are wonderful", "are amazing", "are incredible", "are terrific"][Random.rand(0..5)] %></span>
+      <% else %>
+        <%= link_to feed_item.user.name, feed_item.user %>
+      <% end %> 
       <span class="time"><%= time_ago_in_words(feed_item.created_at) %></span>
       <p><%= wrap(feed_item.content) %></p>
       <%= render 'shared/delete_link', object: feed_item %>

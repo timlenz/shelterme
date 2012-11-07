@@ -6,7 +6,13 @@
   </h3>
   <div class="print clearfix"><br></div>
   <% if !@pet.user.nil? %>
-  <%= link_to gravatar_for(@pet.user), @pet.user %><%= link_to @pet.user.name, @pet.user %>
+  <%= link_to gravatar_for(@pet.user), @pet.user %>
+  <% if @pet.user == current_user %>
+    <%= link_to "You", @pet.user %>
+    <span class="action"><%= ["make a difference", "have really helped", "have a big heart", "are a compassionate soul", "do what you say", "find a way"][Random.rand(0..5)] %></span>
+	<% else %>
+	  <%= link_to @pet.user.name, @pet.user %>
+	<% end %>
   <br>
   <p><%= @pet.user.location %></p>
   <% elsif @pet.pet_state.status == "adopted" %>
