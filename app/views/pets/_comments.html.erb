@@ -1,6 +1,6 @@
 <div class="comments">
-  <span class="commentCount"><%= @pet.watchers.size %></span>
   <h3><%= image_tag("followingMe.png", alt: "Following Me", class: "noPrint") %><span class="print">Following Me</span></h3>
+  <span class="commentCount"><%= @pet.watchers.size %></span>
   <%= render 'shared/feed' %>
   <% if signed_in? and (!current_user.bonds.find_by_pet_id(@pet).nil? or !current_user.pets.find_by_id(@pet).nil?) %>
   <div class="commentEntry">

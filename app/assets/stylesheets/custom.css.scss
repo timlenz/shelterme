@@ -429,7 +429,7 @@ footer {
 }
 
 .social-links {
-  width: 288px;
+  width: 300px;
   height: $stickyOffset;
   @include orange_gradient;
   -webkit-border-top-left-radius: 8px;
@@ -650,8 +650,8 @@ footer {
 .commentsColumn {
   float: left;
   width: 286px;
-  max-height: 1080px;
-  padding: 20px 0;
+  max-height: 1100px;
+  padding: 20px 0 10px;
   h4 {
     padding-left: 15px;
   }
@@ -660,7 +660,8 @@ footer {
 .comments {
   padding-top: 10px;
   h3 {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    display: inline-block;
   }
   .count {
     float: left;
@@ -678,7 +679,7 @@ footer {
 }
 
 .commentCount {  
-  float: left;
+  float: right;
   width: $diameter;
   height: $diameter;
   -webkit-border-radius: $diameter / 2;
@@ -689,7 +690,7 @@ footer {
   line-height: $diameter;
   color: white;
   text-align: center;
-  margin: 5px 10px 0 0;
+  margin: 0;
   background-color: $brownDark;
 }
 
@@ -948,8 +949,8 @@ a.ui-corner-all {
 
 ol.microposts {
   list-style: none;
-  margin: 10px 0 0;
-  max-height: 1060px;
+  margin: 0;
+  max-height: 1076px;
   overflow-y: scroll;
   li {
     padding: 0 10px 0 10px;
@@ -1031,13 +1032,19 @@ ol.activity {
 
 .description, .social, .sponsor {
   display: block;
-  padding: 10px 0 15px;
+  padding: 10px 0;
   border-bottom: 3px solid $grayLighter; 
   margin-bottom: 4px;
   p {
     font-size: 13px;
     line-height: 19px;
     color: $grayLightDark;
+  }
+}
+
+.social {
+  h3 {
+    margin-bottom: 10px;
   }
 }
 
@@ -1162,7 +1169,7 @@ ol.activity {
     margin-bottom: 10px;
   }
   .added {
-    margin-top: 8px;
+    margin-top: 6px;
     font-size: 12px;
     font-weight: normal;
     float: right;
