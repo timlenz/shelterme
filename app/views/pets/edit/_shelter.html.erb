@@ -1,6 +1,10 @@
 <%= f.simple_fields_for :shelter do |shelter| %>
   <% if current_user.admin? %>
-  <%= shelter.input :name, label: "Shelter" %>
+  <label class="string required control-label" for="user_shelter_name"><abbr title="required">*</abbr> Shelter</label>
+  <div class="controls">
+		<%= f.text_field :shelter_name, data: {autocomplete_source: listshelters_path} %>
+		<p class="help-block">Start typing and matching shelters will be shown</p>
+	</div>
   <% else %>
   <%= shelter.input :name, label: "Shelter", readonly: true %>
   <% end %>
