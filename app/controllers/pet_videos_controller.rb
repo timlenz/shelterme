@@ -2,12 +2,6 @@ class PetVideosController < ApplicationController
   before_filter :signed_in_user, only: [:create]
   
   respond_to :html, :js
-  
-  def show
-    @pet_video = PetVideo.find(params[:id])
-    @original_video = @pet_video.panda_video
-    @h264_encoding = @original_video.encodings["h264"]
-  end
 
   def new
     @pet_video = PetVideo.new(pet_id: $pet.id)

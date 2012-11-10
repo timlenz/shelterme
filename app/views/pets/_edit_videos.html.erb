@@ -3,6 +3,6 @@
 		<%= image_tag(f.panda_video.encodings["h264"].screenshots.first) %>
 	</div>
 	<%= form_for f, html: {multipart: true} do |p| %>
-  <%= link_to "Delete", f, method: :delete, class: "deletePhoto", confirm: "Are you certain you want to delete this video of #{$pet.name}?" %>
+  <%= link_to "Delete", f, method: :delete, class: "deletePhoto" %>
 	<% end %>
 </div>

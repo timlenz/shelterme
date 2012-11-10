@@ -15,7 +15,7 @@ class PetVideo < ActiveRecord::Base
   
   belongs_to :pet
   
-  validates :panda_video_id, presence: true
+  validates :panda_video_id, presence: true, on: :create
   validates :pet_id, presence: true
   
   default_scope order: 'pet_videos.created_at ASC'
