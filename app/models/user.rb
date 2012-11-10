@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
   belongs_to :clean_value
   belongs_to :energy_value
   belongs_to :species
+  before_save { |user| user.email = email.downcase } #11/8/12
   before_save { generate_token(:remember_token) }
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -236,10 +237,10 @@ class User < ActiveRecord::Base
     end
   end
   
-  #private
-    def generate_token(column)    # generate_remember_token
+  private
+    def generate_token(column)
       begin
-        self[column] = SecureRandom.urlsafe_base64    # eliminate [column]
-      end while User.exists?(column => self[column])  # eliminate while...
+        self[column] = SecureRandom.urlsafe_base64
+      end while User.exists?(column => self[column])
     end
 end

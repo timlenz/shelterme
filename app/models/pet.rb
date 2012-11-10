@@ -61,6 +61,7 @@ class Pet < ActiveRecord::Base
   has_many :watchers, through: :bonds, source: :user
   has_many :microposts, dependent: :destroy
   has_many :pet_photos, dependent: :destroy
+  has_many :pet_videos, dependent: :destroy
   
   accepts_nested_attributes_for :shelter
   accepts_nested_attributes_for :species

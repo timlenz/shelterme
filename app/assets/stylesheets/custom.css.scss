@@ -426,7 +426,7 @@ footer {
     width: 592px;
     height: 50px;
     padding: 10px 0;
-    font-size: 11px;
+    font-size: 13px;
     font-style: italic;
     color: #444;
   }
@@ -918,6 +918,12 @@ select {
 input.readonly, input[disabled], input.read-only, input[readonly] {
   background: $brownMedium;
   border: none;
+  color: #555;
+}
+
+#new_pet_video input[disabled] {
+  background: none;
+  color: #999;
 }
 
 .input-inline {
@@ -1073,6 +1079,12 @@ ol.activity {
     width: 592px;
     height: 394px;
     background: url(logo.png) center no-repeat;
+  }
+  .item {
+    p {
+      padding-top: 50px;
+	    text-align: center;
+    } 
   }
   img {
     width: 592px;

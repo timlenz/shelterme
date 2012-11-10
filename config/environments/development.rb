@@ -37,4 +37,7 @@ ShelterMe::Application.configure do
   
   # Established mailer default host
   config.action_mailer.default_url_options = { host: "localhost:3000" }
+  
+  # PandaStream video encoding access
+  ENV['PANDASTREAM_URL'] = "https://7b60d5138313d23a36e7:526af7eb2acc1a401841@api.pandastream.com/ce6ab560e53b0bfe49a0d48ad59dc42a"
 end

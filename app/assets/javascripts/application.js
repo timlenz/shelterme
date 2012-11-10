@@ -19,3 +19,4 @@
 //= require autocomplete-rails
 //= require jquery.infinitescroll
 //= require jquery.cookie
+//= require jquery.panda-uploader.min

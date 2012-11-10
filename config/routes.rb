@@ -1,5 +1,7 @@
 ShelterMe::Application.routes.draw do
 
+  get "pet_videos/new"
+
   get "pet_photos/new"
 
   get "shelter_admins/new"
@@ -27,6 +29,7 @@ ShelterMe::Application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :password_resets
   resources :pet_photos
+  resources :pet_videos
   resources :shelters
   resources :pets do
     get :autocomplete_shelter_name, :on => :collection
@@ -41,6 +44,8 @@ ShelterMe::Application.routes.draw do
   
   match '/addphoto',    to: 'pet_photos#new'
   match '/crop',        to: 'pet_photos#crop'
+  
+  match '/addvideo',    to: 'pet_videos#new'
   
   match '/s',           to: 'shelters#index'
   match '/shelters',    to: 'shelters#index'

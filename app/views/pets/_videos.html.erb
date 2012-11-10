@@ -1,13 +1,20 @@
 <div id="videoCarousel" class="carousel slide">
   <div class="carousel-inner">
-    <div class="item active">
-      <!--<iframe width="592" height="394" src="http://www.youtube.com/embed/-Zu4tav7Pzg?wmode=opaque" frameborder="0" allowfullscreen style="z-index: 0;"></iframe>-->
-    </div>
-    <div class="item">
-      <!--<<iframe width="592" height="394" src="http://www.youtube.com/embed/VnsmdLZpwFw?wmode=opaque" frameborder="0" allowfullscreen></iframe>-->
-    </div>
+    <% @pet.pet_videos.each_with_index do |m, i| %>
+      <div class="item <%= i == 0 ? "active" : ''%>">
+	      <% if m.panda_video.status == "success" %>
+				  <video id="movie" width="592" height="394" preload="none" 
+				    poster="<%= m.panda_video.encodings["h264"].screenshots.first %>" controls>
+				    <source src="<%= m.panda_video.encodings["h264"].url %>" type="video/mp4">
+					  <source src="<%= m.panda_video.encodings["ogg"].url %>" type="video/ogg">
+				  </video>
+				<% elsif m.panda_video.status == "processing" %>
+				  <p>Still processing this video...please check back in a bit.</p>
+				<% end %>
+      </div>
+    <% end %>
   </div>
-  <% if @pet.pet_photos.size > 1 %>  <!-- Switch to video based calculation -->
+  <% if @pet.pet_videos.size > 1 %>
   <a class="left carousel-control" href="#videoCarousel" data-slide="prev">&lsaquo;</a>
   <a class="right carousel-control" href="#videoCarousel" data-slide="next">&rsaquo;</a>
   <% end %>

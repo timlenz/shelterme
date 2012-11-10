@@ -19,6 +19,7 @@ gem 'profanity_filter'
 gem 'squeel'
 gem 'fog'
 gem 'mini_magick'
+gem 'panda', '~> 1.6.0'
 
 group :development do
   gem 'rspec-rails', '2.9.0'

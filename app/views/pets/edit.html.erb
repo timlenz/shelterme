@@ -34,7 +34,11 @@
 	      </div>
 				<div class="tab-pane" id="videos">
 					<div id="editVideos">
-					  <%= render "edit_videos" %>	
+						<% if @pet.pet_videos.count == 0 %>
+						  <p style="font-size:13px;">There are no videos for this pet.</p>
+						<% else %>
+					  <%= render partial: "edit_videos", collection: @pet.pet_videos, as: :f %>	
+					  <% end %>
 					</div>
 		      <div class="clearfix"></div>
 		      <hr>

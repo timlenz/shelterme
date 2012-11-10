@@ -3,7 +3,7 @@
     <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
       <%= link_to("Edit shelter", edit_shelter_path(@shelter)) %>
     <% end %>
-    <% if signed_in? and ((current_user.manager? && current_user.shelter_id != @shelter.id) or !current_user.manager?) %>
+    <% if signed_in? and ((current_user.manager? && current_user.shelter_id != @shelter.id) or !current_user.manager?) and !current_user.admin? %>
       <a href="mailto:info@shelterme.com?subject=Please make <%= current_user.name %> a manager for <%=@shelter.name%>&body=(Please provide proof of your affiliation with the shelter)" target="_blank">Request manager access</a>
     <% end %>
   </div>

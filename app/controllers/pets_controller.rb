@@ -82,6 +82,7 @@ class PetsController < ApplicationController
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.select{|p| p.pet_state.status == "available"}
       @pet = pets[Random.rand(0..pets.count-1)]
+      flash[:notice] = "#{@pet.name} is your featured pet for the day"
       redirect_to @pet
     else
       flash[:error] = "There are no pets available within 50 miles of you."
