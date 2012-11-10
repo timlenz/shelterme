@@ -1,6 +1,8 @@
 <div class="pet-tile editPhoto">
 	<div class="tile-photo">
+		<% if f.panda_video.status == "success" %>
 		<%= image_tag(f.panda_video.encodings["h264"].screenshots.first) %>
+		<% end %>
 	</div>
 	<%= form_for f, html: {multipart: true} do |p| %>
   <%= link_to "Delete", f, method: :delete, class: "deletePhoto" %>
