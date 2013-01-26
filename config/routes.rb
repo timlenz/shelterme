@@ -1,19 +1,12 @@
 ShelterMe::Application.routes.draw do
 
   get "pet_videos/new"
-
   get "pet_photos/new"
-
   get "shelter_admins/new"
-
   get "pet_media/new"
-
   get "favorites/new"
-
   get "bonds/new"
-
   get "addresses/new"
-
   get "password_resets/new"
 
   resources :users do
@@ -30,10 +23,8 @@ ShelterMe::Application.routes.draw do
   resources :password_resets
   resources :pet_photos
   resources :pet_videos
-  resources :shelters
-  resources :pets do
-    get :autocomplete_shelter_name, :on => :collection
-  end
+  resources :pets, except: [:create, :new, :show, :edit, :destroy]
+
   resources :bonds, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
   resources :shelter_admins
@@ -42,48 +33,70 @@ ShelterMe::Application.routes.draw do
 
   root to: 'static_pages#home'
   
-  match '/addphoto',    to: 'pet_photos#new'
-  match '/crop',        to: 'pet_photos#crop'
+  match '/addphoto',          to: 'pet_photos#new'
+  match '/crop',              to: 'pet_photos#crop'
+  match '/pp',                to: 'pet_photos#index'
   
-  match '/addvideo',    to: 'pet_videos#new'
+  match '/addvideo',          to: 'pet_videos#new'
+  match '/pv',                to: 'pet_videos#index'
   
-  match '/s',           to: 'shelters#index'
-  match '/shelters',    to: 'shelters#index'
-  match '/s/new',       to: 'shelters#new'
-  match '/s/:id',       to: 'shelters#show'
-  match '/findshelter', to: 'shelters#find'
-  match '/listshelters', to: 'shelters#list'
+  match '/s',                 to: 'shelters#index'
+  match '/newshelter',        to: 'shelters#new'
+  match '/s/:id',             to: 'shelters#show'
+  match '/findshelter',       to: 'shelters#find'
+  match '/listshelters',      to: 'shelters#list'
+  match '/mymanagedpets',     to: 'shelters#managed'
+  match '/mmp',               to: 'shelters#managed'
   
-  match '/p',           to: 'pets#index'
-  match '/addpet',      to: 'pets#addpet'
-  match '/newpet',      to: 'pets#new'
-  match '/p/:id',       to: 'pets#show'
-  match '/findpet',     to: 'searches#new'
-  match '/searches/:id', to: 'searches#new'
-  match '/potd',        to: 'pets#potd'
+  match '/p',                 to: 'pets#index'
+  match '/addpet',            to: 'pets#addpet'
+  match '/newpet',            to: 'pets#new'
+  match '/p/:id',             to: 'pets#show'
+  match '/potd',              to: 'pets#potd'
   
-  match '/signup',      to: 'users#new'
-  match '/signin',      to: 'sessions#new'
-  match '/matchme',     to: 'users#matchme'
-  match '/signout',     to: 'sessions#destroy', via: :delete
+  match '/findpet',           to: 'searches#new'
+  match '/searches/:id',      to: 'searches#new'
   
-  match '/u',           to: 'users#index'
-  match '/users',       to: 'users#index'
-  match '/u/:id',       to: 'users#show'
-  match '/sponsored',   to: 'users#sponsored'
-  match '/followed',    to: 'users#followed'
-  match '/activity',    to: 'users#activity'
+  match '/signin',            to: 'sessions#new'
+  match '/signout',           to: 'sessions#destroy', via: :delete
   
-  match '/sa',          to: 'shelter_admins#index'
+  match '/join',              to: 'users#new'
+  match '/matchme',           to: 'users#matchme'
+  match '/u',                 to: 'users#index'
+  match '/users',             to: 'users#index'
+  match '/u/:id',             to: 'users#show'
+  match '/mysponsoredpets',   to: 'users#sponsored'
+  match '/msp',               to: 'users#sponsored'
+  match '/myfollowedpets',    to: 'users#followed'
+  match '/mfp',               to: 'users#followed'
+  match '/myupdates',         to: 'users#activity'
+  match '/mu',                to: 'users#activity'
+  match '/myfollowedusers',   to: 'users#relationships'
+  match '/mfu',               to: 'users#relationships'
+  match '/myphotos',          to: 'users#photos'
+  match '/mp',                to: 'users#photos'
+  match '/myvideos',          to: 'users#videos'
+  match '/mv',                to: 'users#videos'
   
-  match '/help',        to: 'static_pages#help'
-  match '/about',       to: 'static_pages#about'
-  match '/contact',     to: 'static_pages#contact'
-  match '/faq',         to: 'static_pages#faq'
-  match '/terms',       to: 'static_pages#terms'
-  match '/privacy',     to: 'static_pages#privacy'
-  match '/statistics',  to: 'static_pages#statistics'
+  match '/sa',                to: 'shelter_admins#index'
+  
+  match '/help',              to: 'static_pages#help'
+  match '/about',             to: 'static_pages#about'
+  match '/contact',           to: 'static_pages#contact'
+  match '/faq',               to: 'static_pages#faq'
+  match '/terms',             to: 'static_pages#terms'
+  match '/privacy',           to: 'static_pages#privacy'
+  match '/statistics',        to: 'static_pages#statistics'
+  match '/mobile',            to: 'static_pages#home'
 
+
+  # Put these at the bottom to avoid over-riding the explicit routes above
+  resources :shelters, path: "", except: [:create, :new, :index]
+  resources :shelters, only: [:create, :new, :show, :edit, :destroy]
+  resources :shelters, path: "", only: [] do
+    resources :pets, path: "", only: [:create, :new, :show, :edit, :destroy]
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

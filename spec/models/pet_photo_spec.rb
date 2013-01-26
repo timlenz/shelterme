@@ -8,6 +8,7 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  primary    :boolean         default(FALSE)
+#  user_id    :integer
 #
 
 require 'spec_helper'

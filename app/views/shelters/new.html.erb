@@ -14,7 +14,6 @@
         <%= render 'shared/error_messages', object: f.object %>
         <div class="leftEditForm">
           <%= f.input :name %> 
-          <%= f.input :email %>
           <%= f.input :phone %>
           <%= f.input :description, as: :text %>
           <% if current_user.admin? %>
@@ -25,7 +24,7 @@
           <%= f.input :street %>
           <%= f.input :city %>
           <%= f.input :state %>
-          <%= f.input :zipcode %>
+          <%= f.input :zipcode, label: "ZIP code" %>
           <br>
           <span class="formHeader">Hours of operation</span>
           <%= f.input :sun_hours, label: "Sunday" %>
@@ -37,7 +36,7 @@
           <%= f.input :sat_hours, label: "Saturday" %>
         </div>
         <div class="clearfix"></div>
-        <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+        <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
         <%= link_to("Cancel", @shelter, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>

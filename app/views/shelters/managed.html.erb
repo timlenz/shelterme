@@ -1,0 +1,22 @@
+<%= provide(:title, 'Managed Pets') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo" style="width:385px;">
+        <h1><%= current_user.shelter.pets.count %> Pets (<%= current_user.shelter.pets.select {|p| p.pet_state.status == "available" }.count %> Available)</h1><br>
+        <p><%= link_to current_user.shelter.name, current_user.shelter %></p>
+      </div>
+      <div class="searchButton">
+        <%= form_tag mymanagedpets_path, :method => 'get', id: "managed_pets_search" do %>
+	        <%= label_tag :search, "Name or Animal ID" %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="managed_pets" class="row">
+      <%= render "managed_pets" %>
+    </div>
+  </div>
+</div>

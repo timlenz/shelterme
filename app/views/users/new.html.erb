@@ -1,34 +1,43 @@
-<%= provide(:title, 'Sign up') %>
+<%= provide(:title, 'Join') %>
 <div class="container">
   <div class="signinDialog">
+	  <div class="row center">
+	  	<%= image_tag("createAccount.png", alt: "Please join our community by creating an account", class: "formHeader") %>
+	  </div>
+	  <br>
     <div class="row">
-      <div class="span6 offset3">
-        <%= image_tag("createAccount.png", alt: "Create an account", class: "formHeader") %>
-        <%= form_for(@user) do |f| %>
+      <div class="leftHalf">
+        <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
-
-          <%= f.label :name, style: "display:none;" %>
-          <%= f.text_field :name, placeholder: "Name" %>
-    
-          <%= f.label :location, style: "display:none;" %>
-          <%= f.text_field :location, placeholder: "Location" %>
-
-          <%= f.label :email, style: "display:none;" %>
-          <%= f.text_field :email, placeholder: "Email" %>
-
-          <%= f.label :password, style: "display:none;" %>
-          <%= f.password_field :password, placeholder: "Password" %>
-
-          <%= f.label :password_confirmation, "Confirmation", style: "display:none;" %>
-          <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
-          <%= f.submit "", class: "submitButton", style: "width:120px;height:34px;" %>
+          <%= f.input :name, label: "Your Name" %>
+          <%= f.input :location, label: "Your Location", hint: "Not required, but helps to find local results" %>
+          <%= f.input :email, label: "Your Email" %>
+          <%= f.input :password, required: true, label: "Choose Password", hint: "Must be at least six characters" %>
+          <%= f.input :password_confirmation, label: "Re-enter Password" %>
+          <%= f.submit "Join", class: "btn btn-header", style: "width:120px;" %>
         <% end %>
-        <br><br><br>
-        <div class="center subtlep">
-          <p>An account grants you access to ShelterMe's full set of social interactions. You can still use ShelterMe without an account, but you not be able to add, follow, comment on, add media to, or be matched with pets.</p>
-        </div>
       </div>
+      <div class="rightHalf">
+	      <p style="font-size:13px;">When you join our community, you can make a difference for shelter pets in your area.</p>
+	      <ul>
+		      <li>Create pet profiles</li>
+		      <li>Add photos and videos of shelter pets</li>
+		      <li>Comment on existing shelter pet profiles</li>
+		      <li>Get the latest news from pets, shelters and other members</li>
+		      <li>Create shelter profiles</li>
+		      <li>Discover your ideal pet</li>
+		    </ul>
+		    <br>
+		    <div class="subtlep">
+	        <p>You can certainly use ShelterMe without joining our community, but not all site features will be available. By creating an account on ShelterMe.com, you agree to our <%= link_to "terms of use", terms_path %>.</p>
+	      </div>
+		  </div>
     </div>
+    <br><br>
+    <div class="row center">
+	    <p style="font-size:13px;">Are you already part of our community? Please <%= link_to "sign in", signin_path %>.</p>
+	  </div>
+    <br>
     <div class="row">
       <div class="cornerLogo">
         <%= image_tag("logo_small.png", alt: "Shelter Me") %>

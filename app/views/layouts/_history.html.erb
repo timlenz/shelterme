@@ -1,0 +1,15 @@
+<div id="history" class="noPrint">
+	<% if signed_in? && pet_list.count > 1 %>
+	<div id="historySlider">
+		<div class="container">
+			<ol class="slider-inner">
+	      <%= render partial: "shared/history_tile", collection: pet_list.delete_if{|x| x == @pet}, as: :f %>
+			</ol>
+		</div>
+		<a class="left slider-control" href="#">&lsaquo;</a>
+		<% if pet_list.delete_if{|x| x == @pet}.count > 3 %>
+	  <a class="right slider-control" href="#">&rsaquo;</a>
+	  <% end %>
+	</div>
+	<% end %>
+</div>

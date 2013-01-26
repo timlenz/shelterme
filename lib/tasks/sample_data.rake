@@ -94,7 +94,7 @@ def make_pets
   users = User.all
   s_count = Shelter.all.count
   users.each do |user|
-    Random.rand(3..7).times do
+    Random.rand(5..14).times do
       name = Faker::Name.first_name
       description = Faker::Lorem.paragraph(8)
       animal_code = "A#{1_000_000 + Random.rand(10_000_000 - 1_000_000)}"
@@ -105,9 +105,9 @@ def make_pets
       energy_level = Random.rand(1..3)
       nature = Random.rand(1..3)
       fur_length = Random.rand(1..3)
-      primary_color = Random.rand(1..7)
-      unless primary_color == 7
-        sc_seed = Random.rand(1..6)
+      primary_color = Random.rand(1..8)
+      unless primary_color == 8
+        sc_seed = Random.rand(1..7)
         unless sc_seed == primary_color
           secondary_color = sc_seed
         end

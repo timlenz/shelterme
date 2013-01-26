@@ -21,11 +21,13 @@
       <% end %>
       <div class="push"></div>
     </div>
+    <%= render 'layouts/history' %>
     <%= render 'layouts/footer' %>  
     <%= javascript_include_tag "application" %>
     <% if params[:controller] == 'pets' %>
       <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
       <script src="//d21qbsp9m249bi.cloudfront.net/u/1.4/jquery.panda-uploader.min.js" type="text/javascript"></script> 
+      <script>_V_.options.flash.swf = "video-js.swf"</script>
     <% end %>
     <script type="text/javascript">
 

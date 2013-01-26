@@ -1,0 +1,18 @@
+<%= provide(:title, 'My Followed Users') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <div class="headerLogo">
+        <%= image_tag("editProfileIcon.png")%>
+      </div>
+      <div class="headerInfo">
+        <h1>My <%= pluralize(current_user.relationships.count, 'Followed User') %></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div id="relationships">
+        <%= render partial: "followed_users", collection: current_user.followed_users, as: :f %>
+      </div>
+    </div>
+  </div>
+</div>

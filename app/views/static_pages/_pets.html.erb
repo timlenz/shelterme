@@ -1,6 +1,13 @@
-<div>
-  <h2><%= image_tag("featuredPets.png", alt: "Featured Pets") %></h2> <!-- Pets available the longest -->
+<div class="featured-pets">
+  <h2><%= image_tag("featuredPets.png", alt: "Featured Pets") %></h2>
+  <% if @pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
-      collection: Pet.all.select{|p| p.pet_state.status == 'available'}.first(4), 
+      collection: @pets, 
       as: :f %>
+  <% else %>
+  <p>Sorry, but there aren't any available pets in our database within 1000 miles of <%= cookies[:location] %>.</p>
+  <div class="noPets" style="margin-top: 20px;margin-bottom: 20px;">
+    <%= image_tag("noPetsImage.png") %>
+  </div>
+  <% end %>
 </div>

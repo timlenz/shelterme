@@ -1,0 +1,50 @@
+<li class="small-pet-tile <%= f.pet_state.status %>">
+  <div class="small-tile-photo">
+    <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
+      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), [f.shelter, f] %>
+    <% elsif f.pet_photos.count == 1 %>
+      <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f] %>
+    <% else %>
+      <%= link_to "", [f.shelter, f] %>
+    <% end %>
+  </div>
+  <div class="small-pet-info">
+    <h3>
+	    <% if f.name != "" %>
+      <%= link_to f.name, [f.shelter, f] %>
+      <% else %>
+      <%= link_to f.animal_code, [f.shelter, f] %>
+      <% end %>
+    </h3>
+    <p>
+      <span class="breed-tile">
+        <% if f.secondary_breed == nil %>
+          <%= f.primary_breed.name %>
+        <% else %>
+          <%= f.primary_breed.name %> <%= f.secondary_breed.name %>
+        <% end %>
+      </span>
+      <br>
+      <%= link_to f.shelter.name, f.shelter, class: "shelter-tile" %>
+    </p>
+  </div>
+  <div class="small-pet-icons">
+    <ul>
+      <li><%= render 'shared/icons/ageGender', f: f %></li>
+      <li><%= render 'shared/icons/sizeWeight', f: f %></li>
+      <li><%= render 'shared/icons/color', f: f %></li>
+      <li><%= render 'shared/icons/energy', f: f %></li>
+      <li><%= render 'shared/icons/nature', f: f %></li>
+      <li><%= render 'shared/icons/affection', f: f %></li>
+    </ul>
+  </div>
+  <div class="small-pet-state">
+    <% if f.pet_state.status == 'available' %>
+      <span class="commentCount"><%= link_to f.watchers.count, "#", rel: "tooltip", title: pluralize(f.watchers.count.to_s, " follower"), class: "unlink" %></span>
+    <% elsif f.pet_state.status == 'adopted' %>
+      <%= link_to image_tag("adoptedIcon.png", style: "height:32px; width:32px;"), "#", rel: "tooltip", title: "Adopted" %>
+    <% else %>
+	      <%= link_to image_tag("unavailableIcon.png", style: "height:29px; width:29px; margin-top:2px;"), "#", rel: "tooltip", title: "Unavailable" %>
+    <% end %>
+  </div>
+</li>

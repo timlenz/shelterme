@@ -16,7 +16,7 @@
 //= require jquery.Jcrop.min
 //= require bootstrap
 //= require autocomplete-rails
-//= require jquery.infinitescroll
 //= require jquery.cookie
 //= require jquery.panda-uploader.min
+//= require video.min
 //= require_tree .

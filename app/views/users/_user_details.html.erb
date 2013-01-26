@@ -2,16 +2,20 @@
   <strong>Joined on:&nbsp;</strong> <%= @user.created_at.to_date.to_formatted_s(:long) %>
   <div class="bio">
     <%= @user.bio %>
+		<%= @colors %>
   </div>
   <% if @user.pets.size > 0 or @user.watched_pets.size > 0 %>
   <div class="petTiles">
     <ul>
-      <li><%= render 'details_ageGender' %></li>
-      <li><%= render 'details_sizeSpecies' %></li>
-      <li><%= render 'details_coat' %></li>
-      <li><%= render 'details_energy' %></li>
-      <li><%= render 'details_nature' %></li>
-      <li><%= render 'details_affection' %></li>
+      <li><%= image_tag("#{@user.ave_ageGender}Icon.png") %></li>
+      <li>
+	      <span class="weight"><%= @user.ave_weight %></span>
+			  <%= image_tag("#{@user.ave_sizeSpecies}Icon.png")%>
+			</li>
+      <li><%= image_tag("#{@user.ave_coat}Icon.png") %></li>
+      <li><%= image_tag("#{@user.ave_energy}EnergyIcon.png") %></li>
+      <li><%= image_tag("#{@user.ave_nature}NatureIcon.png") %></li>
+      <li><%= image_tag("#{@user.ave_affection}AffectionIcon.png") %></li>
     </ul>
   </div>
   <% end %>

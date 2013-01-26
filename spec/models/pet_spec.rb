@@ -25,6 +25,7 @@
 #  fur_length_id      :integer
 #  primary_breed_id   :integer
 #  secondary_breed_id :integer
+#  slug               :string(255)
 #
 
 require 'spec_helper'

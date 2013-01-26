@@ -25,6 +25,7 @@
 #  fur_length_id      :integer
 #  primary_breed_id   :integer
 #  secondary_breed_id :integer
+#  slug               :string(255)
 #
 
 class Pet < ActiveRecord::Base
@@ -39,7 +40,7 @@ class Pet < ActiveRecord::Base
                   :size_attributes, :age_period_attributes, 
                   :affection_attributes, :energy_level_attributes, :fur_length_attributes,
                   :nature_attributes, :breed_attributes, :shelter_name,
-                  :primary_breed_name, :secondary_breed_name
+                  :primary_breed_name, :secondary_breed_name, :user_id
   belongs_to :user
   belongs_to :shelter
   belongs_to :size
@@ -75,12 +76,11 @@ class Pet < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_color
   accepts_nested_attributes_for :fur_length
   
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, length: { maximum: 50 }
   validates :description, presence: true
   validates :user_id, presence: true
   validates :size_id, presence: true
   validates :animal_code, presence: true
-  validates :weight, presence: true
   validates :gender_id, presence: true
   validates :species_id, presence: true
   validates :pet_state_id, presence: true
@@ -93,13 +93,29 @@ class Pet < ActiveRecord::Base
   validates :primary_color_id, presence: true
   validates :fur_length_id, presence: true
   validates :primary_breed_id, presence: true
-  
+  validates :slug, uniqueness: true, presence: true
+
   validate :check_color_match
   validate :check_breed_match
   
+  before_validation :generate_slug, on: :create
+
   profanity_filter :name, :description
 
-  #default_scope order: 'pets.created_at DESC'
+  def to_param
+    slug
+  end
+  
+  def generate_slug
+    if name != ""
+      self.slug ||= name.parameterize.titleize.gsub(" ","")
+    else
+      self.slug ||= animal_code.parameterize.titleize.gsub(" ","")
+    end
+    while Pet.find{|s| s.slug == self.slug} do
+      self.slug = self.slug + Random.rand(1..9).to_s
+    end
+  end
   
   def feed
     microposts
@@ -107,7 +123,8 @@ class Pet < ActiveRecord::Base
   
   def self.search(search)
     if search
-      where('name iLIKE ?', "%#{search}%")
+      #where('name iLIKE ?', "%#{search}%")
+      find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
     else
       scoped
     end
@@ -168,10 +185,8 @@ class Pet < ActiveRecord::Base
     alert(@pet.name)
     if @pet.nil?
       #redirect_to newpet_path
-      alert("nil")
     else
-      redirect_to @pet
-      alert("not nil")
+      redirect_to [@pet.shelter, @pet]
     end
   end
   

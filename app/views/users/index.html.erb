@@ -3,11 +3,12 @@
   <div class="profile-section">
     <div class="pageHeader">
       <%= render "shared/header_logo" %>
-      <div class="headerInfo">
+      <div class="headerInfo" style="width:385px;">
         <h1><%= User.count('id') %> Users</h1>
       </div>
       <div class="searchButton">
         <%= form_tag users_path, :method => 'get', id: "users_search" do %>
+	        <%= label_tag :search, "Enter user name" %>
           <%= hidden_field_tag :direction, params[:direction] %>
           <%= hidden_field_tag :sort, params[:sort] %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>

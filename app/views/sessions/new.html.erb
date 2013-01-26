@@ -1,26 +1,25 @@
-<% provide(:title, "Sign in") %>
+<% provide(:title, "Sign In") %>
 <div class="container">
   <div class="signinDialog">
     <div class="row">
-      <div class="span6 offset3">
-        <%= image_tag("pleaseSignin.png", alt: "Please sign in", class: "formHeader") %>
-        <%= form_for(:session, url: sessions_path) do |f| %>
+      <div class="span6 offset3 center">
+        <%= image_tag("pleaseSignin.png", alt: "Welcome back! Please sign in.", class: "formHeader") %>
+				<br><br>
+        <%= simple_form_for(:session, url: sessions_path, html: {class: 'form-horizontal' }) do |f| %>
 
-          <%= f.label :email, style: "display:none;" %>
-          <%= f.text_field :email, placeholder: "Email" %>
-          
-          <%= f.label :password, style: "display:none;" %>
-          <%= f.password_field :password, placeholder: "Password" %>
-          
-          <%= f.label :remember_me, class: "subtlep rememberMe" %>
-          <%= check_box_tag :remember_me, 1, params[:remember_me], style: "margin-top:2px;" %>
-    
+          <%= f.input :email, label: "Your Email" %>
+          <%= f.input :password, label: "Password" %>
           <%= link_to "Forget your password?", new_password_reset_path, class: "forgotPassword" %>
+          <%= label_tag :remember_me, "Remember Me", class: "rememberMe" %>
+          <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+
           <br><br>
-          <%= f.submit "", class: "submitButton", style: "width:120px;height:34px;" %>
+          <%= f.submit "Sign In", class: "btn btn-header", style: "width:120px;" %>
         <% end %>
-        <div class="clearfix"></div><br>
-        <div class="center newAccount"><%= link_to "Create a new account".html_safe, signup_path %></div>
+        <br><br><br>
+        <div class="center">
+          <p style="font-size:13px;">Not yet part of our community? Please <%= link_to "join us".html_safe, join_path %>.</p>
+        </div>
       </div>
     </div>
     <div class="row">

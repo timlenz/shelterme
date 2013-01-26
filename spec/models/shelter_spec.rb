@@ -23,6 +23,7 @@
 #  thu_hours     :string(255)
 #  fri_hours     :string(255)
 #  sat_hours     :string(255)
+#  slug          :string(255)
 #
 
 require 'spec_helper'

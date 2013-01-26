@@ -19,4 +19,5 @@ class FurColor < ActiveRecord::Base
   has_many :secondary_colors, through: :binary_pets, source: :secondary
   
   validates :color, presence: true
+
 end

@@ -1,17 +1,36 @@
 <div class="featured-shelter">
   <h2><%= image_tag("featuredShelter.png", alt: "Featured Shelter") %></h2>
+  <% if @shelter != nil%>
   <div class="featured-shelter-map">
     <div class="address-block">
-      <% s = Shelter.all.max_by{|s| s.pets.select{|p| p.pet_state.status == 'available'}.count} %>
-      <h3><%= link_to s.name, s %></h3> <!-- Shelter with the most available pets -->
-      <p><%= s.street %>, <%= s.city %> <%= s.state %></p>
+      <h3><%= link_to @shelter.name, @shelter %></h3> <!-- Closest shelter with the most available pets -->
+      <p><%= @shelter.street %>, <%= @shelter.city %> <%= @shelter.state %></p>
     </div>
     <div class="address-map">
-      <%= render "shared/thin_map", s: s %>
+      <%= render "shared/thin_map", s: @shelter %>
     </div>
   </div>
   <h4>At this Shelter</h4>
+  <% if @pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
-      collection: s.available.first(2), 
+      collection: @shelter.available.first(2), 
       as: :f %>
+  <% else %>
+    <br>
+    <p>Sorry, but there aren't any available pets in our database at this shelter. Please visit the shelter and add some pets to ShelterMe.</p>
+  <% end %>
+  <% else %>
+  <div class="noShelters">
+    <p>Our apologies, but there are no shelters in our database within 1000 miles of <%= cookies[:location] %>.</p>
+    <p>Search online to see if there are 
+    <%= link_to "shelters in your area.", "https://maps.google.com/maps?q=animal+shelter+#{cookies[:location].gsub(/ |, /,'+')}&hl=en&z=10", target: "_blank" %>
+    </p>		
+    <p>If you know of a shelter in your area, you can add it with the link below.</p>	
+    <ul style="list-style:none;text-indent:0;margin-left:0;padding-left:0;">
+    <li class="addShelter" style="border-bottom:none;">
+      <a href="newshelter"><span style="font-weight:bold;font-size:28px;">+</span> Add Shelter</a>
+    </li>
+    </ul>
+  </div>
+  <% end %>
 </div>

@@ -1,29 +1,41 @@
 <div id="addPhoto" class="modal" data-backdrop="static" data-keyboard="false">
-  <div class="modal-inner">
-    <div class="mediaModal">
-      <p>Please select a photo to upload:</p>
+  <div class="modal-inner mediaModal">
+    <div class="pageHeader">
+    	<div class="headerLogo">
+			  <%= image_tag("photoIcon.png", alt: "Add Photo") %>
+			</div>
+	    <div class="headerInfo" style="width:385px;">
+        <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1>
+      </div>
+    </div>
+    <div class="form">
+	    <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", help_path(anchor: "photo"), style: "line-height:28px;font-size:12px;" %>.</p>
       <%= simple_form_for @pet_photo, :html => {:multipart => true} do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.hidden_field :pet_id %>
-        <%= f.file_field :image, class: "btn-media", style: "width:350px;" %>
-        <br>
-        <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.file_field :image, class: "btn-media" %>
+        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;" %>
         <button class="text-close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">Cancel</button>
-        <%= link_to "Photo hints", help_path, style: "line-height:28px;font-size:12px;" %>
       <% end %>
     </div>
     <div id="loadingPhoto" class="hide">
-    	<%= image_tag("wheel.gif")%>
-      <h2 style="text-align:center;">Uploading...</h2>
+    	<%= image_tag("spinner.gif")%>
+      <h2 style="text-align:center;">Loading...</h2>
     </div>
   </div>
 </div>
 
 <script>
 $(function(){
-	// Show loading interstitial during photo upload
+	
+	// Enable Submit button when file selected
+	//var filename = $('#new_pet_photo input[type=file]').val().split('\\').pop();
+	//alert(filename);
+	
+	// Hide extra photo elements during upload
 	$('#new_pet_photo :submit').click(function(){
-		$('.mediaModal').hide();
+		$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
 		$('#loadingPhoto').show();
 	});
 });

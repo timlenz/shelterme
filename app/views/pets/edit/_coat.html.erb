@@ -1,9 +1,30 @@
-<%= f.label "Fur Length", class: "control-label"%>
+<label class="string required control-label" for="pet_Fur_Length"><abbr title="required">*</abbr> Fur Length</label>
 <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[fur_length_id]">
   <button type="button" data-toggle="button" class="btn" value="1">Short</button>
   <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
   <button type="button" data-toggle="button" class="btn" value="3">Long</button>
 </div>
 <%= f.hidden_field :fur_length_id, label: false %>
-<%= f.association :primary_color, label_method: :color, include_blank: false %>
-<%= f.association :secondary_color, label_method: :color %>
+
+<label class="string required control-label" for="pet_Primary_Color"><abbr title="required">*</abbr> Main Color</label>
+<div class="btn-group six-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[primary_color_id]" id="pet_primary_color">
+  <button type="button" class="btn" value="1">White</button>
+  <button type="button" class="btn" value="2">Black</button>
+  <button type="button" class="btn" value="3">Brown</button>
+  <button type="button" class="btn" value="4">Gray</button>
+  <button type="button" class="btn" value="5">Red</button>
+  <button type="button" class="btn" value="6">Yellow</button>
+  <button type="button" class="btn" value="7" style="display:none;">Orange</button>
+</div>
+<label class="string required control-label" for="pet_Secondary_color">Other Color</label>
+<div class="btn-group six-btn btn-graphic btn-two-column" data-toggle="buttons-checkbox" data-toggle-name="pet[secondary_color_id]" id="pet_secondary_color">
+  <button type="button" class="btn" value="1">White</button>
+  <button type="button" class="btn" value="2">Black</button>
+  <button type="button" class="btn" value="3">Brown</button>
+  <button type="button" class="btn" value="4">Gray</button>
+  <button type="button" class="btn" value="5">Red</button>
+  <button type="button" class="btn" value="6">Yellow</button>
+  <button type="button" class="btn" value="7" style="display:none;">Orange</button>
+</div>
+<%= f.hidden_field :primary_color_id, label: false %>
+<%= f.hidden_field :secondary_color_id, label: false %>

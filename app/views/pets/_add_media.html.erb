@@ -2,11 +2,11 @@
   <div class="mediaButtons">
     <p>Please contribute your photos and videos of <%= @pet.name %></p>
     <% if signed_in? %>
-    <%= button_to('Add Photo', addphoto_path, remote: true, class: "btn", id: "photoClick") %>
-    <%= button_to('Add Video', addvideo_path, remote: true, class: "btn", id: "videoClick") %>
+    <%= button_to('      Add Photo', addphoto_path, remote: true, class: "btn", id: "photoClick") %>
+    <%= button_to('     Add Video', addvideo_path, remote: true, class: "btn", id: "videoClick") %>
     <% else %>
-    <%= button_to('Add Photo', signin_path, class: "btn") %>
-    <%= button_to('Add Video', signin_path, class: "btn") %>
+    <%= button_to('      Add Photo', join_path, class: "btn", id: "photoClick") %>
+    <%= button_to('     Add Video', join_path, class: "btn", id: "videoClick") %>
     <% end %>
   </div>
 </div>

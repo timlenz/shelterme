@@ -1,22 +1,38 @@
 <% if @user.matchme.size > 0 %>
   <div id="waiting" class="hide">
-	 <%= image_tag("wheel.gif")%>
+	 <%= image_tag("spinner.gif")%>
 	 <br>
 	 <h2 style="text-align:center;">Searching...</h2>
 	</div>
   <div id="results">
-  	<h2 style="margin-top:10px;">Your matches</h2>
+  	<div class="resultsBlurb">
+  		<%= image_tag("thisIsHello.png") %>
+  	</div>
+    <div id="innerResults">
 	  <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
+	  </div>
+	  <div class="clearfix"></div><br>
+  	<div class="resultsBlurb">
+  		<%= image_tag("letsGoHome.png") %>
+  	</div>
   </div>
-  <script>
-    $(function(){
-	    $('[rel=tooltip]').tooltip();
-	  });
-	</script>
 <% else %>
-  <div class="findBlurb" style="height:290px;">
-  <h3><%= image_tag("noPetsFound.png")%></h3><br>
-  <p>No pets were found within 50 miles of <%= @user.location %> that were a good match with you.
+  <div class="findBlurb" style="height:400px;">
+  <h3><%= image_tag("waitingByTheDoor.png")%></h3><br>
+  <p>Face it<br>
+  This is not dogs and cats<br>
+  This is more than that</p>
+  <p>This is smiles and laughter<br>
+	And friendship and hugs<br>
+	This is belly rubs<br>
+	And chew toys<br>
+	And endless licking and love</p>
+	<p>And not just any will do<br>
+	None were found near <%= @user.location %><br>
+	To match with you</p>
+	<p>This is not cats and dogs<br>
+	This is family<br>
+	Try again another day</p>
   </div>
   <div class="row">
     <div class="noPets">
@@ -27,3 +43,19 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  $(function(){
+    $('[rel=tooltip]').tooltip();
+
+		// Center MatchMe results for one or two pets
+		if ( $('#innerResults').length ) {
+			var pet_tiles = $('div.pet-tile').size();
+			if ( pet_tiles == 1 || pet_tiles == 2 ) {
+				var inner_width = ($('div.pet-tile').width() + 10) * pet_tiles;
+				$('#innerResults').css({'margin-left':'auto','margin-right':'auto'}).css('width',inner_width);
+			};
+		};
+	
+  });
+</script>

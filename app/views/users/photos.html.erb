@@ -1,0 +1,20 @@
+<%= provide(:title, 'My Photos') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <div class="headerLogo">
+        <%= image_tag("photoIcon.png")%>
+      </div>
+      <div class="headerInfo">
+        <h1>
+	        <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(@photos.count, 'Photo')}" %>
+	      </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <%= render partial: "photo", collection: @photos, as: :f %>
+      </div>
+    </div>
+  </div>
+</div>

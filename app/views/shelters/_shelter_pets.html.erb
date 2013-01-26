@@ -1,6 +1,6 @@
 <div class="profile-section">
   <ul class="nav nav-tabs">
-    <li class="active">
+    <li>
       <a href="#dogs" data-toggle="tab">
         <span class="linkCount">
           <%= @shelter.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %>
@@ -45,7 +45,7 @@
   </ul>
   <div class="possibleScroll">
     <div class="tab-content shelterPets">
-      <div class="tab-pane active" id="dogs">
+      <div class="tab-pane" id="dogs">
         <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
         <div class="clearfix"></div>
         <%= will_paginate @available_dogs, param_name: 'dogs_page' %>

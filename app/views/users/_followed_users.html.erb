@@ -13,7 +13,7 @@
     <p><%= f.microposts.count %></p>
   </div>
   <div class="userIcon">
-    <%= link_to image_tag("matchMeIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.watched_pets.count, "Watched Pet") %><br>
+    <%= link_to image_tag("matchMeIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.watched_pets.count, "Followed Pet") %><br>
     <p><%= f.watched_pets.count %></p>
   </div>
   <div class="userIcon">
@@ -23,5 +23,15 @@
   <div class="userIcon">
     <%= link_to image_tag("editProfileIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.followed_users.count, "Followed User") %><br>
     <p><%= f.followed_users.count %></p>
+  </div>
+  <div class="userIcon">
+		<% photos = PetPhoto.select{|u| u.user == f}.count%>
+    <%= link_to image_tag("photoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(photos, "Photo") %><br>
+    <p><%= photos %></p>
+  </div>
+  <div class="userIcon lastUserIcon">
+	  <% videos = PetVideo.select{|u| u.user == f}.count %>
+    <%= link_to image_tag("videoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(videos, "Video") %><br>
+    <p><%= videos %></p>
   </div>
 </li>

@@ -2,11 +2,11 @@
   <%= will_paginate %>
   <table class="table table-condensed table-bordered">
     <thead>
-      <th style="width:50px;"><%= sortable "id", "ID" %></th>
-      <th style="width:120px;"><%= sortable "created_at", "Added" %></th>
-      <th style="width:80px;">Followers</th>
-      <th style="width:80px;"><%= sortable "animal_code", "Code" %></th>
-      <th><%= sortable "name" %></th>
+      <th style="width:56px;"><%= sortable "id", "SMID" %></th>
+      <th style="width:134px;"><%= sortable "created_at", "Added" %></th>
+      <th style="width:90px;"><%= sortable "animal_code", "Animal ID" %></th>
+      <th style="width:214px;"><%= sortable "name" %></th>
+      <th>Status</th>
     </thead>
     </tr>
   </table>
@@ -15,3 +15,27 @@
   </ul>
   <%= will_paginate %>
 </div>
+
+<script>
+  $(function(){
+		$('div.btn-group[data-toggle-name=*]').each(function(){
+		  var group   = $(this);
+		  var form    = group.parents('form').eq(0);
+		  var name    = group.attr('data-toggle-name');
+		  var hidden  = $('input[name="' + name + '"]', form);
+		  $('button', group).each(function(){
+		    var button = $(this);
+		    button.live('click', function(){
+	        hidden.val($(this).val());
+					// Submit pet state changes on click
+					if($('#pets').length) {
+						$(this).parent().parent().find("input[type=submit]").click();
+					};
+		    });
+		    if(button.val() == hidden.val()) {
+		      button.addClass('active');
+		    };
+		  });
+		});
+  });
+</script>

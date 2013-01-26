@@ -1,5 +1,5 @@
 <div class="headerInfo">
-  <h1><%= @pet.name %>
+  <h1><%= @pet.name != "" ? @pet.name + " ( #{@pet.animal_code} )" : @pet.animal_code %>
     <% if @pet.pet_state.status == 'adopted' %>
       has been Adopted
     <% elsif @pet.pet_state.status == 'unavailable' %>

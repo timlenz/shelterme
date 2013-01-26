@@ -1,20 +1,12 @@
 class SheltersController < ApplicationController
-  #before_filter :admin_user, only: [:edit, :update, :destroy]
+  before_filter :find_shelter, only: [:show, :edit, :update, :destroy]
   
   helper_method :sort_column, :sort_direction
   
-  respond_to :html, :js, only: :show
+  respond_to :html, :js
   
   def new
     @shelter = Shelter.new
-  end
-  
-  def show
-    @shelter = Shelter.find(params[:id])
-    @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 12)
-    @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 12)
-    @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
-    @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
   end
   
   def create
@@ -25,10 +17,21 @@ class SheltersController < ApplicationController
     else
       render 'new'
     end
+  rescue
+    flash[:notice] = "whoops"
+    render 'new'
+  end
+  
+  def show
+    @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 12)
+    @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 12)
+    @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
+    @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
+    cookies[:shelter_id] = @shelter.id
   end
   
   def index
-    if signed_in? and current_user.admin?
+    if signed_in? && current_user.admin?
       @shelters = Shelter.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
     else
       redirect_to root_path
@@ -49,11 +52,9 @@ class SheltersController < ApplicationController
   end
     
   def edit
-    @shelter = Shelter.find(params[:id])
   end
   
   def update
-    @shelter = Shelter.find(params[:id])
     if @shelter.update_attributes(params[:shelter])
       flash[:success] = "Profile for #{@shelter.name} has been updated."
       redirect_to @shelter
@@ -63,29 +64,63 @@ class SheltersController < ApplicationController
   end
   
   def find
+    @current_location = "asdfasdf"
     if params[:search].present?
       @current_location = params[:search]
-    elsif signed_in? and current_user.location?
-      @current_location = current_user.location
-    else      
-      s = Geocoder.search(remote_ip)
-      @current_location = s[0].city + ", " + s[0].state_code
+      cookies[:location] = @current_location
     end
-    @nearbys = Shelter.near(@current_location, 30, order: "distance").limit(5) #limit due to Google Static Map API
+    if (validate_location(@current_location) == false) && (cookies[:location])
+    	@current_location = cookies[:location]
+    end
+    if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+    	@current_location = current_user.location
+    end
+    if validate_location(@current_location) == false    
+      flash[:notice] = "Invalid location; estimating your location instead."
+      s = Geocoder.search(remote_ip)
+      if s[0].city != ""
+        @current_location = s[0].city + ", " + s[0].state_code
+      end
+    end
+    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5) # limit due to Google Static Map API restriction
+  rescue
+    flash[:notice] = "Cannot automatically determine your location."
+    redirect_to root_path
+  end
+  
+  def managed
+    if signed_in? and current_user.manager?
+      @pets = current_user.shelter.pets.search(params[:search]).paginate(page: params[:page])
+      cookies[:managed_pets] == "true"
+    elsif signed_in?
+      flash[:notice] = "You do not have access to this page."
+      redirect_to root_path
+    else
+      flash[:notice] = "You must be signed in to access this page."
+      redirect_to signin_path
+    end
   end
   
   def destroy
-    @shelter = Shelter.find(params[:id])
     # Remove all references to Shelter ID in users table; also remove manager flag for associated users
     User.all.select{|u| u.shelter_id == @shelter.id }.each{|u| u.shelter_id = ""}.each{|u| u.manager = false}.each{|m| m.save}
     @shelter.destroy
     flash[:notice] = "#{@shelter.name} has been deleted."
-    redirect_to root_path
+    if cookies[:delete_shelter] == "true"
+      redirect_to :back
+      cookies[:delete_shelter] = "false"
+    else
+      redirect_to root_path
+    end
   end
   
   private
   
     def admin_user
       redirect_to(root_path) unless signed_in? and current_user.admin?
+    end
+    
+    def find_shelter
+      @shelter = Shelter.find_by_slug(params[:id])
     end
 end

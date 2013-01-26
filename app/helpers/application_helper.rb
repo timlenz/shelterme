@@ -14,6 +14,19 @@ module ApplicationHelper
     tag(:link, rel: :canonical, href: @canonical_url) if @canonical_url
   end
   
+  def pet_list
+    if cookies[:history]
+      pets = cookies[:history].split(" ").map{|s| s.to_i }.reverse.uniq
+      pets = pets.map{|p| Pet.select{|x| x.id == p}}.flatten
+    else
+      pets = []
+    end
+  end
+  
+  def recent_adoptions
+    pets = Pet.all.select{|p| p.pet_state.status == "adopted"}.sort_by{|d| d.updated_at}.reverse.first(4)
+  end
+  
   def sortable(column, title = nil)
     title ||= column.titleize
     css_class = (column == sort_column) ? "#{sort_direction}" : nil

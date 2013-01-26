@@ -6,12 +6,14 @@
         <%= image_tag("editIcon.png")%>
       </div>
       <div class="headerInfo">
-        <h1>My Activity</h1>
+        <h1>My Updates</h1>
       </div>
     </div>
     <div class="row">
-      <div class="fullWidth">
+      <div id= "activity" class="fullWidth">
+				<%= will_paginate @activity, style: "visibility: hidden;" %>
         <%= render 'activity_feed' %>
+				<%= will_paginate @activity, style: "visibility: hidden;" %>
       </div>
     </div>
   </div>

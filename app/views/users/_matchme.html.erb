@@ -1,6 +1,6 @@
 <% if !@user.matchme %>
 <div id="waiting" class="hide">
- <%= image_tag("wheel.gif")%>
+ <%= image_tag("spinner.gif")%>
  <br>
  <h2 style="text-align:center;">Searching...</h2>
 </div>
@@ -20,7 +20,7 @@
 </div>
 <% elsif @user.matchme.size > 0 %>
   <div id="waiting" class="hide">
-	 <%= image_tag("wheel.gif")%>
+	 <%= image_tag("spinner.gif")%>
 	 <br>
 	 <h2 style="text-align:center;">Searching...</h2>
 	</div>

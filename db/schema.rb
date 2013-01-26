@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109195129) do
+ActiveRecord::Schema.define(:version => 20130125045501) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -205,9 +205,11 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "primary",    :default => false
+    t.integer  "user_id"
   end
 
   add_index "pet_photos", ["pet_id"], :name => "index_pet_photos_on_pet_id"
+  add_index "pet_photos", ["user_id", "created_at"], :name => "index_pet_photos_on_user_id_and_created_at"
 
   create_table "pet_states", :force => true do |t|
     t.string   "status"
@@ -221,7 +223,10 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
     t.boolean  "primary",        :default => false
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.integer  "user_id"
   end
+
+  add_index "pet_videos", ["user_id", "created_at"], :name => "index_pet_videos_on_user_id_and_created_at"
 
   create_table "pets", :force => true do |t|
     t.string   "name"
@@ -246,11 +251,12 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
     t.integer  "fur_length_id"
     t.integer  "primary_breed_id"
     t.integer  "secondary_breed_id"
+    t.string   "slug"
   end
 
   add_index "pets", ["affection_id"], :name => "index_pets_on_affection_id"
   add_index "pets", ["age_period_id"], :name => "index_pets_on_age_period_id"
-  add_index "pets", ["animal_code"], :name => "index_pets_on_animal_code", :unique => true
+  add_index "pets", ["animal_code", "shelter_id"], :name => "index_pets_on_animal_code_and_shelter_id", :unique => true
   add_index "pets", ["energy_level_id"], :name => "index_pets_on_energy_level_id"
   add_index "pets", ["fur_length_id"], :name => "index_pets_on_fur_length_id"
   add_index "pets", ["gender_id"], :name => "index_pets_on_gender_id"
@@ -262,6 +268,7 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
   add_index "pets", ["secondary_color_id"], :name => "index_pets_on_secondary_color_id"
   add_index "pets", ["shelter_id", "created_at"], :name => "index_pets_on_shelter_id_and_created_at"
   add_index "pets", ["size_id"], :name => "index_pets_on_size_id"
+  add_index "pets", ["slug"], :name => "index_pets_on_slug"
   add_index "pets", ["species_id"], :name => "index_pets_on_species_id"
   add_index "pets", ["user_id", "created_at"], :name => "index_pets_on_user_id_and_created_at"
 
@@ -343,9 +350,11 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
     t.string   "thu_hours"
     t.string   "fri_hours"
     t.string   "sat_hours"
+    t.string   "slug"
   end
 
   add_index "shelters", ["precedence_id", "created_at"], :name => "index_shelters_on_precedence_id_and_created_at"
+  add_index "shelters", ["slug"], :name => "index_shelters_on_slug"
 
   create_table "sizes", :force => true do |t|
     t.string   "name"
@@ -390,6 +399,7 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
     t.integer  "clean_value_id"
     t.integer  "energy_value_id"
     t.integer  "species_id"
+    t.string   "slug"
   end
 
   add_index "users", ["attitude_value_id"], :name => "index_users_on_attitude_value_id"
@@ -400,6 +410,7 @@ ActiveRecord::Schema.define(:version => 20121109195129) do
   add_index "users", ["open_value_id"], :name => "index_users_on_open_value_id"
   add_index "users", ["plan_value_id"], :name => "index_users_on_plan_value_id"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["slug"], :name => "index_users_on_slug"
   add_index "users", ["social_value_id"], :name => "index_users_on_social_value_id"
   add_index "users", ["species_id"], :name => "index_users_on_species_id"
 

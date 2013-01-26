@@ -28,7 +28,7 @@ describe "Micropost pages" do
       before { visit pet_path(pet) }  # was user_path(user)
       
       it "should delete a micropost" do
-        expect { click_link "delete" }.should change(Micropost, :count).by(-1)
+        expect { click_link "Delete" }.should change(Micropost, :count).by(-1)
       end
     end
   end

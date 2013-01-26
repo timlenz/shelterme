@@ -3,10 +3,15 @@
 <div class="leftEditForm">
   <%= render 'pets/edit/code', f: f %>
   <%= render 'pets/edit/created_at', f: f %>
-  <%= render 'pets/edit/shelter', f: f %>
-  <%= f.input :name %>
+  <% if signed_in? and (current_user.admin? or @pet.user == current_user or
+    (current_user.manager? && current_user.shelter_id == @pet.shelter.id))  %>
+    <%= render 'pets/edit/select_shelter', f: f %>
+  <% else %>
+    <%= render 'pets/edit/shelter', f: f %>
+  <% end %>	
+  <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
   <%= render 'pets/edit/species', f: f %>
-	<%= f.label "Gender", class: "control-label"%>
+	<%= f.label "Gender", class: "control-label", required: true %>
 	<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
 	  <button type="button" data-toggle="button" class="btn" value="2">Female</button>
 	  <button type="button" data-toggle="button" class="btn" value="1">Male</button>
@@ -14,7 +19,7 @@
 	<%= f.hidden_field :gender_id, label: false %>
   <%= render 'pets/edit/age', f: f %>
   <%= render 'pets/edit/weight', f: f %>
-  <%= f.label "Size", class: "control-label"%>
+  <%= f.label "Size", class: "control-label", required: true %>
   <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
 	  <button type="button" data-toggle="button" class="btn" value="1">Small</button>
 	  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
@@ -22,8 +27,14 @@
 	</div>
 	<%= f.hidden_field :size_id, label: false %>
   <%= render 'pets/edit/mix', f: f %>
-  <% if signed_in? and current_user.admin? %>
-    <%= f.association :pet_state, label_method: :status, include_blank: false %>
+  <% if signed_in? and (current_user.admin? or current_user.manager?) %>
+    <%= f.label "Status", class: "control-label", required: true %>
+    <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+		  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+		  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
+		  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+		</div>
+		<%= f.hidden_field :pet_state_id, label: false %>
   <% end %>
 </div>
 <div class="rightEditForm">
@@ -36,5 +47,5 @@
 <div class="clearfix"></div>
 <br>
 <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
-<%= link_to("Cancel", @pet, style: "float:right;padding-top:4px;")%>
+<%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;padding-top:4px;")%>
 <% end %>

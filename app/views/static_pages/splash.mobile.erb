@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <%= stylesheet_link_tag "mobile", media: "all" %>
+  </head>
+  <body>
+    <p>Mobile version coming soon!</p>
+    <div class="splash">
+	    <%= image_tag(["splashDog.png", "splashCat.png"][Random.rand(0..1)]) %>
+    </div>
+    <%= image_tag("logoMobile.png", class: "logo") %>
+  </body>
+</html>

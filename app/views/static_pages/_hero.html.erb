@@ -1,14 +1,26 @@
 <div class="hero">
-  <div id="heroCarousel" class="carousel slide">
+  <div id="heroCarousel" class="carousel slide" data-pause="mouseleave">
     <div class="carousel-inner">
       <div class="item active">
+	      <% if signed_in? %>
+	      <%= render "shared/hero2" %>
+	      <% else %>
         <%= render "shared/hero1" %>
+        <% end %>
       </div>
       <div class="item">
+	      <% if signed_in? %>
+	      <%= render "shared/hero3" %>
+	      <% else %>
         <%= render "shared/hero2" %>
+        <% end %>
       </div>
       <div class="item">
+	      <% if signed_in? %>
+	      <%= render "shared/hero1" %>
+	      <% else %>
         <%= render "shared/hero3" %>
+        <% end %>
       </div>
     </div>
     <a class="left carousel-control" href="#heroCarousel" data-slide="prev">&lsaquo;</a>

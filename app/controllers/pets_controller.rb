@@ -1,5 +1,6 @@
 class PetsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :edit]
+  before_filter :find_pet, only: [:show, :edit, :update, :destroy]
   
   respond_to :html, :js
   
@@ -14,16 +15,53 @@ class PetsController < ApplicationController
       @pet.animal_code = @@pass
       @pet.pet_state_id = PetState.first.id
     else
-      redirect_to signin_path
+      flash[:notice] = "You must be signed in to add a pet."
+      redirect_to join_path
+    end
+    current_location = "asdfasdf"
+    if cookies[:location]
+      current_location = cookies[:location]
+    end
+    if (validate_location(current_location) == false) && (signed_in? and current_user.location?)
+    	current_location = current_user.location
+    end
+    if validate_location(current_location) == false    
+      flash[:notice] = "Invalid location; estimating your location instead."
+      s = Geocoder.search(remote_ip)
+      if s[0].city != ""
+        current_location = s[0].city + ", " + s[0].state_code
+      end
+    end
+    @nearbys = Array.new
+    @nearbys = Shelter.near(current_location, 50, order: "distance").limit(5)
+    if cookies[:shelter_id].to_i > 0
+      recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
+      if @nearbys.count > 0
+        @nearbys.unshift(recent_shelter)
+        @nearbys.uniq_by!{|s| s.id }
+      else
+        @nearbys = @nearbys << recent_shelter
+      end
+    end
+    # if pets with same ID have been found, remove their shelters from the list of available shelters
+    if $exclude_shelter && $exclude_shelter.count > 0
+      @nearbys = @nearbys.reject{|s| $exclude_shelter.include? s }
+      $exclude_shelter = []
+    end
+    # can't add a pet if there aren't any shelters available
+    if @nearbys.count == 0
+      flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
+      redirect_to findshelter_path
     end
   end
 
   def create
-    @user = current_user
-    @pet = @user.pets.create(params[:pet])
+    # Because of the shelter/pet nested routing, must create pet from shelter rather than user
+    @shelter = Shelter.find(params[:pet][:shelter_id])
+    @pet = @shelter.pets.create(params[:pet])
     if @pet.save
-      flash[:success] = "#{@pet.name} has been added"
-      redirect_to @pet
+      flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
+      redirect_to [@shelter, @pet]
     else
       flash[:error] = "Please enter all required information."
       render 'new'
@@ -33,12 +71,11 @@ class PetsController < ApplicationController
   def addpet
     if params[:search].present?
       @@pass = params[:search]
-      @pet = Pet.all.find{|p| p.animal_code == @@pass }
-      if !@pet.nil?
-        flash[:success] = "#{@pet.animal_code} already has a profile."
-        redirect_to @pet
+      @pets = Pet.select{|p| p.animal_code == @@pass }
+      if @pets.count > 0
+        render 'add_found'
+        $exclude_shelter = @pets.map{|p| p.shelter }
       else
-        flash[:error] = "Please create a profile for #{@@pass}. "
         redirect_to newpet_path
       end
     end
@@ -47,6 +84,8 @@ class PetsController < ApplicationController
   def find
     if params[:location].present?
       @current_location = params[:location]
+    elsif cookies[:location]
+      @current_location = cookies[:location]
     elsif signed_in? and current_user.location?
       @current_location = current_user.location
     else      
@@ -63,45 +102,83 @@ class PetsController < ApplicationController
   end
   
   def show
-    @pet = Pet.find(params[:id])
     $pet = @pet
     canonical_url(pet_url(@pet))
     @microposts = @pet.microposts
     @feed_items = @pet.feed
+    cookies[:delete_managed_pet] = "false"
     if signed_in?
       @micropost = current_user.microposts.build(pet_id: @pet.id)
     end
+    if cookies[:history]
+      cookies[:history] = cookies[:history] + " " + @pet.id.to_s
+    else
+      cookies[:history] = " "
+    end      
   end
   
   def potd
     s = Geocoder.search(remote_ip)
     @current_location = s[0].city + ", " + s[0].state_code
     nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
+    unless nearbys.count > 0
+      nearbys = Shelter.near(@current_location, 200, order: "distance").map{|s| s.id}
+    end
+    unless nearbys.count > 0
+      nearbys = Shelter.near(@current_location, 500, order: "distance").map{|s| s.id}
+    end
+    unless nearbys.count > 0
+      nearbys = Shelter.near(@current_location, 1000, order: "distance").map{|s| s.id}
+    end
     if nearbys.count > 0
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.select{|p| p.pet_state.status == "available"}
       @pet = pets[Random.rand(0..pets.count-1)]
-      flash[:notice] = "#{@pet.name} is your featured pet for the day"
-      redirect_to @pet
+      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet for the day"
+      redirect_to [@pet.shelter, @pet]
     else
-      flash[:error] = "There are no pets available within 50 miles of you."
+      flash[:error] = "There are no pets available near you."
       redirect_to root_path
     end
   end
 
   def edit
-    @pet = Pet.find(params[:id])
+    unless current_user.admin? or @pet.user == current_user or
+      (current_user.manager? && current_user.shelter_id == @pet.shelter.id)
+      flash[:notice] = "You may only delete your photos or videos."
+    end
+    cookies[:managed_pets] = "false"
+    current_location = @pet.shelter.city + ", " + @pet.shelter.state
+    @nearbys = Shelter.near(current_location, 50, order: "distance").limit(5)
+    if cookies[:shelter_id].to_i > 0
+      recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
+      if @nearbys.count > 0
+        @nearbys.unshift(recent_shelter)
+        @nearbys.uniq_by!{|s| s.id }
+      else
+        @nearbys = @nearbys << recent_shelter
+      end
+    end
+    shelter_check = @nearbys.find{|s| s.id == @pet.shelter.id }
+    unless shelter_check
+      @nearbys = @nearbys << @pet.shelter
+    end
   end
   
   def index
-    if signed_in?
-      if current_user.admin?
-        @pets = Pet.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
-      end
+    if signed_in? && current_user.admin?
+      cookies[:managed_pets] == "true"
+      @pets = Pet.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
     else
       redirect_to root_path
     end
+  rescue  
+    @pets = Pet.search(params[:search]).sort_by{|p| p[sort_column]}
+    if sort_direction == "desc"
+      @pets = @pets.reverse
+    end
+    @pets = @pets.paginate(page: params[:page])
   end
 
   def sort_direction
@@ -113,20 +190,28 @@ class PetsController < ApplicationController
   end
   
   def update
-    @pet = Pet.find(params[:id])
     if @pet.update_attributes(params[:pet])
-      flash[:success] = "#{@pet.name} has been updated."
-      redirect_to @pet
+      if cookies[:managed_pets] == "true"
+        flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code}'s status has been updated."
+        redirect_to :back
+      else
+        flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
+        redirect_to [@pet.shelter, @pet]
+      end
     else
       render 'edit'
     end
   end
   
   def destroy
-    @pet = Pet.find(params[:id])
     @pet.destroy
-    flash[:notice] = "#{@pet.name} has been deleted."
-    redirect_to root_path
+    flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been deleted."
+    if cookies[:delete_managed_pet] == "true"
+      redirect_to :back
+      cookies[:delete_managed_pet] = "false"
+    else
+      redirect_to root_path
+    end
   end
   
   private
@@ -137,6 +222,10 @@ class PetsController < ApplicationController
 
     def sort_direction
       params[:direction] || "asc"
+    end
+    
+    def find_pet
+      @pet = Pet.find_by_slug(params[:id])
     end
 end
 

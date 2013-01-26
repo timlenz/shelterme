@@ -1,19 +1,25 @@
 <div id="addVideo" class="modal" data-backdrop="static" data-keyboard="false">
-  <div class="modal-inner">
-    <div class="mediaModal">
-      <p>Please select a video to upload:</p>
-      <%= simple_form_for @pet_video do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <%= f.hidden_field :pet_id %>
-        <input type="hidden" name="pet_video[panda_video_id]" id="returned_video_id" />
-        <div id="upload_progress" class="panda_upload_progress"></div>
-        <br>
-        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;" %>
-        <button class="text-close" data-dismiss="modal">Cancel</button>
-        <%= link_to "Video hints", help_path, style: "line-height:28px;font-size:12px;" %>
-      <% end %>
+  <div class="modal-inner mediaModal">
+    <div class="pageHeader">
+    	<div class="headerLogo">
+			  <%= image_tag("videoIcon.png", alt: "Add Video") %>
+			</div>
+	    <div class="headerInfo" style="width:385px;">
+        <h1>Add a Video of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1>
+      </div>
     </div>
-
+    <div class="form">
+	    <p>For tips on how to shoot a great video, please check our <%= link_to "video hints", help_path(anchor: "video"), style: "line-height:28px;font-size:12px;" %>.</p>
+    	<%= simple_form_for @pet_video do |f| %>
+       <%= render 'shared/error_messages', object: f.object %>
+       <%= f.hidden_field :pet_id %>
+       <%= f.hidden_field :user_id, value: current_user.id %>
+       <input type="hidden" name="pet_video[panda_video_id]" id="returned_video_id" />
+       <div id="upload_progress" class="panda_upload_progress"></div>
+       <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;" %>
+       <button class="text-close" data-dismiss="modal">Cancel</button>
+     <% end %>
+    </div>
   </div>
 </div>
 
@@ -30,7 +36,10 @@
 		
 		// Hide extra video elements during upload
 		$('#new_pet_video :submit').click(function(){
-			$('.mediaModal .text-close, .mediaModal a').hide();
+			$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
 		});
+		
+		// Reformat progress indicator
+		$('#upload_progress').css({'width':'100%','margin-bottom':'15px','margin-top':'6px'});
 	});
 </script>

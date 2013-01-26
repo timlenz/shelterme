@@ -3,6 +3,7 @@ class UsersController < ApplicationController
                 only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
+  before_filter :find_user, only: [:show, :destroy]
   
   helper_method :sort_column, :sort_direction
   
@@ -11,15 +12,12 @@ class UsersController < ApplicationController
   respond_to :html, :js, only: [:matchme, :update]
   
   def show
-    @user = User.find(params[:id])
-    @microposts = @user.microposts#.paginate(page: params[:page])
+    @microposts = @user.microposts
   end
   
   def index
-    if signed_in?
-      if current_user.admin?
-        @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
-      end
+    if signed_in? && current_user.admin?
+      @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
     else
       redirect_to root_path
     end
@@ -37,7 +35,7 @@ class UsersController < ApplicationController
     unless signed_in?
       @user = User.new
     else
-      redirect_to root
+      redirect_to root_path
     end
   end
   
@@ -61,7 +59,6 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     flash[:success] = "#{@user.name} has been destroyed."
     redirect_to root_path
@@ -72,7 +69,6 @@ class UsersController < ApplicationController
       if current_user == @user
         if $match == true
           sign_in @user
-          #redirect_to matchme_path
           render :matchme
           return
         end
@@ -85,20 +81,35 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+    cookies.delete :location
   end
   
   def matchme
-    @user = current_user
-    if location.present?
-      @current_location = location
-    elsif signed_in? and current_user.location?
-      @current_location = current_user.location
-    else      
-      s = Geocoder.search(remote_ip)
-      @current_location = s[0].city + ", " + s[0].state_code
+    if signed_in?
+      @user = current_user
+      @current_location = "asdfasdf"
+      if location.present?
+        @current_location = location
+      end
+      if (validate_location(@current_location) == false) && (cookies[:location])
+      	@current_location = cookies[:location]
+      end
+      if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+      	@current_location = current_user.location
+      end
+      if validate_location(@current_location) == false    
+        flash[:notice] = "Invalid location; estimating your location instead."
+        s = Geocoder.search(remote_ip)
+        if s[0].city != ""
+          @current_location = s[0].city + ", " + s[0].state_code
+        end
+      end
+      @user.matchme
+      cookies[:location] = @current_location
+    else
+      flash[:notice] = "Cannot automatically determine your location."
+      redirect_to join_path
     end
-    @current_location
-    @user.matchme
   end
   
   def sponsored
@@ -109,20 +120,35 @@ class UsersController < ApplicationController
     @user = current_user
   end
   
+  def relationships
+    @user = current_user
+  end
+  
+  def photos
+    @user = current_user
+    @photos = PetPhoto.select{|u| u.user == @user}
+  end
+  
+  def videos
+    @user = current_user
+    @videos = PetVideo.select{|u| u.user == @user}
+  end
+  
   def activity
     @user = current_user
+    @activity = @user.activity.paginate(page: params[:page])
   end
   
   def following
     @title = "Following"
-    @user = User.find(params[:id])
+    @user = current_user#User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
     render 'show_follow'
   end
   
   def followers
     @title = "Followers"
-    @user = User.find(params[:id])
+    @user = current_user#User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
@@ -130,7 +156,7 @@ class UsersController < ApplicationController
   private
     
     def correct_user
-      @user = User.find(params[:id])
+      @user = User.find_by_slug(params[:id])
       redirect_to(root_path) unless current_user?(@user) or current_user.admin?
     end
     
@@ -144,5 +170,9 @@ class UsersController < ApplicationController
 
     def sort_direction
       params[:direction] || "asc"
+    end
+    
+    def find_user
+      @user = User.find_by_slug(params[:id])
     end
 end

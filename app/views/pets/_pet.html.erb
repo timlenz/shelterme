@@ -3,9 +3,28 @@
     <tr>
       <td class="adminId"><%= pet.id %></td>
       <td class="adminAdded"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
-      <td class="adminFollowers"><%= pet.watchers.size %></td>
       <td class="adminCode"><%= pet.animal_code %></td>
-      <td class="adminName"><%= link_to pet.name, pet %></td>
+      <td class="managedName">
+        <% if pet.name != '' %>
+	      <%= link_to pet.name, [pet.shelter, pet] %>
+	      <% else %>
+	      <%= link_to "No Name", [pet.shelter, pet] %>
+	      <% end %>
+      </td>
+      <td class="managedStatus">
+        <%= simple_form_for(pet, html: {class: 'form-horizontal' }) do |p| %>
+				  <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+					  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+					  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
+					  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+					</div>
+					<%= p.hidden_field :pet_state_id, label: false %>
+					<%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name : pet.animal_code}'s status?" %>
+        <% end %>
+      </td>
+      <td class="managedDelete">
+        <%= link_to "Delete", [pet.shelter, pet], method: :delete, confirm: "Are you certain you want to delete #{pet.name != '' ? pet.name : pet.animal_code}?" %>
+      </td>
     </tr>
   </table>
 </li>

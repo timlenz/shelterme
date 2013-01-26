@@ -9,8 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require jquery.Jcrop.min
+ *= require video-js
  *= require_self
- *= require_tree .
+ *= require custom
+ *= require pet_videos
  *= require jquery.ui.all
  *
 */

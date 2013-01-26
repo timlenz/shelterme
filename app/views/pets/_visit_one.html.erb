@@ -1,12 +1,11 @@
 <li>
-  <div class="modalElement">
+  <div class="modalElement modalStep">
     <div class="listCircle">1</div>
-    <h3>Contact</h3>
+    <h3><%= image_tag("contact.png", alt: "Contact") %></h3>
   </div>
-  <div class="modalElement">
+  <div class="modalElement modalInfo">
     <p><%= @pet.shelter.name %><br>
-    <%= mail_to(@pet.shelter.email, nil, subject: "Interested in " + @pet.animal_code + " - " + @pet.name, target: "_blank") %><br>
-    <%= @pet.shelter.phone %></p>
+    <%= @pet.shelter.phone ? @pet.shelter.phone : '' %></p>
   </div>
   <div class="clearfix"></div>
 </li>

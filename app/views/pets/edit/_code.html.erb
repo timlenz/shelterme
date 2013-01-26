@@ -1,1 +1,5 @@
+<% if current_user.admin? or (current_user.manager? && current_user.shelter_id == @pet.shelter.id) %>
+<%= f.input :animal_code, label: "ID" %>
+<% else %>
 <%= f.input :animal_code, label: "ID", readonly: true %>
+<% end %>

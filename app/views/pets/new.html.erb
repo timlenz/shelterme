@@ -6,23 +6,24 @@
         <%= image_tag("addIcon.png", alt: "Add Pet") %>
       </div>
       <div class="headerInfo">
-        <h1>Add Pet</h1><br>
+        <h1>Create a Pet Profile</h1><br>
       </div>
     </div>
     <div class="fullEditForm">
-      <%= simple_form_for(@pet, html: {class: 'form-horizontal' }) do |f| %>
+      <%= simple_form_for([@pet.shelter, @pet], html: {class: 'form-horizontal' }) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="leftEditForm">
-        <%= render 'pets/edit/code', f: f %>
+	      <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.input :animal_code, label: "ID", readonly: true %>
         <%= render 'pets/edit/select_shelter', f: f %>
-        <%= f.input :name %>
-        <%= f.label "Species", class: "control-label"%>
+        <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
+        <%= f.label "Species", class: "control-label", required: true %>
 				<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[species_id]">
 				  <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
 				  <button type="button" data-toggle="button" class="btn" value="2">Dog</button>
 				</div>
 				<%= f.hidden_field :species_id, label: false %>
-				<%= f.label "Gender", class: "control-label"%>
+				<%= f.label "Gender", class: "control-label", required: true %>
 				<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
 				  <button type="button" data-toggle="button" class="btn" value="2">Female</button>
 				  <button type="button" data-toggle="button" class="btn" value="1">Male</button>
@@ -30,7 +31,7 @@
 				<%= f.hidden_field :gender_id, label: false %>
         <%= render 'pets/edit/age', f: f %>
         <%= render 'pets/edit/weight', f: f %>
-        <%= f.label "Size", class: "control-label"%>
+        <%= f.label "Size", class: "control-label", required: true %>
         <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
 				  <button type="button" data-toggle="button" class="btn" value="1">Small</button>
 				  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
@@ -41,43 +42,41 @@
         <div style="display:none;">
           <%= f.association :pet_state, label_method: :status, include_blank: false %>
         </div>
+        <div class="addPetInstructions">
+        	<p>Most of the required information (fields with an *) should be on the pet's cage card. Make your best guess if the information is not available.</p>
+          <p>People respond much better to a name than an ID, so if the pet does not have a name, give it a good one.</p>
+          <p>Make sure to spend time interacting with the pet to get a sense of their personality and enter that information as well.</p>
+          <p>And please do your best to write a compelling description. That is the best way you can convince people to visit and adopt the pet!</p>
+        </div>
       </div>
       <div class="rightEditForm">
-	      <%= f.label "Fur Length", class: "control-label"%>
-        <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[fur_length_id]">
-				  <button type="button" data-toggle="button" class="btn" value="1">Short</button>
-				  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
-				  <button type="button" data-toggle="button" class="btn" value="3">Long</button>
-				</div>
-				<%= f.hidden_field :fur_length_id, label: false %>
-				<%= f.association :primary_color, label_method: :color, include_blank: false %>
-				<%= f.association :secondary_color, label_method: :color %>
-				<%= f.label "Energy Level", class: "control-label"%>
+	      <%= render 'pets/edit/coat', f: f %>
+				<label class="string required control-label" for="pet_Energy_Level"><abbr title="required">*</abbr> Energy Level</label>
         <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[energy_level_id]">
 				  <button type="button" data-toggle="button" class="btn" value="1">Relaxed</button>
 				  <button type="button" data-toggle="button" class="btn" value="2">Balanced</button>
 				  <button type="button" data-toggle="button" class="btn" value="3">Tireless</button>
 				</div>
 				<%= f.hidden_field :energy_level_id, label: false %>
-				<%= f.label "Nature", class: "control-label"%>
+				<%= f.label "Nature", class: "control-label", required: true %>
 				<div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[nature_id]">
 				  <button type="button" data-toggle="button" class="btn" value="1">Submissive</button>
 				  <button type="button" data-toggle="button" class="btn" value="2">Playful</button>
 				  <button type="button" data-toggle="button" class="btn" value="3">Dominant</button>
 				</div>
 				<%= f.hidden_field :nature_id, label: false %>
-				<%= f.label "Affection", class: "control-label"%>
+				<%= f.label "Affection", class: "control-label", required: true %>
 				<div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[affection_id]">
 				  <button type="button" data-toggle="button" class="btn" value="3">Reserved</button>
 				  <button type="button" data-toggle="button" class="btn" value="2">Friendly</button>
 				  <button type="button" data-toggle="button" class="btn" value="1">Devoted</button>
 				</div>
 				<%= f.hidden_field :affection_id, label: false %>
-        <%= f.input :description, as: :text %>
+        <%= f.input :description, as: :text, hint: "Include any additional necessary information here" %>
       </div>
       <div class="clearfix"></div>
       <br>
-      <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+      <%= f.button :submit, "Add Pet", class: "formBtn", style: "width:145px;" %>
       <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>

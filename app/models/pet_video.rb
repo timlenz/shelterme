@@ -8,15 +8,18 @@
 #  primary        :boolean         default(FALSE)
 #  created_at     :datetime        not null
 #  updated_at     :datetime        not null
+#  user_id        :integer
 #
 
 class PetVideo < ActiveRecord::Base
-  attr_accessible :panda_video_id, :pet_id, :primary
+  attr_accessible :panda_video_id, :pet_id, :primary, :user_id
   
   belongs_to :pet
+  belongs_to :user
   
   validates :panda_video_id, presence: true, on: :create
   validates :pet_id, presence: true
+  validates :user_id, presence: true
   
   default_scope order: 'pet_videos.created_at ASC'
   
