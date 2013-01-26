@@ -504,14 +504,7 @@ $(function(){
 	function set_cat_breeds(){
 		$('[id$=breed_name]').autocomplete({
 		  minLength: 2,
-		  source: ["Abyssinian", "American Bobtail", "American Curl", "American Domestic", "American Shorthair", "American Wirehair", 
-			  "Angora", "Balinese", "Bengal", "Birman", "Bombay", "British Blue", "British Shorthair", 
-			  "Burmese", "Chartreux", "Chinese Domestic", "Colorpoint Shorthair", "Cornish Rex", "Cymric", 
-			  "Devon Rex", "Domestic Longhair", "Domestic Medium Hair", "Domestic Shorthair", "Egyptian Mau", 
-			  "European Burmese", "Exotic", "Havana Brown", "Japanese Bobtail", "Javanese", "Korat", "LaPerm", 
-			  "Maine Coon", "Manx", "Mix", "Norwegian Forest Cat", "Ocicat", "Oriental", "Persian", "RagaMuffin", 
-			  "Ragdoll", "Randombred", "Russian Blue", "Scottish Fold", "Selkirk Rex", "Siamese", "Siberian", "Singapura", 
-			  "Snowshoe", "Somali", "Sphynx", "Tonkinese", "Turkish Angora", "Turkish Van"]
+		  source: ["Abyssinian", "American Bobtail", "American Curl", "American Shorthair", "American Wirehair", "Balinese", "Bengal", "Birman", "Bombay", "British Blue", "British Longhair", "British Shorthair", "Burmese", "Burmilla", "Caliby", "Calico", "Calimanco", "Chartreux", "Chausie", "Chinese Domestic", "Colorpoint Shorthair", "Cornish Rex", "Cymric", "Devon Rex", "Domestic", "Donskoy", "Egyptian Mau", "European Burmese", "Exotic Shorthair", "Havana", "Highlander", "Highlander Shorthair", "Himalayan", "Household Pet", "Japanese Bobtail", "Javanese", "Khaomanee", "Korat", "Kurilian Bobtail", "LaPerm", "Maine Coon", "Maltese", "Manx", "Minskin", "Mix", "Munchkin", "Napoleon", "Nebelung", "Norwegian Forest", "Ocicat", "Ojos Azules", "Oriental Longhair", "Oriental Shorthair", "Persian", "Peterbald", "Pixiebob", "RagaMuffin", "Ragdoll", "Russian Blue", "Savannah", "Scottish Fold", "Selkirk Rex", "Serengeti", "Siamese", "Siberian", "Singapura", "Snowshoe", "Sokoke", "Somali", "Sphynx", "Tabby", "Thai", "Tonkinese", "Torbie", "Tortie", "Tortoiseshell", "Toyger", "Turkish Angora", "Turkish Van"]
 	  });
 	};
   
