@@ -42,11 +42,6 @@ def make_pets
       energy_level = Random.rand(1..3)
       nature = Random.rand(1..3)
       fur_length = Random.rand(1..3)
-      primary_color = Random.rand(1..7)
-      sc_seed = Random.rand(1..7)
-      unless sc_seed == primary_color
-        secondary_color = sc_seed
-      end
       size = Random.rand(1..3)
       gender = Random.rand(1..2)
       species = Random.rand(1..2)
@@ -64,6 +59,25 @@ def make_pets
         secondary_breed = Random.rand(1..dogs)
         if secondary_breed == primary_breed
           secondary_breed = ""
+        end
+      end
+      if species == 2
+        primary_color = Random.rand(1..6)
+        sc_seed = Random.rand(1..6)
+        unless sc_seed == primary_color
+          secondary_color = sc_seed
+        end
+      else
+        primary_color = Random.rand(1..7)
+        sc_seed = Random.rand(1..7)
+        unless sc_seed == primary_color
+          secondary_color = sc_seed
+        end
+        if primary_color == 5 || primary_color == 6
+          primary_color == 7
+        end
+        if secondary_color == 5 || secondary_color == 6
+          secondary_color == 7
         end
       end
       state = Random.rand(1..2)
