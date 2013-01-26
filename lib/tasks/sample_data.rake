@@ -68,16 +68,10 @@ def make_pets
           secondary_color = sc_seed
         end
       else
-        primary_color = Random.rand(1..7)
-        sc_seed = Random.rand(1..7)
+        primary_color = Random.rand(1..4)
+        sc_seed = Random.rand(1..4)
         unless sc_seed == primary_color
           secondary_color = sc_seed
-        end
-        if primary_color == 5 || primary_color == 6
-          primary_color == 7
-        end
-        if secondary_color == 5 || secondary_color == 6
-          secondary_color == 7
         end
       end
       state = Random.rand(1..2)
