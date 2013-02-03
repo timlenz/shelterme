@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, 
                 only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
   before_filter :find_user, only: [:show, :destroy]
   
   helper_method :sort_column, :sort_direction
@@ -12,12 +11,27 @@ class UsersController < ApplicationController
   respond_to :html, :js, only: [:matchme, :update]
   
   def show
-    @microposts = @user.microposts
+    @microposts = @user.microposts.paginate(page: params[:microposts_page], per_page: 24)
+    @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 12)
+    @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 12)
+    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
+  rescue
+    raise ActionController::RoutingError.new('Not Found')
   end
   
   def index
     if signed_in? && current_user.admin?
       @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+    else
+      redirect_to root_path
+    end
+  end
+  
+  def managers
+    if signed_in?
+      if current_user.admin?
+        @shelter_admins = User.search(params[:search]).select{|u| u.manager == true}.paginate(page: params[:page])
+      end
     else
       redirect_to root_path
     end
@@ -56,12 +70,15 @@ class UsersController < ApplicationController
   
   def edit
     $match = false
+    cookies[:avatar] = "false"
   end
   
   def destroy
     @user.destroy
-    flash[:success] = "#{@user.name} has been destroyed."
+    flash[:success] = "#{@user.name} has been deleted."
     redirect_to root_path
+  rescue
+    flash[:notice] = "User not deleted."
   end
   
   def update
@@ -72,12 +89,18 @@ class UsersController < ApplicationController
           render :matchme
           return
         end
-        flash[:success] = "Your profile has been updated."
+        if cookies[:avatar] == "false"        
+          redirect_to @user
+          flash[:success] = "Your profile has been updated."
+        else  
+          cookies[:avatar] = "false"
+          redirect_to :back
+          flash[:success] = "Your avatar has been updated."
+        end
         sign_in @user
       else
         flash[:success] = "Profile for #{@user.name} has been updated."
-      end  
-      redirect_to @user
+      end
     else
       render 'edit'
     end
@@ -98,16 +121,18 @@ class UsersController < ApplicationController
       	@current_location = current_user.location
       end
       if validate_location(@current_location) == false    
-        flash[:notice] = "Invalid location; estimating your location instead."
+        flash[:notice] = "Estimating your location."
         s = Geocoder.search(remote_ip)
         if s[0].city != ""
           @current_location = s[0].city + ", " + s[0].state_code
         end
       end
-      @user.matchme
       cookies[:location] = @current_location
+      if cookies[:matchme] == "true"
+        @user.matchme
+        cookies[:matchme] = "false"
+      end
     else
-      flash[:notice] = "Cannot automatically determine your location."
       redirect_to join_path
     end
   end

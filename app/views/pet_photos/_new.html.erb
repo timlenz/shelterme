@@ -10,6 +10,9 @@
     </div>
     <div class="form">
 	    <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", help_path(anchor: "photo"), style: "line-height:28px;font-size:12px;" %>.</p>
+	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
+		    This window will close once your upload is complete.
+		  </div>
       <%= simple_form_for @pet_photo, :html => {:multipart => true} do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.hidden_field :pet_id %>
@@ -37,6 +40,7 @@ $(function(){
 	$('#new_pet_photo :submit').click(function(){
 		$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
 		$('#loadingPhoto').show();
+		$('.mediaModal .handhold').show();
 	});
 });
 </script>

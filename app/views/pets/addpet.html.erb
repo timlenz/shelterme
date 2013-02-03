@@ -11,7 +11,7 @@
       <div class="searchButton" id="addPet">
         <%= form_tag addpet_path, method: 'get' do %>
 	        <%= label_tag :search, "Enter Animal ID" %>
-          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= text_field_tag :search, params[:search], class: "smallField", rel: "tooltip", title: "Numbers and letters only" %>
           <%= submit_tag "Add", :animal_code => nil, class: "btn btn-header", style: "width: 70px;", confirm: "" %>
         <% end %>
       </div>

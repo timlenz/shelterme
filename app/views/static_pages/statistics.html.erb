@@ -19,6 +19,7 @@
             <li><h3>Unwatched</h3><%= Pet.all.count - Bond.count('pet_id', distinct: true) %></li>
             <br>
             <li><h3>Available</h3><%= Pet.select{|p| p.pet_state.status == 'available'}.count %></li>
+            <li><h3>Absent</h3><%= Pet.select{|p| p.pet_state.status == 'absent'}.count %></li>
             <li><h3>Adopted</h3><%= Pet.select{|p| p.pet_state.status == 'adopted'}.count %></li>
             <li><h3>Not Available</h3><%= Pet.select{|p| p.pet_state.status == 'unavailable'}.count %></li>
             <br>
@@ -36,6 +37,7 @@
           </h2>
           <ul>
             <li><h3>Available</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %></li>
+            <li><h3>Absent</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'absent'}.count %></li>
             <li><h3>Adopted</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'adopted'}.count %></li>
             <li><h3>Not Available</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'unavailable'}.count %></li>
             <br>
@@ -53,6 +55,7 @@
           </h2>
           <ul>
             <li><h3>Available</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %></li>
+            <li><h3>Absent</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'absent'}.count %></li>
             <li><h3>Adopted</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'adopted'}.count %></li>
             <li><h3>Not Available</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'unavailable'}.count %></li>
             <br>
@@ -87,9 +90,9 @@
               <li><h3>Ave Boosters</h3><%= Favorite.all.count.to_f / Favorite.count('user_id', distinct: true).to_f %></li>
               <br>
               <li><h3>Ave Available</h3><%  %></li>
+              <li><h3>Ave Absent</h3><%  %></li>
               <li><h3>Ave Adopted</h3><%  %></li>
               <li><h3>Ave Unavailable</h3><%  %></li>
-              
             </ul>
         </div>
       </div>

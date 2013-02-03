@@ -1,5 +1,6 @@
 <%= simple_form_for(@search, remote: true) do |f| %>
   <div class="btnColumn firstColumn">
+	  <%= f.hidden_field :user_id, value: current_user.id, label: false %>
 	  <div class="btn-group two-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[species_id]">
 		  <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
 		  <button type="button" data-toggle="button" class="btn" value="2">Dog</button>

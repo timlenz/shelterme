@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125045501) do
+ActiveRecord::Schema.define(:version => 20130202195047) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -145,9 +145,10 @@ ActiveRecord::Schema.define(:version => 20130125045501) do
   create_table "microposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "pet_id"
+    t.boolean  "flagged",    :default => false
   end
 
   add_index "microposts", ["pet_id", "created_at"], :name => "index_microposts_on_pet_id_and_created_at"
@@ -305,9 +306,13 @@ ActiveRecord::Schema.define(:version => 20130125045501) do
     t.integer  "affection_id"
     t.integer  "nature_id"
     t.string   "location"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.integer  "user_id"
+    t.boolean  "save_search",     :default => false
   end
+
+  add_index "searches", ["user_id"], :name => "index_searches_on_user_id"
 
   create_table "shelter_admins", :force => true do |t|
     t.integer  "user_id"
@@ -400,6 +405,7 @@ ActiveRecord::Schema.define(:version => 20130125045501) do
     t.integer  "energy_value_id"
     t.integer  "species_id"
     t.string   "slug"
+    t.string   "avatar"
   end
 
   add_index "users", ["attitude_value_id"], :name => "index_users_on_attitude_value_id"

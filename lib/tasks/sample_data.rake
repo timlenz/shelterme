@@ -74,7 +74,7 @@ def make_pets
           secondary_color = sc_seed
         end
       end
-      state = Random.rand(1..2)
+      state = Random.rand(1..4)
       user = Random.rand(1..u_count)
       shelter.pets.create!(name: name, description: description, animal_code: animal_code,
                         weight: weight, size_id: size, gender_id: gender, species_id: species,
@@ -91,7 +91,7 @@ def make_microposts
   users = User.all(limit: 40)
   pets = Pet.count
   20.times do
-    users.each { |user| user.microposts.create!(content: Faker::Lorem.sentence(12), pet_id: Random.rand(1..pets)) }
+    users.each { |user| user.microposts.create!(content: Faker::Lorem.sentence(18), pet_id: Random.rand(1..pets)) }
   end
 end
 

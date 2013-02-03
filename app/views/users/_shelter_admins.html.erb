@@ -1,0 +1,18 @@
+<div class="span12 adminView">
+  <%= will_paginate @shelter_admins %>
+  <table class="table table-condensed table-bordered">
+    <thead>
+      <th style="width:50px;">ID</th>
+      <th style="width:120px;">Granted</th>
+      <th style="width:330px;">Shelter</th>
+      <th>Name</th>
+    </thead>
+    </tr>
+  </table>
+  <ul>
+    <%= render partial: "shelter_admin",
+        collection: @shelter_admins,
+        as: :f %>
+  </ul>
+  <%= will_paginate @shelter_admins %>
+</div>

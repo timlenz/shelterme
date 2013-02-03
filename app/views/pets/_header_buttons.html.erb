@@ -1,9 +1,4 @@
 <div class="headerButtons">
-	<% if @pet.pet_state.status == 'adopted' %>
-    <%= image_tag("adoptedIcon.png", style: "float:right;margin-top:-4px;margin-left:10px;") %>
-  <% elsif @pet.pet_state.status == 'unavailable' %>
-    <%= image_tag("unavailableIcon.png", style: "float:right;margin-top:0;margin-left:10px;") %>
-  <% end %>
   <div class="headerEdit">
     <% if signed_in? and (current_user.admin? or @pet.user == current_user or
       (current_user.manager? && current_user.shelter_id == @pet.shelter.id) or
@@ -11,8 +6,17 @@
 			(@pet.pet_videos.find{|p| p.user == current_user }) )  %>
       <%= link_to("Edit pet", edit_shelter_pet_path(@pet.shelter, @pet), class: "btn btn-header btn-warning btn-admin") %>
     <% end %>
+    <% if signed_in? and @pet.pet_state.status == 'available' %>
+      <%= link_to "Pet not at shelter?", "mailto:admin@shelterme.com?subject=Pet status update&body=As of #{Date.today.strftime("%A, %B %d")}, could not find #{@pet.name} (#{@pet.animal_code}) at #{@pet.shelter.name}", target: "_blank", style: "line-height:26px;", id: "absentPet", rel: "tooltip", title: "Click to report a missing pet" %>
+			<div class="hidden">
+	      <%= simple_form_for @pet do |p| %>
+					<%= p.hidden_field :pet_state_id, value: '4' %>
+					<%= p.button :submit, "Save", class: "hidden", id: "submitAbsentPet" %>
+	      <% end %>
+			</div>
+    <% end %>
   </div>
-  <% if signed_in? and @pet.pet_state.status == 'available' %>
+  <% if signed_in? and (@pet.pet_state.status == 'available' || @pet.pet_state.status == 'absent') %>
   <div class="button">
     <span id="watch_form">
       <% if current_user.watching?(@pet) %>
@@ -23,7 +27,7 @@
     </span>
   </div>	
   <% end %>
-  <% if @pet.pet_state.status == 'available' %>
+  <% if @pet.pet_state.status == 'available' || @pet.pet_state.status == 'absent' %>
   <div class="button">
     <a class="btn btn-header" data-toggle="modal" href="#visitMe" data-backdrop="static" data-keyboard="false" >Visit Me</a>
   </div>
@@ -39,7 +43,13 @@
 	    <div class="headerInfo" style="width:385px;">
         <h1>Vist <%= @pet.name %></h1>
       </div>
-      <button class="close" data-dismiss="modal"><i class="icon-remove" style="margin-top:5px;"></i></button>
+      <div class="headerButtons">
+      	<button class="close" data-dismiss="modal"><i class="icon-remove" style="margin-top:5px;"></i></button>
+	      <div class="clearfix"></div>
+				<div class="socialItem noPrint" style="width:auto;float:right;margin-top:20px;">
+			    <a class="btn btn-mini btn-print" style="text-indent:0" href="JavaScript:printModal();"><i class="icon-print"></i> Print</a>
+			  </div>
+      </div>
     </div>
     <div class="modal-body">
       <ul>
@@ -51,3 +61,30 @@
     </div>
   </div>
 </div>
+
+<script>
+
+function printModal()
+{
+var DocumentContainer = document.getElementById("visitMe");
+var html = '<html><head>'+
+               '<link href="/assets/application.css" rel="stylesheet" type="text/css" />'+
+							 '<style>.modal-body{max-height:none;overflow:hidden;}.socialItem,.close{display:none;}</style>'+
+               '</head><body style="background:#ffffff;margin:0;top:0;left:0;border:0;line-height:18px;" class="modal">'+
+               DocumentContainer.innerHTML+
+               '</body></html>';
+
+    var WindowObject = window.open("", "PrintWindow",
+    "width=560,height=525,top=0,left=0,toolbars=no,scrollbars=yes,status=no,resizable=no");
+    WindowObject.document.writeln(html);
+    WindowObject.document.close();
+    WindowObject.focus();
+    setTimeout(function() { callPrint(WindowObject);  }, 1000);	
+}
+
+function callPrint(item) {
+	item.print();
+	item.close();
+}
+
+</script>

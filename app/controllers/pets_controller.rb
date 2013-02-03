@@ -18,22 +18,22 @@ class PetsController < ApplicationController
       flash[:notice] = "You must be signed in to add a pet."
       redirect_to join_path
     end
-    current_location = "asdfasdf"
+    @current_location = "asdfasdf"
     if cookies[:location]
-      current_location = cookies[:location]
+      @current_location = cookies[:location]
     end
-    if (validate_location(current_location) == false) && (signed_in? and current_user.location?)
-    	current_location = current_user.location
+    if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+    	@current_location = current_user.location
     end
-    if validate_location(current_location) == false    
-      flash[:notice] = "Invalid location; estimating your location instead."
+    if validate_location(@current_location) == false    
+      flash[:notice] = "Estimating your location."
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
         current_location = s[0].city + ", " + s[0].state_code
       end
     end
     @nearbys = Array.new
-    @nearbys = Shelter.near(current_location, 50, order: "distance").limit(5)
+    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(15)
     if cookies[:shelter_id].to_i > 0
       recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
       if @nearbys.count > 0
@@ -46,7 +46,6 @@ class PetsController < ApplicationController
     # if pets with same ID have been found, remove their shelters from the list of available shelters
     if $exclude_shelter && $exclude_shelter.count > 0
       @nearbys = @nearbys.reject{|s| $exclude_shelter.include? s }
-      $exclude_shelter = []
     end
     # can't add a pet if there aren't any shelters available
     if @nearbys.count == 0
@@ -59,6 +58,7 @@ class PetsController < ApplicationController
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
+    $exclude_shelter = []
     if @pet.save
       flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
       redirect_to [@shelter, @pet]
@@ -70,7 +70,7 @@ class PetsController < ApplicationController
     
   def addpet
     if params[:search].present?
-      @@pass = params[:search]
+      @@pass = params[:search].parameterize.titleize.gsub(" ","")
       @pets = Pet.select{|p| p.animal_code == @@pass }
       if @pets.count > 0
         render 'add_found'
@@ -114,7 +114,9 @@ class PetsController < ApplicationController
       cookies[:history] = cookies[:history] + " " + @pet.id.to_s
     else
       cookies[:history] = " "
-    end      
+    end    
+  rescue
+    raise ActionController::RoutingError.new('Not Found')  
   end
   
   def potd
@@ -134,7 +136,8 @@ class PetsController < ApplicationController
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.select{|p| p.pet_state.status == "available"}
-      @pet = pets[Random.rand(0..pets.count-1)]
+      pet_count = pets.count
+      @pet = pets[Random.rand(0..(pet_count-1))]
       flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet for the day"
       redirect_to [@pet.shelter, @pet]
     else

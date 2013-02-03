@@ -51,7 +51,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li class="menu-photo">
-                    <%= gravatar_for current_user, size: 26 %>
+                    <%= avatar_for current_user, size: 26 %>
                     <div class="menu-name"><%= current_user.name %></div>
                   </li>
                   <li class="divider"></li>
@@ -74,10 +74,11 @@
                   <li><%= link_to "All Pets", p_path %></li>
                   <li><%= link_to "All Users", u_path %></li>
                   <li><%= link_to "All Shelters", s_path %></li>
-                  <li><%= link_to "All Managers", sa_path %></li>
+                  <li><%= link_to "All Managers", sm_path %></li>
                   <li class="divider"></li>
-                  <li><% link_to "All Photos", pp_path %></li>
-                  <li><% link_to "All Videos", pv_path %></li>
+                  <li><%= link_to "All Comments", pc_path %></li>
+                  <li><%= link_to "All Photos", pp_path %></li>
+                  <li><%= link_to "All Videos", pv_path %></li>
                   <li class="divider"></li>
                   <% end %>
                   <li style="text-align:left;">

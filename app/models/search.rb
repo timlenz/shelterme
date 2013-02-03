@@ -14,11 +14,14 @@
 #  location        :string(255)
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  user_id         :integer
+#  save_search     :boolean         default(FALSE)
 #
 
 class Search < ActiveRecord::Base
   attr_accessible :affection_id, :age_group, :breed_id, :energy_level_id,
-                  :gender_id, :location, :nature_id, :size_id, :species_id, :breed_name
+                  :gender_id, :location, :nature_id, :size_id, :species_id, :breed_name,
+                  :user_id, :save
   
   belongs_to :breed
   
@@ -31,7 +34,7 @@ class Search < ActiveRecord::Base
     pets = Pet.order(:name)
     pets = pets.where('shelter_id in (?)', nearbys)
     pets = pets.where(species_id: species_id)
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     nearest = pets.map{|p| p.shelter_id }.first
     pets = pets.select{|p| p.shelter_id == nearest}
@@ -43,7 +46,7 @@ class Search < ActiveRecord::Base
     pets = pets.where('shelter_id in (?)', nearbys)
     pets = pets.where(species_id: species_id)
     pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     nearest = pets.map{|p| p.shelter_id }.first
     pets = pets.select{|p| p.shelter_id == nearest}
@@ -54,7 +57,7 @@ class Search < ActiveRecord::Base
     pets = Pet.order(:name)
     pets = pets.where('shelter_id in (?)', nearbys)
     pets = pets.where(species_id: species_id)
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     nearest = pets.map{|p| p.shelter_id }.first
     pets = pets.select{|p| p.shelter_id == nearest}
@@ -66,7 +69,7 @@ class Search < ActiveRecord::Base
     pets = pets.where('shelter_id in (?)', nearbys)
     pets = pets.where(species_id: species_id)
     pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     nearest = pets.map{|p| p.shelter_id }.first
     pets = pets.select{|p| p.shelter_id == nearest}
@@ -77,7 +80,7 @@ class Search < ActiveRecord::Base
     pets = Pet.order(:name)
     pets = pets.where('shelter_id in (?)', nearbys)
     pets = pets.where(species_id: species_id)
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
   end
   
@@ -102,7 +105,7 @@ private
     pets = pets.where(nature_id: nature_id) if nature_id.present?
     pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id) if breed_id.present?
     pets = pets.select{|p| p.age_group == age_group} if age_group.present?
-    pets = pets.select{|p| p.pet_state.status == "available"}
+    pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?
   end
 end

@@ -10,6 +10,9 @@
     </div>
     <div class="form">
 	    <p>For tips on how to shoot a great video, please check our <%= link_to "video hints", help_path(anchor: "video"), style: "line-height:28px;font-size:12px;" %>.</p>
+	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
+		    This window will close once your video upload is complete.
+		  </div>
     	<%= simple_form_for @pet_video do |f| %>
        <%= render 'shared/error_messages', object: f.object %>
        <%= f.hidden_field :pet_id %>
@@ -37,6 +40,7 @@
 		// Hide extra video elements during upload
 		$('#new_pet_video :submit').click(function(){
 			$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
+			$('.mediaModal .handhold').show();
 		});
 		
 		// Reformat progress indicator

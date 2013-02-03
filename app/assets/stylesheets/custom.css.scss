@@ -33,6 +33,7 @@ $greenBlueLight: #cbe288;
 $blueGray: #e9edee;
 $blueLight: #e4f1f3;
 $blueSteel: #388cb2;
+$blueFade: #c0dce5;
 
 $diameter: 26px;
 
@@ -175,24 +176,24 @@ textarea {
 .alert {
   margin-bottom: 0;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
-  padding: 10px 15px 10px 10px;
+  padding: 15px 15px 15px 10px;
   @include small-border-radius;
-  background: white;
+  background: $blueLight;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
-  background-clip: padding-box;background-color: $grayLight;
-  background-image: -moz-linear-gradient(top, $grayMediumLight, $grayLight);
-  background-image: -ms-linear-gradient(top, $grayMediumLight, $grayLight);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($grayMediumLight), to($grayLight));
-  background-image: -webkit-linear-gradient(top, $grayMediumLight, $grayLight);
-  background-image: -o-linear-gradient(top, $grayMediumLight, $grayLight);
-  background-image: linear-gradient(top, $grayMediumLight, $grayLight);
+  background-clip: padding-box;background-color: $blueLight;
+  background-image: -moz-linear-gradient(top, $brownMediumLight, $blueLight);
+  background-image: -ms-linear-gradient(top, $brownMediumLight, $blueLight);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($brownMediumLight), to($blueLight));
+  background-image: -webkit-linear-gradient(top, $brownMediumLight, $blueLight);
+  background-image: -o-linear-gradient(top, $brownMediumLight, $blueLight);
+  background-image: linear-gradient(top, $brownMediumLight, $blueLight);
 }
 
 .alert-success, .alert-danger, .alert-error, .alert-info, .alert-notice {
-  background-color: white;
+  background-color: $blueLight;
   color: $grayLightDark;
   border: 0;
 }
@@ -200,9 +201,9 @@ textarea {
 #mainError {
   position: absolute;
   display: inline-block;
-  top: 71px;
-  left: 33%;
-  width: 33%;
+  top: 63px;
+  left: 30%;
+  width: 40%;
   text-align: center;
   z-index: 1050;
 }
@@ -212,13 +213,12 @@ textarea {
   -webkit-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
   -moz-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
   box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
-  background-color: white;
-  border: 10px solid rgb(24, 55, 69);
-  border: 10px solid rgba(61, 138, 172, .4);
+  background-color: $blueLight;
+  border: 10px solid rgb(96, 163, 193);
+  border: 10px solid rgba(56, 140, 178, .8);
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background: rgba(0, 0, 0, .1);
 }
 
 /* TYPOGRAPHY */
@@ -615,7 +615,7 @@ footer {
     color: $brownDark;
     font-size: 28px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-transform: none;
   }
   p {
@@ -647,6 +647,24 @@ footer {
 	  top: 130px;
 	  display: none;
 	}
+	.heroLogo {
+		margin-top: 35px;
+	}
+	.smallCat {
+		float: left;
+		padding-right: 20px;
+		width: 160px;
+		height: 73px;
+		margin-top: 20px;
+		img {
+			margin-left: -40px;
+		}
+	}
+	.heroDog {
+		img {
+			margin-right: -40px;
+		}
+	}
 }
 
 .front-content {
@@ -660,7 +678,7 @@ footer {
 
 .heroBlurb {
   float: left;
-  width: 640px;
+  width: 680px;
 	height: 265px;
   left: 0;
   margin: 0;
@@ -680,6 +698,7 @@ footer {
 /* PROFILE HEADER */
 
 .pageHeader {
+	position: relative;
   border-bottom: 3px solid $grayLighter;
   height: 78px;
   h1 {
@@ -706,7 +725,7 @@ footer {
   .headerLogo {
     margin-top: 1px;
     margin-left: 4px;
-    width: 65px;
+    /*width: 65px;*/
     height: 65px;
     float: left;
     .gravatar {
@@ -716,7 +735,8 @@ footer {
     }
   }
   .headerButtons {
-    float: right;
+		position: absolute;
+    right: 0;
     width: 290px;
     .smallField {
       float: left;
@@ -1168,6 +1188,7 @@ a.ui-corner-all {
 ol.microposts {
   list-style: none;
   margin: 0;
+	width: 290px;
   max-height: 1076px;
   overflow-y: scroll;
   li {
@@ -1177,6 +1198,13 @@ ol.microposts {
       background-color: $grayLight;
     }
   }
+}
+
+#microposts {
+	margin: 10px;
+	ol.microposts {
+		width: 100%;
+	}
 }
 
 aside {
@@ -1253,6 +1281,18 @@ ol.activity {
   .status {
     color: black;
   }
+}
+
+/* ADMIN VIEWS, PHOTOS & VIDEOS */
+
+#pet_photos, #pet_videos {
+	margin: 20px 0px 10px;
+	width: 940px;
+	.editPhoto {
+		margin-left:0;
+		margin-right:8px;
+		height: 231px;
+	}
 }
 
 /* FADER */
@@ -1403,9 +1443,17 @@ ol.activity {
     -moz-box-shadow:    0px 0px 8px rgba(0, 85, 128, 0.75);
     box-shadow:         0px 0px 8px rgba(0, 85, 128, 0.75);
   }
+	.overlay {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		height: 40px;
+		width: auto;
+	}
 }
 
 .small-tile-photo {
+	position: relative;
   width: 135px;
   height: 90px;
 	float: left;
@@ -1721,7 +1769,6 @@ ol.activity {
 
 .addMedia {
   width: 590px;
-  height: 70px;
   margin: 5px 0 10px 0;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -1729,10 +1776,41 @@ ol.activity {
 	background-color: $blueLight;
 	@include small-border-radius;
   p {
+		padding: 0 5px;
     font-size: 13px;
 		font-weight: bold;
 		margin-bottom: 5px;
+    text-align: center;
+    color: $grayLightDark;
   }
+}
+
+.mediaButtons {
+  margin: 0 auto;
+  width: 357px;
+  .button_to {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .btn {
+    float: right;
+    width: 160px; 
+    color: $brownDarkest;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.7;
+    text-transform: uppercase;
+    border: 1px solid $grayMediumDark;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-bottom-radius: 12px;
+    &:hover {
+      color: $orange;
+    }
+  }
+	form {
+		margin:0;
+	}
 }
 
 .mediaModal {
@@ -1789,45 +1867,6 @@ ol.activity {
     font-size: 11px;
     font-weight: bold;
   }
-}
-.mediaButtons {
-  margin: 0 auto;
-  width: 357px;
-	height: 72px;
-  p {
-    text-align: center;
-    color: $grayLightDark;
-  }
-  .button_to {
-    display: inline-block;
-    margin-left: 10px;
-  }
-  .btn {
-    float: right;
-    width: 160px; 
-    color: $brownDarkest;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.7;
-    text-transform: uppercase;
-    border: 1px solid $grayMediumDark;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-bottom-radius: 12px;
-    &:hover {
-      color: $orange;
-    }
-  }
-  .mediaPlus {
-    padding-top: 2px;
-    color: $orange;
-    font-weight: 900;
-    font-size: 28px;
-    line-height: 0.1;
-  }
-	form {
-		margin:0;
-	}
 }
 
 #photoClick {
@@ -1957,7 +1996,7 @@ ol.activity {
   }
 }
 
-.editGravatar {
+.editAvatar {
   float: left;
   width: 150px;
   margin-left: 20px;
@@ -1970,12 +2009,19 @@ ol.activity {
     padding-top: 10px;
     text-transform: uppercase;
   }
+	p {
+		font-size: 11px;
+		line-height: 15px;
+	}
 }
 
 .editForm {
   float: left;
   min-height: 520px;
   padding: 20px;
+	h3 {
+		font-size: 16px;
+	}
 }
 
 .help-block, .form-horizontal .help-block {
@@ -2079,10 +2125,34 @@ ol.activity {
     -moz-box-shadow:    0px 0px 8px rgba(0, 85, 128, 0.75);
     box-shadow:         0px 0px 8px rgba(0, 85, 128, 0.75);
   }
+	.overlay {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		height: 65px;
+		width: auto;
+	}
 }
 
 .unavailable {
   background-color: $grayMediumLight;
+}
+
+.adopted {
+	background-color: $blueLight;
+	border-left: 1px solid $blueFade;
+	border-top: 1px solid rgba(56, 140, 178, 0.2);
+	.addMedia {
+		border: 0;
+	}
+	.pageHeader, .description, .sponsor, .social, .comments {
+		border-bottom: 3px solid $blueFade;
+		border-bottom: 3px solid rgba(56, 140, 178, 0.2);	
+	}
+	.commentEntry {
+		border-top: 3px solid $blueFade;
+		border-top: 3px solid rgba(56, 140, 178, 0.2);
+	}
 }
 
 .tile-photo {
@@ -2452,7 +2522,7 @@ ol.activity {
   min-height: 329px;
 }
 
-.shelterPets {
+.fullContent {
   width: 940px;
   min-height: 329px;
 }
@@ -2654,7 +2724,7 @@ ol.activity {
     width: 288px;
     margin-right: 6px;
   }
-  .deletePhoto {
+  .deleteMedia {
     padding: 6px;
     float: right;
   }
@@ -2776,8 +2846,8 @@ input#location {
   margin: 5px 20px 0;
   float: left;
   width: 405px;
-  max-height: 600px;
-  overflow: hidden;
+  min-height: 600px;
+	position: relative;
   p {
     line-height: 1.4;
   }
@@ -2786,8 +2856,7 @@ input#location {
     margin: 0;
   }
   li {
-    padding-top: 10px;
-    padding-bottom: 15px;
+    padding: 10px 0;
     border-bottom: 1px solid $grayMediumLight;
   }
   .noShelters {
@@ -2806,13 +2875,11 @@ input#location {
   }
   .foundShelterInfo {
     float: left;
-    width: 215px;
-    height: 64px;
+    width: 235px;
     padding-left: 10px;
     padding-right: 10px;
     h3 {
-      max-width: 200px;
-      
+      max-width: 100%;
     }
     a {
       font-size: 14px;
@@ -2826,12 +2893,11 @@ input#location {
   }
   .foundShelterPets {
     float: right;
-    padding-top: 5px;
 		overflow: hidden;
     li {
       float: left;
       height: 55px;
-      width: 65px;
+      width: 55px;
       margin-right: 5px;
       font-weight: bold;
       text-align: center;
@@ -2841,7 +2907,12 @@ input#location {
       -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
       -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
       box-shadow: 0 1px 1px rgba(0,0,0,0.15);
-    }  
+    }
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
     .dogs {
       background: $grayMediumLight url(smallDogIcon.png) no-repeat center 10px;
     }
@@ -2861,18 +2932,17 @@ input#location {
   }
 }
 
+#sheltersToggle {
+	margin: 10px 0;
+}
+
 .addShelter {
-  width: 405px;
   margin-top: 20px;
   padding-left: 10px;
   font-size: 18px;
+	position: absolute;
+	bottom: 10px;
   text-transform: uppercase;
-  a {
-    display: block;
-  }
-  &:hover {
-    background-color: $grayLight;
-  }
 }
 
 /* ADMIN VIEW ALL */
@@ -2930,10 +3000,10 @@ input#location {
       padding-left: 10px;
     }
 		.managedName {
-			width: 190px;
+			width: 210px;
 		}
 		.managedStatus {
-			width: 249px;
+			width: 310px;
 		}
 		.managedDelete {
 			width: 50px;
@@ -3083,10 +3153,11 @@ th {
 			}
     }
 		.modalStep {
-			width: 35%;
+			width: 30%;
 		}
 		.modalInfo {
-			width: 65%;
+			width: 70%;
+			padding-top: 5px;
 		}
     .listCircle {
       float: left;
@@ -3103,12 +3174,16 @@ th {
       margin: 0 10px;
       background-color: $orange;
     }
+		.shelterHours {
+			margin-top: 5px;
+			margin-bottom: 0;
+		}
   }
 }
 
 .close {
   border: none;
-  background-color: white;
+  background-color: none;
 }
 
 /* ADD PETS */
@@ -3169,9 +3244,26 @@ th {
   }
 }
 
+#new_pet {
+	#changeLocation {
+		margin: 10px 0 0 120px;
+		.wrapper {
+			padding:7px;
+			background-color:$blueLight;
+			border: 1px solid $blueFade;
+			height:28px;
+			margin-bottom:20px;
+		}
+		input {
+			margin-bottom: 0;
+			width: 180px;
+		}
+	}
+}
+
 .potentialMatch {
 	width: 800px;
-	margin: 30px auto;
+	margin: 30px auto 15px;
 	text-align: center;
 	p {
     font-size: 16px;
@@ -3229,6 +3321,14 @@ th {
   }
 }
 
+#locationToggle {
+	font-size: 11px;
+	text-align: right;
+	width: 100%;
+	display: block;
+	margin-top: -10px;
+}
+
 /* FIND PETS */
 
 .petResults {
@@ -3262,9 +3362,12 @@ th {
     float: left;
   }
   .findLocation {
+		position: relative;
     width: 282px;
     margin-bottom: 25px;
     a {
+			position: absolute;
+			right: 0;
       font-size: 11px;
     }
   }
@@ -3680,6 +3783,12 @@ ul.typeahead {
   a {
     color: $grayDark;
   }
+	td, tbody, tr {
+		border: 0;
+	}
+	.shelterHours {
+		border: none;
+	}
   .print {
     display: block;
     font-size: 14px;

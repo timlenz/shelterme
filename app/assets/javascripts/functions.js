@@ -20,12 +20,20 @@ $(function(){
     $(this).attr('value',text);
   })
 
+	// Hide nav spinner on page load
+	$('.navSpinner').hide();
+	$('.navLogo').show();
+
 	// Show nav spinner on page navigation
 	$('a[href^="/"], #addPet input[type="submit"]').click(function(){
 		$('.navLogo').hide();
 		$('.navSpinner').animate({
 			opacity: "show"
 		}, "750");
+		if ( $('.pagination').length ) {
+			$('.navSpinner').hide();
+			$('.navLogo').show();
+		};
 	});
 
 	// Hover state on Join, Sign In header buttons
@@ -207,7 +215,7 @@ $(function(){
 
 	// Alert dialog for verifying accuracy of entered ID for Adding a Pet
 	$('#addPet input[type="submit"]').click(function(){
-		var id_check = $('#search').val();
+		var id_check = $('#search').val().replace(/[\W\_]+/, "").replace(" ", "");
 		var confirm_message = "You cannot change an ID once you create a pet profile. Is '" + id_check + "' the correct ID?"
 		$('input[type="submit"]').attr("data-confirm", confirm_message);
 	});
@@ -225,6 +233,18 @@ $(function(){
 	// AJAX-like render of shelter deletion (cookie used in controller to redirect view)
 	$('.adminDelete a').click(function() {
 		$.cookie("delete_shelter", "true");
+	});
+	
+	// AJAX-like render of pet photo and video deletion from Admin view (cookie used in controllers to redirect back)
+	$('a.deleteMedia').click(function() {
+		$.cookie("delete_media", "true");
+	});
+
+	// Click species shelter link in Find Pets selects proper tab
+	$('.foundShelterPets a').click(function() {
+		var selected_species = $(this).parent().attr('class');
+		var click_species = "#" + selected_species
+		$.cookie("active_tab", click_species);
 	});
 
 	// Species-specific adjustment of available fur color choices
@@ -246,6 +266,138 @@ $(function(){
 		$('#pet_primary_color button[value="' + 6 + '"], #pet_secondary_color button[value="' + 6 + '"]').show();
 		$('#pet_primary_color button[value="' + 7 + '"], #pet_secondary_color button[value="' + 7 + '"]').hide();
   };
+
+	// Update Add Pet location
+	$('#updateLocation').click(function(){
+		var newLocation = $('#pet_location').val();
+		$.cookie("location", newLocation);
+    location.reload();
+  });
+
+	// Update pet status to 'absent' if not at shelter
+	$('#absentPet').click(function(){
+		$('#submitAbsentPet').click();
+	});
+
+	// Change text on expand/collapse of all shelters on Find Shelter
+	$('#sheltersToggle').click(function(){
+		if ($(this).html() == "Collapse") {
+			$(this).html(start_state);
+		}	else {
+			start_state = $(this).html();
+			$(this).html("Collapse");
+		};
+	});
+
+	// User submission of a new shelter, populate email body for submission to admin
+	if ( $('#new_shelter').length && $('#submitShelter').length ) {
+		var _name = "";
+		var _phone = "";
+		var _description = "";
+		var _street = "";
+		var _city = "";
+		var _state = "";
+		var _zipcode = "";
+		var _sunday = "";
+		var _monday = "";
+		var _tuesday = "";
+		var _wednesday = "";
+		var _thursday = "";
+		var _friday = "";
+		var _saturday = "";
+		$('#shelter_name').focus(function(){
+			$(this).keyup(function(){
+				_name = $('#shelter_name').val();
+			});
+		});
+		$('#shelter_phone').focus(function(){
+			$(this).keyup(function(){
+				_phone = $('#shelter_phone').val();
+			});
+		});
+		$('#shelter_description').focus(function(){
+			$(this).keyup(function(){
+				_description = $('#shelter_description').val();
+			});
+		});
+		$('#shelter_street').focus(function(){
+			$(this).keyup(function(){
+				_street = $('#shelter_street').val();
+			});
+		});
+		$('#shelter_city').focus(function(){
+			$(this).keyup(function(){
+				_city = $('#shelter_city').val();
+			});
+		});
+		$('#shelter_state').focus(function(){
+			$(this).keyup(function(){
+				_state = $('#shelter_state').val();
+			});
+		});
+		$('#shelter_zipcode').focus(function(){
+			$(this).keyup(function(){
+				_zipcode = $('#shelter_zipcode').val();
+			});
+		});
+		$('#shelter_sun_hours').focus(function(){
+			$(this).keyup(function(){
+				_sunday = $('#shelter_sun_hours').val();
+			});
+		});
+		$('#shelter_mon_hours').focus(function(){
+			$(this).keyup(function(){
+				_monday = $('#shelter_mon_hours').val();
+			});
+		});
+		$('#shelter_tue_hours').focus(function(){
+			$(this).keyup(function(){
+				_tuesday = $('#shelter_tue_hours').val();
+			});
+		});
+		$('#shelter_wed_hours').focus(function(){
+			$(this).keyup(function(){
+				_wednesday = $('#shelter_wed_hours').val();
+			});
+		});
+		$('#shelter_thu_hours').focus(function(){
+			$(this).keyup(function(){
+				_thursday = $('#shelter_thu_hours').val();
+			});
+		});
+		$('#shelter_fri_hours').focus(function(){
+			$(this).keyup(function(){
+				_friday = $('#shelter_fri_hours').val();
+			});
+		});
+		$('#shelter_sat_hours').focus(function(){
+			$(this).keyup(function(){
+				_saturday = $('#shelter_sat_hours').val();
+			});
+		});
+		// Append data to email body
+		$('#submitShelter').mousedown(function(){
+			var _href = $(this).attr('href');
+			_name = "Name: " + _name + "%0A%0A";
+			_phone = "Phone: " + _phone + "%0A%0A";
+			_description = "Description: " + _description + "%0A%0A";
+			_street = "Street: " + _street + "%0A%0A";
+			_city = "City: " + _city + "%0A%0A";
+			_state = "State: " + _state + "%0A%0A";
+			_zipcode = "ZIP code: " + _zipcode + "%0A%0A";
+			_sunday = "Sun hours: " + _sunday + "%0A%0A";
+			_monday = "Mon hours: " + _monday + "%0A%0A";
+			_tuesday = "Tue hours: " + _tuesday + "%0A%0A";
+			_wednesday = "Wed hours: " + _wednesday + "%0A%0A";
+			_thursday = "Thu hours: " + _thursday + "%0A%0A";
+			_friday = "Fri hours: " + _friday + "%0A%0A";
+			_saturday = "Sat hours: " + _saturday + "%0A%0A";
+			$(this).attr('href', _href + _name + _phone + _description + _street + _city + _state + _zipcode
+										+ _sunday + _monday + _tuesday + _wednesday + _thursday + _friday + _saturday);
+			// Go back to whatever page user was on previously	
+			location.href = document.referrer;
+		});
+	};
 
   // Show Add Pet Photo modal dialog if no pet photos exist for current pet
   if ($('.noPhoto').length) {
@@ -276,6 +428,8 @@ $(function(){
 	$('form[id^="edit_user"] :submit').click(function(){
 		$('#matchme .findBlurb, #matchme .row, #results').hide();
 		$('#waiting').show();
+		// Set cookie for generating MatchMe results after submission
+		$.cookie("matchme", "true");
 	});
 	
 	// Enable MatchMe submit button once descriptive terms have been selected
@@ -300,6 +454,25 @@ $(function(){
 	$('form[id^="edit_pet_photo"] :submit').click(function(){
 		$('.fullEditForm').hide();
 		$('#loadingCrop').show();
+	});
+
+	// User avatar processing
+	// Enable Submit button after file is selected
+	$('#user_avatar').change(function(){
+		$(this).next('.formBtn').prop('disabled', false);
+	});
+	
+	// Hide extra modal elements during upload
+	$('#addAvatar form[id^="edit_user"] :submit').click(function(){
+		$('#addAvatar .text-close, #addAvatar input[type="submit"], #addAvatar input[type="file"]').hide();
+		$('#loadingPhoto').show();
+		$('.mediaModal .handhold').show();
+		$.cookie("avatar", "true");
+	});
+	
+	// Explicitly set avatar cookie to false on Save click
+	$('#saveUser').click(function(){
+		$.cookie("avatar", "false");
 	});
   
   // Resize comment field on pet profile
@@ -419,6 +592,31 @@ $(function(){
 		$('#floater').hide();
 		$('body').scrollTop($('body').scrollTop() + min_height);
 	});
+	
+  // Automatically hide alert dialog after slight delay
+  if($('.errorBox').is(':visible')) {
+    $('#mainError').delay(3000).fadeOut('slow');
+  };
+
+	// Activate the appropriate tab on page load
+	if($('.nav-tabs').length){
+		// Check if cookie exisits and matches with an available tab. Load proper tab if it does
+		if($.cookie("active_tab") != null && $('a[href=' + $.cookie("active_tab") +']').length){ // Must check null explicitly for Safari
+			var old_tab = $.cookie("active_tab");
+			$('.nav-tabs li a[href=' + old_tab + ']').click();
+		} else {
+			// Select first tab as default if no cookie exists
+			var first_tab = $('.nav-tabs li:first a');
+			first_tab.click();
+			$.cookie("active_tab", first_tab.attr('href'));
+		};
+		// Set cookie for any clicked tab
+		var tab_links = $('.nav-tabs li a')
+		tab_links.live('click', function(){
+			current_tab = $(this).attr('href');
+			$.cookie("active_tab", current_tab);
+    });
+	};
 
   // Connect radio buttons with hidden input elements
   $('div.btn-group[data-toggle-name=*]').each(function(){
@@ -497,7 +695,7 @@ $(function(){
   function set_dog_breeds(){
 		$('[id$=breed_name]').autocomplete({
 		  minLength: 2,
-		  source: ["Affenpinscher", "Afghan Hound", "Airedale Terrier", "Akita", "Alaskan Malamute", "American Cocker Spaniel", "American English Coonhound", "American Eskimo Dog", "American Foxhound", "American Pit Bull Terrier", "American Staffordshire Terrier", "American Water Spaniel", "Anatolian Shepherd", "Australian Cattle Dog", "Australian Shepherd", "Australian Terrier", "Basenji", "Basset Hound", "Beagle", "Bearded Collie", "Beauceron", "Bedlington Terrier", "Belgian Malinois", "Belgian Sheepdog", "Belgian Tervuren", "Bernese Mountain Dog", "Bichon Frise", "Black and Tan Coonhound", "Black Russian Terrier", "Bloodhound", "Bluetick Coonhound", "Border Collie", "Border Terrier", "Borzoi", "Boston Terrier", "Bouvier des Flandres", "Boxer", "Boykin Spaniel", "Briard", "Brittany", "Brussels Griffon", "Bull Terrier", "Bulldog", "Bullmastiff", "Cairn Terrier", "Canaan Dog", "Cane Corso", "Cardigan Welsh Corgi", "Cavalier King Charles Spaniel", "Cesky Terrier", "Chesapeake Bay Retriever", "Chihuahua", "Chinese Crested", "Chinese Shar-Pei", "Chow Chow", "Clumber Spaniel", "Cocker Spaniel", "Collie", "Curly-Coated Retriever", "Dachshund", "Dalmatian", "Dandie Dinmont Terrier", "Doberman Pinscher", "Dogue de Bordeaux", "English Cocker Spaniel", "English Foxhound", "English Setter", "English Springer Spaniel", "English Toy Spaniel", "Entlebucher Mountain Dog", "Field Spaniel", "Finnish Lapphund", "Finnish Spitz", "Flat-Coated Retriever", "French Bulldog", "German Pinscher", "German Shepherd", "German Shorthaired Pointer", "German Wirehaired Pointer", "Giant Schnauzer", "Glen of Imaal Terrier", "Golden Retriever", "Gordon Setter", "Great Dane", "Great Pyrenees", "Greater Swiss Mountain Dog", "Greyhound", "Harrier", "Havanese", "Ibizan Hound", "Icelandic Sheepdog", "Irish Setter", "Irish Terrier", "Irish Water Spaniel", "Irish Wolfhound", "Italian Greyhound", "Japanese Chin", "Keeshond", "Kerry Blue Terrier", "Komondor", "Kuvasz", "Labrador Retriever", "Lakeland Terrier", "Leonberger", "Lhasa Apso", "Lowchen", "Maltese", "Manchester Terrier", "Mastiff", "Miniature American Eskimo Dog", "Miniature Bull Terrier", "Miniature Dachshund", "Miniature Pinscher", "Miniature Poodle", "Miniature Schnauzer", "Mix", "Mutt", "Neapolitan Mastiff", "Newfoundland", "Norfolk Terrier", "Norwegian Buhund", "Norwegian Elkhound", "Norwegian Lundehund", "Norwich Terrier", "Nova Scotia Duck Tolling Retriever", "Old English Sheepdog", "Otterhound", "Papillon", "Parson Russell Terrier", "Pekingese", "Pembroke Welsh Corgi", "Petit Basset Griffon Vendeen", "Pharaoh Hound", "Plott", "Pointer", "Polish Lowland Sheepdog", "Pomeranian", "Portuguese Water Dog", "Pug", "Puli", "Pyrenean Shepherd", "Redbone Coonhound", "Rhodesian Ridgeback", "Rottweiler", "Saint Bernard", "Saluki", "Samoyed", "Schipperke", "Scottish Deerhound", "Scottish Terrier", "Sealyham Terrier", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu", "Siberian Husky", "Silky Terrier", "Skye Terrier", "Smooth Fox Terrier", "Soft Coated Wheaten Terrier", "Spinone Italiano", "Staffordshire Bull Terrier", "Standard Poodle", "Standard Schnauzer", "Sussex Spaniel", "Swedish Vallhund", "Tibetan Mastiff", "Tibetan Spaniel", "Tibetan Terrier", "Toy American Eskimo Dog", "Toy Fox Terrier", "Toy Manchester Terrier", "Toy Poodle", "Treeing Walker Coonhound", "Vizsla", "Weimaraner", "Welsh Springer Spaniel", "Welsh Terrier", "West Highland White Terrier", "Whippet", "Wire Fox Terrier", "Wirehaired Pointing Griffon", "Xoloitzcuintli", "Yorkshire Terrier"]
+		  source: ["Affenpinscher", "Afghan Hound", "Aidi", "Airedale Terrier", "Akbash", "Akita Inu", "Alano Español", "Alapaha Blue Blood Bulldog", "Alaskan Klee Kai", "Alaskan Malamalute", "Alpine Dachsbracke", "Amenian Gampr", "American Akita", "American Bulldog", "American Cocker Spaniel", "American English Coonhound", "American Eskimo", "American Foxhound", "American Hairless Terrier", "American Leopard Hound", "American Mastiff", "American Pit Bull Terrier", "American Staffordshire Terrier", "American Water Spaniel", "Anatolian Shepherd", "Anglo-Français de Petite Vénerie", "Appenzeller Sennenhunde", "Ariege Pointer", "Ariegeois", "Armant", "Artois Hound", "Austrain Pinscher", "Australian Cattle", "Australian Kelpie", "Australian Shepherd", "Australian Silky Terrier", "Australian Stumpy Tail Cattle", "Australian Terrier", "Austrian Black and Tan Hound", "Azawakh", "Bakharwal", "Barbet", "Bascon Saintongeois", "Basenji", "Basque Shepherd", "Basset Artésien Normand", "Basset Bleu de Gascogne", "Basset Hound", "Bavarian Mountain Hound", "Beagle", "Beagle-Harrier", "Bearded Collie", "Beauceron", "Bedlington Terrier", "Belgian Groenendael", "Belgian Laekenois", "Belgian Malinois", "Belgian Sheepdog", "Belgian Tervuren", "Bergamasco Shepherd", "Berger Blanc Suisse", "Berger Picard", "Berner Laufhund", "Bernese Mountain", "Bichon Frise", "Billy", "Bisben", "Black and Tan Coonhound", "Black and Tan Virginia Foxhound", "Black Norwegian Elkhound", "Black Russian Terrier", "Blackmouth Cur", "Bloodhound", "Blue Lacy", "Bluetick Coonhound", "Boerboel", "Bohemian Shepherd", "Bolognese", "Border Collie", "Border Terrier", "Borzoi", "Bosnian Coarsehaired", "Boston Terrier", "Bouvier des Ardennes", "Bouvier des Flandres", "Boxer", "Boykin Spaniel", "Bracco Italiano", "Braque d'Auvergne", "Braque du Bourbonnais", "Braque Francais", "Braque Saint-Germain", "Brazilian Terrier", "Briard", "Briquet Griffon Vendéen", "Brittany", "Broholmer", "Bruno Jura Hound", "Brussels Griffon", "Bucovina Shepherd", "Bull and Terrier", "Bull Terrier", "Bulldog", "Bulldog Campeiro", "Bullmastiff", "Bully Kutta", "Cairn Terrier", "Canaan", "Canadian Eskimo", "Cane Corso", "Cardigan Welsh Corgi", "Carolina", "Carpathian Shepherd", "Catahoula Leopard", "Catalan Sheepdog", "Caucasian Ovcharka", "Caucasian Shepherd", "Cavalier King Charles Spaniel", "Central Asian Shepherd", "Cesky Fousek", "Cesky Terrier", "Chesapeake Bay Retriever", "Chien Français Blanc et Noir", "Chien Français Blanc et Orange", "Chien Français Tricolore", "Chien-gris", "Chihuahua", "Chilean Fox Terrier", "Chinese Chongqing", "Chinese Crested", "Chinese Imperial", "Chinese Shar-Pei", "Chinook", "Chippiparai", "Chow Chow", "Cierny Sery", "Cimarrón Uruguayo", "Cirneco dell'Etna", "Clumber Spaniel", "Cocker Spaniel", "Collie", "Combia", "Coton de Tulear", "Cretan Hound", "Croatian Sheepdog", "Curly-Coated Retriever", "Cursinu", "Czechoslovakian Vlcak", "Dachshund", "Dalmatian", "Dandie Dinmont Terrier", "Danish-Swedish Farmdog", "Deutsche Bracke", "Deutscher Wachtelhund", "Doberman Pinscher", "Dogo Argentino", "Dogo Guatemalteco", "Dogo Sardesco", "Dogue de Bordeaux", "Drentsche Patrijshond", "Drever", "Dunker", "Dutch Shepherd", "Dutch Smoushond", "East Siberian Laika", "East-European Shepherd", "Elo", "English Bulldog", "English Cocker Spaniel", "English Coonhound", "English Foxhound", "English Mastiff", "English Setter", "English Shepherd", "English Springer Spaniel", "English Toy Spaniel", "English Toy Terrier", "Entlebucher Mountain", "Epagnuel Bleu de Picardie", "Estonian Hound", "Estrela Mountain", "Eurasier", "Field Spaniel", "Fila Brasileiro", "Finnish Hound", "Finnish Lapphund", "Finnish Spitz", "Flat-Coated Retriever", "Formosan Mountain", "French Brittany", "French Bulldog", "French Spaniel", "Galgo Español", "Georgian Shepherd", "German Longhaired Pointer", "German Pinscher", "German Shepherd", "German Shorthaired Pointer", "German Spaniel", "German Spitz", "German Wirehaired Pointer", "Giant Schnauzer", "Glen of Imaal Terrier", "Golden Retriever", "Gordon Setter", "Grand Anglo-Français Blanc et Noir", "Grand Anglo-Français Blanc et Orange", "Grand Anglo-Français Blanc et Tricolore", "Grand Basset Griffon Vendeen", "Grand Blue de Gascogne", "Grand Mastín de Borínquen", "Great Dane", "Great Pyrenees", "Greater Swiss Mountain", "Greek Harehound", "Greenland", "Greyhound", "Griffon Bleu de Gascogne", "Griffon Bruxellois", "Griffon Fauve de Bretagne", "Griffon Nivernais", "Gull Dong", "Gull Terr", "Hamiltonstovare", "Hanover Hound", "Harrier", "Havanese", "Himalayan Sheepdog", "Hokkaido", "Hortaya Borzaya", "Hovawart", "Hungarian Hound", "Huntaway", "Hygenhund", "Ibizan Hound", "Icelandic Sheepdog", "Indian Spitz", "Irish Red and White Setter", "Irish Setter", "Irish Terrier", "Irish Water Spaniel", "Irish Wolfhound", "Istrian Coarsehaired", "Istrian Shorthaired", "Italian Greyhound", "Jack Russell Terrier", "Jagdterrier", "Japanese Chin", "Japanese Spitz", "Japanese Terrier", "Jindo", "Jonangi", "Jämthund", "Kai Ken", "Kaikadi", "Kangal", "Kanni", "Karakachan", "Karelian Bear", "Karst Shepherd", "Keeshond", "Kerry Beagle", "Kerry Blue Terrier", "King Charles Spaniel", "King Shepherd", "Kintamani", "Kishu Ken", "Komondor", "Kooikerhondje", "Koolie", "Korean Jindo", "Korean Mastiff", "Kromfohrlander", "Kunming Wolfdog", "Kuvasz", "Kyi-Leo", "Labrador Husky", "Labrador Retriever", "Lagotto Romagnolo", "Lakeland Terrier", "Lancashire Heeler", "Landseer", "Lapponian Herder", "Large Munsterlander", "Leonberger", "Lhasa Apso", "Lithuanian Hound", "Longhaired Whippet", "Lowchen", "Magyar Agar", "Maltese", "Manchester Terrier", "Maremma", "Mastiff", "McNab", "Mexican Hairless", "Miniature American Shepherd", "Miniature Australian Shepherd", "Miniature Bull Terrier", "Miniature Fox Terrier", "Miniature Pinscher", "Miniature Schnauzer", "Mioritic", "Montenegrin Mountain Hound", "Moscow Watchdog", "Mountain Cur", "Mountain View Cur", "Mucuchies", "Mudhol Hound", "Mudi", "Murray River Curly Coated Retrevier", "Neapolitan Mastiff", "New Zealand Heading", "Newfoundland", "Norfolk Terrier", "Norrbottenspets", "Northern Inuit", "Norwegian Buhund", "Norwegian Elkhound", "Norwegian Lundehund", "Norwich Terrier", "Nova Scotia Duck Tolling Retriever", "Old Croatian Sighthound", "Old Danish Pointer", "Old English Sheepdog", "Old English Terrier", "Old German Shepherd", "Old Time Farm Shepherd", "Olde English Bulldogge", "Otterhound", "Pachon Navarro", "Papillon", "Parson Russell Terrier", "Patterdale Terrier", "Pekingese", "Pembroke Welsh Corgi", "Perro de Presa Canario", "Perro de Presa Malloquin", "Peruvian Hairless", "Peruvian Inca Orchid", "Petit Basset Griffon Vendeen", "Petit Blue de Gascogne", "Phalene", "Pharaoh Hound", "Phu Quoc Ridgeback", "Picardy Spaniel", "Plott Hound", "Podenco Canario", "Pointer", "Polish Greyhound", "Polish Hound", "Polish Hunting", "Polish Lowland Sheepdog", "Polish Tatra Sheepdog", "Pomeranian", "Pont-Audemer Spaniel", "Poodle", "Porcelaine", "Portuguese Podengo", "Portuguese Podengo Pequeno", "Portuguese Pointer", "Portuguese Sheepdog", "Portuguese Water Dog", "Posavac Hound", "Prazsky Krysarik", "Pudelpointer", "Pug", "Puli", "Pumi", "Pungsan", "Pyrenean Mastiff", "Pyrenean Shepherd", "Rafeiro do Alentejo", "Rajapalayam", "Rampur Greyhound", "Rat Terrier", "Redbone Coonhound", "Rhodesian Ridgeback", "Rottweiler", "Rough Collie", "Russell Terrier", "Russian Spaneil", "Russian Toy", "Russo-European Laika", "Saarlooswolfhond", "Sabueso Espanol", "Saint-Usuge Spaniel", "Sakhalin Husky", "Saluki", "Samoyed", "Sapsali", "Sarplaninac", "Schapendoes", "Scheizerisher Niederlaufhund", "Schillerstovare", "Schipperke", "Schweizer Laufhund", "Scotch Collie", "Scottish Deerhound", "Scottish Terrier", "Sealyham Terrier", "Segugio Italiano", "Seppala Siberian Sleddog", "Serbian Hound", "Serbian Tricolour Hound", "Shar Pei", "Shetland Sheepdog", "Shiba Inu", "Shih Tzu", "Shikoku", "Shiloh Shepherd", "Siberian Husky", "Silken Windhound", "Silky Terrier", "Sinhala Hound", "Skye Terrier", "Sloughi", "Slovakian Roughhaired Pointer", "Slovensky Cuvac", "Slovensky Kopov", "Smalandsstovare", "Small Greek Domestic", "Small Munsterlander", "Small Munsterlander Pointer", "Smooth Collie", "Smooth Fox Terrier", "Soft Coated Wheaten Terrier", "South Russian Ovcharka", "Spanish Mastiff", "Spanish Water Dog", "Spinone Italiano", "Sportin Lucas Terrier", "St. Bernard", "Stabyhoun", "Staffordshire Bull Terrier", "Standard Schnauzer", "Stephens Cur", "Styian Coarsehaired Hound", "Sussex Spaniel", "Swedish Lapphund", "Swedish Vallhund", "Taigan", "Tamaskan", "Teddy Roosevelt Terrier", "Telomian", "Tenterfield Terrier", "Thai Bangkaew", "Thai Ridgeback", "Tibetan Mastiff", "Tibetan Spaniel", "Tibetan Terrier", "Tornjak", "Tosa", "Toy Fox Terrier", "Toy Manchester Terrier", "Transylvanian Hound", "Treeing Cur", "Treeing Tennessee Brindle", "Treeing Walker Coonhound", "Trigg Hound", "Tyrolean Hound", "Vizsla", "Volpino Italiano", "Weimaraner", "Welsh Sheepdog", "Welsh Springer Spaniel", "Welsh Terrier", "West Highland White Terrier", "West Siberian Laika", "Westphalian Dachsbracke", "Wetterhoun", "Whippet", "White English Bulldog", "White Shepherd", "Wire Fox Terrier", "Wirehaired Pointing Griffon", "Wirehaired Vizsla", "Xoloitzcuintli", "Yorkshire Terrier"]
 	  });
 	};
 
@@ -506,31 +704,6 @@ $(function(){
 		  minLength: 2,
 		  source: ["Abyssinian", "American Bobtail", "American Curl", "American Shorthair", "American Wirehair", "Balinese", "Bengal", "Birman", "Bombay", "British Blue", "British Longhair", "British Shorthair", "Burmese", "Burmilla", "Caliby", "Calico", "Calimanco", "Chartreux", "Chausie", "Chinese Domestic", "Colorpoint Shorthair", "Cornish Rex", "Cymric", "Devon Rex", "Domestic", "Donskoy", "Egyptian Mau", "European Burmese", "Exotic Shorthair", "Havana", "Highlander", "Highlander Shorthair", "Himalayan", "Household Pet", "Japanese Bobtail", "Javanese", "Khaomanee", "Korat", "Kurilian Bobtail", "LaPerm", "Maine Coon", "Maltese", "Manx", "Minskin", "Mix", "Munchkin", "Napoleon", "Nebelung", "Norwegian Forest", "Ocicat", "Ojos Azules", "Oriental Longhair", "Oriental Shorthair", "Persian", "Peterbald", "Pixiebob", "RagaMuffin", "Ragdoll", "Russian Blue", "Savannah", "Scottish Fold", "Selkirk Rex", "Serengeti", "Siamese", "Siberian", "Singapura", "Snowshoe", "Sokoke", "Somali", "Sphynx", "Tabby", "Thai", "Tonkinese", "Torbie", "Tortie", "Tortoiseshell", "Toyger", "Turkish Angora", "Turkish Van"]
 	  });
-	};
-  
-  // Automatically hide alert dialog after slight delay
-  if($('.errorBox').is(':visible')) {
-    $('#mainError').delay(3000).fadeOut('slow');
-  };
-
-	// Activate the appropriate tab on page load
-	if($('.nav-tabs').length){
-		// Check if cookie exisits and matches with an available tab. Load proper tab if it does
-		if($.cookie("active_tab") != null && $('a[href=' + $.cookie("active_tab") +']').length){ // Must check null explicitly for Safari
-			var old_tab = $.cookie("active_tab");
-			$('.nav-tabs li a[href=' + old_tab + ']').click();
-		} else {
-			// Select first tab as default if no cookie exists
-			var first_tab = $('.nav-tabs li:first a');
-			first_tab.click();
-			$.cookie("active_tab", first_tab.attr('href'));
-		};
-		// Set cookie for any clicked tab
-		var tab_links = $('.nav-tabs li a')
-		tab_links.live('click', function(){
-			current_tab = $(this).attr('href');
-			$.cookie("active_tab", current_tab);
-    });
 	};
 	
 	// Populate footer quote

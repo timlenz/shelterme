@@ -8,7 +8,7 @@
       <div class="headerInfo">
         <h1>Edit Shelter</h1><br>
       </div>
-      <div class="headerButtons">
+      <div class="headerButtons" style="right:10px;">
         <div class="headerEdit">
 	        <% if current_user.admin? %>
           <%= link_to "Delete shelter", @shelter, method: :delete, confirm: "Are you certain you want to delete this shelter? All pets associated with this shelter will also be deleted.", class: "btn btn-header btn-warning btn-admin", style: "width:110px;" %>

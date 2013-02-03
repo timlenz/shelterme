@@ -2,16 +2,6 @@ class ShelterAdminsController < ApplicationController
   
   autocomplete :shelter, :name, full: true
   
-  def index
-    if signed_in?
-      if current_user.admin?
-        @shelter_admins = ShelterAdmin.paginate(page: params[:page])
-      end
-    else
-      redirect_to root_path
-    end
-  end
-  
   def new
     if signed_in?
       @shelter_admin = ShelterAdmin.new

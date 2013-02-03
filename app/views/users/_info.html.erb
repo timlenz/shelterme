@@ -1,0 +1,42 @@
+<div class="editAvatar">
+  <%= avatar_for @user, size: 150 %>
+  <a data-toggle="modal" href="#addAvatar" data-backdrop="static" data-keyboard="false" >Change</a><br><br>
+</div>
+<div class="editForm">
+  <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.input :name %> 
+    <%= f.input :location %>
+    <%= f.input :bio, as: :text %>
+    <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", id: "saveUser" %>
+    <%= link_to("Back to user profile", @user, style: "float:right;padding-top:4px;")%>
+  <% end %>
+</div>
+
+<div id="addAvatar" class="modal hide">
+  <div class="modal-inner mediaModal">
+    <div class="pageHeader">
+    	<div class="headerLogo">
+			  <%= avatar_for @user, size: 63 %>
+			</div>
+	    <div class="headerInfo" style="width:385px;">
+        <h1>Change your Avatar</h1>
+      </div>
+    </div>
+    <div class="form">
+	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
+		    This window will close once your upload is complete.
+		  </div>
+      <%= simple_form_for @user, :html => {:multipart => true} do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.file_field :avatar, class: "btn-media" %>
+        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;", disabled: "true" %>
+        <button class="text-close" data-dismiss="modal">Cancel</button>
+      <% end %>
+    </div>
+    <div id="loadingPhoto" class="hide">
+    	<%= image_tag("spinner.gif")%>
+      <h2 style="text-align:center;">Loading...</h2>
+    </div>
+  </div>
+</div>

@@ -8,9 +8,8 @@
       <div class="headerInfo">
         <h1>Edit <%= @pet.name != '' ? @pet.name : @pet.animal_code %></h1><br>
       </div>
-			<% if current_user.admin? or @pet.user == current_user or
-	      (current_user.manager? && current_user.shelter_id == @pet.shelter.id) %>
-      <div class="headerButtons">
+			<% if current_user.admin? %>
+      <div class="headerButtons" style="right:10px;">
         <div class="headerEdit">
           <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name != '' ? @pet.name : @pet.animal_code}?", class: "btn btn-header btn-warning btn-admin" %>
         </div>

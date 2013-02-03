@@ -6,7 +6,7 @@
       <td class="adminCode"><%= user.pets.count %></td>
       <td class="adminCode"><%= user.watched_pets.count %></td>
       <td class="adminCode"><%= user.boosted_shelters.count %></td>
-      <td class="adminName"><%= gravatar_for user, size: 20 %> &nbsp;&nbsp; <%= link_to user.name, user %></td>
+      <td class="adminName"><%= avatar_for user, size: 20 %> &nbsp;&nbsp; <%= link_to user.name, user %></td>
       <% if current_user.admin? && !current_user?(user) && !user.admin? %>
       <td class="adminDelete">
         <%= link_to "Delete", user, method: :delete, confirm: "Are you certain you want to delete #{user.name}?" %>

@@ -1,0 +1,16 @@
+<%= provide(:title, 'All Comments') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo" style="width:385px;">
+        <h1><%= Micropost.count %> Comments</h1>
+      </div>
+    </div>
+    <div id="microposts" class="row">
+	    <%= will_paginate @feed_items %>
+      <%= render 'shared/feed' %>
+	    <%= will_paginate @feed_items %>
+    </div>
+  </div>
+</div>

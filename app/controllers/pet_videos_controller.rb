@@ -12,8 +12,12 @@ class PetVideosController < ApplicationController
     if $pet.pet_videos.size == 0
       @pet_video.primary = true
     end
-    flash[:notice] = "Video of #{$pet.name != "" ? $pet.name : $pet.animal_code} added."
-    redirect_to [$pet.shelter, $pet] 
+    if @pet_video.save
+      flash[:notice] = "Video of #{$pet.name != "" ? $pet.name : $pet.animal_code} added."
+    else
+      flash[:notice] = "Upload of video failed."
+    end
+    redirect_to [$pet.shelter, $pet]
   end
   
   def edit
@@ -37,7 +41,20 @@ class PetVideosController < ApplicationController
     @pet_video = PetVideo.find(params[:id])
     Panda::Video.delete(@pet_video.panda_video_id)
     @pet_video.destroy
-    flash[:notice] = "Video of #{$pet.name != "" ? $pet.name : $pet.animal_code} deleted."
-    redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+    flash[:notice] = "Video of #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code} deleted."
+    if cookies[:delete_media] == "true"
+      redirect_to :back
+      cookies[:delete_media] = "false"
+    else
+      redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
+    end
+  end
+
+  def index
+    if signed_in? && current_user.admin?
+      @pet_videos = PetVideo.all.paginate(page: params[:page], per_page: 12)
+    else
+      redirect_to root_path
+    end
   end
 end

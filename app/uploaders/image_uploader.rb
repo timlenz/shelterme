@@ -26,6 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :large do
     process :crop
     process :resize_to_fill => [592, 394]
+    process :watermark
   end
   
   version :thumb, from_version: :large do
@@ -72,6 +73,16 @@ class ImageUploader < CarrierWave::Uploader::Base
       img.strip
       img = yield(img) if block_given?
       img
+    end
+  end
+  
+  def watermark
+    manipulate! do |img|
+      logo = MiniMagick::Image.open("#{Rails.root}/app/assets/images/watermark.png")
+      img = img.composite(logo) do |c|
+        c.gravity "SouthEast"
+        c.geometry "+10+5"
+      end
     end
   end
 

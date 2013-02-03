@@ -2,8 +2,8 @@
   <%= will_paginate @pets %>
   <table class="table table-condensed table-bordered">
     <thead>
-      <th style="width:150px;">Added</th>
-      <th style="width:90px;">Animal ID</th>
+      <th style="width:130px;">Added</th>
+      <th style="width:130px;">Animal ID</th>
       <th style="width:230px;">Name</th>
       <th>Status</th>
     </thead>
@@ -11,7 +11,7 @@
   </table>
   <ul>
     <%= render partial: 'managed_pet', 
-        collection: @pets.sort_by{|p| ['available', 'adopted', 'unavailable'].index(p.pet_state.status)}, 
+        collection: @pets.sort_by{|p| ['available', 'absent', 'adopted', 'unavailable'].index(p.pet_state.status)}, 
         as: :f %>
   </ul>
   <%= will_paginate @pets %>

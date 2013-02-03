@@ -28,6 +28,8 @@ class SheltersController < ApplicationController
     @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
     @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
     cookies[:shelter_id] = @shelter.id
+  rescue
+    raise ActionController::RoutingError.new('Not Found')
   end
   
   def index
@@ -76,13 +78,15 @@ class SheltersController < ApplicationController
     	@current_location = current_user.location
     end
     if validate_location(@current_location) == false    
-      flash[:notice] = "Invalid location; estimating your location instead."
+      flash[:notice] = "Estimating your location."
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
         @current_location = s[0].city + ", " + s[0].state_code
       end
     end
-    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5) # limit due to Google Static Map API restriction
+    nearbys = Shelter.near(@current_location, 50, order: "distance")
+    @nearbys = nearbys.limit(5) # limit due to Google Static Map API restriction
+    @all_nearbys = nearbys - @nearbys
   rescue
     flash[:notice] = "Cannot automatically determine your location."
     redirect_to root_path

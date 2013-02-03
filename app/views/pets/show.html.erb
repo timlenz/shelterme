@@ -1,4 +1,4 @@
-<% provide(:title, @pet.name) %>
+<% provide(:title, @pet.slug) %>
 <div class="container content">
   <div class="profile-section <%= @pet.pet_state.status %>">
     <div class="pageHeader">
@@ -10,7 +10,9 @@
       <div class="span8">
         <%= render "photos" %>
         <%= render "legend" %>
+				<% unless @pet.pet_state.status == "unavailable"%>
         <%= render "add_media" %>
+				<% end %>
         <%= render "videos" %>
       </div>
       <div class="rightColumn">

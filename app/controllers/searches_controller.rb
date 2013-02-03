@@ -22,7 +22,7 @@ class SearchesController < ApplicationController
       	@current_location = current_user.location
       end
       if validate_location(@current_location) == false    
-        flash[:notice] = "Invalid location; estimating your location instead."
+        flash[:notice] = "Estimating your location."
         s = Geocoder.search(remote_ip)
         if s[0].city != ""
           @current_location = s[0].city + ", " + s[0].state_code
@@ -31,7 +31,7 @@ class SearchesController < ApplicationController
       cookies[:location] = @current_location
     end
   rescue
-    flash[:notice] = "Cannot automatically determine your location."
+    flash[:notice] = "Cannot determine your location."
     redirect_to root_path
   end
   

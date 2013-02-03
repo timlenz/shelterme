@@ -12,7 +12,7 @@
         <%= form_tag addpet_path, method: 'get' do %>
 	        <%= label_tag :search, "Enter Animal ID" %>
           <%= text_field_tag :search, params[:search], class: "smallField", style: "width: " %>
-          <%= submit_tag "Add", :animal_code => nil, class: "btn btn-header", style: "width: 70px;", confirm: "", disabled: true %>
+          <%= submit_tag "Add", :animal_code => nil, class: "btn btn-header", style: "width: 70px;", confirm: "" %>
         <% end %>
       </div>
     </div>
@@ -28,16 +28,10 @@
 	        <%= render partial: "shared/pet_tile", collection: @pets, as: :f %>
 		    </div>
 		    <div class="clearfix"></div>
-				<div class="potentialMatch" style="margin-top: 30px;">
-					<p>If your pet is not shown above, you may now add it to ShelterMe.</p>
-					<p>You will not be able to add it to
-					<% if @pets.count == 1 %>
-					the shelter housing the pet
-					<% else %>
-					any of the shelters housing the pets
-					<% end %>
-					 shown above.</p>
-					<%= link_to "ADD PET", newpet_path, class: "btn btn-header", style:"margin-top:20px;margin-bottom:20px;" %>
+				<div class="potentialMatch">
+					<p>If you do not see your pet here, please add it now (the <%= link_to "ADD PET", newpet_path, class: "btn btn-header" %>
+					<%= "shelter".pluralize(@pets.count) %>
+					 above cannot be selected).</p>
 				</div>
 	    </div>
     </div>

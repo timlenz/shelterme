@@ -18,7 +18,7 @@ ShelterMe::Application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts, only: [:create, :destroy, :index]
   resources :relationships, only: [:create, :destroy]
   resources :password_resets
   resources :pet_photos
@@ -27,7 +27,7 @@ ShelterMe::Application.routes.draw do
 
   resources :bonds, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
-  resources :shelter_admins
+  resources :shelter_admins, only: [:create, :destroy]
   resources :breeds
   resources :searches
 
@@ -40,9 +40,11 @@ ShelterMe::Application.routes.draw do
   match '/addvideo',          to: 'pet_videos#new'
   match '/pv',                to: 'pet_videos#index'
   
+  match '/pc',                to: 'microposts#index'
+  
   match '/s',                 to: 'shelters#index'
   match '/newshelter',        to: 'shelters#new'
-  match '/s/:id',             to: 'shelters#show'
+  #match '/s/:id',             to: 'shelters#show'
   match '/findshelter',       to: 'shelters#find'
   match '/listshelters',      to: 'shelters#list'
   match '/mymanagedpets',     to: 'shelters#managed'
@@ -51,7 +53,7 @@ ShelterMe::Application.routes.draw do
   match '/p',                 to: 'pets#index'
   match '/addpet',            to: 'pets#addpet'
   match '/newpet',            to: 'pets#new'
-  match '/p/:id',             to: 'pets#show'
+  #match '/p/:id',             to: 'pets#show'
   match '/potd',              to: 'pets#potd'
   
   match '/findpet',           to: 'searches#new'
@@ -77,8 +79,8 @@ ShelterMe::Application.routes.draw do
   match '/mp',                to: 'users#photos'
   match '/myvideos',          to: 'users#videos'
   match '/mv',                to: 'users#videos'
-  
-  match '/sa',                to: 'shelter_admins#index'
+  match '/sm',                to: 'users#managers'
+  match '/shelter_admins',    to: 'users#managers'
   
   match '/help',              to: 'static_pages#help'
   match '/about',             to: 'static_pages#about'
@@ -89,13 +91,15 @@ ShelterMe::Application.routes.draw do
   match '/statistics',        to: 'static_pages#statistics'
   match '/mobile',            to: 'static_pages#home'
 
-
   # Put these at the bottom to avoid over-riding the explicit routes above
   resources :shelters, path: "", except: [:create, :new, :index]
   resources :shelters, only: [:create, :new, :show, :edit, :destroy]
   resources :shelters, path: "", only: [] do
     resources :pets, path: "", only: [:create, :new, :show, :edit, :destroy]
   end
+  
+  # Any routes that aren't defined above here go to the 404
+  match "*a",                 to: "application#routing_error"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

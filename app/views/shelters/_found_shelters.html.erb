@@ -11,8 +11,12 @@
   </div>
   <div class="foundShelterPets">
     <ul>
-      <li class="dogs"><%= f.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %></li>          
-      <li class="cats"><%= f.pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %></li>
+      <li class="dogs">
+	      <%= link_to f.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count, f %>
+      </li>          
+      <li class="cats">
+	      <%= link_to f.pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count, f %>
+      </li>
     </ul>
   </div>
   <div class="clearfix"></div>

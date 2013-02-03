@@ -1,0 +1,16 @@
+<%= provide(:title, 'All Videos') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo" style="width:385px;">
+        <h1><%= pluralize(PetVideo.count, "Video") %></h1>
+      </div>
+    </div>
+    <div id="pet_videos" class="row">
+	    <%= will_paginate %>
+      <%= render partial: 'pet_videos', collection: @pet_videos, as: :f %>
+	    <%= will_paginate %>
+    </div>
+  </div>
+</div>

@@ -28,6 +28,7 @@
 #  energy_value_id        :integer
 #  species_id             :integer
 #  slug                   :string(255)
+#  avatar                 :string(255)
 #
 
 require 'spec_helper'

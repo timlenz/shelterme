@@ -1,7 +1,11 @@
 <div class="pet-tile editVideo">
 	<div class="tile-photo">
-		<% if f.panda_video.status == "success" %>
+		<% if f.panda_video.encodings["h264"].screenshots.first %>
 		<%= image_tag(f.panda_video.encodings["h264"].screenshots.first) %>
+		<% else %>
+		  <div class="processing">
+		  	<p>We are still processing this video...please check back in a bit.</p>
+		  </div>
 		<% end %>
 	</div>
 	<% if current_user.admin? or @pet.user == current_user or

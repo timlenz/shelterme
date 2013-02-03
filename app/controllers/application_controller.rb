@@ -32,5 +32,9 @@ class ApplicationController < ActionController::Base
     end
     return true
   end
+  
+  def routing_error
+    render "404", status: 404
+  end
 
 end

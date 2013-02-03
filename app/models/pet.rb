@@ -76,8 +76,8 @@ class Pet < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_color
   accepts_nested_attributes_for :fur_length
   
-  validates :name, length: { maximum: 50 }
-  validates :description, presence: true
+  validates :name, length: { maximum: 40 }
+  validates :description, presence: true, length: { maximum: 500 }
   validates :user_id, presence: true
   validates :size_id, presence: true
   validates :animal_code, presence: true

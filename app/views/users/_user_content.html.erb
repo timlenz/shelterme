@@ -1,0 +1,46 @@
+<div class="profile-section">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#sponsored" data-toggle="tab"><span class="linkCount"><%= @user.pets.count %></span> Sponsored Pets</a>
+    </li>
+    <li>
+      <a href="#watched" data-toggle="tab"><span class="linkCount"><%= @user.watched_pets.count %></span> Followed Pets</a>
+    </li>
+    <li>
+      <a href="#followed" data-toggle="tab"><span class="linkCount"><%= @user.followed_users.count %></span> Followed Users</a>
+    </li>
+    <li>
+      <a href="#comments" data-toggle="tab"><span class="linkCount"><%= @user.microposts.count %></span> Comments</a>
+    </li>
+  </ul>
+  <div class="possibleScroll">
+    <div class="tab-content fullContent">
+      <div class="tab-pane active" id="sponsored">
+        <%= render partial: "shared/pet_tile", collection: @sponsored, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @sponsored, param_name: 'sponsored_page' %>
+      </div>
+      <div class="tab-pane" id="watched">
+        <%= render partial: "shared/pet_tile", collection: @watched, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @watched, param_name: 'watched_page' %>
+      </div>
+      <div class="tab-pane" id="followed">
+        <ul>
+        <%= render partial: "followed_users", collection: @followed, as: :f %>
+	        <div class="clearfix"></div>
+	        <%= will_paginate @followed, param_name: 'followed_page' %>
+        </ul>
+      </div>
+      <div class="tab-pane" id="comments">
+        <% if @user.microposts.any? %>
+			  <ol class="microposts" style="width:915px;">
+			    <%= render @microposts %>
+	        <div class="clearfix"></div>
+	        <%= will_paginate @microposts, param_name: 'microposts_page' %>
+			  </ol>
+			  <% end %>
+      </div>
+    </div>
+  </div>
+</div>

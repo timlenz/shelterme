@@ -8,6 +8,7 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  pet_id     :integer
+#  flagged    :boolean         default(FALSE)
 #
 
 class Micropost < ActiveRecord::Base

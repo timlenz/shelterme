@@ -61,8 +61,21 @@ class PetPhotosController < ApplicationController
       new_primary.primary = true
       new_primary.save
     end
-    flash[:notice] = "Photo of #{$pet.name != "" ? $pet.name : $pet.animal_code} deleted."
-    redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+    flash[:notice] = "Photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} deleted."
+    if cookies[:delete_media] == "true"
+      redirect_to :back
+      cookies[:delete_media] = "false"
+    else
+      redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
+    end
+  end
+  
+  def index
+    if signed_in? && current_user.admin?
+      @pet_photos = PetPhoto.all.paginate(page: params[:page], per_page: 12)
+    else
+      redirect_to root_path
+    end
   end
 
 end

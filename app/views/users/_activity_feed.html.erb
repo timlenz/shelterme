@@ -5,7 +5,7 @@
         <div class="innerComment">
           <div class="avatar">
 						<% if @user != p[0] %>
-            <%= link_to gravatar_for(p[0]), p[0] %> 
+            <%= link_to avatar_for(p[0]), p[0] %> 
             <% end %>
           </div>
           <div class="post wide">
@@ -27,7 +27,7 @@
     <% elsif p[3] == 'watch' %> <!-- watchers of user added/watched pets -->
       <li>
         <div class="innerComment">
-          <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
           <div class="post wide">
             <%= link_to p[0].name, p[0] %>
             <span class="action"> also started following </span>
@@ -44,7 +44,7 @@
         <div class="innerComment">
           <div class="avatar">
 						<% if @user != p[0] %>
-            <%= link_to gravatar_for(p[0]), p[0] %> 
+            <%= link_to avatar_for(p[0]), p[0] %> 
             <% end %>
           </div>
           <div class="post wide">
@@ -61,7 +61,7 @@
     <% elsif p[3] == "Following" %> <!-- followed by users -->
       <li>
         <div class="innerComment">
-          <div class="avatar"><%= link_to gravatar_for(p[1]), p[1] %></div>
+          <div class="avatar"><%= link_to avatar_for(p[1]), p[1] %></div>
           <div class="post wide">
             <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <span class="action">is <%= p[3]%> you</span>
@@ -74,7 +74,7 @@
       <li>
         <div class="innerComment">
           <% if @user != p[0]%>
-          <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
           <% end %>
          <div class="post wide"> 
            <% if @user != p[0] %>
@@ -92,7 +92,7 @@
       <li class="<%= p[3] == 'post managed' ? 'managed' : ''%>">
         <div class="innerComment">
           <% if @user != p[0]%>
-          <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
           <% end %>
           <div class="post wide">
             <% if @user != p[0] %>
@@ -114,6 +114,8 @@
             <span class="status"><%= p[4]%></span>            
 	          <% if p[4] == 'adopted' %>
 	          <%= image_tag("adoptedIcon.png", class: "media") %>
+	          <% elsif p[4] == 'absent' %>
+	          <%= image_tag("absentIcon.png", class: "media") %>
 	          <% elsif p[4] == 'unavailable' %>
 	          <%= image_tag("unavailableIcon.png", class: "media") %>
 	          <% end %>
@@ -126,7 +128,7 @@
       <li class="managed">
         <div class="innerComment">
 	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
 	        <% end %>
           <div class="post wide">
 						<% if @user != p[0] %>
@@ -148,7 +150,7 @@
       <li class="managed">
         <div class="innerComment">
 	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
 	        <% end %>
           <div class="post wide">
   					<% if @user != p[0] %>
@@ -165,7 +167,7 @@
       <li class="<%= p[3] == 'photo managed' ? 'managed' : ''%>">
         <div class="innerComment">
 	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
 	        <% end %>
           <div class="post wide">
 						<% if @user != p[0] %>
@@ -183,7 +185,7 @@
       <li class="<%= p[3] == 'video managed' ? 'managed' : ''%>">
         <div class="innerComment">
 	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to gravatar_for(p[0]), p[0] %></div>
+	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
 	        <% end %>
           <div class="post wide">
 						<% if @user != p[0] %>

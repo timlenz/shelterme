@@ -28,6 +28,7 @@
 #  energy_value_id        :integer
 #  species_id             :integer
 #  slug                   :string(255)
+#  avatar                 :string(255)
 #
 
 class User < ActiveRecord::Base 
@@ -38,9 +39,11 @@ class User < ActiveRecord::Base
                   :energy_value_id, :species_id, :open_value_attributes,
                   :plan_value_attributes, :social_value_attributes, :attitude_value_attributes,
                   :emotion_value_attributes, :clean_value_attributes,
-                  :energy_value_attributes, :species_attributes
+                  :energy_value_attributes, :species_attributes, :avatar
+
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   has_secure_password
-  has_many :microposts, dependent: :destroy
+  has_many :microposts#, dependent: :destroy DON'T DELETE USER COMMENTS
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -84,10 +87,12 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :species
   
   geocoded_by :location
+  profanity_filter :name, :bio, :location
+  mount_uploader :avatar, AvatarUploader
+  
   before_validation :generate_slug, on: :create
   after_validation :geocode
-  
-  profanity_filter :name, :bio, :location
+  after_update :crop_avatar
   
   def to_param
     slug
@@ -98,6 +103,10 @@ class User < ActiveRecord::Base
     while User.find{|s| s.slug == self.slug} || Shelter.find{|s| s.slug == self.slug} do
       self.slug = self.slug + Random.rand(1..9).to_s
     end
+  end
+  
+  def crop_avatar
+    avatar.recreate_versions! if crop_x.present?
   end
   
   def feed
@@ -267,8 +276,12 @@ class User < ActiveRecord::Base
     colors = (primary + secondary).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries
     one_or_two = ((primary_color_count + secondary_color_count) / pet_count ).round
     one_color = colors.max_by {|entry| entry.last}.first.capitalize.gsub(/-/,"")
-    first_of_two = colors.sort_by{|k,v| v}.reverse.first.first.capitalize.gsub(/Tri-color/,"")
-    second_of_two = colors.sort_by{|k,v| v}.reverse.second.first.capitalize.gsub(/Tri-color/,"")
+    first_of_two = colors.sort_by{|k,v| v}.reverse.first.first.capitalize
+    second_of_two = colors.sort_by{|k,v| v}.reverse.second.first.capitalize
+    if ((first_of_two == "red" || first_of_two == "yellow") && second_of_two == "orange") ||
+    	((second_of_two == "red" || second_of_two == "yellow") && first_of_two == "orange")
+    	one_or_two = 1
+    end
     color = ( one_or_two == 1 ) ? one_color : first_of_two + second_of_two
     return length + color
   end

@@ -7,6 +7,13 @@
     <% else %>
       <%= link_to "", [f.shelter, f] %>
     <% end %>
+    <% if f.pet_state.status == 'adopted' %>
+      <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted") %>
+    <% elsif f.pet_state.status == 'absent' %>
+	    <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available") %>
+    <% elsif f.pet_state.status == 'unavailable' %>
+	    <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable") %>
+    <% end %>
   </div>
   <div class="small-pet-info">
     <h3>
@@ -39,12 +46,6 @@
     </ul>
   </div>
   <div class="small-pet-state">
-    <% if f.pet_state.status == 'available' %>
       <span class="commentCount"><%= link_to f.watchers.count, "#", rel: "tooltip", title: pluralize(f.watchers.count.to_s, " follower"), class: "unlink" %></span>
-    <% elsif f.pet_state.status == 'adopted' %>
-      <%= link_to image_tag("adoptedIcon.png", style: "height:32px; width:32px;"), "#", rel: "tooltip", title: "Adopted" %>
-    <% else %>
-	      <%= link_to image_tag("unavailableIcon.png", style: "height:29px; width:29px; margin-top:2px;"), "#", rel: "tooltip", title: "Unavailable" %>
-    <% end %>
   </div>
 </li>

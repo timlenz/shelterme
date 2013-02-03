@@ -1,0 +1,20 @@
+<li>
+  <div class="smallShelterIcon">
+  </div>
+  <div class="foundShelterInfo">
+    <h3><%= link_to(f.name, f) %></h3>
+    <p><%= f.street %><br>
+    <%= f.city %>, <%= f.state %> <%= f.zipcode %></p>
+  </div>
+  <div class="foundShelterPets">
+    <ul>
+      <li class="dogs">
+	      <%= link_to f.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count, f %>
+      </li>          
+      <li class="cats">
+	      <%= link_to f.pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count, f %>
+      </li>
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</li>

@@ -30,9 +30,10 @@
   <% if signed_in? and (current_user.admin? or current_user.manager?) %>
     <%= f.label "Status", class: "control-label", required: true %>
     <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
-		  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
-		  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
-		  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+		  <button type="button" data-toggle="button" class="btn" value="1" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Available</button>
+		  <button type="button" data-toggle="button" class="btn" value="4" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Absent</button>
+		  <button type="button" data-toggle="button" class="btn" value="2" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Adopted</button>
+		  <button type="button" data-toggle="button" class="btn" value="3" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Unavailable</button>
 		</div>
 		<%= f.hidden_field :pet_state_id, label: false %>
   <% end %>

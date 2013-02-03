@@ -32,7 +32,7 @@ class StaticPagesController < ApplicationController
         @pets = @pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
         @pets = @pets.first(4)
         @pets
-        @shelter = shelters.max_by{|s| s.pets.select{|p| p.pet_state.status == 'available'}.count}
+        @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
       }
     end
   rescue

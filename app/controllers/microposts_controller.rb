@@ -1,7 +1,7 @@
 class MicropostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
   before_filter :correct_user,   only: :destroy
-  before_filter :admin_user,     only: :destroy
+  before_filter :admin_user,     only: [:destroy, :index]
 
   def create
     @micropost = current_user.microposts.build(params[:micropost])
@@ -17,6 +17,14 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     redirect_to :back
+  end
+  
+  def index
+    if signed_in? && current_user.admin?
+      @feed_items = Micropost.all.paginate(page: params[:page], per_page: 12)
+    else
+      redirect_to root_path
+    end
   end
   
   private

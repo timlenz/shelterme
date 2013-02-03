@@ -3,7 +3,7 @@
     <li>
       <a href="#dogs" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %>
+          <%= @shelter.pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count %>
         </span>
          Available Dogs
       </a>
@@ -11,7 +11,7 @@
     <li>
       <a href="#cats" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %>
+          <%= @shelter.pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count %>
         </span>
          Available Cats
       </a>
@@ -44,7 +44,7 @@
     <% end %>
   </ul>
   <div class="possibleScroll">
-    <div class="tab-content shelterPets">
+    <div class="tab-content fullContent">
       <div class="tab-pane" id="dogs">
         <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
         <div class="clearfix"></div>

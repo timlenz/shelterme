@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.slug) %>
 <div class="container content">
   <div class="profile-section">
     <div class="pageHeader">
@@ -11,8 +11,5 @@
       <%= render "user_shelters" %>
     </div>
   </div>  
-  <div class="row">
-    <%= render "user_pets" %>
-    <%= render "user_comments" %>
-  </div>
+  <%= render "user_content" %>
 </div>

@@ -96,7 +96,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_dogs
-    pet_list = pets.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}
+    pet_list = pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -110,7 +110,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_cats
-    pet_list = pets.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}
+    pet_list = pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -138,7 +138,7 @@ class Shelter < ActiveRecord::Base
   end
 
   def available
-    pet_list = pets.select{|p| p.pet_state.status == 'available'}
+    pet_list = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"

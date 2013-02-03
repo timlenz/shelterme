@@ -1,8 +1,8 @@
 <li class="subAdmin">
   <table class="table-condensed">
     <tr>
-      <td class="adminAdded"><%= f.created_at.to_date.to_formatted_s(:long) %></td>
-      <td class="adminFollowers"><%= f.animal_code %></td>
+      <td class="adminAdded" style="width:112px;"><%= f.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminFollowers" style="width:120px;"><%= f.animal_code %></td>
       <td class="managedName">
         <% if f.name != '' %>
 	      <%= link_to f.name, [f.shelter, f] %>
@@ -12,17 +12,15 @@
       </td>
       <td class="managedStatus">
         <%= simple_form_for(f, html: {class: 'form-horizontal' }) do |p| %>
-				  <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+				  <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
 					  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+					  <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
 					  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
 					  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
 					</div>
 					<%= p.hidden_field :pet_state_id, label: false %>
 					<%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{f.name != '' ? f.name : f.animal_code}'s status?" %>
         <% end %>
-      </td>
-      <td class="managedDelete">
-        <%= link_to "Delete", [f.shelter, f], method: :delete, confirm: "Are you certain you want to delete #{f.name != '' ? f.name : f.animal_code}?" %>
       </td>
     </tr>
   </table>

@@ -1,0 +1,32 @@
+<% provide(:title, "#{@user.name}") %> 
+<div class="container content">
+  <div class="form-section">
+    <div class="pageHeader pageFormHeader">
+      <div class="headerLogo">
+        <%= image_tag("cropIcon.png", alt: "Crop Photo") %>
+      </div>
+      <div class="headerInfo">
+        <h1>Crop Your Avatar</h1><br>
+      </div>
+    </div>
+    <div class="fullEditForm">
+    	<div class="editLargePhoto">
+		    <%= image_tag @user.avatar_url, id: "cropbox" %>
+	    </div>
+	    <%= form_for @user do |f| %>
+			<div class="actions">
+		    <% %w[x y w h].each do |attribute| %>
+		      <%= f.hidden_field "crop_#{attribute}"%>
+		    <% end %>
+		  </div>
+			<br>
+			<%= f.submit "Crop", class: "formBtn", style: "width:145px;" %>
+			<%= link_to("Don't crop", :back, style: "float:right;padding-top:4px;")%>
+			<% end %>
+    </div>
+		<div id="loadingCrop" class="hide">
+    	<%= image_tag("spinner.gif")%>
+      <h2 style="text-align:center;">Processing...</h2>
+    </div>
+  </div>  
+</div>

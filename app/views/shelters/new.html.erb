@@ -19,6 +19,9 @@
           <% if current_user.admin? %>
           <%= f.association :precedence, label_method: :rank, include_blank: false, hint: "Set the display order for your pets." %>
           <% end %>
+          <% unless current_user.admin? %>
+            <p>Please fill out as much information as you can for the shelter, which then will be submitted for approval. We will notify you when your shelter has been added to the system. Thank you for your input!</p>
+          <% end %>
         </div>
         <div class="rightEditForm">
           <%= f.input :street %>
@@ -36,7 +39,11 @@
           <%= f.input :sat_hours, label: "Saturday" %>
         </div>
         <div class="clearfix"></div>
+        <% if current_user.admin? %>
         <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
+        <% else %>
+        <%= link_to "Add Shelter", "mailto:admin@shelterme.com?subject=New shelter submission&body=", class: "formBtn btn", style: "width:145px;", target: "_blank", id: "submitShelter" %>
+        <% end %>
         <%= link_to("Cancel", @shelter, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>

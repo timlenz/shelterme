@@ -1,0 +1,21 @@
+<%= provide(:title, 'All Shelter Managers') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo" style="width:385px;">
+        <h1><%= User.all.select{|p| p.manager? }.count %> Shelter Managers</h1>
+      </div>
+      <div class="searchButton">
+        <%= form_tag shelter_admins_path, :method => 'get', id: "shelter_admins_search" do %>
+	        <%= label_tag :search, "Enter name" %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
+          <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="shelter_admins" class="row">
+      <%= render 'shelter_admins' %>
+    </div>
+  </div>
+</div>

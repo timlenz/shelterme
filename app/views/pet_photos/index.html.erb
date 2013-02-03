@@ -1,0 +1,16 @@
+<%= provide(:title, 'All Photos') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="pageHeader">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo" style="width:385px;">
+        <h1><%= pluralize(PetPhoto.count, "Photo") %></h1>
+      </div>
+    </div>
+    <div id="pet_photos" class="row">
+	    <%= will_paginate %>
+      <%= render partial: 'pet_photos', collection: @pet_photos, as: :f %>
+	    <%= will_paginate %>
+    </div>
+  </div>
+</div>

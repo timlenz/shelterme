@@ -17,4 +17,5 @@ class ShelterAdmin < ActiveRecord::Base
   
   validates :user_id, presence: true
   validates :shelter_id, presence: true
+  
 end
