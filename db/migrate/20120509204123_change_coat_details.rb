@@ -1,13 +1,13 @@
 class ChangeCoatDetails < ActiveRecord::Migration
   def up
+    add_index :coats, :secondary_color_id
+    rename_index :coats, :fur_color_id, :primary_color_id
+    rename_index :coats, [:fur_color_id, :fur_length_id], [:primary_color_id, :fur_length_id]
+    
     change_table :coats do |t|
       t.rename :fur_color_id, :primary_color_id
       t.integer :secondary_color_id
     end
-    
-    add_index :coats, :secondary_color_id
-    rename_index :coats, :fur_color_id, :primary_color_id
-    rename_index :coats, [:fur_color_id, :fur_length_id], [:primary_color_id, :fur_length_id]
   end
 
   def down
