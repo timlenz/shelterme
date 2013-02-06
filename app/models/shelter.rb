@@ -164,6 +164,34 @@ class Shelter < ActiveRecord::Base
     end
     return sorted_pet_list
   end
+  
+  def absent
+    pet_list = pets.select{|p| p.pet_state.status == 'absent'}
+    if sort_by == "unpopular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
+    elsif sort_by == "popular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }.reverse
+    elsif sort_by == "oldest"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }
+    else
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }.reverse
+    end
+    return sorted_pet_list
+  end
+  
+  def fostered
+    pet_list = pets.select{|p| p.pet_state.status == 'fostered'}
+    if sort_by == "unpopular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
+    elsif sort_by == "popular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }.reverse
+    elsif sort_by == "oldest"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }
+    else
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }.reverse
+    end
+    return sorted_pet_list
+  end
 
   private
   

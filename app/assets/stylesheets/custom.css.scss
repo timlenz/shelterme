@@ -653,11 +653,11 @@ footer {
 	.smallCat {
 		float: left;
 		padding-right: 20px;
-		width: 160px;
+		width: 260px;
 		height: 73px;
 		margin-top: 20px;
 		img {
-			margin-left: -40px;
+			margin-left: -50px;
 		}
 	}
 	.heroDog {
@@ -728,6 +728,7 @@ footer {
     /*width: 65px;*/
     height: 65px;
     float: left;
+		overflow: hidden;
     .gravatar {
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
@@ -1286,9 +1287,9 @@ ol.activity {
 /* ADMIN VIEWS, PHOTOS & VIDEOS */
 
 #pet_photos, #pet_videos {
-	margin: 20px 0px 10px;
+	margin: 10px 0px;
 	width: 940px;
-	.editPhoto {
+	.editPhoto, .editVideo {
 		margin-left:0;
 		margin-right:8px;
 		height: 231px;
@@ -1580,10 +1581,9 @@ ol.activity {
 }
 
 #videoDisplay {
-  margin-top: 20px;  
-  margin-bottom: 5px;
+  margin-top: 20px 0;
   width: 592px;
-  height: 429px;
+  /*height: 429px;*/
   .innerVideo {
     width: 592px;
     height: 333px;
@@ -2145,7 +2145,7 @@ ol.activity {
 	.addMedia {
 		border: 0;
 	}
-	.pageHeader, .description, .sponsor, .social, .comments {
+	.pageHeader, .description, .sponsor, .social {
 		border-bottom: 3px solid $blueFade;
 		border-bottom: 3px solid rgba(56, 140, 178, 0.2);	
 	}
@@ -2210,9 +2210,10 @@ ol.activity {
   float: left;
   margin: 2px 0 4px 6px;
   padding-top:6px;
-  width: 256px;
+  width: 258px;
   height: 52px;
   overflow: hidden;
+	text-overflow: ellipsis;
   h3 {
     font-size:16px;
     margin-bottom:4px;
@@ -2232,10 +2233,13 @@ ol.activity {
     font-size: 13px;
     line-height: 1.2;
     margin-bottom: 0;
-  }
-  .breed-tile {
-    color: gray;
-  }
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis; /* for Opera Mobile and Opera Mini */
+		height: 16px;
+	}
   .shelter-tile {
     font-weight: bold;
   }
@@ -2244,7 +2248,7 @@ ol.activity {
 .pet-state {
   float: left;
   margin: 32px 0 3px 0;
-  width: 32px;
+  width: 26px;
   height: 30px;
   .commentCount {
     margin-top: 2px;
@@ -2758,15 +2762,13 @@ ol.activity {
 }
 
 .editVideo {
-	height: 200px;
 	.tile-photo {
-		height: 169px;
+		height: 200px;
 		text-align: center;
 		overflow: hidden;
-		background-color: $brownGray;
 	}
 	img {
-		max-height: 100%;
+		max-height: 200px;
 		width: auto;
 		max-width: 100%;
 		margin: 0 auto;
@@ -2970,6 +2972,10 @@ input#location {
   .pagination {
     margin-left: 0;
   }
+}
+
+.pagination {
+	margin: 10px 0;
 }
 
 .subAdmin {
@@ -3244,7 +3250,7 @@ th {
   }
 }
 
-#new_pet {
+#new_pet, .fullEditForm #data {
 	#changeLocation {
 		margin: 10px 0 0 120px;
 		.wrapper {

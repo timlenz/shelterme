@@ -100,6 +100,7 @@ class UsersController < ApplicationController
         sign_in @user
       else
         flash[:success] = "Profile for #{@user.name} has been updated."
+        redirect_to @user
       end
     else
       render 'edit'
@@ -151,12 +152,12 @@ class UsersController < ApplicationController
   
   def photos
     @user = current_user
-    @photos = PetPhoto.select{|u| u.user == @user}
+    @photos = PetPhoto.select{|u| u.user == @user}.paginate(page: params[:page], per_page: 12)
   end
   
   def videos
     @user = current_user
-    @videos = PetVideo.select{|u| u.user == @user}
+    @videos = PetVideo.select{|u| u.user == @user}.paginate(page: params[:page], per_page: 12)
   end
   
   def activity

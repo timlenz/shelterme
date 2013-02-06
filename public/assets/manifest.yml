@@ -109,6 +109,8 @@ glyphicons-halflings-umber.png: glyphicons-halflings-umber-9347e500d9ab736586de7
 glyphicons-halflings-umber/index.png: glyphicons-halflings-umber-9347e500d9ab736586de7ee86e286015.png
 goTo.png: goTo-1872224eb627594d5b529a7035ffdb9d.png
 goTo/index.png: goTo-1872224eb627594d5b529a7035ffdb9d.png
+helpAShelterPet.png: helpAShelterPet-e2a732b732872e189776f1f9e59bed17.png
+helpAShelterPet/index.png: helpAShelterPet-e2a732b732872e189776f1f9e59bed17.png
 heroCat.png: heroCat-300440cb1ce6e349df5dcd39153eb8d6.png
 heroCat/index.png: heroCat-300440cb1ce6e349df5dcd39153eb8d6.png
 heroDog.png: heroDog-e4a7256cdc762bf1f41f8befeff9161c.png
@@ -125,8 +127,8 @@ highSizeCatIcon.png: highSizeCatIcon-dad03001f1ea6d47afe2a9b736b758da.png
 highSizeCatIcon/index.png: highSizeCatIcon-dad03001f1ea6d47afe2a9b736b758da.png
 highSizeDogIcon.png: highSizeDogIcon-1dd2c9182f1cb4ccd83bb19e90e7aae1.png
 highSizeDogIcon/index.png: highSizeDogIcon-1dd2c9182f1cb4ccd83bb19e90e7aae1.png
-improvingLives.png: improvingLives-ce169632f36836593622e5ed94efbf33.png
-improvingLives/index.png: improvingLives-ce169632f36836593622e5ed94efbf33.png
+improvingLives.png: improvingLives-9dbdec37b446c22b221d35e0b006e48b.png
+improvingLives/index.png: improvingLives-9dbdec37b446c22b221d35e0b006e48b.png
 letsGoHome.png: letsGoHome-8e4e4b934a03c9ea6da6d91247613ee8.png
 letsGoHome/index.png: letsGoHome-8e4e4b934a03c9ea6da6d91247613ee8.png
 loading.gif: loading-b83748b3da4398215072778e8a5d0f3d.gif
@@ -245,8 +247,6 @@ lowSizeCatIcon.png: lowSizeCatIcon-39f5fa6968812f45652720e9713b7f83.png
 lowSizeCatIcon/index.png: lowSizeCatIcon-39f5fa6968812f45652720e9713b7f83.png
 lowSizeDogIcon.png: lowSizeDogIcon-2c7235bcbb61001021e6ba23879b6cd7.png
 lowSizeDogIcon/index.png: lowSizeDogIcon-2c7235bcbb61001021e6ba23879b6cd7.png
-makeADifference.png: makeADifference-9e6ad7c689b58df4a2b13167364c8298.png
-makeADifference/index.png: makeADifference-9e6ad7c689b58df4a2b13167364c8298.png
 maleIcon.png: maleIcon-9492f4031a564ffc002f3c6f2f4fa47d.png
 maleIcon/index.png: maleIcon-9492f4031a564ffc002f3c6f2f4fa47d.png
 mapIcon.png: mapIcon-d7da698b4db01d70550329b14da6c02b.png
@@ -511,8 +511,8 @@ smallDogIcon.png: smallDogIcon-afebb8cf8c9d62780bc3128a3b506db1.png
 smallDogIcon/index.png: smallDogIcon-afebb8cf8c9d62780bc3128a3b506db1.png
 smallFindIcon.png: smallFindIcon-26e6d5639c4273359f2c6e699d1b72c0.png
 smallFindIcon/index.png: smallFindIcon-26e6d5639c4273359f2c6e699d1b72c0.png
-smallHeroCat.png: smallHeroCat-b2760d52517a6d846480aa70777a8291.png
-smallHeroCat/index.png: smallHeroCat-b2760d52517a6d846480aa70777a8291.png
+smallHeroCat.png: smallHeroCat-19d3ed37928c811b3f59e41c63bf6ea0.png
+smallHeroCat/index.png: smallHeroCat-19d3ed37928c811b3f59e41c63bf6ea0.png
 smallHeroDog.png: smallHeroDog-696db09dd3bff4b66c8546c5f4f87066.png
 smallHeroDog/index.png: smallHeroDog-696db09dd3bff4b66c8546c5f4f87066.png
 smallMatchIcon.png: smallMatchIcon-4fd473d44e6bc09ae4583900a070a3fc.png
@@ -551,8 +551,8 @@ waitingByTheDoor.png: waitingByTheDoor-f48db428c8afe50472a1e7edb43091ea.png
 waitingByTheDoor/index.png: waitingByTheDoor-f48db428c8afe50472a1e7edb43091ea.png
 watchFilmBtn.png: watchFilmBtn-6c7a5107523af36941595946813bae49.png
 watchFilmBtn/index.png: watchFilmBtn-6c7a5107523af36941595946813bae49.png
-watermark.png: watermark-bb60a34b325db20c94821fea10d4f635.png
-watermark/index.png: watermark-bb60a34b325db20c94821fea10d4f635.png
+watermark.png: watermark-fb4abd1f2fbfba372d658393f3eb8e35.png
+watermark/index.png: watermark-fb4abd1f2fbfba372d658393f3eb8e35.png
 wheel.gif: wheel-96d36756f6646e4a483123159207a153.gif
 wheel/index.gif: wheel-96d36756f6646e4a483123159207a153.gif
 withMobileApp.png: withMobileApp-29069831c75bf19ab55e7a5e811d5f1f.png
@@ -561,10 +561,10 @@ youngFemaleIcon.png: youngFemaleIcon-df2bd3c9d29f0763130dd7a1f00830cd.png
 youngFemaleIcon/index.png: youngFemaleIcon-df2bd3c9d29f0763130dd7a1f00830cd.png
 youngMaleIcon.png: youngMaleIcon-94558acad96f822709854c02d6c92f0f.png
 youngMaleIcon/index.png: youngMaleIcon-94558acad96f822709854c02d6c92f0f.png
-application.js: application-4a6a35a34758525fb474f6f57ac256f9.js
-application/index.js: application-4a6a35a34758525fb474f6f57ac256f9.js
-application.css: application-d90f5c7b5c575fd4a5c3e38871782cc8.css
-application/index.css: application-d90f5c7b5c575fd4a5c3e38871782cc8.css
+application.js: application-cb65e97c7092464726c52c6aeb3b8b0f.js
+application/index.js: application-cb65e97c7092464726c52c6aeb3b8b0f.js
+application.css: application-37accbf72eb4fdeb5649adffcacab587.css
+application/index.css: application-37accbf72eb4fdeb5649adffcacab587.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-7d1197a52442bc56fcad60d0390f4b32.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-7d1197a52442bc56fcad60d0390f4b32.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-3c4b974defa5e8bdaf8a603034c4435e.png

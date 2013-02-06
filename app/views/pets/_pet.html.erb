@@ -4,7 +4,7 @@
       <td class="adminId"><%= pet.id %></td>
       <td class="adminAdded"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
       <td class="adminCode" style="width:120px;"><%= pet.animal_code %></td>
-      <td class="managedName" style="width:200px;">
+      <td class="managedName" style="width:190px;">
         <% if pet.name != '' %>
 	      <%= link_to pet.name, [pet.shelter, pet] %>
 	      <% else %>

@@ -14,6 +14,8 @@
 			<%= form_for f, html: {multipart: true} do |p| %>
 			  <%= link_to "Delete", f, method: :delete, class: "deleteMedia", confirm: "Are you certain you want to delete this photo of #{@pet.name != '' ? @pet.name : @pet.animal_code}?" %>
 		  <% end %>
+		<% else %>
+		  <%= link_to "Delete", "#", class: "deleteMedia", style: "color:#999;", rel: "tooltip", title: "Cannot delete the only photo for a pet" %>
 		<% end %>
 	<% end %>
 </div>

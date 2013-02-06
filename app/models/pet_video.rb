@@ -27,4 +27,12 @@ class PetVideo < ActiveRecord::Base
     @panda_video ||= Panda::Video.find(panda_video_id)
   end
   
+  def h264
+    @h264 = @panda_video.encodings["h264"]
+  end
+  
+  def webm
+    @webm = @panda_video.encodings["webm"]
+  end
+  
 end

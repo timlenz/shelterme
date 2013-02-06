@@ -21,22 +21,21 @@ class StaticPagesController < ApplicationController
         shelters = Shelter.near(location, 50, order: "distance")
         unless shelters.count > 0
           shelters = Shelter.near(location, 200, order: "distance")
-          unless shelters.count > 0
-            shelters = Shelter.near(location, 1000, order: "distance")
-          end
         end
         nearbys = shelters.map{|s| s.id}
         @pets = Pet.order(:name)
         @pets = @pets.where('shelter_id in (?)', nearbys)
-        @pets = @pets.select{|p| p.pet_state.status == "available"}
+        @pets = @pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
         @pets = @pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
-        @pets = @pets.first(4)
+        # select four random pets from list
+        #@pets = @pets.sort_by{rand}.first(4)
+        @pets = @pets.shuffle!.first(4)
         @pets
         @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
       }
     end
   rescue
-    flash[:notice] = "There are no shelters within 1000 miles of your location."
+    flash[:notice] = "There are no shelters near your location."
     redirect_to findshelter_path
   end
 

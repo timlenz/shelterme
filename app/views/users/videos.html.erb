@@ -11,10 +11,11 @@
 	      </h1>
       </div>
     </div>
-    <div class="row">
-      <div class="span12">
-        <%= render partial: "video", collection: @videos, as: :f %>
-      </div>
+    <div id="pet_videos" class="row">
+	    <%= will_paginate @videos %>
+      <%= render partial: "video", collection: @videos, as: :f %>
+      <div class="clearfix"></div>
+	    <%= will_paginate @videos %>
     </div>
   </div>
 </div>

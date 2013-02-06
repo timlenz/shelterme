@@ -3,7 +3,7 @@
     <li>
       <a href="#dogs" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count %>
+          <%= @shelter.available_dogs.count %>
         </span>
          Available Dogs
       </a>
@@ -11,7 +11,7 @@
     <li>
       <a href="#cats" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count %>
+          <%= @shelter.available_cats.count %>
         </span>
          Available Cats
       </a>
@@ -19,7 +19,7 @@
     <li>
       <a href="#adopted" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.pet_state.status == 'adopted'}.count %>
+          <%= @shelter.adopted.count %>
         </span>
          Adopted Pets
       </a>
@@ -28,7 +28,7 @@
     <li>
       <a href="#unavailable" data-toggle="tab">
         <span class="linkCount">
-          <%= @shelter.pets.select{|p| p.pet_state.status == 'unavailable'}.count %>
+          <%= @shelter.unavailable.count %>
         </span>
          Unavailable
       </a>

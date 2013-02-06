@@ -29,7 +29,7 @@ class PetsController < ApplicationController
       flash[:notice] = "Estimating your location."
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
-        current_location = s[0].city + ", " + s[0].state_code
+        @current_location = s[0].city + ", " + s[0].state_code
       end
     end
     @nearbys = Array.new
@@ -120,30 +120,31 @@ class PetsController < ApplicationController
   end
   
   def potd
-    s = Geocoder.search(remote_ip)
-    @current_location = s[0].city + ", " + s[0].state_code
+    accessor = request.fullpath
+    if accessor == "/potd"
+      s = Geocoder.search(remote_ip)
+      @current_location = s[0].city + ", " + s[0].state_code
+    elsif accessor == "/la"
+      @current_location = "Los Angeles"
+    end
     nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
     unless nearbys.count > 0
       nearbys = Shelter.near(@current_location, 200, order: "distance").map{|s| s.id}
-    end
-    unless nearbys.count > 0
-      nearbys = Shelter.near(@current_location, 500, order: "distance").map{|s| s.id}
-    end
-    unless nearbys.count > 0
-      nearbys = Shelter.near(@current_location, 1000, order: "distance").map{|s| s.id}
     end
     if nearbys.count > 0
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.select{|p| p.pet_state.status == "available"}
-      pet_count = pets.count
-      @pet = pets[Random.rand(0..(pet_count-1))]
-      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet for the day"
+      @pet = pets[Random.rand(0..(pets.count-1))]
+      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet for the day."
       redirect_to [@pet.shelter, @pet]
     else
       flash[:error] = "There are no pets available near you."
       redirect_to root_path
     end
+  rescue  
+    flash[:error] = "There are no pets available near you."
+    redirect_to root_path
   end
 
   def edit
@@ -152,8 +153,13 @@ class PetsController < ApplicationController
       flash[:notice] = "You may only delete your photos or videos."
     end
     cookies[:managed_pets] = "false"
-    current_location = @pet.shelter.city + ", " + @pet.shelter.state
-    @nearbys = Shelter.near(current_location, 50, order: "distance").limit(5)
+    if cookies[:location]
+      @current_location = cookies[:location]
+    end
+    if (validate_location(@current_location) == false)
+      @current_location = @pet.shelter.city + ", " + @pet.shelter.state
+    end
+    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5)
     if cookies[:shelter_id].to_i > 0
       recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
       if @nearbys.count > 0

@@ -1,10 +1,10 @@
-<div class="pet-tile editPhoto">
+<div class="pet-tile editVideo">
 	<div class="tile-photo">
 		<% if f.panda_video.encodings["h264"].screenshots.first %>
     <%= link_to image_tag(f.panda_video.encodings["h264"].screenshots.first), [f.pet.shelter, f.pet], title: "#{f.pet.name}" %>
 		<% else %>
 		  <div class="processing">
-		  	<p>We are still processing this video...please check back in a bit.</p>
+		  	<p>We are still processing this video...please reload the page in a few minutes.</p>
 		  </div>
 		<% end %>
 	</div>

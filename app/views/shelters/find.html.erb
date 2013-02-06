@@ -35,7 +35,9 @@
         </ul>
         </div>
         <% end %>
+      <% if signed_in? %>
         <a href="newshelter" class="addShelter"><span style="font-weight:bold;font-size:28px;">+</span> Add Shelter</a>
+      <% end %>
       </div>
       <%= render 'shelter_map' %>
     </div>

@@ -33,15 +33,14 @@
       <%= link_to f.animal_code, [f.shelter, f] %>
       <% end %>
     </h3>
+    <p style="color:gray;">
+      <% if f.secondary_breed == nil %>
+        <%= f.primary_breed.name %>
+      <% else %>
+        <%= f.primary_breed.name %> / <%= f.secondary_breed.name %>
+      <% end %>
+    </p>
     <p>
-      <span class="breed-tile">
-        <% if f.secondary_breed == nil %>
-          <%= f.primary_breed.name %>
-        <% else %>
-          <%= f.primary_breed.name %> <%= f.secondary_breed.name %>
-        <% end %>
-      </span>
-      <br>
       <%= link_to f.shelter.name, f.shelter, class: "shelter-tile" %>
     </p>
   </div>

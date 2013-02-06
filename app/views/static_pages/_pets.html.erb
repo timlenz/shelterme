@@ -5,7 +5,7 @@
       collection: @pets, 
       as: :f %>
   <% else %>
-  <p>Sorry, but there aren't any available pets in our database within 1000 miles of <%= cookies[:location] %>.</p>
+  <p>Sorry, but there aren't any available pets in our database near <%= cookies[:location] %>.</p>
   <div class="noPets" style="margin-top: 20px;margin-bottom: 20px;">
     <%= image_tag("noPetsImage.png") %>
   </div>

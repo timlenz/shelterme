@@ -12,7 +12,7 @@
       <% if @pet.secondary_breed == nil %>
         <%= @pet.primary_breed.name %>
       <% else %>
-        <%= @pet.primary_breed.name %> <%= @pet.secondary_breed.name %>
+        <%= @pet.primary_breed.name %> / <%= @pet.secondary_breed.name %>
       <% end %>
     </span>
      at 
