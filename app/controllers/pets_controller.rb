@@ -58,6 +58,7 @@ class PetsController < ApplicationController
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
+    $pet = @pet
     $exclude_shelter = []
     if @pet.save
       flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
