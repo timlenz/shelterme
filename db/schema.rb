@@ -83,18 +83,6 @@ ActiveRecord::Schema.define(:version => 20130202195047) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "coats", :force => true do |t|
-    t.integer  "primary_color_id"
-    t.integer  "fur_length_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.integer  "secondary_color_id"
-  end
-
-  add_index "coats", ["fur_length_id"], :name => "index_coats_on_fur_length_id"
-  add_index "coats", ["primary_color_id"], :name => "index_coats_on_fur_color_id"
-  add_index "coats", ["secondary_color_id"], :name => "index_coats_on_secondary_color_id"
-
   create_table "emotion_values", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -187,18 +175,6 @@ ActiveRecord::Schema.define(:version => 20130202195047) do
   end
 
   add_index "pet_media", ["pet_id"], :name => "index_pet_media_on_pet_id"
-
-  create_table "pet_personas", :force => true do |t|
-    t.integer  "affection_id"
-    t.integer  "energy_level_id"
-    t.integer  "nature_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "pet_personas", ["affection_id"], :name => "index_pet_personas_on_affection_id"
-  add_index "pet_personas", ["energy_level_id"], :name => "index_pet_personas_on_energy_level_id"
-  add_index "pet_personas", ["nature_id"], :name => "index_pet_personas_on_nature_id"
 
   create_table "pet_photos", :force => true do |t|
     t.integer  "pet_id"
@@ -327,11 +303,11 @@ ActiveRecord::Schema.define(:version => 20130202195047) do
 
   create_table "shelter_hours", :force => true do |t|
     t.integer  "shelter_id"
-    t.integer  "day"
+    t.integer  "day",        :limit => 2
     t.time     "open_time"
     t.time     "close_time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "shelters", :force => true do |t|

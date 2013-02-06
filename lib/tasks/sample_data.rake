@@ -33,7 +33,7 @@ def make_pets
   shelters.each do |shelter|
     Random.rand(20..50).times do
       name = Faker::Name.first_name
-      description = Faker::Lorem.paragraph(8)
+      description = Faker::Lorem.paragraph(7)
       animal_code = "A#{1_000_000 + Random.rand(10_000_000 - 1_000_000)}"
       weight = Random.rand(5..125)
       age = Random.rand(1..20)
