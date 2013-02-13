@@ -28,18 +28,18 @@
       <div class="tab-pane" id="followed">
         <ul>
         <%= render partial: "followed_users", collection: @followed, as: :f %>
-	        <div class="clearfix"></div>
-	        <%= will_paginate @followed, param_name: 'followed_page' %>
+          <div class="clearfix"></div>
+          <%= will_paginate @followed, param_name: 'followed_page' %>
         </ul>
       </div>
       <div class="tab-pane" id="comments">
         <% if @user.microposts.any? %>
-			  <ol class="microposts" style="width:915px;">
-			    <%= render @microposts %>
-	        <div class="clearfix"></div>
-	        <%= will_paginate @microposts, param_name: 'microposts_page' %>
-			  </ol>
-			  <% end %>
+        <ol class="microposts" style="width:915px;">
+          <%= render @microposts %>
+          <div class="clearfix"></div>
+          <%= will_paginate @microposts, param_name: 'microposts_page' %>
+        </ol>
+        <% end %>
       </div>
     </div>
   </div>

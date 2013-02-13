@@ -9,38 +9,35 @@
   </head>
   <body>
     <div id="sm">
-      <%= render 'layouts/header' %>   
-      <%= render 'layouts/errors' %>
-      
-      <%= yield %>
-      
+<%= render 'layouts/header' %>   
+<%= render 'layouts/errors' %>
+<%= yield %>
       <% if Rails.env.development? %>
         <div class="container noPrint">
           <%= debug(params) %>
         </div>
       <% end %>
       <div class="push"></div>
-    </div>
-    <%= render 'layouts/history' %>
-    <%= render 'layouts/footer' %>  
-    <%= javascript_include_tag "application" %>
-    <% if params[:controller] == 'pets' %>
-      <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
-      <script src="//d21qbsp9m249bi.cloudfront.net/u/1.4/jquery.panda-uploader.min.js" type="text/javascript"></script> 
-      <script>_V_.options.flash.swf = "video-js.swf"</script>
-    <% end %>
-    <script type="text/javascript">
-
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-36076402-1']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-
-		</script>
+    </div>  
+<% if signed_in? && pet_list.count > 1 %>
+<%= render 'layouts/history' %>
+<% end %>
+<%= render 'layouts/footer' %>  
+<%= javascript_include_tag "application" %>
+<% if params[:controller] == 'pets' %>
+  <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+  <script src="//d21qbsp9m249bi.cloudfront.net/u/1.4/jquery.panda-uploader.min.js" type="text/javascript"></script> 
+  <script>_V_.options.flash.swf = "video-js.swf"</script>
+<% end %>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36076402-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
   </body>
 </html>

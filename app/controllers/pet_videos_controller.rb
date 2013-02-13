@@ -13,11 +13,11 @@ class PetVideosController < ApplicationController
       @pet_video.primary = true
     end
     if @pet_video.save
-      flash[:notice] = "Video of #{$pet.name != "" ? $pet.name : $pet.animal_code} added."
+      flash[:notice] = "Video of #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code} added."
     else
       flash[:notice] = "Upload of video failed."
     end
-    redirect_to [$pet.shelter, $pet]
+    redirect_to [@pet_video.pet.shelter, @pet_video.pet]
   end
   
   def edit
@@ -29,11 +29,11 @@ class PetVideosController < ApplicationController
     PetVideo.select{|pp| @pet_video.pet.id == pp.pet.id }.each{|pp| pp.primary = false }.each(&:save)
     @pet_video.primary = true
     if @pet_video.update_attributes(params[:pet_video])
-      flash[:notice] = "Updated the primary photo for #{$pet.name != "" ? $pet.name : $pet.animal_code}."
-      redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+      flash[:notice] = "Updated the primary photo for #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code}."
+      redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     else
-      flash[:error] = "The video of #{$pet.name != "" ? $pet.name : $pet.animal_code} was not updated."
-      redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+      flash[:error] = "The video of #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code} was not updated."
+      redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
   end
   

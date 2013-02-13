@@ -72,10 +72,10 @@ class SheltersController < ApplicationController
       cookies[:location] = @current_location
     end
     if (validate_location(@current_location) == false) && (cookies[:location])
-    	@current_location = cookies[:location]
+      @current_location = cookies[:location]
     end
     if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
-    	@current_location = current_user.location
+      @current_location = current_user.location
     end
     if validate_location(@current_location) == false    
       flash[:notice] = "Estimating your location."

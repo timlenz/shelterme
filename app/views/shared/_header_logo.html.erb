@@ -6,13 +6,6 @@
       <% else %>
         <%= image_tag("catIcon.png", alt: "Cat") %>
       <% end %>
-			<% if @pet.pet_state.status == 'adopted' %>
-		    <%= image_tag("adoptedBigIcon.png", title: "Adopted") %>
-		  <% elsif @pet.pet_state.status == 'absent' %>
-		    <%= image_tag("absentIcon.png", title: "Absent") %>
-		  <% elsif @pet.pet_state.status == 'unavailable' %>
-		    <%= image_tag("unavailableIcon.png", title: "Unavailable") %>
-		  <% end %>
     <% else %>
       <%= image_tag("dogIcon.png", alt: "Dog") %>
     <% end %>

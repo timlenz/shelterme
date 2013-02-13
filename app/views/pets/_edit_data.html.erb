@@ -8,34 +8,34 @@
     <%= render 'pets/edit/select_shelter', f: f %>
   <% else %>
     <%= render 'pets/edit/shelter', f: f %>
-  <% end %>	
+  <% end %>  
   <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
   <%= render 'pets/edit/species', f: f %>
-	<%= f.label "Gender", class: "control-label", required: true %>
-	<div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
-	  <button type="button" data-toggle="button" class="btn" value="2">Female</button>
-	  <button type="button" data-toggle="button" class="btn" value="1">Male</button>
-	</div>
-	<%= f.hidden_field :gender_id, label: false %>
+  <%= f.label "Gender", class: "control-label", required: true %>
+  <div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
+    <button type="button" data-toggle="button" class="btn" value="2">Female</button>
+    <button type="button" data-toggle="button" class="btn" value="1">Male</button>
+  </div>
+  <%= f.hidden_field :gender_id, label: false %>
   <%= render 'pets/edit/age', f: f %>
   <%= render 'pets/edit/weight', f: f %>
   <%= f.label "Size", class: "control-label", required: true %>
   <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
-	  <button type="button" data-toggle="button" class="btn" value="1">Small</button>
-	  <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
-	  <button type="button" data-toggle="button" class="btn" value="3">Large</button>
-	</div>
-	<%= f.hidden_field :size_id, label: false %>
+    <button type="button" data-toggle="button" class="btn" value="1">Small</button>
+    <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
+    <button type="button" data-toggle="button" class="btn" value="3">Large</button>
+  </div>
+  <%= f.hidden_field :size_id, label: false %>
   <%= render 'pets/edit/mix', f: f %>
   <% if signed_in? and (current_user.admin? or current_user.manager?) %>
     <%= f.label "Status", class: "control-label", required: true %>
     <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
-		  <button type="button" data-toggle="button" class="btn" value="1" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Available</button>
-		  <button type="button" data-toggle="button" class="btn" value="4" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Absent</button>
-		  <button type="button" data-toggle="button" class="btn" value="2" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Adopted</button>
-		  <button type="button" data-toggle="button" class="btn" value="3" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Unavailable</button>
-		</div>
-		<%= f.hidden_field :pet_state_id, label: false %>
+      <button type="button" data-toggle="button" class="btn" value="1" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Available</button>
+      <button type="button" data-toggle="button" class="btn" value="4" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Absent</button>
+      <button type="button" data-toggle="button" class="btn" value="2" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Adopted</button>
+      <button type="button" data-toggle="button" class="btn" value="3" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Unavailable</button>
+    </div>
+    <%= f.hidden_field :pet_state_id, label: false %>
   <% end %>
 </div>
 <div class="rightEditForm">

@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
           location = cookies[:location]
         end
         if (validate_location(location) == false) && (signed_in? and current_user.location?)
-        	location = current_user.location
+          location = current_user.location
         end
         if validate_location(location) == false    
           s = Geocoder.search(remote_ip)
@@ -52,5 +52,14 @@ class StaticPagesController < ApplicationController
     if !signed_in?
       redirect_to root_path
     end
+    pets = Pet.all
+    @names = pets.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @dog_names = pets.select{|p| p.species_id == 2}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @cat_names = pets.select{|p| p.species_id == 1}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @available_journal = Shelter.all.map{|s| s.available_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @absent_journal = Shelter.all.map{|s| s.absent_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @adopted_journal = Shelter.all.map{|s| s.adopted_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @unavailable_journal = Shelter.all.map{|s| s.unavailable_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @shelters_state = Shelter.all.map{|n| n.state }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse
   end
 end

@@ -4,12 +4,12 @@
       <li>
         <div class="innerComment">
           <div class="avatar">
-						<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to avatar_for(p[0]), p[0] %> 
             <% end %>
           </div>
           <div class="post wide">
-	          <% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"><%= p[3]%></span>
@@ -17,8 +17,8 @@
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Added' %>
-	          <%= image_tag("addIcon.png", class: "icon media") %>
-	          <% end %>
+            <%= image_tag("addIcon.png", class: "icon media") %>
+            <% end %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>
@@ -43,12 +43,12 @@
       <li>
         <div class="innerComment">
           <div class="avatar">
-						<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to avatar_for(p[0]), p[0] %> 
             <% end %>
           </div>
           <div class="post wide">
-	          <% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"><%= p[3]%></span>
@@ -112,13 +112,13 @@
             <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %> 
             <span class="action"><%= p[4] == 'adopted' ? "has been" : "is now" %></span>
             <span class="status"><%= p[4]%></span>            
-	          <% if p[4] == 'adopted' %>
-	          <%= image_tag("adoptedIcon.png", class: "media") %>
-	          <% elsif p[4] == 'absent' %>
-	          <%= image_tag("absentIcon.png", class: "media") %>
-	          <% elsif p[4] == 'unavailable' %>
-	          <%= image_tag("unavailableIcon.png", class: "media") %>
-	          <% end %>
+            <% if p[4] == 'adopted' %>
+            <%= image_tag("adoptedIcon.png", class: "media") %>
+            <% elsif p[4] == 'absent' %>
+            <%= image_tag("absentIcon.png", class: "media") %>
+            <% elsif p[4] == 'unavailable' %>
+            <%= image_tag("unavailableIcon.png", class: "media") %>
+            <% end %>
             <br>
             <span class="time"> <%= time_ago_in_words(p[2]) %></span>
           </div>
@@ -127,11 +127,11 @@
     <% elsif p[3] == 'Managed' %> <!-- managed pets -->
       <li class="managed">
         <div class="innerComment">
-	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
-	        <% end %>
+          <% if @user != p[0] %>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
+          <% end %>
           <div class="post wide">
-						<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added</span>
@@ -139,21 +139,21 @@
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Managed' %>
-	          <%= image_tag("addIcon.png", class: "icon media") %>
-	          <% end %>
+            <%= image_tag("addIcon.png", class: "icon media") %>
+            <% end %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>
         </div>
       </li>
-		<% elsif p[3] == 'watch managed' %> <!-- watchers of managed pets -->
+    <% elsif p[3] == 'watch managed' %> <!-- watchers of managed pets -->
       <li class="managed">
         <div class="innerComment">
-	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
-	        <% end %>
+          <% if @user != p[0] %>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
+          <% end %>
           <div class="post wide">
-  					<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"> started following </span>
@@ -166,11 +166,11 @@
     <% elsif p[3] == 'photo' || p[3] == 'photo managed' %> <!-- photos added to added/watched pets -->
       <li class="<%= p[3] == 'photo managed' ? 'managed' : ''%>">
         <div class="innerComment">
-	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
-	        <% end %>
+          <% if @user != p[0] %>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
+          <% end %>
           <div class="post wide">
-						<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added a photo of</span>
@@ -184,16 +184,16 @@
     <% elsif p[3] == 'video' || p[3] == 'video managed' %> <!-- videos added to added/watched pets -->
       <li class="<%= p[3] == 'video managed' ? 'managed' : ''%>">
         <div class="innerComment">
-	        <% if @user != p[0] %>
-	        <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
-	        <% end %>
+          <% if @user != p[0] %>
+          <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
+          <% end %>
           <div class="post wide">
-						<% if @user != p[0] %>
+            <% if @user != p[0] %>
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added a video of</span>
             <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
-            <%= link_to (image_tag p[4].h264.screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
+            <%= link_to (image_tag p[4].panda_video.encodings["h264"].screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>

@@ -20,7 +20,8 @@ gem 'fog'
 gem 'mini_magick'
 gem 'panda', '~> 1.6.0'
 gem 'newrelic_rpm'
-#gem 'jquery-fileupload-rails'
+gem 'jquery-rails', '2.0.2'
+gem 'jquery-fileupload-rails'
 
 group :development do
   gem 'rspec-rails', '2.9.0'
@@ -37,7 +38,6 @@ group :assets do
   gem 'jquery-ui-rails', '0.4.0'
 end
 
-gem 'jquery-rails', '2.0.2'
 
 group :test do
   gem 'rspec-rails', '2.9.0'

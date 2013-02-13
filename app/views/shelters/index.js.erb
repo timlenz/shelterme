@@ -1,1 +1,16 @@
 $('#shelters').html('<%= escape_javascript(render("shelters")) %>');
+$('.sparklines').sparkline('html', { 
+  fillColor: 'none',
+  lineColor: '#999',
+  spotColor: 'none',
+  minSpotColor: 'none',
+  maxSpotColor: 'none',
+  highlightSpotColor: '#d54509',
+  highlightLineColor: '#d54509',
+  width: '60px'
+});
+// Hide nav spinner on admin header click
+$('.adminView .asc, .adminView .desc').click(function(){
+  $('.navSpinner').hide();
+  $('.navLogo').show();
+});

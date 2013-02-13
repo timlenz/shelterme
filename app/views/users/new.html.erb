@@ -1,10 +1,10 @@
 <%= provide(:title, 'Join') %>
 <div class="container">
   <div class="signinDialog">
-	  <div class="row center">
-	  	<%= image_tag("createAccount.png", alt: "Please join our community by creating an account", class: "formHeader") %>
-	  </div>
-	  <br>
+    <div class="row center">
+      <%= image_tag("createAccount.png", alt: "Please join our community by creating an account", class: "formHeader") %>
+    </div>
+    <br>
     <div class="row">
       <div class="leftHalf">
         <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
@@ -18,25 +18,25 @@
         <% end %>
       </div>
       <div class="rightHalf">
-	      <p style="font-size:13px;">When you join our community, you can make a difference for shelter pets in your area.</p>
-	      <ul>
-		      <li>Create pet profiles</li>
-		      <li>Add photos and videos of shelter pets</li>
-		      <li>Comment on existing shelter pet profiles</li>
-		      <li>Get the latest news from pets, shelters and other members</li>
-		      <li>Create shelter profiles</li>
-		      <li>Discover your ideal pet</li>
-		    </ul>
-		    <br>
-		    <div class="subtlep">
-	        <p>You can certainly use ShelterMe without joining our community, but not all site features will be available. By creating an account on ShelterMe.com, you agree to our <%= link_to "terms of use", terms_path %>.</p>
-	      </div>
-		  </div>
+        <p style="font-size:13px;">When you join our community, you can make a difference for shelter pets in your area.</p>
+        <ul>
+          <li>Create pet profiles</li>
+          <li>Add photos and videos of shelter pets</li>
+          <li>Comment on existing shelter pet profiles</li>
+          <li>Get the latest news from pets, shelters and other members</li>
+          <li>Create shelter profiles</li>
+          <li>Discover your ideal pet</li>
+        </ul>
+        <br>
+        <div class="subtlep">
+          <p>You can certainly use ShelterMe without joining our community, but not all site features will be available. By creating an account on ShelterMe.com, you agree to our <%= link_to "terms of use", terms_path %>.</p>
+        </div>
+      </div>
     </div>
     <br><br>
     <div class="row center">
-	    <p style="font-size:13px;">Are you already part of our community? Please <%= link_to "sign in", signin_path %>.</p>
-	  </div>
+      <p style="font-size:13px;">Are you already part of our community? Please <%= link_to "sign in", signin_path %>.</p>
+    </div>
     <br>
     <div class="row">
       <div class="cornerLogo">

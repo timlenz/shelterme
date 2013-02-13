@@ -2,11 +2,26 @@
   <table class="table-condensed">
     <tr>
       <td class="adminId"><%= shelter.id %></td>
-      <td class="adminAdded"><%= shelter.available.count %></td>
-      <td class="adminAdded"><%= shelter.absent.count %></td>
-      <td class="adminAdded"><%= shelter.adopted.count %></td>
-      <td class="adminAdded"><%= shelter.unavailable.count %></td>
-      <td class="adminAdded"><%= shelter.fostered.count %></td>
+      <td class="adminSpark">
+        <span class="sparklines"><!-- <%= shelter.available_journal %> --></span>
+        <%= shelter.available.count - shelter.absent.count %>
+      </td>
+      <td class="adminSpark">
+        <span class="sparklines"><!-- <%= shelter.absent_journal %> --></span>
+        <%= shelter.absent.count %>
+      </td>
+      <td class="adminSpark">
+        <span class="sparklines"><!-- <%= shelter.adopted_journal %> --></span>
+        <%= shelter.adopted.count %>
+      </td>
+      <td class="adminSpark">
+        <span class="sparklines"><!-- <%= shelter.unavailable_journal %> --></span>
+        <%= shelter.unavailable.count %>
+      </td>
+      <td class="adminSpark">
+        <span class="sparklines"><!-- <%= shelter.fostered_journal %> --></span>
+        <%= shelter.fostered.count %>
+      </td>
       <td class="adminName"><%= link_to shelter.name, shelter %></td>
     </tr>
   </table>

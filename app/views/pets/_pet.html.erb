@@ -6,21 +6,21 @@
       <td class="adminCode" style="width:120px;"><%= pet.animal_code %></td>
       <td class="managedName" style="width:190px;">
         <% if pet.name != '' %>
-	      <%= link_to pet.name, [pet.shelter, pet] %>
-	      <% else %>
-	      <%= link_to "No Name", [pet.shelter, pet] %>
-	      <% end %>
+        <%= link_to pet.name, [pet.shelter, pet] %>
+        <% else %>
+        <%= link_to "No Name", [pet.shelter, pet] %>
+        <% end %>
       </td>
       <td class="managedStatus">
         <%= simple_form_for(pet, html: {class: 'form-horizontal' }) do |p| %>
-				  <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
-					  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
-					  <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
-					  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
-					  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
-					</div>
-					<%= p.hidden_field :pet_state_id, label: false %>
-					<%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name : pet.animal_code}'s status?" %>
+          <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+            <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+            <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
+            <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
+            <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+          </div>
+          <%= p.hidden_field :pet_state_id, label: false %>
+          <%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name : pet.animal_code}'s status?" %>
         <% end %>
       </td>
       <td class="managedDelete">

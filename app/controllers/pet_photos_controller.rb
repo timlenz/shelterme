@@ -9,15 +9,15 @@ class PetPhotosController < ApplicationController
   end
 
   def create
-    @pet_photo = PetPhoto.new(params[:pet_photo])
+    @pet_photo = PetPhoto.create!(params[:pet_photo])
     if $pet.pet_photos.size == 0
       @pet_photo.primary = true
     end
     if @pet_photo.save
       render :crop
     else
-      flash[:error] = "Whoops. The photo of #{$pet.name != "" ? $pet.name : $pet.animal_code} was not added."
-      redirect_to [$pet.shelter, $pet]
+      flash[:error] = "Whoops. The photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} was not added."
+      redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
     end
   end
 
@@ -36,18 +36,18 @@ class PetPhotosController < ApplicationController
     end
     if @pet_photo.update_attributes(params[:pet_photo])
       if cookies[:photo] == "new"
-        flash[:notice] = "Photo of #{$pet.name != "" ? $pet.name : $pet.animal_code} added."
-        redirect_to [$pet.shelter, $pet]
+        redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
+        flash[:notice] = "Photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} added."
       else
-        flash[:notice] = "Updated the primary photo for #{$pet.name != "" ? $pet.name : $pet.animal_code}."
-        redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+        flash[:notice] = "Updated the primary photo for #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code}."
+        redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
       end
     else
-      flash[:error] = "The photo of #{$pet.name != "" ? $pet.name : $pet.animal_code} was not updated."
+      flash[:error] = "The photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} was not updated."
       if cookies[:photo] == "edit"
-        redirect_to edit_shelter_pet_path($pet.shelter, $pet)
+        redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
       else
-        redirect_to [$pet.shelter, $pet]
+        redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
       end
     end
     cookies[:photo] = ""

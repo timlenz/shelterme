@@ -15,5 +15,5 @@
 # end
 
 ActiveSupport::Inflector.inflections do |inflect|
-   inflect.uncountable %w(hours ShelterHours media PetMedia pet_media)
+   inflect.uncountable %w(hours ShelterHours media)
 end

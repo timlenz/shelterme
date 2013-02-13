@@ -4,7 +4,7 @@
     <div class="row">
       <div class="span6 offset3 center">
         <%= image_tag("pleaseSignin.png", alt: "Welcome back! Please sign in.", class: "formHeader") %>
-				<br><br>
+        <br><br>
         <%= simple_form_for(:session, url: sessions_path, html: {class: 'form-horizontal' }) do |f| %>
 
           <%= f.input :email, label: "Your Email" %>

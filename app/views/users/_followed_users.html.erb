@@ -25,12 +25,12 @@
     <p><%= f.followed_users.count %></p>
   </div>
   <div class="userIcon">
-		<% photos = PetPhoto.select{|u| u.user == f}.count%>
+    <% photos = PetPhoto.select{|u| u.user == f}.count%>
     <%= link_to image_tag("photoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(photos, "Photo") %><br>
     <p><%= photos %></p>
   </div>
   <div class="userIcon lastUserIcon">
-	  <% videos = PetVideo.select{|u| u.user == f}.count %>
+    <% videos = PetVideo.select{|u| u.user == f}.count %>
     <%= link_to image_tag("videoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(videos, "Video") %><br>
     <p><%= videos %></p>
   </div>

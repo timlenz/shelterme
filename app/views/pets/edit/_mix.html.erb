@@ -1,14 +1,14 @@
 <div class="control-group string optional">
-	<label class="string required control-label" for="user_shelter_name"><abbr title="required">*</abbr> Primary Breed</label>
-	<div class="controls">
-		<%= f.text_field :primary_breed_name, data: {autocomplete_source: Breed.order(:name).map(&:name)} %>
-		<p class="help-block">Start typing and matching breeds will be shown</p>
-	</div>
+  <label class="string required control-label" for="user_shelter_name"><abbr title="required">*</abbr> Primary Breed</label>
+  <div class="controls">
+    <%= f.text_field :primary_breed_name, data: {autocomplete_source: Breed.order(:name).map(&:name)} %>
+    <p class="help-block">Start typing and matching breeds will be shown</p>
+  </div>
 </div>
 <div class="control-group string optional">
-	<label class="string optional control-label" for="user_shelter_name">Secondary Breed</label>
-	<div class="controls">
-		<%= f.text_field :secondary_breed_name, data: {autocomplete_source: Breed.order(:name).map(&:name)} %>
-		<p class="help-block">Start typing and matching breeds will be shown</p>
-	</div>
+  <label class="string optional control-label" for="user_shelter_name">Secondary Breed</label>
+  <div class="controls">
+    <%= f.text_field :secondary_breed_name, data: {autocomplete_source: Breed.order(:name).map(&:name)} %>
+    <p class="help-block">Start typing and matching breeds will be shown</p>
+  </div>
 </div>

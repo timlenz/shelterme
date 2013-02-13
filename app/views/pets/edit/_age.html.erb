@@ -1,13 +1,13 @@
 <%= f.input :age, wrapper: :append do %>
   <%= f.input_field :age, class: "input-mini", style: "margin-top: -22px;" %>
-	<div class="btn-group four-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[age_period_id]">
-	  <button type="button" data-toggle="button" class="btn" value="4">Years</button>
-	  <button type="button" data-toggle="button" class="btn" value="3" style="width:62px;">Months</button>
-	  <button type="button" data-toggle="button" class="btn" value="2">Weeks</button>
-	  <button type="button" data-toggle="button" class="btn" value="1">Days</button>
-	</div>
-	<% if params[:action] == 'edit '%>
-	<p class="help-block" style="margin-top: 0px;">Age when profile created</p>
-	<% end %>
-	<%= f.hidden_field :age_period_id, label: false %>
+  <div class="btn-group four-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[age_period_id]">
+    <button type="button" data-toggle="button" class="btn" value="4">Years</button>
+    <button type="button" data-toggle="button" class="btn" value="3" style="width:62px;">Months</button>
+    <button type="button" data-toggle="button" class="btn" value="2">Weeks</button>
+    <button type="button" data-toggle="button" class="btn" value="1">Days</button>
+  </div>
+  <% if params[:action] == 'edit '%>
+  <p class="help-block" style="margin-top: 0px;">Age when profile created</p>
+  <% end %>
+  <%= f.hidden_field :age_period_id, label: false %>
 <% end %>

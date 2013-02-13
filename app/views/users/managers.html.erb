@@ -8,7 +8,7 @@
       </div>
       <div class="searchButton">
         <%= form_tag shelter_admins_path, :method => 'get', id: "shelter_admins_search" do %>
-	        <%= label_tag :search, "Enter name" %>
+          <%= label_tag :search, "Enter name" %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
         <% end %>

@@ -63,6 +63,7 @@ class Pet < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
   has_many :pet_photos, dependent: :destroy
   has_many :pet_videos, dependent: :destroy
+  has_many :journals, dependent: :destroy
   
   accepts_nested_attributes_for :shelter
   accepts_nested_attributes_for :species
@@ -100,6 +101,8 @@ class Pet < ActiveRecord::Base
   
   before_validation :generate_slug, on: :create
 
+  default_scope order: 'pets.created_at DESC'
+
   profanity_filter :name, :description
 
   def to_param
@@ -115,6 +118,11 @@ class Pet < ActiveRecord::Base
     while Pet.find{|s| s.slug == self.slug} do
       self.slug = self.slug + Random.rand(1..9).to_s
     end
+  end
+  
+  def journalize!(shelter, pet_state, old_pet_state)
+    #old_state = cookies[:pet_state_change]
+    journals.create!(shelter_id: shelter.id, pet_state_id: pet_state.id, old_pet_state_id: old_pet_state.values[0])
   end
   
   def feed

@@ -1,86 +1,86 @@
   <div id="waiting" class="hide">
-	 <%= image_tag("spinner.gif")%>
-	 <br>
-	 <h2 style="text-align:center;">Searching...</h2>
-	</div>
+   <%= image_tag("spinner.gif")%>
+   <br>
+   <h2 style="text-align:center;">Searching...</h2>
+  </div>
 <% if $search.pets.size > 0 %>
   <div id="results">
-  	<h2 style="margin-top:10px;"><%= pluralize($search.pets.size, "Pet") %> Found</h2>
-	  <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
-	  <div class="clearfix"></div>
-	  <%= will_paginate @search_results %>
+    <h2 style="margin-top:10px;"><%= pluralize($search.pets.size, "Pet") %> Found</h2>
+    <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
+    <div class="clearfix"></div>
+    <%= will_paginate @search_results %>
   </div>
 <% else %>
   <div class="findBlurb" style="height:400px;">
   <h3><%= image_tag("partialMatchFound.png")%></h3><br>
   <p>No pets within 50 miles of <%= @search.location %> were an exact match for your search.<br>
-	  However, we have taken the liberty of finding the best partial matches for you:</p>
-	<div class="partialMatch">
-		<p>There 
-	 	<% if @local_sbgasan.count > 0 %>
-			<%= @local_sbgasan.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sbgasan.count == 1 ? "" : @local_sbgasan.count} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "dominant")}, #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasan.count)}", "#", id: "local_sbgasan" %>
-	  	available near <%= @search.location %>.
-	 	<% elsif @local_sbgasa.count > 0 %>
-			<%= @local_sbgasa.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sbgasa.count == 1 ? "" : @local_sbgasa.count} #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasa.count)}", "#", id: "local_sbgasa" %>
-	  	available near <%= @search.location %>.
-	 	<% elsif @local_sbgas.count > 0 %>
-			<%= @local_sbgas.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sbgas.count == 1 ? "" : @local_sbgas.count} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgas.count)}", "#", id: "local_sbgas" %>
-	  	available near <%= @search.location %>.
-	 	<% elsif @local_sbga.count > 0 %>
-			<%= @local_sbga.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sbga.count == 1 ? "" : @local_sbga.count} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbga.count)}", "#", id: "local_sbga" %>
-	  	available near <%= @search.location %>.
-	 	<% elsif @local_sbg.count > 0 %>
-			<%= @local_sbg.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sbg.count == 1 ? "" : @local_sbg.count} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbg.count)}", "#", id: "local_sbg" %>
-	  	available near <%= @search.location %>.
-	 	<% elsif @local_sb.count > 0 %>
-			<%= @local_sb.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@local_sb.count == 1 ? "" : @local_sb.count} #{@search.breed.name.pluralize(@local_sb.count)}", "#", id: "local_sb" %>
-	  	available near <%= @search.location %>.
-		<% elsif @search.local_species.count > 0 %>
-		  <%= @search.local_species.count == 1 ? "is a" : "are" %>
-		  <%= link_to "#{@search.local_species.count == 1 ? "" : @search.local_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.local_species.count) : "dog".pluralize(@search.local_species.count)}", "#", id: "local_species" %>
-	  	available near <%= @search.location %>.
-		<% elsif @search.near_sb.count > 0 %>
-		  <%= @search.near_sb.count == 1 ? "is a" : "are" %> 
-		  <%= link_to "#{@search.near_sb.count == 1 ? "" : @search.near_sb.count} #{@search.breed.name.pluralize(@search.near_sb.count)}", "#", id: "near_sb" %>
-		  <% near_shelter = Shelter.all.detect{|s| s.id == @search.near_sb.first.shelter_id} %>
-		  available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-		<% elsif @search.far_sb.count > 0 %>
-		  <%= @search.far_sb.count == 1 ? "is a" : "are" %> 
-		  <%= link_to "#{@search.far_sb.count == 1 ? "" : @search.far_sb.count} #{@search.breed.name.pluralize(@search.far_sb.count)}", "#", id: "far_sb" %>
-		  <% near_shelter = Shelter.all.detect{|s| s.id == @search.far_sb.first.shelter_id} %>
-		  available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-		<% elsif @search.near_species.count > 0 %>
-		  <%= @search.near_species.count == 1 ? "is a" : "are" %> 
-		  <%= link_to "#{@search.near_species.count == 1 ? "" : @search.near_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.near_species.count) : "dog".pluralize(@search.near_species.count)}", "#", id: "near_species" %>
-			<% near_shelter = Shelter.all.detect{|s| s.id == @search.near_species.first.shelter_id} %>
-		  available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-		<% elsif @search.far_species.count > 0 %>
-		  <%= @search.far_species.count == 1 ? "is a" : "are" %> 
-		  <%= link_to "#{@search.far_species.count == 1 ? "" : @search.far_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.far_species.count) : "dog".pluralize(@search.far_species.count)}", "#", id: "far_species" %>
-			<% near_shelter = Shelter.all.detect{|s| s.id == @search.far_species.first.shelter_id} %>
-		  available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-		<% else %>
-		  are no shelters near <%= @search.location %>.
-			<script type="text/javascript">
-				function NoShelters(){
-					window.location.href="/findshelter"
-				}
-		    setTimeout("NoShelters()", 3000);
-				$(function(){
-					$('.findBlurb h3, .findBlurb p:first, .findBlurb p:last, .saveSearch').hide();
-					$('.partialMatch p').css({'color':'#ec520a','font-weight':'bold'});
-				});
-		  </script>
-		<% end %>
-		</p>
-	</div>
-	<!--span class="saveSearch">
+    However, we have taken the liberty of finding the best partial matches for you:</p>
+  <div class="partialMatch">
+    <p>There 
+     <% if @local_sbgasan.count > 0 %>
+      <%= @local_sbgasan.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sbgasan.count == 1 ? "" : @local_sbgasan.count} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "dominant")}, #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasan.count)}", "#", id: "local_sbgasan" %>
+      available near <%= @search.location %>.
+     <% elsif @local_sbgasa.count > 0 %>
+      <%= @local_sbgasa.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sbgasa.count == 1 ? "" : @local_sbgasa.count} #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasa.count)}", "#", id: "local_sbgasa" %>
+      available near <%= @search.location %>.
+     <% elsif @local_sbgas.count > 0 %>
+      <%= @local_sbgas.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sbgas.count == 1 ? "" : @local_sbgas.count} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgas.count)}", "#", id: "local_sbgas" %>
+      available near <%= @search.location %>.
+     <% elsif @local_sbga.count > 0 %>
+      <%= @local_sbga.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sbga.count == 1 ? "" : @local_sbga.count} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbga.count)}", "#", id: "local_sbga" %>
+      available near <%= @search.location %>.
+     <% elsif @local_sbg.count > 0 %>
+      <%= @local_sbg.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sbg.count == 1 ? "" : @local_sbg.count} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbg.count)}", "#", id: "local_sbg" %>
+      available near <%= @search.location %>.
+     <% elsif @local_sb.count > 0 %>
+      <%= @local_sb.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@local_sb.count == 1 ? "" : @local_sb.count} #{@search.breed.name.pluralize(@local_sb.count)}", "#", id: "local_sb" %>
+      available near <%= @search.location %>.
+    <% elsif @search.local_species.count > 0 %>
+      <%= @search.local_species.count == 1 ? "is a" : "are" %>
+      <%= link_to "#{@search.local_species.count == 1 ? "" : @search.local_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.local_species.count) : "dog".pluralize(@search.local_species.count)}", "#", id: "local_species" %>
+      available near <%= @search.location %>.
+    <% elsif @search.near_sb.count > 0 %>
+      <%= @search.near_sb.count == 1 ? "is a" : "are" %> 
+      <%= link_to "#{@search.near_sb.count == 1 ? "" : @search.near_sb.count} #{@search.breed.name.pluralize(@search.near_sb.count)}", "#", id: "near_sb" %>
+      <% near_shelter = Shelter.all.detect{|s| s.id == @search.near_sb.first.shelter_id} %>
+      available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
+    <% elsif @search.far_sb.count > 0 %>
+      <%= @search.far_sb.count == 1 ? "is a" : "are" %> 
+      <%= link_to "#{@search.far_sb.count == 1 ? "" : @search.far_sb.count} #{@search.breed.name.pluralize(@search.far_sb.count)}", "#", id: "far_sb" %>
+      <% near_shelter = Shelter.all.detect{|s| s.id == @search.far_sb.first.shelter_id} %>
+      available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
+    <% elsif @search.near_species.count > 0 %>
+      <%= @search.near_species.count == 1 ? "is a" : "are" %> 
+      <%= link_to "#{@search.near_species.count == 1 ? "" : @search.near_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.near_species.count) : "dog".pluralize(@search.near_species.count)}", "#", id: "near_species" %>
+      <% near_shelter = Shelter.all.detect{|s| s.id == @search.near_species.first.shelter_id} %>
+      available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
+    <% elsif @search.far_species.count > 0 %>
+      <%= @search.far_species.count == 1 ? "is a" : "are" %> 
+      <%= link_to "#{@search.far_species.count == 1 ? "" : @search.far_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.far_species.count) : "dog".pluralize(@search.far_species.count)}", "#", id: "far_species" %>
+      <% near_shelter = Shelter.all.detect{|s| s.id == @search.far_species.first.shelter_id} %>
+      available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
+    <% else %>
+      are no shelters near <%= @search.location %>.
+      <script type="text/javascript">
+        function NoShelters(){
+          window.location.href="/findshelter"
+        }
+        setTimeout("NoShelters()", 3000);
+        $(function(){
+          $('.findBlurb h3, .findBlurb p:first, .findBlurb p:last, .saveSearch').hide();
+          $('.partialMatch p').css({'color':'#ec520a','font-weight':'bold'});
+        });
+      </script>
+    <% end %>
+    </p>
+  </div>
+  <!--span class="saveSearch">
   <p>If you prefer, you can save your search and we will contact you<br> when pets meeting your criteria become available in your area.<br><br>
   <button type="button" class="btn btn-header saveSearch">Save</button></span>
   <p>Please visit a <% link_to "local shelter", findshelter_path %> to add pets that are not yet in our database.</p>
@@ -97,138 +97,138 @@
 
 <script>
 $(function(){
-	try {
-		$('[rel=tooltip]').tooltip();
-	
-		// Quick grammar correction for pet results
-		if ( $('.partialMatch a').length ) {
-			var vowel = $('.partialMatch a').html().substring(0,2);
-			var vmatch = /[aeiouAEIOU]/.test(vowel);
-			if ( vmatch ) {
-				var inter = $('.partialMatch p').html().replace("is a","is an");
-				$('.partialMatch p').html(inter);
-			};
-		};
-	
-		// Quick link searches in Find Pet
-		// Local species
-		$('#local_species').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-		// Nearest species
-		$('#near_species, #far_species').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			nearest = $('.partialMatch span').html();
-			$('#search_location').val(nearest);
-			$('button[type="submit"]').click();
-		});
-		// Species, breed search
-		$('#local_sb').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-		// Nearest species, breed
-		$('#near_sb, #far_sb').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			nearest = $('.partialMatch span').html();
-			$('#search_location').val(nearest);
-			$('button[type="submit"]').click();
-		});
-		// Species, breed, gender
-		$('#local_sbg').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			gender = $('#search_gender_id').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-		// Species, breed, gender, age
-		$('#local_sbga').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			gender = $('#search_gender_id').val();
-			age = $('#search_age_group').val();
-			$('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').not('#search_age_group').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});	
-		// Species, breed, gender, age, size
-		$('#local_sbgas').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			gender = $('#search_gender_id').val();
-			age = $('#search_age_group').val();
-			size = $('#search_size_id').val();
-			$('#search_energy_level_id, #search_nature_id, #search_affection_id').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-		// Species, breed, gender, age, size, affection
-		$('#local_sbgasa').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			gender = $('#search_gender_id').val();
-			age = $('#search_age_group').val();
-			size = $('#search_size_id').val();
-			affection = $('#search_affection_id').val();
-			$('#search_energy_level_id, #search_nature_id').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-		// Species, breed, gender, age, size, affection, nature
-		$('#local_sbgasan').click(function(){
-			$('#waiting').show();
-			species = $('#search_species_id').val();
-			gender = $('#search_gender_id').val();
-			age = $('#search_age_group').val();
-			size = $('#search_size_id').val();
-			affection = $('#search_affection_id').val();
-			nature = $('#search_nature_id').val();
-			$('#search_energy_level_id').val("");
-			$('#new_search button').removeClass('active');
-			$('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-			$('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-			$('button[type="submit"]').click();
-		});
-	}
-	catch(e) {
-		alert(e);
-	}
+  try {
+    $('[rel=tooltip]').tooltip();
+  
+    // Quick grammar correction for pet results
+    if ( $('.partialMatch a').length ) {
+      var vowel = $('.partialMatch a').html().substring(0,2);
+      var vmatch = /[aeiouAEIOU]/.test(vowel);
+      if ( vmatch ) {
+        var inter = $('.partialMatch p').html().replace("is a","is an");
+        $('.partialMatch p').html(inter);
+      };
+    };
+  
+    // Quick link searches in Find Pet
+    // Local species
+    $('#local_species').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+    // Nearest species
+    $('#near_species, #far_species').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+      $('button[type="submit"]').click();
+    });
+    // Species, breed search
+    $('#local_sb').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+    // Nearest species, breed
+    $('#near_sb, #far_sb').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+      $('button[type="submit"]').click();
+    });
+    // Species, breed, gender
+    $('#local_sbg').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      gender = $('#search_gender_id').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+    // Species, breed, gender, age
+    $('#local_sbga').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      gender = $('#search_gender_id').val();
+      age = $('#search_age_group').val();
+      $('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').not('#search_age_group').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });  
+    // Species, breed, gender, age, size
+    $('#local_sbgas').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      gender = $('#search_gender_id').val();
+      age = $('#search_age_group').val();
+      size = $('#search_size_id').val();
+      $('#search_energy_level_id, #search_nature_id, #search_affection_id').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+    // Species, breed, gender, age, size, affection
+    $('#local_sbgasa').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      gender = $('#search_gender_id').val();
+      age = $('#search_age_group').val();
+      size = $('#search_size_id').val();
+      affection = $('#search_affection_id').val();
+      $('#search_energy_level_id, #search_nature_id').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+    // Species, breed, gender, age, size, affection, nature
+    $('#local_sbgasan').click(function(){
+      $('#waiting').show();
+      species = $('#search_species_id').val();
+      gender = $('#search_gender_id').val();
+      age = $('#search_age_group').val();
+      size = $('#search_size_id').val();
+      affection = $('#search_affection_id').val();
+      nature = $('#search_nature_id').val();
+      $('#search_energy_level_id').val("");
+      $('#new_search button').removeClass('active');
+      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+      $('button[type="submit"]').click();
+    });
+  }
+  catch(e) {
+    alert(e);
+  }
 });
 </script>

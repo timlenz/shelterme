@@ -24,9 +24,9 @@
     <p>Our apologies, but there are no shelters in our database near <%= cookies[:location] %>.</p>
     <p>Search online to see if there are 
     <%= link_to "shelters in your area.", "https://maps.google.com/maps?q=animal+shelter+#{cookies[:location].gsub(/ |, /,'+')}&hl=en&z=10", target: "_blank" %>
-    </p>		
+    </p>    
   <% if signed_in? %>
-    <p>If you know of a shelter in your area, you can add it with the link below.</p>	
+    <p>If you know of a shelter in your area, you can add it with the link below.</p>  
     <ul style="list-style:none;text-indent:0;margin-left:0;padding-left:0;">
     <li class="addShelter" style="border-bottom:none;">
       <a href="newshelter"><span style="font-weight:bold;font-size:28px;">+</span> Add Shelter</a>

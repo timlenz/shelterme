@@ -1,46 +1,72 @@
 <div id="addPhoto" class="modal" data-backdrop="static" data-keyboard="false">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
-    	<div class="headerLogo">
-			  <%= image_tag("photoIcon.png", alt: "Add Photo") %>
-			</div>
-	    <div class="headerInfo" style="width:385px;">
-        <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1>
+      <div class="headerLogo">
+        <%= image_tag("photoIcon.png", alt: "Add Photo") %>
+      </div>
+      <div class="headerInfo" style="width:385px;">
+        <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1><br>
+				<p></p>
       </div>
     </div>
     <div class="form">
-	    <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", help_path(anchor: "photo"), style: "line-height:28px;font-size:12px;" %>.</p>
-	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
-		    This window will close once your upload is complete.
-		  </div>
-      <%= simple_form_for @pet_photo, :html => {:multipart => true} do |f| %>
+      <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", help_path(anchor: "photo"), style: "line-height:28px;font-size:12px;" %>.</p>
+      <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
+        This window will close once your upload is complete.
+      </div>
+      <%= simple_form_for @pet_photo, :html => {multipart: true, id: "fileupload"} do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.hidden_field :pet_id %>
         <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.file_field :image, class: "btn-media" %>
-        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;" %>
-        <button class="text-close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">Cancel</button>
+				<div class="row fileupload-buttonbar">
+            <div>
+                <span class="btn formBtn fileinput-button" style="width:145px;margin-left:20px;">
+                    <span>Choose Photo</span>
+                    <%= f.file_field :image %>
+                </span>
+                <%= f.button :submit, "Upload", class: "formBtn start", style: "width:145px;", disabled: true %>
+						    <button class="text-close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">Cancel</button>
+            </div>
+            <div>
+                <!-- The global progress bar -->
+                <div class="progress progress-success progress-striped active fade">
+                    <div class="bar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
       <% end %>
-    </div>
-    <div id="loadingPhoto" class="hide">
-    	<%= image_tag("spinner.gif")%>
-      <h2 style="text-align:center;">Loading...</h2>
     </div>
   </div>
 </div>
 
 <script>
 $(function(){
-	
-	// Enable Submit button when file selected
-	//var filename = $('#new_pet_photo input[type=file]').val().split('\\').pop();
-	//alert(filename);
-	
-	// Hide extra photo elements during upload
-	$('#new_pet_photo :submit').click(function(){
-		$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
-		$('#loadingPhoto').show();
-		$('.mediaModal .handhold').show();
+
+	// Show selected photo name & check for proper file type
+	$('input[type=file]').change(function(){
+		var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
+		$('.mediaModal .headerInfo p').text(new_label);
+		var file_type = new_label.split('.').pop();
+		var valid_types = ['gif', 'jpeg', 'jpg', 'png'];
+		var type_check = $.inArray(file_type, valid_types);
+		if ( type_check == -1 ) {
+			$('input[type=file]').val("");
+			$('.mediaModal .headerInfo p').text("");
+			alert("Please select a valid image file.");
+		} else {
+			// Enable Submit button when file selected
+			$('.mediaModal input[type="submit"]').prop('disabled', false);
+		};
 	});
+	
+	// Initialize the jQuery File Upload widget:
+  //$('#fileupload').fileupload();
+  
+  // Hide extra photo elements during upload
+  $('#fileupload :submit').click(function(){
+    $('.mediaModal .text-close, .form p, .fileupload-buttonbar').hide();
+    $('.mediaModal .handhold').show();
+  });
+
 });
 </script>

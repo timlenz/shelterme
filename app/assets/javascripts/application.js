@@ -19,4 +19,7 @@
 //= require jquery.cookie
 //= require jquery.panda-uploader.min
 //= require video.min
+//= require jquery.sparkline.min
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .

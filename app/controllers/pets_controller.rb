@@ -23,7 +23,7 @@ class PetsController < ApplicationController
       @current_location = cookies[:location]
     end
     if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
-    	@current_location = current_user.location
+      @current_location = current_user.location
     end
     if validate_location(@current_location) == false    
       flash[:notice] = "Estimating your location."
@@ -58,6 +58,7 @@ class PetsController < ApplicationController
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
+    @pet.journalize!(@pet.shelter, @pet.pet_state) # record pet state to journal ("available" by default)
     $pet = @pet
     $exclude_shelter = []
     if @pet.save
@@ -149,16 +150,16 @@ class PetsController < ApplicationController
   end
 
   def edit
-    unless current_user.admin? or @pet.user == current_user or
-      (current_user.manager? && current_user.shelter_id == @pet.shelter.id)
-      flash[:notice] = "You may only delete your photos or videos."
-    end
     cookies[:managed_pets] = "false"
     if cookies[:location]
       @current_location = cookies[:location]
     end
-    if (validate_location(@current_location) == false)
-      @current_location = @pet.shelter.city + ", " + @pet.shelter.state
+    if (@current_location && (validate_location(@current_location) == false))
+      if @pet
+        @current_location = @pet.shelter.city + ", " + @pet.shelter.state
+      else
+        @current_location = current_user.location
+      end
     end
     @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5)
     if cookies[:shelter_id].to_i > 0
@@ -178,7 +179,7 @@ class PetsController < ApplicationController
   
   def index
     if signed_in? && current_user.admin?
-      cookies[:managed_pets] == "true"
+      cookies[:managed_pets] = "true"
       @pets = Pet.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
     else
       redirect_to root_path
@@ -202,9 +203,15 @@ class PetsController < ApplicationController
   def update
     if @pet.update_attributes(params[:pet])
       if cookies[:managed_pets] == "true"
+        @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
         flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code}'s status has been updated."
         redirect_to :back
       else
+        # if pet state has changed, then journalize
+        if cookies[:pet_state_change] != "false"
+          @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
+          cookies[:pet_state_change] = "false"
+        end
         flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
         redirect_to [@pet.shelter, @pet]
       end

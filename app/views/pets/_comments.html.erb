@@ -2,7 +2,7 @@
   <h3><%= image_tag("followingMe.png", alt: "Following Me", class: "noPrint") %><span class="print">Following Me</span></h3>
   <span class="commentCount"><%= @pet.watchers.size %></span>
   <%= render 'shared/feed' %>
-  <% if signed_in? %>
+  <% if signed_in?  && @pet.pet_state.status != 'unavailable' %>
   <div class="commentEntry">
     <h3><%= image_tag("comment.png", alt: "Comment") %></h3>
        <%= render 'shared/micropost_form' %>

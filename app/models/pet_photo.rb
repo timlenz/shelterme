@@ -12,6 +12,8 @@
 #
 
 class PetPhoto < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  
   attr_accessible :image, :pet_id, :primary, :crop_x, :crop_y, :crop_w, :crop_h, :user_id
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   
@@ -30,6 +32,17 @@ class PetPhoto < ActiveRecord::Base
   
   def crop_pet_photo
     image.recreate_versions! if crop_x.present?
+  end
+  
+  def to_jq_upload
+    {
+      "name" => read_attribute(:image),
+      "size" => image.size,
+      "url" => image.url,
+      "thumbnail_url" => image.thumb.url,
+      "delete_url" => pet_photo_path(id: id),
+      "delete_type" => "DELETE"
+    }
   end
 
 end

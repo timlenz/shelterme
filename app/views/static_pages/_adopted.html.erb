@@ -2,21 +2,21 @@
 <div class="sidebar-element">
   <h3><%= image_tag("adoptedIcon.png", class: "sideIcon") %> <%= image_tag("adopted.png", alt: "Adopted!") %></h3>
   <div class="adoptions">
-		<% recent_adoptions.each do |f| %>
-		<div class="item">
-			<% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
-	      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), [f.shelter, f] %>
-	    <% elsif f.pet_photos.count == 1 %>
-	      <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f] %>
-	    <% end %>
-	    <% if f.name %>
-			<%= link_to f.name, [f.shelter, f] %>
-			<% else %>
-			<%= link_to f.animal_code, [f.shelter, f] %>
-			<% end %>
-			<div class="when"><%= time_ago_in_words(f.updated_at) %> ago</div>
-		</div>
-		<% end%>
+    <% recent_adoptions.each do |f| %>
+    <div class="item">
+      <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
+        <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), [f.shelter, f] %>
+      <% elsif f.pet_photos.count == 1 %>
+        <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f] %>
+      <% end %>
+      <% if f.name %>
+      <%= link_to f.name, [f.shelter, f] %>
+      <% else %>
+      <%= link_to f.animal_code, [f.shelter, f] %>
+      <% end %>
+      <div class="when"><%= time_ago_in_words(f.updated_at) %> ago</div>
+    </div>
+    <% end%>
   </div>
   <div class="clearfix"></div>
   <hr>

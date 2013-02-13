@@ -10,22 +10,22 @@
       </div>
     </div>
     <div class="fullEditForm">
-    	<div class="editLargePhoto">
-		    <%= image_tag @pet_photo.image_url, id: "cropbox" %>
-	    </div>
-	    <%= form_for @pet_photo do |f| %>
-			<div class="actions">
-		    <% %w[x y w h].each do |attribute| %>
-		      <%= f.hidden_field "crop_#{attribute}"%>
-		    <% end %>
-		  </div>
-			<br>
-			<%= f.submit "Crop", class: "formBtn", style: "width:145px;" %>
-			<%= link_to("Don't crop", $pet, style: "float:right;padding-top:4px;")%>
-			<% end %>
+      <div class="editLargePhoto">
+        <%= image_tag @pet_photo.image_url, id: "cropbox" %>
+      </div>
+      <%= form_for @pet_photo do |f| %>
+      <div class="actions">
+        <% %w[x y w h].each do |attribute| %>
+          <%= f.hidden_field "crop_#{attribute}"%>
+        <% end %>
+      </div>
+      <br>
+      <%= f.submit "Crop", class: "formBtn", style: "width:145px;" %>
+      <%= link_to("Don't crop", @pet_photo.pet, style: "float:right;padding-top:4px;")%>
+      <% end %>
     </div>
-		<div id="loadingCrop" class="hide">
-    	<%= image_tag("spinner.gif")%>
+    <div id="loadingCrop" class="hide">
+      <%= image_tag("spinner.gif")%>
       <h2 style="text-align:center;">Processing...</h2>
     </div>
   </div>  

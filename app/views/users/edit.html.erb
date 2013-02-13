@@ -40,13 +40,13 @@
         <div class="possibleScroll">
           <div class="tab-content">
             <div class="tab-pane <%= 'active' if current_user == @user %>" id="info">            
-	            <%= render 'info' %>
+              <%= render 'info' %>
             </div>
             <div class="tab-pane offset2" id="account">
-	            <%= render 'account' %>
+              <%= render 'account' %>
             </div>
             <div class="tab-pane <%= 'active' if current_user != @user && current_user.admin? %>" id="admin">
-	            <%= render 'permissions' %>
+              <%= render 'permissions' %>
             </div>
           </div>
         </div>

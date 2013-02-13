@@ -15,18 +15,37 @@
             <%= Pet.all.count %> Pets
           </h2>
           <ul>
-            <li><h3>Watched</h3><%= Bond.count('pet_id', distinct: true) %> (<%= number_to_percentage(Bond.count('pet_id', distinct: true).to_f / Pet.all.count.to_f * 100, precision: 0) %>)</li>
-            <li><h3>Unwatched</h3><%= Pet.all.count - Bond.count('pet_id', distinct: true) %></li>
-            <br>
-            <li><h3>Available</h3><%= Pet.select{|p| p.pet_state.status == 'available'}.count %></li>
-            <li><h3>Absent</h3><%= Pet.select{|p| p.pet_state.status == 'absent'}.count %></li>
-            <li><h3>Adopted</h3><%= Pet.select{|p| p.pet_state.status == 'adopted'}.count %></li>
-            <li><h3>Not Available</h3><%= Pet.select{|p| p.pet_state.status == 'unavailable'}.count %></li>
-            <br>
-            <li><h3>Most Common Names</h3><br>
-            <% Pet.all.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].each do |pn| %>
-            <%= pn.first %>&nbsp;
-            <% end %>
+	          <li>
+		          <h3>Available 
+			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'available'}.count %></span>
+			          <span class="sparklines"><!-- <%= @available_journal %> --></span> 
+			        </h3>
+            </li>
+	          <li>
+		          <h3>Absent 
+			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'absent'}.count %></span>
+			          <span class="sparklines"><!-- <%= @absent_journal %> --></span> 
+			        </h3>
+            </li>
+	          <li>
+		          <h3>Adopted 
+			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'adopted'}.count %></span>
+			          <span class="sparklines"><!-- <%= @adopted_journal %> --></span> 
+			        </h3>
+            </li>
+	          <li>
+		          <h3>Unavailable 
+			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'unavailable'}.count %></span>
+			          <span class="sparklines"><!-- <%= @unavailable_journal %> --></span> 
+			        </h3>
+            </li>
+            <li>
+		          <h3>Most Common Names</h3><br>
+		          <ol>
+			          <% @names.each do |n| %>
+			          <li><%= n %></li>
+			          <% end %>
+		          </ol>
             </li>
           </ul>
         </div>
@@ -36,15 +55,33 @@
             <%= Pet.select{|p| p.species.name == 'cat'}.count %> Cats
           </h2>
           <ul>
-            <li><h3>Available</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %></li>
-            <li><h3>Absent</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'absent'}.count %></li>
-            <li><h3>Adopted</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'adopted'}.count %></li>
-            <li><h3>Not Available</h3><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'unavailable'}.count %></li>
-            <br>
-            <li><h3>Most Common Names</h3><br>
-            <% Pet.select{|p| p.species.name == 'cat'}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].each do |pn| %>
-            <%= pn.first %>&nbsp;
-            <% end %>
+            <li>
+	            <h3>Available
+		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Absent
+		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'absent'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Adopted
+		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'adopted'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Unavailable
+		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'unavailable'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Most Common Names</h3><br>
+		          <ol>
+			          <% @cat_names.each do |n| %>
+			          <li><%= n %></li>
+			          <% end %>
+		          </ol>
             </li>
           </ul>
         </div>
@@ -54,46 +91,62 @@
             <%= Pet.select{|p| p.species.name == 'dog'}.count %> Dogs
           </h2>
           <ul>
-            <li><h3>Available</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %></li>
-            <li><h3>Absent</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'absent'}.count %></li>
-            <li><h3>Adopted</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'adopted'}.count %></li>
-            <li><h3>Not Available</h3><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'unavailable'}.count %></li>
-            <br>
-            <li><h3>Most Common Names</h3><br>
-            <% Pet.select{|p| p.species.name == 'dog'}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].each do |pn| %>
-            <%= pn.first %>&nbsp;
-            <% end %>
+            <li>
+	            <h3>Available
+		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Absent
+		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'absent'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Adopted
+		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'adopted'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Unavailable
+		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'unavailable'}.count %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Most Common Names</h3><br>
+		          <ol>
+			          <% @dog_names.each do |n| %>
+			          <li><%= n %></li>
+			          <% end %>
+		          </ol>
             </li>
           </ul>
         </div>
         <div class="adminColumn">
           <h2><%= image_tag("editProfileIcon.png", alt: "Users") %><%= User.all.count %> Users</h2>
           <ul>
-            <li><h3>Watching</h3><%= Bond.count('user_id', distinct: true) %> (<%= number_to_percentage(Bond.count('user_id', distinct: true).to_f / User.all.count.to_f * 100, precision: 0) %>)</li>
-            <li><h3>Ave Watched</h3><%= number_with_precision(Bond.count('pet_id', distinct: true).to_f / Bond.count('user_id', distinct: true).to_f, precision: 2) %></li>
-            <br>
-            <li><h3>Sponsoring</h3><%= Pet.count('user_id', distinct: true) %> (<%= number_to_percentage(Pet.count('user_id', distinct: true).to_f / User.all.count.to_f * 100, precision: 0) %>)</li>
-            <li><h3>Ave Sponsored</h3><%= Pet.all.count.to_f / Pet.count('user_id', distinct: true).to_f %></li>
-            <br>
-            <li><h3>Boosting</h3><%= Favorite.count('user_id', distinct: true) %> (<%= number_to_percentage(Favorite.count('user_id', distinct: true).to_f / User.all.count.to_f * 100, precision: 0) %>)</li>
-            <li><h3>Ave Boosted</h3><%= Favorite.all.count.to_f / Favorite.count('user_id', distinct: true).to_f %></li>
-          </ul>
+	          <li>
+		          <h3>Total <span><%= User.all.count %></span></h3>
+		        </li>
+		        <li>
+		          <h3>Manager <span><%= User.all.select{|u| u.manager == true}.count %></span></h3>
+		        </li>
+		        <li>
+		          <h3>Admin <span><%= User.all.select{|u| u.admin == true}.count %></span></h3>
+		        </li>
+	        </ul>
         </div>
         <div class="adminColumn">
           <h2>
             <%= image_tag("shelterIcon.png", alt: "Shelter") %>
             <%= Shelter.all.count %> Shelters
           </h2>
-            <ul>
-              <li><h3>Boosted</h3><%= Favorite.count('shelter_id', distinct: true) %> (<%= number_to_percentage(Favorite.count('shelter_id', distinct: true).to_f / Shelter.all.count.to_f * 100, precision: 0) %>)</li>
-              <li><h3>Unboosted</h3><%= Shelter.all.count - Favorite.count('shelter_id', distinct: true) %></li>
-              <li><h3>Ave Boosters</h3><%= Favorite.all.count.to_f / Favorite.count('user_id', distinct: true).to_f %></li>
-              <br>
-              <li><h3>Ave Available</h3><%  %></li>
-              <li><h3>Ave Absent</h3><%  %></li>
-              <li><h3>Ave Adopted</h3><%  %></li>
-              <li><h3>Ave Unavailable</h3><%  %></li>
-            </ul>
+          <ul>
+	          <li>
+		          <% @shelters_state.each do |n| %>
+		          <h3><%= n[0] %> <span><%= n[1] %></span></h3>
+		          <% end %>
+		        </li>
+	        </ul>
         </div>
       </div>
     </div>

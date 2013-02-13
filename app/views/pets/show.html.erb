@@ -10,10 +10,12 @@
       <div class="span8">
         <%= render "photos" %>
         <%= render "legend" %>
-				<% unless @pet.pet_state.status == "unavailable"%>
+        <% unless @pet.pet_state.status == "unavailable"%>
         <%= render "add_media" %>
-				<% end %>
+        <% end %>
+        <% if @pet.pet_videos.size > 0 %>
         <%= render "videos" %>
+        <% end %>
       </div>
       <div class="rightColumn">
         <%= render "description" %>

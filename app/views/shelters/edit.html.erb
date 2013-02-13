@@ -10,7 +10,7 @@
       </div>
       <div class="headerButtons" style="right:10px;">
         <div class="headerEdit">
-	        <% if current_user.admin? %>
+          <% if current_user.admin? %>
           <%= link_to "Delete shelter", @shelter, method: :delete, confirm: "Are you certain you want to delete this shelter? All pets associated with this shelter will also be deleted.", class: "btn btn-header btn-warning btn-admin", style: "width:110px;" %>
           <% end %>
         </div>
@@ -23,16 +23,16 @@
           <%= f.input :name %> 
           <%= f.input :phone %>
           <%= f.input :description, as: :text %>
-					<%= f.input :slug, label: "Slug" %>
-			    <%= f.label "Precedence", class: "control-label", required: true %>
-			    <div class="btn-group four-btn-full btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[precedence_id]">
-					  <button type="button" data-toggle="button" class="btn" value="1">Newest</button>
-					  <button type="button" data-toggle="button" class="btn" value="2">Oldest</button>
-					  <button type="button" data-toggle="button" class="btn" value="3">Popular</button>
-					  <button type="button" data-toggle="button" class="btn" value="4">Unpopular</button>
-					</div>
-					<p class="help-block" style="margin-top:-15px;">Set the display order for your pets</p>
-					<%= f.hidden_field :precedence_id, label: false %>
+          <%= f.input :slug, label: "Slug" %>
+          <%= f.label "Precedence", class: "control-label", required: true %>
+          <div class="btn-group four-btn-full btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[precedence_id]">
+            <button type="button" data-toggle="button" class="btn" value="1">Newest</button>
+            <button type="button" data-toggle="button" class="btn" value="2">Oldest</button>
+            <button type="button" data-toggle="button" class="btn" value="3">Popular</button>
+            <button type="button" data-toggle="button" class="btn" value="4">Unpopular</button>
+          </div>
+          <p class="help-block" style="margin-top:-15px;">Set the display order for your pets</p>
+          <%= f.hidden_field :precedence_id, label: false %>
         </div>
         <div class="rightEditForm">
           <%= f.input :street %>

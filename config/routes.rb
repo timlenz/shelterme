@@ -1,9 +1,10 @@
 ShelterMe::Application.routes.draw do
 
+  get "journals/new"
+
   get "pet_videos/new"
   get "pet_photos/new"
   get "shelter_admins/new"
-  get "pet_media/new"
   get "favorites/new"
   get "bonds/new"
   get "addresses/new"

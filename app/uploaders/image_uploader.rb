@@ -3,6 +3,7 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
+  include CarrierWave::MimeTypes
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
   include Sprockets::Helpers::RailsHelper
@@ -17,11 +18,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Process files as they are uploaded:
-  process :fix_exif_rotation
-  process :strip
-  process :resize_to_limit => [870, 800]
-
-  # Create different versions of your uploaded files:
+  process :set_content_type
+  process :pre_crop
   
   version :large do
     process :crop
@@ -34,14 +32,27 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
-  
   def extension_white_list
     %w(jpg jpeg gif png)
   end
   
-  # alternate temporary location for Heroku
+  # Alternate temporary location for Heroku
   def cache_dir
     "#{Rails.root.to_s}/tmp/uploads"
+  end
+  
+private
+  
+  def pre_crop
+    manipulate! do |img|
+      img.combine_options do |c|
+        c.auto_orient
+        c.strip
+        c.resize "700x700>"
+        c.quality("80")
+      end
+      img
+    end
   end
   
   def crop
@@ -57,22 +68,6 @@ class ImageUploader < CarrierWave::Uploader::Base
         img.crop(w)
         img
       end
-    end
-  end
-  
-  def fix_exif_rotation
-    manipulate! do |img|
-      img.auto_orient
-      img = yield(img) if block_given?
-      img
-    end
-  end
-  
-  def strip
-    manipulate! do |img|
-      img.strip
-      img = yield(img) if block_given?
-      img
     end
   end
   

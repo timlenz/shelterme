@@ -4,11 +4,11 @@
   <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="control-group string optional">
-		<label class="string optional control-label" for="user_shelter_name">Select Shelter</label>
-		<div class="controls">
-			<%= f.text_field :shelter_name, as: :autocomplete, data: {autocomplete_source: listshelters_path}, style: "width:280px;" %>
-		</div>
-	</div>
+    <label class="string optional control-label" for="user_shelter_name">Select Shelter</label>
+    <div class="controls">
+      <%= f.text_field :shelter_name, as: :autocomplete, data: {autocomplete_source: listshelters_path}, style: "width:280px;" %>
+    </div>
+  </div>
   <%= f.input :manager, as: :boolean, label: "Manager" %>
   <br>
   <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", confirm: "This will modify the ability of #{@user.name} to edit this shelter and its pets. Are you certain this is what you want?" %>

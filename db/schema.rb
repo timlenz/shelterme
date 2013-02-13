@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202195047) do
+ActiveRecord::Schema.define(:version => 20130208074156) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -130,6 +130,20 @@ ActiveRecord::Schema.define(:version => 20130202195047) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "journals", :force => true do |t|
+    t.integer  "shelter_id"
+    t.integer  "pet_id"
+    t.integer  "pet_state_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "old_pet_state_id"
+  end
+
+  add_index "journals", ["old_pet_state_id"], :name => "index_journals_on_old_pet_state_id"
+  add_index "journals", ["pet_id"], :name => "index_journals_on_pet_id"
+  add_index "journals", ["pet_state_id"], :name => "index_journals_on_pet_state_id"
+  add_index "journals", ["shelter_id"], :name => "index_journals_on_shelter_id"
+
   create_table "microposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -164,17 +178,6 @@ ActiveRecord::Schema.define(:version => 20130202195047) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "pet_media", :force => true do |t|
-    t.integer  "pet_id"
-    t.string   "media"
-    t.boolean  "photo"
-    t.boolean  "primary"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "pet_media", ["pet_id"], :name => "index_pet_media_on_pet_id"
 
   create_table "pet_photos", :force => true do |t|
     t.integer  "pet_id"

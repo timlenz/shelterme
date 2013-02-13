@@ -1,26 +1,32 @@
 <div id="addVideo" class="modal" data-backdrop="static" data-keyboard="false">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
-    	<div class="headerLogo">
-			  <%= image_tag("videoIcon.png", alt: "Add Video") %>
-			</div>
-	    <div class="headerInfo" style="width:385px;">
-        <h1>Add a Video of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1>
+      <div class="headerLogo">
+        <%= image_tag("videoIcon.png", alt: "Add Video") %>
+      </div>
+      <div class="headerInfo" style="width:385px;">
+        <h1>Add a Video of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1><br>
+				<p></p>
       </div>
     </div>
     <div class="form">
-	    <p>For tips on how to shoot a great video, please check our <%= link_to "video hints", help_path(anchor: "video"), style: "line-height:28px;font-size:12px;" %>.</p>
-	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
-		    This window will close once your upload is complete.
-		  </div>
-    	<%= simple_form_for @pet_video do |f| %>
+      <p>For tips on how to shoot a great video, please check our <%= link_to "video hints", help_path(anchor: "video"), style: "line-height:28px;font-size:12px;" %>.</p>
+      <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
+        This window will close once your upload is complete.
+      </div>
+      <%= simple_form_for @pet_video do |f| %>
        <%= render 'shared/error_messages', object: f.object %>
        <%= f.hidden_field :pet_id %>
        <%= f.hidden_field :user_id, value: current_user.id %>
-       <input type="hidden" name="pet_video[panda_video_id]" id="returned_video_id" />
-       <div id="upload_progress" class="panda_upload_progress"></div>
+			<div class="row fileupload-buttonbar">
+				<span class="btn formBtn fileinput-button" style="width:145px;">
+	        <span>Choose Video</span>
+	        <input type="hidden" name="pet_video[panda_video_id]" id="returned_video_id" />
+	       </span>
        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;" %>
        <button class="text-close" data-dismiss="modal">Cancel</button>
+       </div>
+       <div id="upload_progress" class="panda_upload_progress"></div>
      <% end %>
     </div>
   </div>
@@ -32,18 +38,21 @@
     upload_progress_id: 'upload_progress'
   });
 
-	$(function(){
-		
-		// Format file input control
-		$('input:file').addClass('btn-media')
-		
-		// Hide extra video elements during upload
-		$('#new_pet_video :submit').click(function(){
-			$('.mediaModal .text-close, .mediaModal p, .mediaModal input[type="submit"], .mediaModal input[type="file"]').hide();
-			$('.mediaModal .handhold').show();
+  $(function(){
+
+		// Show selected video name
+		$('input[type=file]').change(function(){
+			var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
+			$('.mediaModal .headerInfo p').text(new_label);
 		});
-		
-		// Reformat progress indicator
-		$('#upload_progress').css({'width':'100%','margin-bottom':'15px','margin-top':'6px'});
-	});
+    
+    // Hide extra video elements during upload
+    $('#new_pet_video :submit').click(function(){
+      $('.mediaModal .text-close, .form p, .fileupload-buttonbar').hide();
+      $('.mediaModal .handhold').show();
+    });
+    
+    // Reformat progress indicator
+    $('#upload_progress').css({'width':'100%','margin-bottom':'15px','margin-top':'6px'});
+  });
 </script>

@@ -37,8 +37,6 @@ FactoryGirl.define do
     age_id 1
     weight 25
     mix_id 1
-    pet_persona_id 1
-    coat_id 1
     gender_id 1
     species_id 1
     pet_state_id 1

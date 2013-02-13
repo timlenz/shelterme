@@ -2,16 +2,16 @@
 <div class="container">
   <div class="signinDialog">
     <div class="row center">
-	    <%= image_tag("resetPassword.png", alt: "Reset Password", class: "formHeader") %>
+      <%= image_tag("resetPassword.png", alt: "Reset Password", class: "formHeader") %>
       <br><br>
       <div class="span6 offset3 center">
         <%= form_tag(password_resets_path, method: :post, class: 'form-horizontal') do %>
           <div class="control-group email required">
-					  <label class="email control-label" for="email">Your Email</label>
-					  <div class="controls">
-					    <input class="string email required" id="email" name="email" size="50" type="email">
-					  </div>
-					</div>
+            <label class="email control-label" for="email">Your Email</label>
+            <div class="controls">
+              <input class="string email required" id="email" name="email" size="50" type="email">
+            </div>
+          </div>
           <div class="actions"><%= submit_tag "Reset", class: "btn btn-header", style: "width:120px;" %></div>
         <% end %>
         <div class="clearfix"></div>

@@ -7,15 +7,15 @@
       </div>
       <div class="headerInfo">
         <h1>
-	        <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(PetPhoto.select{|u| u.user == @user}.count, 'Photo')}" %>
-	      </h1>
+          <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(PetPhoto.select{|u| u.user == @user}.count, 'Photo')}" %>
+        </h1>
       </div>
     </div>
     <div id="pet_photos" class="row">
-	    <%= will_paginate @photos %>
+      <%= will_paginate @photos %>
       <%= render partial: "photo", collection: @photos, as: :f %>
       <div class="clearfix"></div>
-	    <%= will_paginate @photos %>
+      <%= will_paginate @photos %>
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ REQUIRED STYLES (be careful overriding)
 */
 .video-js {
   background-color: #fff; position: relative; padding: 0; /* background color was #000 */
-	text-align: center; /* ADDED so SD posters will center rather than stretch */
+  text-align: center; /* ADDED so SD posters will center rather than stretch */
 
   /* Start with 10px for base font size so other dimensions can be em based and easily calculable. */
   font-size: 10px;
@@ -50,7 +50,7 @@ body.vjs-full-window {
 
   /* Scale with the size of the player div. Works when poster is vertically shorter, but stretches when it's less wide. */
   position: relative; width: 100%; max-height: 100%;
-	width: auto; max-width: 100%; /* ADDED */
+  width: auto; max-width: 100%; /* ADDED */
 }
 
 /* Text Track Styles */
@@ -442,7 +442,7 @@ div.vjs-loading-spinner .ball8 { opacity: 1.00; position:absolute; left: 6px; to
 /* Menu Buttons (Captions/Subtitles/etc.)
 -------------------------------------------------------------------------------- */
 .vjs-default-skin .vjs-menu-button {
-	display: none; /* ADDED */
+  display: none; /* ADDED */
   float: right; margin: 0.2em 0.5em 0 0; padding: 0; width: 3em; height: 2em; cursor: pointer !important;
 
   border: 1px solid #111; -moz-border-radius: 0.3em; -webkit-border-radius: 0.3em; border-radius: 0.3em;

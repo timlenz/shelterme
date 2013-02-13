@@ -16,17 +16,17 @@
 <div id="addAvatar" class="modal hide">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
-    	<div class="headerLogo">
-			  <%= avatar_for @user, size: 63 %>
-			</div>
-	    <div class="headerInfo" style="width:385px;">
+      <div class="headerLogo">
+        <%= avatar_for @user, size: 63 %>
+      </div>
+      <div class="headerInfo" style="width:385px;">
         <h1>Change Your Avatar</h1>
       </div>
     </div>
     <div class="form">
-	    <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
-		    This window will close once your upload is complete.
-		  </div>
+      <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
+        This window will close once your upload is complete.
+      </div>
       <%= simple_form_for @user, :html => {:multipart => true} do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.file_field :avatar, class: "btn-media" %>
@@ -35,7 +35,7 @@
       <% end %>
     </div>
     <div id="loadingPhoto" class="hide">
-    	<%= image_tag("spinner.gif")%>
+      <%= image_tag("spinner.gif")%>
       <h2 style="text-align:center;">Loading...</h2>
     </div>
   </div>

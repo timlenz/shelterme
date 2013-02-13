@@ -199,37 +199,37 @@ class User < ActiveRecord::Base
     @matches = @matches.select{|p| p.pet_state.status == "available"}
     # Calculate match scores for pets in array against user's characteristics
     @matches = @matches.each_with_index do |p, i|
-    	n_col = p_char.index(p.nature.name)
-    	el_col = p_char.index(p.energy_level.level)
-    	a_col = p_char.index(p.affection.name)
-    	if open_value_id.present?
-    	  row = u_char.index(OpenValue.all[open_value_id - 1].name)
-    	  scores[i] = matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if plan_value_id.present?
-    	  row = u_char.index(PlanValue.all[plan_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if social_value_id.present?
-    	  row = u_char.index(SocialValue.all[social_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if attitude_value_id.present?
-    	  row = u_char.index(AttitudeValue.all[attitude_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if emotion_value_id.present?
-    	  row = u_char.index(EmotionValue.all[emotion_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if clean_value_id.present?
-    	  row = u_char.index(CleanValue.all[clean_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
-    	if energy_value_id.present?
-    	  row = u_char.index(EnergyValue.all[energy_value_id - 1].name)
-    	  scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-    	end
+      n_col = p_char.index(p.nature.name)
+      el_col = p_char.index(p.energy_level.level)
+      a_col = p_char.index(p.affection.name)
+      if open_value_id.present?
+        row = u_char.index(OpenValue.all[open_value_id - 1].name)
+        scores[i] = matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if plan_value_id.present?
+        row = u_char.index(PlanValue.all[plan_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if social_value_id.present?
+        row = u_char.index(SocialValue.all[social_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if attitude_value_id.present?
+        row = u_char.index(AttitudeValue.all[attitude_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if emotion_value_id.present?
+        row = u_char.index(EmotionValue.all[emotion_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if clean_value_id.present?
+        row = u_char.index(CleanValue.all[clean_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
+      if energy_value_id.present?
+        row = u_char.index(EnergyValue.all[energy_value_id - 1].name)
+        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      end
     end
     # Combine match scores with pets in two-dimensional array
     @matches = @matches.zip(scores)
@@ -279,8 +279,8 @@ class User < ActiveRecord::Base
     first_of_two = colors.sort_by{|k,v| v}.reverse.first.first.capitalize
     second_of_two = colors.sort_by{|k,v| v}.reverse.second.first.capitalize
     if ((first_of_two == "red" || first_of_two == "yellow") && second_of_two == "orange") ||
-    	((second_of_two == "red" || second_of_two == "yellow") && first_of_two == "orange")
-    	one_or_two = 1
+      ((second_of_two == "red" || second_of_two == "yellow") && first_of_two == "orange")
+      one_or_two = 1
     end
     color = ( one_or_two == 1 ) ? one_color : first_of_two + second_of_two
     return length + color

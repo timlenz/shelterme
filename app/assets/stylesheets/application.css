@@ -14,5 +14,6 @@
  *= require custom
  *= require pet_videos
  *= require jquery.ui.all
+ *= require jquery.fileupload-ui
  *
 */

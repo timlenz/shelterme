@@ -9,7 +9,7 @@
       </div>
       <div class="searchButton">
         <%= form_tag mymanagedpets_path, :method => 'get', id: "managed_pets_search" do %>
-	        <%= label_tag :search, "Name or Animal ID" %>
+          <%= label_tag :search, "Name or Animal ID" %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
         <% end %>

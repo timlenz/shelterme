@@ -37,6 +37,7 @@ class Shelter < ActiveRecord::Base
   has_many :boosters, through: :favorites, source: :user
   has_many :pets, dependent: :destroy
   has_many :users
+  has_many :journals
   
   validates :name, presence: true, 
                    length: { maximum: 50 },
@@ -191,6 +192,81 @@ class Shelter < ActiveRecord::Base
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }.reverse
     end
     return sorted_pet_list
+  end
+  
+  def available_journal
+    newlist = journals.select{|s| s.pet_state.status == "available"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.select{|s| s.old_pet_state_id == 1}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
+  end
+
+  def absent_journal
+    newlist = journals.select{|s| s.pet_state.status == "absent"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.select{|s| s.old_pet_state_id == 4}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
+  end
+
+  def adopted_journal
+    newlist = journals.select{|s| s.pet_state.status == "adopted"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.select{|s| s.old_pet_state_id == 2}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
+  end
+  
+  def unavailable_journal
+    newlist = journals.select{|s| s.pet_state.status == "unavailable"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.select{|s| s.old_pet_state_id == 3}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
+  end
+  
+  def fostered_journal
+    newlist = journals.select{|s| s.pet_state.status == "fostered"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.select{|s| s.old_pet_state_id == 5}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
   end
 
   private

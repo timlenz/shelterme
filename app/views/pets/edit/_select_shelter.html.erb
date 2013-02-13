@@ -1,8 +1,8 @@
 <%= f.association :shelter, collection: @nearbys, label_method: :name, include_blank: false, hint: "Includes last viewed and those near #{@current_location}" %>
 <a href="#" id="locationToggle" data-toggle="collapse" data-target="#changeLocation">Change location</a>
 <div id="changeLocation" class="collapse">
-	<div class="wrapper">
-	  <%= f.text_field :location, name: "", value: @current_location %>
-		<button type="button" class="btn btn-header" id="updateLocation">Change</button>
-	</div>
+  <div class="wrapper">
+    <%= f.text_field :location, name: "", value: "#{ @current_location ? @current_location : (@pet.shelter.city + ", " + @pet.shelter.state) }" %>
+    <button type="button" class="btn btn-header" id="updateLocation">Change</button>
+  </div>
 </div>

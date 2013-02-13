@@ -10,9 +10,9 @@
   <% if @pet.user == current_user %>
     <%= link_to "You", @pet.user %>
     <span class="action"><%= ["make a difference", "have really helped", "have a big heart", "are a compassionate soul", "do what you say", "find a way"][Random.rand(0..5)] %></span>
-	<% else %>
-	  <%= link_to @pet.user.name, @pet.user %>
-	<% end %>
+  <% else %>
+    <%= link_to @pet.user.name, @pet.user %>
+  <% end %>
   <br>
   <p><%= @pet.user.location %></p>
   <% elsif @pet.pet_state.status == "adopted" %>

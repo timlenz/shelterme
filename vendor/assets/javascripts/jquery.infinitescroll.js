@@ -69,7 +69,7 @@
 
     $.infinitescroll.prototype = {
 
-        /*	
+        /*  
             ----------------------------
             Private methods
             ----------------------------
@@ -173,15 +173,15 @@
                 }
             };
 
-			if (options.debug) {
-				// Tell IE9 to use its built-in console
-				if (Function.prototype.bind && (typeof console === 'object' || typeof console === 'function') && typeof console.log === "object") {
-					["log","info","warn","error","assert","dir","clear","profile","profileEnd"]
-						.forEach(function (method) {
-							console[method] = this.call(console[method], console);
-						}, Function.prototype.bind);
-				}
-			}
+      if (options.debug) {
+        // Tell IE9 to use its built-in console
+        if (Function.prototype.bind && (typeof console === 'object' || typeof console === 'function') && typeof console.log === "object") {
+          ["log","info","warn","error","assert","dir","clear","profile","profileEnd"]
+            .forEach(function (method) {
+              console[method] = this.call(console[method], console);
+            }, Function.prototype.bind);
+        }
+      }
 
             this._setup();
 
@@ -191,18 +191,18 @@
 
         // Console log wrapper
         _debug: function infscr_debug() {
-			if (typeof console !== 'undefined' && typeof console.log === 'function') {
-				// Modern browsers
-				// Single argument, which is a string
-				if ((Array.prototype.slice.call(arguments)).length === 1 && typeof Array.prototype.slice.call(arguments)[0] === 'string') {
-					console.log( (Array.prototype.slice.call(arguments)).toString() );
-				} else {
-					console.log( Array.prototype.slice.call(arguments) );
-				}
-			} else if (!Function.prototype.bind && typeof console !== 'undefined' && typeof console.log === 'object') {
-				// IE8
-				Function.prototype.call.call(console.log, console, Array.prototype.slice.call(arguments));
-			}
+      if (typeof console !== 'undefined' && typeof console.log === 'function') {
+        // Modern browsers
+        // Single argument, which is a string
+        if ((Array.prototype.slice.call(arguments)).length === 1 && typeof Array.prototype.slice.call(arguments)[0] === 'string') {
+          console.log( (Array.prototype.slice.call(arguments)).toString() );
+        } else {
+          console.log( Array.prototype.slice.call(arguments) );
+        }
+      } else if (!Function.prototype.bind && typeof console !== 'undefined' && typeof console.log === 'object') {
+        // IE8
+        Function.prototype.call.call(console.log, console, Array.prototype.slice.call(arguments));
+      }
         },
 
         // find the number to increment in the path.
@@ -470,7 +470,7 @@
 
         },
 
-        /*	
+        /*  
             ----------------------------
             Public methods
             ----------------------------
@@ -641,7 +641,7 @@
     }
 
 
-    /*	
+    /*  
         ----------------------------
         Infinite Scroll function
         ----------------------------
@@ -655,7 +655,7 @@
         - https://github.com/jsor/jcarousel/blob/master/lib/jquery.jcarousel.js
 
         Masonry
-        - https://github.com/desandro/masonry/blob/master/jquery.masonry.js		
+        - https://github.com/desandro/masonry/blob/master/jquery.masonry.js    
 
 */
 

@@ -7,12 +7,17 @@
     <% else %>
       <%= link_to "", [f.shelter, f] %>
     <% end %>
+	  <% if f.pet_state.status == 'available' || f.pet_state.status == 'absent' %>
+	  <div class="corner <%= f.created_at < 2.weeks.ago ? 'veteran' : ( f.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
+			<%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.created_at < 2.weeks.ago ? 'Added more than two weeks ago' : ( f.created_at < 1.week.ago ? 'Added less than two weeks ago' : 'Newly added' )}" %>
+		</div>
+	  <% end %>
     <% if f.pet_state.status == 'adopted' %>
       <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted") %>
     <% elsif f.pet_state.status == 'absent' %>
-	    <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available") %>
+      <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available") %>
     <% elsif f.pet_state.status == 'unavailable' %>
-	    <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable") %>
+      <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable") %>
     <% end %>
   </div>
   <div class="pet-icons">
@@ -27,7 +32,7 @@
   </div>
   <div class="pet-info">
     <h3>
-	    <% if f.name != '' %>
+      <% if f.name != '' %>
       <%= link_to f.name, [f.shelter, f] %>
       <% else %>
       <%= link_to f.animal_code, [f.shelter, f] %>

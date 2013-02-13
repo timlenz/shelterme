@@ -7,15 +7,15 @@
       </div>
       <div class="headerInfo">
         <h1>
-	        <%= @videos.count == 0 ? "No Videos" : "My #{pluralize(@videos.count, 'Video')}" %>
-	      </h1>
+          <%= @videos.count == 0 ? "No Videos" : "My #{pluralize(@videos.count, 'Video')}" %>
+        </h1>
       </div>
     </div>
     <div id="pet_videos" class="row">
-	    <%= will_paginate @videos %>
+      <%= will_paginate @videos %>
       <%= render partial: "video", collection: @videos, as: :f %>
       <div class="clearfix"></div>
-	    <%= will_paginate @videos %>
+      <%= will_paginate @videos %>
     </div>
   </div>
 </div>

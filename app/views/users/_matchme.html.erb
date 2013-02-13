@@ -20,13 +20,13 @@
 </div>
 <% elsif @user.matchme.size > 0 %>
   <div id="waiting" class="hide">
-	 <%= image_tag("spinner.gif")%>
-	 <br>
-	 <h2 style="text-align:center;">Searching...</h2>
-	</div>
+   <%= image_tag("spinner.gif")%>
+   <br>
+   <h2 style="text-align:center;">Searching...</h2>
+  </div>
   <div id="results">
-  	<h2 style="margin-top:10px;">Your matches</h2>
-	  <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
+    <h2 style="margin-top:10px;">Your matches</h2>
+    <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
   </div>
 <% else %>
   <div class="findBlurb" style="height:290px;">
