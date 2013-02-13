@@ -22,6 +22,7 @@ gem 'panda', '~> 1.6.0'
 gem 'newrelic_rpm'
 gem 'jquery-rails', '2.0.2'
 gem 'jquery-fileupload-rails'
+gem 'net-scp', '1.1.0'
 
 group :development do
   gem 'rspec-rails', '2.9.0'
