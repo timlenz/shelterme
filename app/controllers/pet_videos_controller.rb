@@ -18,10 +18,16 @@ class PetVideosController < ApplicationController
       flash[:notice] = "Upload of video failed."
     end
     redirect_to [@pet_video.pet.shelter, @pet_video.pet]
+  rescue
+    flash[:error] = "Unable to add video for #{@pet_video.pet.name}."
+    redirect_to [@pet_video.pet.shelter, @pet_video.pet]
   end
   
   def edit
     @pet_video = PetVideo.find(params[:id])
+  rescue
+    flash[:error] = "Unable to edit video for #{@pet_video.pet.name}."
+    redirect_to :back
   end
   
   def update
@@ -35,6 +41,9 @@ class PetVideosController < ApplicationController
       flash[:error] = "The video of #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code} was not updated."
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
+  rescue
+    flash[:error] = "Unable to update video for #{@pet_video.pet.name}."
+    redirect_to :back
   end
   
   def destroy
@@ -48,6 +57,9 @@ class PetVideosController < ApplicationController
     else
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
+  rescue
+    flash[:error] = "Unable to delete video for #{@pet_video.pet.name}."
+    redirect_to :back
   end
 
   def index
@@ -56,5 +68,8 @@ class PetVideosController < ApplicationController
     else
       redirect_to root_path
     end
+  rescue
+    flash[:error] = "Unable to display pet videos."
+    redirect_to root_path
   end
 end

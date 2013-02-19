@@ -122,7 +122,11 @@ class Pet < ActiveRecord::Base
   
   def journalize!(shelter, pet_state, old_pet_state)
     #old_state = cookies[:pet_state_change]
-    journals.create!(shelter_id: shelter.id, pet_state_id: pet_state.id, old_pet_state_id: old_pet_state.values[0])
+    if old_pet_state
+      journals.create!(shelter_id: shelter.id, pet_state_id: pet_state.id, old_pet_state_id: old_pet_state.values[0])
+    else
+      journals.create!(shelter_id: shelter.id, pet_state_id: pet_state.id, old_pet_state_id: old_pet_state)
+    end
   end
   
   def feed

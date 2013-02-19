@@ -19,6 +19,9 @@ class PetPhotosController < ApplicationController
       flash[:error] = "Whoops. The photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} was not added."
       redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
     end
+  rescue
+    flash[:error] = "Unable to add photo for #{@pet_photo.pet.name}."
+    redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
   end
 
   def edit
@@ -26,6 +29,9 @@ class PetPhotosController < ApplicationController
     unless cookies[:photo] == "new"
       cookies[:photo] = "edit"
     end
+  rescue
+    flash[:error] = "Unable to edit photo for #{@pet_photo.pet.name}."
+    redirect_to :back
   end
 
   def update
@@ -51,6 +57,9 @@ class PetPhotosController < ApplicationController
       end
     end
     cookies[:photo] = ""
+  rescue
+    flash[:error] = "Unable to update photo for #{@pet_photo.pet.name}."
+    redirect_to :back
   end
 
   def destroy
@@ -68,6 +77,9 @@ class PetPhotosController < ApplicationController
     else
       redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
     end
+  rescue
+    flash[:error] = "Unable to delete photo for #{@pet_photo.pet.name}."
+    redirect_to :back
   end
   
   def index
@@ -76,6 +88,9 @@ class PetPhotosController < ApplicationController
     else
       redirect_to root_path
     end
+  rescue
+    flash[:error] = "Unable to display pet photos."
+    redirect_to root_path
   end
 
 end

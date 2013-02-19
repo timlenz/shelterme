@@ -71,6 +71,9 @@ class UsersController < ApplicationController
   def edit
     $match = false
     cookies[:avatar] = "false"
+  rescue
+    flash[:error] = "Unable to edit user profile."
+    redirect_to :back
   end
   
   def destroy
@@ -136,6 +139,9 @@ class UsersController < ApplicationController
     else
       redirect_to join_path
     end
+  rescue
+    flash[:error] = "Unable to find a match for you."
+    redirect_to root_path
   end
   
   def sponsored

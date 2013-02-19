@@ -52,13 +52,16 @@ class PetsController < ApplicationController
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
+  rescue
+    flash[:error] = "Unable to create new pet."
+    redirect_to root_path
   end
 
   def create
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
-    @pet.journalize!(@pet.shelter, @pet.pet_state) # record pet state to journal ("available" by default)
+    @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
     $pet = @pet
     $exclude_shelter = []
     if @pet.save
@@ -68,6 +71,9 @@ class PetsController < ApplicationController
       flash[:error] = "Please enter all required information."
       render 'new'
     end
+  rescue
+    flash[:error] = "Unable to create new pet."
+    redirect_to :back
   end
     
   def addpet
@@ -81,6 +87,9 @@ class PetsController < ApplicationController
         redirect_to newpet_path
       end
     end
+  rescue
+    flash[:error] = "Unable to create new pet."
+    redirect_to :back
   end
   
   def find
@@ -101,6 +110,9 @@ class PetsController < ApplicationController
     @pets = Pet.select{|p| p.pet_state.status == "available"}
     @pets = @pets.select{|p| p.species.name == 'dog'}
     @pets = @pets.select{|p| p.pet_photos.present?}
+  rescue
+    flash[:error] = "Unable to find pets."
+    redirect_to :back
   end
   
   def show
@@ -175,6 +187,9 @@ class PetsController < ApplicationController
     unless shelter_check
       @nearbys = @nearbys << @pet.shelter
     end
+  rescue
+    flash[:error] = "Unable to edit #{@pet.name}."
+    redirect_to :back
   end
   
   def index
@@ -218,6 +233,9 @@ class PetsController < ApplicationController
     else
       render 'edit'
     end
+  rescue
+    flash[:error] = "Unable to update #{@pet.name}."
+    redirect_to :back
   end
   
   def destroy
@@ -229,6 +247,9 @@ class PetsController < ApplicationController
     else
       redirect_to root_path
     end
+  rescue
+    flash[:error] = "Unable to delete #{@pet.name}."
+    redirect_to :back
   end
   
   private
