@@ -1,6 +1,6 @@
 <div class="pet-tile editPhoto">
   <div class="tile-photo">
-    <%= image_tag(f.image_url(:thumb).to_s) %>
+    <%= image_tag(f.image_url(:thumb).to_s, title: "Photo contributed by #{f.user ? f.user.name : "Shelter Me"}") %>
   </div>
   <% if current_user.admin? or @pet.user == current_user or
     (current_user.manager? && current_user.shelter_id == @pet.shelter.id) or
@@ -8,7 +8,7 @@
     <% if @pet.pet_photos.size > 1 %>
 	    <% if f.primary? %>
 	    <span class="makeDefault" style="padding-top:6px;">Primary</span>
-      <% elsif (f.user != current_user && !current_user.admin? && !current_user.manager?) %>
+      <% elsif (f.user == current_user || current_user.admin? || current_user.manager?) %>
         <%= simple_form_for f, html: {class: "makeDefault"} do |fp| %>
           <%= fp.submit "Make Primary" %>
         <% end %>

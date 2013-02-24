@@ -15,6 +15,9 @@
           <%= submit_tag "Add", :animal_code => nil, class: "btn btn-header", style: "width: 70px;", confirm: "" %>
         <% end %>
       </div>
+			<div class="searchButton" id="tabletAlert" style="display:none;">
+				<p>Sorry, but you cannot add a pet from a tablet</p>
+			</div>
     </div>
     <div id="addContent" class="addContent">
       <%= render 'add_initial' %>

@@ -9,16 +9,16 @@
     <% end %>
   </div>
   <% if @pet.pet_state.status == 'available' || @pet.pet_state.status == 'absent' %>
-  <div class="corner <%= @pet.created_at < 2.weeks.ago ? 'veteran' : ( @pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
+  <div class="corner noPrint <%= @pet.created_at < 2.weeks.ago ? 'veteran' : ( @pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
 		<%= link_to "", "#", rel: "tooltip", title: "#{@pet.created_at < 2.weeks.ago ? 'Added more than two weeks ago' : ( @pet.created_at < 1.week.ago ? 'Added less than two weeks ago' : 'Newly added' )}" %>
 	</div>
   <% end %>
   <% if @pet.pet_state.status == 'adopted' %>
-    <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted") %>
+    <%= image_tag("adoptedBigIcon.png", class: "overlay noPrint", title: "Adopted") %>
   <% elsif @pet.pet_state.status == 'absent' %>
-    <%= image_tag("absentIcon.png", class: "overlay", title: "Absent") %>
+    <%= image_tag("absentIcon.png", class: "overlay noPrint", title: "Absent") %>
   <% elsif @pet.pet_state.status == 'unavailable' %>
-    <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable") %>
+    <%= image_tag("unavailableIcon.png", class: "overlay noPrint", title: "Unavailable") %>
   <% end %>
   <% if @pet.pet_photos.size > 1 %> 
   <a class="fader-control" href="#prev">&lsaquo;</a>

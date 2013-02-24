@@ -9,15 +9,11 @@ class PetsController < ApplicationController
   autocomplete :shelter, :name, full: true
   
   def new
-    if signed_in?
-      @shelters = Shelter.all
-      @pet = Pet.new
-      @pet.animal_code = @@pass
-      @pet.pet_state_id = PetState.first.id
-    else
-      flash[:notice] = "You must be signed in to add a pet."
-      redirect_to join_path
-    end
+    @shelters = Shelter.all
+    $pet = ""
+    @pet = Pet.new
+    @pet.animal_code = @@pass
+    @pet.pet_state_id = PetState.first.id
     @current_location = "asdfasdf"
     if cookies[:location]
       @current_location = cookies[:location]
@@ -44,7 +40,7 @@ class PetsController < ApplicationController
       end
     end
     # if pets with same ID have been found, remove their shelters from the list of available shelters
-    if $exclude_shelter && $exclude_shelter.count > 0
+    if $exclude_shelter && $exclude_shelter.count > 0 && cookies[:exclude_shelter] != "false"
       @nearbys = @nearbys.reject{|s| $exclude_shelter.include? s }
     end
     # can't add a pet if there aren't any shelters available
@@ -52,9 +48,10 @@ class PetsController < ApplicationController
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
+    cookies[:exclude_shelter] = ""
   rescue
     flash[:error] = "Unable to create new pet."
-    redirect_to root_path
+    redirect_to root_path and return
   end
 
   def create
@@ -77,19 +74,21 @@ class PetsController < ApplicationController
   end
     
   def addpet
-    if params[:search].present?
-      @@pass = params[:search].parameterize.titleize.gsub(" ","")
-      @pets = Pet.select{|p| p.animal_code == @@pass }
-      if @pets.count > 0
-        render 'add_found'
-        $exclude_shelter = @pets.map{|p| p.shelter }
-      else
-        redirect_to newpet_path
+    if signed_in?
+      if params[:search].present?
+        @@pass = params[:search].parameterize.titleize.gsub(" ","")
+        @pets = Pet.select{|p| p.animal_code == @@pass }
+        if @pets.count > 0
+          render 'add_found'
+          $exclude_shelter = @pets.map{|p| p.shelter }
+        else
+          redirect_to newpet_path
+        end
       end
+    else
+      flash[:notice] = "You must be signed in to access this page."
+      redirect_to join_path
     end
-  rescue
-    flash[:error] = "Unable to create new pet."
-    redirect_to :back
   end
   
   def find
@@ -125,9 +124,9 @@ class PetsController < ApplicationController
       @micropost = current_user.microposts.build(pet_id: @pet.id)
     end
     if cookies[:history]
-      cookies[:history] = cookies[:history] + " " + @pet.id.to_s
+      cookies.permanent[:history] = cookies[:history] + " " + @pet.id.to_s
     else
-      cookies[:history] = " "
+      cookies.permanent[:history] = " "
     end    
   rescue
     raise ActionController::RoutingError.new('Not Found')  
@@ -188,7 +187,7 @@ class PetsController < ApplicationController
       @nearbys = @nearbys << @pet.shelter
     end
   rescue
-    flash[:error] = "Unable to edit #{@pet.name}."
+    flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     redirect_to :back
   end
   
@@ -234,7 +233,7 @@ class PetsController < ApplicationController
       render 'edit'
     end
   rescue
-    flash[:error] = "Unable to update #{@pet.name}."
+    flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     redirect_to :back
   end
   
@@ -248,7 +247,7 @@ class PetsController < ApplicationController
       redirect_to root_path
     end
   rescue
-    flash[:error] = "Unable to delete #{@pet.name}."
+    flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     redirect_to :back
   end
   

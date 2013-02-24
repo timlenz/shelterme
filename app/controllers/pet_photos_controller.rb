@@ -20,7 +20,7 @@ class PetPhotosController < ApplicationController
       redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
     end
   rescue
-    flash[:error] = "Unable to add photo for #{@pet_photo.pet.name}."
+    flash[:error] = "Unable to add photo for #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code}."
     redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
   end
 
@@ -30,7 +30,7 @@ class PetPhotosController < ApplicationController
       cookies[:photo] = "edit"
     end
   rescue
-    flash[:error] = "Unable to edit photo for #{@pet_photo.pet.name}."
+    flash[:error] = "Unable to edit photo for #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code}."
     redirect_to :back
   end
 
@@ -58,7 +58,7 @@ class PetPhotosController < ApplicationController
     end
     cookies[:photo] = ""
   rescue
-    flash[:error] = "Unable to update photo for #{@pet_photo.pet.name}."
+    flash[:error] = "Unable to update photo for #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code}."
     redirect_to :back
   end
 
@@ -78,7 +78,7 @@ class PetPhotosController < ApplicationController
       redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
     end
   rescue
-    flash[:error] = "Unable to delete photo for #{@pet_photo.pet.name}."
+    flash[:error] = "Unable to delete photo for #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code}."
     redirect_to :back
   end
   

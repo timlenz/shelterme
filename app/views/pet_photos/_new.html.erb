@@ -47,7 +47,7 @@ $(function(){
 		var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
 		$('.mediaModal .headerInfo p').text(new_label);
 		var file_type = new_label.split('.').pop();
-		var valid_types = ['gif', 'jpeg', 'jpg', 'png'];
+		var valid_types = ['gif', 'jpeg', 'jpg', 'png', 'JPG', 'JPEG', 'PNG', 'GIF'];
 		var type_check = $.inArray(file_type, valid_types);
 		if ( type_check == -1 ) {
 			$('input[type=file]').val("");

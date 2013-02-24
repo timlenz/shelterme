@@ -10,7 +10,7 @@
     <div class="clearfix"></div>
     <%= will_paginate @search_results %>
   </div>
-<% else %>
+<% elsif @search.far_species.count > 0 %>
   <div class="findBlurb" style="height:400px;">
   <h3><%= image_tag("partialMatchFound.png")%></h3><br>
   <p>No pets within 50 miles of <%= @search.location %> were an exact match for your search.<br>
@@ -60,39 +60,48 @@
       <%= link_to "#{@search.near_species.count == 1 ? "" : @search.near_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.near_species.count) : "dog".pluralize(@search.near_species.count)}", "#", id: "near_species" %>
       <% near_shelter = Shelter.all.detect{|s| s.id == @search.near_species.first.shelter_id} %>
       available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-    <% elsif @search.far_species.count > 0 %>
+    <% else %>
       <%= @search.far_species.count == 1 ? "is a" : "are" %> 
       <%= link_to "#{@search.far_species.count == 1 ? "" : @search.far_species.count} #{@search.species_id == 1 ? "cat".pluralize(@search.far_species.count) : "dog".pluralize(@search.far_species.count)}", "#", id: "far_species" %>
       <% near_shelter = Shelter.all.detect{|s| s.id == @search.far_species.first.shelter_id} %>
       available in <span><%= near_shelter.city + ", " + near_shelter.state %></span>.
-    <% else %>
-      are no shelters near <%= @search.location %>.
-      <script type="text/javascript">
-        function NoShelters(){
-          window.location.href="/findshelter"
-        }
-        setTimeout("NoShelters()", 3000);
-        $(function(){
-          $('.findBlurb h3, .findBlurb p:first, .findBlurb p:last, .saveSearch').hide();
-          $('.partialMatch p').css({'color':'#ec520a','font-weight':'bold'});
-        });
-      </script>
     <% end %>
     </p>
-  </div>
+  </div>	
+	  <div class="row">
+	    <div class="noPets">
+	      <%= image_tag("noPetsImage.png") %>
+	    </div>
+	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
+	      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+	    </div>
+	  </div>
   <!--span class="saveSearch">
   <p>If you prefer, you can save your search and we will contact you<br> when pets meeting your criteria become available in your area.<br><br>
   <button type="button" class="btn btn-header saveSearch">Save</button></span>
   <p>Please visit a <% link_to "local shelter", findshelter_path %> to add pets that are not yet in our database.</p>
   </div-->
-  <div class="row">
-    <div class="noPets">
-      <%= image_tag("noPetsImage.png") %>
-    </div>
-    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
-      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
-    </div>
-  </div>
+<% else %>
+	<div class="findBlurb" style="height:400px;">
+		<h3><%= image_tag("noMatchesFound.png")%></h3><br>
+		<p>Unfortunately, there are no pets available near <%= @search.location %>.<br>
+			Please visit a <%= link_to "local shelter", findshelter_path %> and add pets from it to our database.</p>
+	  <div class="row" style="margin-top:110px;">
+	    <div class="noPets">
+	      <%= image_tag("noPetsImage.png") %>
+	    </div>
+	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
+	      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+	    </div>
+	  </div>
+	</div>
+	
+  <script type="text/javascript">
+    function NoShelters(){
+      window.location.href="/findshelter"
+    }
+    //setTimeout("NoShelters()", 3000);
+  </script>
 <% end %>
 
 <script>

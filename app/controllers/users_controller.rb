@@ -137,6 +137,7 @@ class UsersController < ApplicationController
         cookies[:matchme] = "false"
       end
     else
+      flash[:notice] = "You must be signed in to access this page."
       redirect_to join_path
     end
   rescue

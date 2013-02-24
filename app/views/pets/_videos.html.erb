@@ -1,10 +1,10 @@
 <div id="videoDisplay">
   <div class="innerVideo">
     <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
-      <% if m.panda_video.status == "success" && m.h264.screenshots %>
+      <% if m.panda_video.status == "success" && m.thumbnail.screenshots %>
         <video id="movie<%= i %>" width="592" height="333" class="video-js vjs-default-skin<%= i == 0 ? " active" : ''%>" 
           preload="none" data-setup='{"example_option":true}' title="Video contributed by <%= m.user ? m.user.name : "Shelter Me" %>"
-          poster="<%= m.h264.screenshots.first %>" controls>
+          poster="<%= m.thumbnail.screenshots.first %>" controls>
           <source src="<%= m.h264.url %>" type="video/mp4">
           <source src="<%= m.webm.url %>" type="video/webm">
         </video>
@@ -20,8 +20,8 @@
     <ol>
     <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
       <li class="thumb<%= i == 0 ? " selected" : ''%>">
-        <% if m.panda_video.status == "success" && m.h264.screenshots.first %>
-        <%= link_to image_tag(m.h264.screenshots.first), "#", id: "thumb#{i}" %>
+        <% if m.panda_video.status == "success" && m.thumbnail.screenshots.first %>
+        <%= link_to image_tag(m.thumbnail.screenshots.first), "#", id: "thumb#{i}" %>
         <% elsif m.panda_video.status != "fail" %>
           <div class="waiting">
             <p>Not ready just yet...</p>

@@ -1,7 +1,7 @@
 <div class="pet-tile editVideo">
   <div class="tile-photo">
-    <% if f.panda_video.encodings["h264"].screenshots.first %>
-    <%= image_tag(f.panda_video.encodings["h264"].screenshots.first) %>
+    <% if f.panda_video.encodings["thumbnail"].screenshots.first %>
+    <%= image_tag(f.thumbnail.screenshots.first) %>
     <% else %>
       <div class="processing">
         <p>We are still processing this video...please reload the page in a few minutes.</p>
@@ -13,7 +13,7 @@
     f.user == current_user %>
 	  <% if f.primary? %>
 		  <span class="makeDefault" style="padding-top:6px;">Primary</span>
-	  <% elsif (f.user != current_user && !current_user.admin? && !current_user.manager?) %>
+    <% elsif (f.user == current_user || current_user.admin? || current_user.manager?) %>
 	    <%= simple_form_for f, html: {class: "makeDefault"} do |fp| %>
 	      <%= fp.submit "Make Primary" %>
 	    <% end %>

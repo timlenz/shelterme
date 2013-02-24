@@ -428,19 +428,28 @@ $(function(){
     $('#photoClick').click();
   };
   
-  // Disable Add Media buttons if user agent is iPad (and other tablets)
+  // Hide Add Media buttons if user agent is iPad (and other tablets)
   if ( $('.addMedia').length ) {
     if ( navigator.userAgent.match(/iPad|Tablet/i) != null ) {
       $('.mediaButtons input').prop('disabled', true);
     };
   };
   
-  // Disable Add Pet if user agent is iPad (and other tablets)
+  // Hide Add Pet if user agent is iPad (and other tablets)
   if ( $('#addPet').length) {
     if ( navigator.userAgent.match(/iPad|Tablet/i) != null ) {
-      $('#addPet input[type="submit"]').prop('disabled', true);
+      $('#addPet').hide();
+			$('#tabletAlert').show();
     };
   };
+
+	// Set Shelter Exclusion cookie if adding non-redundant pet ID after redundant result found
+	// explicitly prevents the exclusion of shelters from potential pet shelter locations
+	if ( $('#potentialMatch').length ) {
+		$('#addPet').click(function(){
+			$.cookie("exclude_shelter", "false");
+		});
+	};
   
   // Show loading interstitial during pet search
   $('form#new_search :submit, form[id^="edit_search"] :submit').click(function(){
@@ -463,6 +472,8 @@ $(function(){
     var twos = $('.form-blue input[id^="user_"][value="2"]').length;
     if ( ones + twos >= 7 ) {
       $('.form-blue button[type="submit"]').prop('disabled', false);
+			$('.form-blue button[type="submit"]').show();
+			$('#enterAll').hide();
     };
   });
   // Reload enabling after saved values
@@ -471,6 +482,8 @@ $(function(){
     var twos = $('.form-blue input[id^="user_"][value="2"]').length;
     if ( ones + twos >= 7 ) {
       $('.form-blue button[type="submit"]').prop('disabled', false);
+			$('.form-blue button[type="submit"]').show();
+			$('#enterAll').hide();
     };
   };
   
@@ -554,7 +567,13 @@ $(function(){
     minLength: 2,
     source: $('#search_breed_name').data('autocomplete-source')
   });
-  
+	
+  // Show Breed control on selection of species
+  if ( name == "search[species_id]" ) {
+    $('#search_breed_name').parent().parent().show();
+    $('#new_search button[type="submit"], #new_search a:contains("Reset")').css('visibility','visible');
+  };
+
   // Show/hide change location in Find Pet
   $('#changeLocation').click(function(){
     $('div.findLocation').hide();
@@ -653,12 +672,16 @@ $(function(){
       var button = $(this);
       button.live('click', function(){
         current_value = hidden.val();
+				// Remove highlight required field on selection
+				if ( group.hasClass('btn-required') ) {
+					group.removeClass('btn-required');
+				};
         // Set value of clicked element to hidden control
         hidden.val($(this).val());
         // Show Breed control on selection of species
         if ( name == "search[species_id]" ) {
           $('#search_breed_name').parent().parent().show();
-          $('#new_search button[type="submit"], #new_search a:contains("Reset")').css('visibility','visible');
+          $('#new_search button[type="submit"], #new_search a:contains("Reset"), #changeLocation').css('visibility','visible');
         };
         // Disabling/deselecting secondary color on primary color click
         if(name == "pet[primary_color_id]") {
@@ -706,6 +729,10 @@ $(function(){
       if(button.val() == hidden.val()) {
         // Set clicked button to active
         button.addClass('active');
+				// Remove highlight required field on reload
+				if ( group.hasClass('btn-required') ) {
+					group.removeClass('btn-required');
+				};
         // Disable secondary color button with primary color selection on load
         $('#pet_secondary_color button[value="'+ $('#pet_primary_color_id').val() +'"]').prop('disabled', true);
         // Update pet breed fields based on species selection

@@ -51,15 +51,17 @@ class SearchesController < ApplicationController
     @search = Search.find(params[:id])
     $search = @search
     @search_results = @search.pets.paginate(page: params[:page], per_page: 12)
-    @local_sb = @search.local_species.select{|p| p.primary_breed_id == @search.breed_id || p.secondary_breed_id == @search.breed_id}
+    if @search.breed_id == nil
+      @local_sb = []
+    else
+      @local_sb = @search.local_species.select{|p| p.primary_breed_id == @search.breed_id || p.secondary_breed_id == @search.breed_id}
+    end
     @local_sbg = @local_sb.select{|p| p.gender_id == @search.gender_id}
     @local_sbga = @local_sbg.select{|p| p.age_group == @search.age_group}
     @local_sbgas = @local_sbga.select{|p| p.size_id == @search.size_id}
     @local_sbgasa = @local_sbgas.select{|p| p.affection_id == @search.affection_id}
     @local_sbgasan = @local_sbgasa.select{|p| p.nature_id == @search.nature_id}
     render :new
-  rescue
-    flash[:notice] = "No shelters within 200 miles of #{@search.location}."
-    redirect_to findshelter_path
   end
+  
 end

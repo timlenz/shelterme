@@ -38,7 +38,9 @@
           <div class="clearfix"></div>
           <hr>
           <%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;")%>
+          <% if (@pet.pet_photos.find{|p| p.user == current_user }) && @pet.user != current_user && !current_user.admin? %>
           <p style="font-size:13px;color:#853a18;">You may only delete photos that you have uploaded.<p>
+	        <% end %>
         </div>
         <div class="tab-pane" id="videos">
           <div id="editVideos">
@@ -53,7 +55,9 @@
           <div class="clearfix"></div>
           <hr>
           <%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;")%>
+          <% if (@pet.pet_videos.find{|p| p.user == current_user }) && @pet.user != current_user && !current_user.admin? %>
           <p style="font-size:13px;color:#853a18;">You may only delete videos that you have uploaded.<p>
+	        <% end %>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@
       <div id="results">
         <div class="potentialMatch">
           <h3><%= image_tag("matchFound.png", class: "formHeader")%></h3>
-          <p>There <%= @pets.count == 1 ? "is a pet" : "are pets" %> with the Animal ID <%= params[:search] %> already in our database</p>
+          <p>There <%= @pets.count == 1 ? "is a pet" : "are pets" %> with the ID <%= params[:search] %> already in our database</p>
           <p>If the pet you are trying to add is shown below, please select it<br>
          and contribute your thoughts, photos, and videos to its profile.</p>
         </div>

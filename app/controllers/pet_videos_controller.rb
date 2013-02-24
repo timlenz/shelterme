@@ -19,14 +19,14 @@ class PetVideosController < ApplicationController
     end
     redirect_to [@pet_video.pet.shelter, @pet_video.pet]
   rescue
-    flash[:error] = "Unable to add video for #{@pet_video.pet.name}."
+    flash[:error] = "Unable to add video for #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code}."
     redirect_to [@pet_video.pet.shelter, @pet_video.pet]
   end
   
   def edit
     @pet_video = PetVideo.find(params[:id])
   rescue
-    flash[:error] = "Unable to edit video for #{@pet_video.pet.name}."
+    flash[:error] = "Unable to edit video for #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code}."
     redirect_to :back
   end
   
@@ -42,7 +42,7 @@ class PetVideosController < ApplicationController
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
   rescue
-    flash[:error] = "Unable to update video for #{@pet_video.pet.name}."
+    flash[:error] = "Unable to update video for #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code}."
     redirect_to :back
   end
   
@@ -58,7 +58,7 @@ class PetVideosController < ApplicationController
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
   rescue
-    flash[:error] = "Unable to delete video for #{@pet_video.pet.name}."
+    flash[:error] = "Unable to delete video for #{@pet_video.pet.name != "" ? @pet_video.pet.name : @pet_video.pet.animal_code}."
     redirect_to :back
   end
 

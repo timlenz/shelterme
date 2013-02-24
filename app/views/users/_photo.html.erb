@@ -5,7 +5,7 @@
   <% if f.pet.pet_photos.size > 1 %>
     <% if f.primary? %>
 	    <span class="makeDefault" style="padding-top:6px;">Primary</span>
-	  <% else %>
+    <% elsif (f.pet.user == current_user || current_user.admin?) %>
       <%= simple_form_for f, html: {class: "makeDefault"} do |fp| %>
         <%= fp.submit "Make Primary" %>
       <% end %>

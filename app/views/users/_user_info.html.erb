@@ -1,6 +1,6 @@
 <div class="headerInfo">
   <h1>
-  <% if current_user.admin? && current_user != @user %>
+  <% if signed_in? && current_user.admin? && current_user != @user %>
     <%= link_to @user.name, "mailto:#{@user.email}", target: "_blank", style: "font-weight:normal;color:#333;" %>
   <% else %>
     <%= @user.name %>
