@@ -3,7 +3,7 @@
     <% if signed_in? %>
     <%= f.hidden_field :user_id, value: current_user.id, label: false %>
     <% end %>
-    <div class="btn-group two-btn btn-graphic btn-required" data-toggle="buttons-radio" data-toggle-name="search[species_id]">
+    <div class="btn-group two-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[species_id]">
       <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
       <button type="button" data-toggle="button" class="btn" value="2">Dog</button>
     </div>
@@ -13,7 +13,7 @@
       <button type="button" data-toggle="button" class="btn" value="1">Male</button>
     </div>
     <%= f.hidden_field :gender_id, label: false %>
-    <div class="control-group string optional" style="display:none;">
+    <div class="control-group string optional">
       <label class="string required control-label">Breed</label>
       <div class="controls">
         <%= f.text_field :breed_name, data: {autocomplete_source: Breed.order(:name).map(&:name)}, style: "margin-bottom:0;" %>
@@ -37,7 +37,7 @@
     <div class="control-label findLocation">
       <span id="currentLocation"><%= @current_location %></span>
       &nbsp;&nbsp;
-      <a href="#" id="changeLocation" style="visibility:hidden;">Change location</a>
+      <a href="#" id="changeLocation">Change location</a>
     </div>
     <div class="changeLocation hidden">
       <%= f.text_field :location, value: @current_location, style: "width:280px;" %>
@@ -63,8 +63,8 @@
     </div>
     <%= f.hidden_field :affection_id, label: false %>
   </div>
-  <button type="submit", class="btn btn-header", data-remote="true", data-type="json", style="width: 153px;font-size:14px;line-height:22px;margin-bottom:10px;margin-right:15px;visibility:hidden;" >
+  <button type="submit", class="btn btn-header", data-remote="true", data-type="json", style="width: 153px;font-size:14px;line-height:22px;margin-bottom:10px;margin-right:15px;" >
     <%= image_tag("smallFindIcon.png", style:"margin-top:-4px;")%>&nbsp; Find Me
   </button>
-  <%= link_to("Reset", findpet_path, style: "float:right;padding-top:6px;visibility:hidden;")%>
+  <%= link_to("Reset", findpet_path, style: "float:right;padding-top:6px;")%>
 <% end %>

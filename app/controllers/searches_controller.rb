@@ -5,31 +5,25 @@ class SearchesController < ApplicationController
   $search = Search.first
   
   def new
-    if $search and ($search.created_at > 1.second.ago or $search.updated_at > 1.second.ago)
-      @search = $search
-      @current_location = $search.location
-    else
-      @reset = true
-      @search = Search.new
-      @current_location = "asdfasdf"
-      if location.present?
-        @current_location = location
-      end
-      if (validate_location(@current_location) == false) && (cookies[:location])
-        @current_location = cookies[:location]
-      end
-      if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
-        @current_location = current_user.location
-      end
-      if validate_location(@current_location) == false    
-        flash[:notice] = "Estimating your location."
-        s = Geocoder.search(remote_ip)
-        if s[0].city != ""
-          @current_location = s[0].city + ", " + s[0].state_code
-        end
-      end
-      cookies[:location] = @current_location
+    @search = Search.new
+    @current_location = "asdfasdf"
+    if location.present?
+      @current_location = location
     end
+    if (validate_location(@current_location) == false) && (cookies[:location])
+      @current_location = cookies[:location]
+    end
+    if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+      @current_location = current_user.location
+    end
+    if validate_location(@current_location) == false    
+      flash[:notice] = "Estimating your location."
+      s = Geocoder.search(remote_ip)
+      if s[0].city != ""
+        @current_location = s[0].city + ", " + s[0].state_code
+      end
+    end
+    cookies[:location] = @current_location
   rescue
     flash[:notice] = "Cannot determine your location."
     redirect_to root_path

@@ -5,7 +5,7 @@
     <%= f.input :password, label: "New Password" %>
     <%= f.input :password_confirmation, label: 'Re-enter Password'  %>
     <% f.input :phone, as: :tel, hint: "Optional - used only for Update Me alerts" %>
-    <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
+    <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", id: "saveUserAccount" %>
     <%= link_to("Back to user profile", @user, style: "float:right;padding-top:4px;")%>
   <% end %>
 </div>

@@ -500,7 +500,7 @@ $(function(){
   });
   
   // Hide extra modal elements during upload
-  $('#addAvatar form[id^="edit_user"] :submit').click(function(){
+  $('#addAvatar input[type="submit"]').click(function(){
     $('#addAvatar .text-close, #addAvatar input[type="submit"], #addAvatar input[type="file"]').hide();
     $('#loadingPhoto').show();
     $('.mediaModal .handhold').show();
@@ -508,7 +508,7 @@ $(function(){
   });
   
   // Explicitly set avatar cookie to false on Save click
-  $('#saveUser').click(function(){
+  $('#saveUser, #saveUserAccount').click(function(){
     $.cookie("avatar", "false");
   });
   
@@ -678,7 +678,7 @@ $(function(){
 				};
         // Set value of clicked element to hidden control
         hidden.val($(this).val());
-        // Show Breed control on selection of species
+        // Show Find Pet controls on selection of species
         if ( name == "search[species_id]" ) {
           $('#search_breed_name').parent().parent().show();
           $('#new_search button[type="submit"], #new_search a:contains("Reset"), #changeLocation').css('visibility','visible');

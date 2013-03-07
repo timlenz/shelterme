@@ -50,7 +50,8 @@ class PetsController < ApplicationController
     end
     cookies[:exclude_shelter] = ""
   rescue
-    flash[:error] = "Unable to create new pet."
+    #flash[:error] = "Unable to create new pet."
+    flash[:error] = $!.message
     redirect_to root_path and return
   end
 
@@ -58,10 +59,10 @@ class PetsController < ApplicationController
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
-    @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
     $pet = @pet
     $exclude_shelter = []
     if @pet.save
+      @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
       flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
       redirect_to [@shelter, @pet]
     else

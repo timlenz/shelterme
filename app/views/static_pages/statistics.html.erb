@@ -133,6 +133,32 @@
 		        <li>
 		          <h3>Admin <span><%= User.all.select{|u| u.admin == true}.count %></span></h3>
 		        </li>
+		        <li>
+			        <h3>Common Characteristics</h3><br>
+			        <ol>
+			        <li>
+				        Openness <span><%= @open %></span>
+				      </li>
+			        <li>
+				        Planning <span><%= @plan %></span>
+				      </li>
+			        <li>
+				        Sociality <span><%= @social %></span>
+				      </li>
+			        <li>
+				        Attitude <span><%= @attitude %></span>
+				      </li>
+			        <li>
+				        Emotion <span><%= @emotion %></span>
+				      </li>
+			        <li>
+				        Cleanliness <span><%= @clean %></span>
+				      </li>
+			        <li>
+				        Energy <span><%= @energy %></span>
+				      </li>
+				      </ol>
+			      </li>
 	        </ul>
         </div>
         <div class="adminColumn">

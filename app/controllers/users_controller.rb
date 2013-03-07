@@ -95,7 +95,7 @@ class UsersController < ApplicationController
         if cookies[:avatar] == "false"        
           redirect_to @user
           flash[:success] = "Your profile has been updated."
-        else  
+        else
           cookies[:avatar] = "false"
           redirect_to :back
           flash[:success] = "Your avatar has been updated."

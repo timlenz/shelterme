@@ -4,13 +4,15 @@
       <div class="headerLogo">
         <%= image_tag("photoIcon.png", alt: "Add Photo") %>
       </div>
-      <div class="headerInfo" style="width:385px;">
+      <div class="headerInfo" style="width:450px;">
         <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1><br>
 				<p></p>
       </div>
     </div>
     <div class="form">
+	    <% if $pet.pet_photos.size >= 1 %>
       <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", help_path(anchor: "photo"), style: "line-height:28px;font-size:12px;" %>.</p>
+      <% end %>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This window will close once your upload is complete.
       </div>
@@ -47,7 +49,7 @@ $(function(){
 		var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
 		$('.mediaModal .headerInfo p').text(new_label);
 		var file_type = new_label.split('.').pop();
-		var valid_types = ['gif', 'jpeg', 'jpg', 'png', 'JPG', 'JPEG', 'PNG', 'GIF'];
+		var valid_types = ['gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff', 'JPG', 'JPEG', 'PNG', 'GIF', 'TIF', 'TIFF'];
 		var type_check = $.inArray(file_type, valid_types);
 		if ( type_check == -1 ) {
 			$('input[type=file]').val("");
