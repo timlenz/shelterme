@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :handle_mobile
   
+  private
   def handle_mobile
     request.format = :mobile if mobile_user_agent?
   end
