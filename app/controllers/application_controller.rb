@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   
   before_filter :handle_mobile
   
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, with: :render_error
+    rescue_from ActiveRecord::RecordNotFound, with: :routing_error
+    rescue_from ActionController::RoutingError, with: :routing_error
+    rescue_from ActionController::UnknownController, with: :routing_error
+    rescue_from AbstractController::ActionNotFound, with: :routing_error
+  end
+  
   private
   def handle_mobile
     request.format = :mobile if mobile_user_agent?
@@ -34,8 +42,12 @@ class ApplicationController < ActionController::Base
     return true
   end
   
-  def routing_error
-    render "404", status: 404
+  def routing_error(exception)
+    render file: "errors/404"
+  end
+
+  def render_error(exception)
+    render file: "errors/500", layout: false
   end
 
 end

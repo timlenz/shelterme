@@ -222,6 +222,56 @@ textarea {
   background-clip: padding-box;
 }
 
+.focus404 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 600px;
+  margin: -200px 0 0 -300px;
+  background-color: white;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -webkit-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+  -moz-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+  box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+  border: 10px solid #555;
+  border: 10px solid rgba(0, 0, 0, 0.2);
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background: rgba(0, 0, 0, 0.2);
+}
+.inner404 {
+  padding: 0;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background: white;
+  text-align: center;
+  height: 380px;
+  overflow: hidden;
+	h1 {
+    font-size: 64px;
+    color: #EC520A;
+    margin: 0;
+		line-height: 80px;
+    text-align: center;
+		font-weight: bold;
+		display: block;
+	}
+	#badLink {
+		margin-top: 20px;
+		width: 60%;
+	}
+	#message {
+		margin-top: 20px;
+		height: 60px;
+	}
+}
+
 /* TYPOGRAPHY */
 
 h1, h2, h3, h4, h5, h6 {
