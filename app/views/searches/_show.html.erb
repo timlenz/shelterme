@@ -3,9 +3,9 @@
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
-<% if $search.pets.size > 0 %>
+<% if $search.pets.size > 0 && @search_results != nil %>
   <div id="results">
-    <h2 style="margin-top:10px;"><%= pluralize($search.pets.size, "Pet") %> Found</h2>
+    <h2 style="margin-top:10px;"><%= pluralize(@search.pets.size, "Pet") %> Found</h2>
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
     <div class="clearfix"></div>
     <%= will_paginate @search_results %>

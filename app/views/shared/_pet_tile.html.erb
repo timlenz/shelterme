@@ -1,11 +1,11 @@
 <div class="pet-tile <%= f.pet_state.status %>">
   <div class="tile-photo">
     <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
-      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), [f.shelter, f] %>
+      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url(:thumb).to_s), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% elsif f.pet_photos.count == 1 %>
-      <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f] %>
+      <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% else %>
-      <%= link_to "", [f.shelter, f] %>
+      <%= link_to "", [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% end %>
 	  <% if f.pet_state.status == 'available' || f.pet_state.status == 'absent' %>
 	  <div class="corner <%= f.created_at < 2.weeks.ago ? 'veteran' : ( f.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
@@ -33,9 +33,9 @@
   <div class="pet-info">
     <h3>
       <% if f.name != '' %>
-      <%= link_to f.name, [f.shelter, f] %>
+      <%= link_to f.name, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
       <% else %>
-      <%= link_to f.animal_code, [f.shelter, f] %>
+      <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
       <% end %>
     </h3>
     <p style="color:gray;">
@@ -46,7 +46,7 @@
       <% end %>
     </p>
     <p>
-      <%= link_to f.shelter.name, f.shelter, class: "shelter-tile" %>
+      <%= link_to f.shelter.name, f.shelter, class: "shelter-tile", target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     </p>
   </div>
   <div class="pet-state">

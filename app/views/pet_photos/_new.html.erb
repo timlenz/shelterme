@@ -56,8 +56,13 @@ $(function(){
 			$('.mediaModal .headerInfo p').text("");
 			alert("Please select a valid image file.");
 		} else {
-			// Enable Submit button when file selected
-			$('.mediaModal input[type="submit"]').prop('disabled', false);
+			if (this.files[0].size > 4000000) {
+				$('.mediaModal input[type="submit"]').prop('disabled', true);
+				alert("Image is too large - must be less than 4 MB.")
+			} else {
+				// Enable Submit button when file selected
+				$('.mediaModal input[type="submit"]').prop('disabled', false);
+			};
 		};
 	});
 	

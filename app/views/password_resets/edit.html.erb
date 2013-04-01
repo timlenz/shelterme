@@ -3,8 +3,9 @@
   <div class="signinDialog">
     <div class="row">
       <div class="span6 offset3">
-        <%= image_tag("resetPassword.png", alt: "Reset Password", class: "formHeader") %>
-        <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+        <%= image_tag("enterPassword.png", alt: "Enter Password", class: "formHeader") %>
+	      <br><br>
+        <%= form_for @user, :url => password_reset_path(params[:id]), html: {class: 'form-horizontal'} do |f| %>
           <% if @user.errors.any? %>
             <div class="error_messages">
               <h2>Try that again</h2>
@@ -15,15 +16,19 @@
               </ul><br>
             </div>
           <% end %>
-          <div class="field">
-            <%= f.label :password, style: "display:none;" %>
-            <%= f.password_field :password, placeholder: "Password" %>
+					<div class="control-group email required">
+            <label class="email control-label" for="email">New Password</label>
+            <div class="controls">
+              <input class="string email required" id="user_password" name="user[password]" size="50" type="password">
+            </div>
           </div>
-          <div class="field">
-            <%= f.label :password_confirmation, style: "display:none;" %>
-            <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
+					<div class="control-group email required">
+            <label class="email control-label" for="email">Confirm Password</label>
+            <div class="controls">
+              <input class="string email required" id="user_password_confirmation" name="user[password_confirmation]" size="50" type="password">
+            </div>
           </div>
-          <div class="actions"><%= f.submit "", class: "updateButton", style: "width:120px;height:34px;" %></div>
+          <div class="actions"><%= f.submit "Update", class: "btn btn-header", style: "width:120px;" %></div>
         <% end %>
         <div class="clearfix"></div>
       </div>

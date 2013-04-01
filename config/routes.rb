@@ -59,7 +59,7 @@ ShelterMe::Application.routes.draw do
   match '/la',                to: 'pets#potd'
   
   match '/findpet',           to: 'searches#new'
-  match '/searches/:id',      to: 'searches#new'
+  #match '/searches/:id',      to: 'searches#new'
   
   match '/signin',            to: 'sessions#new'
   match '/signout',           to: 'sessions#destroy', via: :delete

@@ -32,6 +32,8 @@ class ApplicationController < ActionController::Base
     else
       request.remote_ip
     end
+  rescue
+    flash[:error] = "FreeGeoIP is not responding."
   end
   
   def validate_location(location) # No support for non-US addresses
@@ -40,13 +42,17 @@ class ApplicationController < ActionController::Base
       return false
     end
     return true
+  rescue
+    flash[:error] = "MapQuest is not responding."
   end
   
   def routing_error(exception)
+    logger.warn "#{exception.message}"
     render file: "errors/404"
   end
 
   def render_error(exception)
+    logger.warn "#{exception.message}"
     render file: "errors/500", layout: false
   end
 

@@ -191,7 +191,8 @@ class User < ActiveRecord::Base
               [0, 0.5, 1, 0, 0.5, 1, 0.5, 1, -0.5]]
     mo = [1, 0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 1, -2, 0, 0, 1, 1, -0.5, 0.5, -2, 2, 1, 1,
           1.5, -1.5, 0, -1, 1, 0, -2, 1, -1, 2, 0, 0, 2, 1, 1, 1, 1]      
-    nearbys = Shelter.near(location, 200, order: "distance").map{|s| s.id}
+    nearbys = Shelter.near(location, 200, order: "distance").map{|s| s.id} if location.present?
+    if nearbys
     scores = Array.new
     @matches = Pet.order(:name)
     @matches = @matches.where('shelter_id in (?)', nearbys)
@@ -243,6 +244,9 @@ class User < ActiveRecord::Base
     @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     $match = true
     @matches
+    else
+      @matches = []
+    end
   end
   
   def ave_affection

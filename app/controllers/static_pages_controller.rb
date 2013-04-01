@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   def home
     respond_to do |format|
       format.html {
-        location = "asdfasdf"
+        location = "MapQuest not responding"
         if cookies[:location]
           location = cookies[:location]
         end
@@ -27,8 +27,13 @@ class StaticPagesController < ApplicationController
         # select four random pets from list
         #@pets = @pets.sort_by{rand}.first(4)
         @pets = @pets.shuffle!.first(4)
-        @pets
-        @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
+        if location != "MapQuest not responding"
+          @pets
+          @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
+        else
+          @pets = []
+          @shelter = []
+        end
       }
     end
   rescue

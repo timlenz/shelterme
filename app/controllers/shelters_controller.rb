@@ -66,7 +66,7 @@ class SheltersController < ApplicationController
   end
   
   def find
-    @current_location = "asdfasdf"
+    @current_location = "MapQuest not responding"
     if params[:search].present?
       @current_location = params[:search]
       cookies[:location] = @current_location
@@ -77,19 +77,22 @@ class SheltersController < ApplicationController
     if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
       @current_location = current_user.location
     end
-    if validate_location(@current_location) == false    
-      flash[:notice] = "Estimating your location."
+    if validate_location(@current_location) == false   
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
         @current_location = s[0].city + ", " + s[0].state_code
       end
     end
-    nearbys = Shelter.near(@current_location, 50, order: "distance")
-    @nearbys = nearbys.limit(5) # limit due to Google Static Map API restriction
-    @all_nearbys = nearbys - @nearbys
+    if @current_location != "MapQuest not responding"
+      nearbys = Shelter.near(@current_location, 50, order: "distance")
+      @nearbys = nearbys.limit(5) # limit due to Google Static Map API restriction
+      @all_nearbys = nearbys - @nearbys
+    else
+      @nearbys = []
+      @all_nearbys = []
+    end
   rescue
-    flash[:notice] = "Cannot automatically determine your location."
-    redirect_to root_path
+    flash[:notice] = "Cannot determine your location."
   end
   
   def managed

@@ -3367,10 +3367,12 @@ th {
 }
 
 .headerButtons {
-	button.close {
+	.close {
 	  border: none;
 	  background-color: none;
-		background-image: none;
+		&:hover {
+		  background-color: none;
+		}
 	}
 }
 
@@ -3865,6 +3867,9 @@ ul.typeahead {
   .last {
     border-bottom: none;
   }
+	h2 {
+		color: #515151;
+	}
   h3 {
     font-size: 26px;
     font-weight: normal;

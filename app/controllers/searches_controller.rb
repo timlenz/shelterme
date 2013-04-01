@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
   
   def new
     @search = Search.new
-    @current_location = "asdfasdf"
+    @current_location = "MapQuest not responding"
     if location.present?
       @current_location = location
     end
@@ -16,8 +16,7 @@ class SearchesController < ApplicationController
     if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
       @current_location = current_user.location
     end
-    if validate_location(@current_location) == false    
-      flash[:notice] = "Estimating your location."
+    if validate_location(@current_location) == false  
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
         @current_location = s[0].city + ", " + s[0].state_code
@@ -38,6 +37,7 @@ class SearchesController < ApplicationController
   
   def create
     @search = Search.create!(params[:search])
+    $search = []
     redirect_to @search
   end
   

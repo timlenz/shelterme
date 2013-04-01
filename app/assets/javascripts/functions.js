@@ -42,6 +42,12 @@ $(function(){
     $('.navLogo').show();
   });
 
+	// Hide nav spinner on spawned window link click
+	$('a[target^="t"], a[target="_blank"]').click(function(){
+    $('.navSpinner').hide();
+    $('.navLogo').show();
+  });
+
   // Hover state on Join, Sign In header buttons
   $('.signInit').mouseover(function(){
     $(this).find("a").css("color","");
@@ -470,9 +476,9 @@ $(function(){
   $('.form-blue').live('click', function(){
     var ones = $('.form-blue input[id^="user_"][value="1"]').length;
     var twos = $('.form-blue input[id^="user_"][value="2"]').length;
-    if ( ones + twos >= 7 ) {
+    if ( ones + twos >= 7 && $('#user_location').val() != "MapQuest not responding" ) {
       $('.form-blue button[type="submit"]').prop('disabled', false);
-			$('.form-blue button[type="submit"]').show();
+			//$('.form-blue button[type="submit"]').show();
 			$('#enterAll').hide();
     };
   });
@@ -480,9 +486,9 @@ $(function(){
   if ( $('.form-blue').length ) {
     var ones = $('.form-blue input[id^="user_"][value="1"]').length;
     var twos = $('.form-blue input[id^="user_"][value="2"]').length;
-    if ( ones + twos >= 7 ) {
+    if ( ones + twos >= 7 && $('#user_location').val() != "MapQuest not responding" ) {
       $('.form-blue button[type="submit"]').prop('disabled', false);
-			$('.form-blue button[type="submit"]').show();
+			//$('.form-blue button[type="submit"]').show();
 			$('#enterAll').hide();
     };
   };
@@ -589,6 +595,13 @@ $(function(){
   
   $('#new_search button[type="submit"], .match-me').click(function(){
     changeLocation();
+  });
+
+	// Disable Find Me, Match Me submit button if no location
+	$('#search_location, #user_location').change(function(){
+    if ( $(this).val() == "" ) {
+			alert("Please enter a location");
+		};
   });
 
   // Reformat activity list item if Manager viewing
