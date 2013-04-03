@@ -10,11 +10,11 @@ ShelterMe::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = false #change to false to see error handling pages
   config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -37,6 +37,9 @@ ShelterMe::Application.configure do
   
   # Established mailer default host
   config.action_mailer.default_url_options = { host: "localhost:3000" }
+  
+  # Configure ActionMailer's delivery method
+  config.action_mailer.delivery_method = :letter_opener
   
   # PandaStream video encoding access
   ENV['PANDASTREAM_URL'] = "https://7b60d5138313d23a36e7:526af7eb2acc1a401841@api.pandastream.com/ce6ab560e53b0bfe49a0d48ad59dc42a"

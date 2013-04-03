@@ -28,6 +28,7 @@ group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'guard-rspec', '0.5.5'
+  gem 'letter_opener'
 end
 
 # Gems used only for assets and not required

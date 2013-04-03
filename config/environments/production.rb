@@ -52,7 +52,19 @@ ShelterMe::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Established mailer default host
-  #config.action_mailer.default_url_options = { host: "shelterme.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
+  config.action_mailer.default_url_options = { host: "facundosprotegant.herokuapp.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
+
+  # Configure using SendGrid on Heroku
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
 
   # Enable threaded mode
   # config.threadsafe! unless $rails_rake_task
