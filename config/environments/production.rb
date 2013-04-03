@@ -60,8 +60,8 @@ ShelterMe::Application.configure do
     :address        => 'smtp.mandrillapp.com',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => 'MANDRILL_USERNAME',
-    :password       => 'MANDRILL_APIKEY',
+    :user_name      => ENV['MANDRILL_USERNAME'],
+    :password       => ENV['MANDRILL_APIKEY'],
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }
