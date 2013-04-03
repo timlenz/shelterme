@@ -1,6 +1,8 @@
 <div class="shelterContact">
   <div class="digits">
+	<% if signed_in? and current_user.admin? %>
     <%= @shelter.phone ? @shelter.phone : '' %>
+	<% end %>
   </div>
   <div class="address">
     <%= @shelter.street %>, <%= @shelter.city %>, <%= @shelter.state %> <%= @shelter.zipcode %>

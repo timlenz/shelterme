@@ -1,0 +1,46 @@
+<li>
+  <div class="modalElement modalStep">
+    <div class="listCircle">1</div>
+    <h3>
+      <%= image_tag("goTo.png", alt: "Go To", class: "noPrint") %>
+      <span class="print" style="float:left;margin-top:8px;">Contact</span>
+    </h3>
+  </div>
+  <div class="modalElement modalInfo">
+    <p><%= link_to @pet.shelter.name %></p><br>
+    <p><%= @pet.shelter.street %><br>
+    <%= @pet.shelter.city %>, <%= @pet.shelter.state %> <%= @pet.shelter.zipcode %></p>
+  </div>
+  <div class="clearfix"></div><br>
+  <table width="540" class="table-condensed table-striped table-bordered shelterHours">
+    <tr>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </tr>
+    <tr>
+      <td align="center"><%= @pet.shelter.sun_hours %></td>
+      <td align="center"><%= @pet.shelter.mon_hours %></td>
+      <td align="center"><%= @pet.shelter.tue_hours %></td>
+      <td align="center"><%= @pet.shelter.wed_hours %></td>
+      <td align="center"><%= @pet.shelter.thu_hours %></td>
+      <td align="center"><%= @pet.shelter.fri_hours %></td>
+      <td align="center"><%= @pet.shelter.sat_hours %></td>
+    </tr>
+  </table>
+</li>
+<li>
+  <div class="modalElement modalStep">
+    <div class="listCircle">2</div>
+    <h3><%= image_tag("askAbout.png", alt: "Ask About", class: "noPrint") %>
+    <span class="print" style="float:left;margin-top:8px;">Ask About</span></h3>
+  </div>
+  <div class="modalElement modalInfo">
+    <p><%= @pet.animal_code %></p>
+  </div>
+  <div class="clearfix"></div>
+</li>

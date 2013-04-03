@@ -129,7 +129,7 @@ end
   EnergyValue.create!(name: var)
 end
 
-Shelter.create!(name: "East Valley Care & Control",
+Shelter.create!(name: "East Valley Shelter",
                 description: "Serving Arleta, Mission Hills, North Hollywood, Pacoima, Panorama City, Sherman Oaks, Studio City, Sun Valley, Sunland-Tujunga, Sylmar, Toluca Lake, Valley Glen, Valley Village, Van Nuys.  Outside the city limits, serving communities such as Burbank, Glendale and San Fernando. Spay/Neuter Clinic on site. Closed Holidays.",
                 email: "",
                 phone: "",
@@ -147,15 +147,15 @@ Shelter.create!(name: "East Valley Care & Control",
                 sat_hours: "8 - 5",
                 slug: "EastValley")
                 
-Shelter.create!(name: "South LA Care & Control",
+Shelter.create!(name: "South LA Shelter",
                 description: "Serving Arlington Heights, Arlington Park, Athens, Baldwin Hills, Baldwin Village, Canterbury Knolls, Carthay, Country Club Heights, Crenshaw, Exposition Park, Gramercy Park, Hyde Park, Lafayette Square, Jefferson Park, Koreatown, Leimert Park, Mid-City, Miracle Mile, Pan Pacific Park, Pico-Union, South Los Angeles, University Park, Vermont Knolls, Village Green, West Adams, West Alameda. Outside the city limits, serving communities such as Baldwin Vista, Inglewood, Ladera Heights, View Heights and View Park. Closed Holidays.",
                 email: "",
                 phone: "",
                 precedence_id: 2,
-                street: "3612 11th Avenue",
+                street: "1850 W 60th St",
                 city: "Los Angeles", 
                 state: "CA",
-                zipcode: "90018",
+                zipcode: "90047",
                 sun_hours: "11 - 5",
                 mon_hours: "Closed",
                 tue_hours: "8 - 5",
@@ -165,7 +165,7 @@ Shelter.create!(name: "South LA Care & Control",
                 sat_hours: "8 - 5",
                 slug: "SouthLA")
 
-Shelter.create!(name: "North Central Care & Control",
+Shelter.create!(name: "North Central Shelter",
                 description: "Serving Angelino Heights, Arts District, Atwater Village, Beachwood Canyon, Boyle Heights, Chinatown, Cypress Park, Downtown Los Angeles, Eagle Rock, East Hollywood, Echo Park, El Sereno, Elysian Heights, Elysian Park, Elysian Valley, Franklin Hills, Garvanza, Glassell Park, Griffith Park, Hancock Park, Hermon, Highland Park, Historic Filipino Town, Hollywood, Hollywood Heights, Larchmont, Lincoln Heights, Little Tokyo, Los Feliz, MacArthur Park-Westlake, Melrose Hill, Montecito Heights, Monterey Hills, Mt. Washington, Silver Lake, Solano Canyon, Temple-Beaudry, University Hills, Virgil Village, Wilshire Center, Windsor Square. Outside the city limits, serving communities such as Alhambra, East Los Angeles, Glendale, and Pasadena. Closed Holidays.",
                 email: "",
                 phone: "",
@@ -183,7 +183,7 @@ Shelter.create!(name: "North Central Care & Control",
                 sat_hours: "8 - 5",
                 slug: "NorthCentral")
 
-Shelter.create!(name: "West Los Angeles Care & Control",
+Shelter.create!(name: "West Los Angeles Shelter",
                 description: "Serving Bel Air, Benedict Canyon, Beverlywood, Beverly Crest, Beverly Hills, Brentwood, Century City, Cheviot Hills, Del Rey, Fairfax, Holmby Hills, Kenter Canyon, Laurel Canyon, Mandeville Canyon, Marina Peninsula, Mar Vista, Melrose District, Pacific Palisades, Palisades Highlands, Palms, Rancho Park, Rustic Canyon, Venice, Westchester, Westdale, Westside Village, West Pico. Outside the city limits, serving communities such as Culver City, Santa Monica and West Hollywood. Spay/Neuter Clinic on site. Closed Holidays.",
                 email: "",
                 phone: "",
@@ -201,7 +201,7 @@ Shelter.create!(name: "West Los Angeles Care & Control",
                 sat_hours: "8 - 5",
                 slug: "WestLosAngeles")
 
-Shelter.create!(name: "Harbor Care & Control",
+Shelter.create!(name: "Harbor Shelter",
                 description: "Serving Harbor City, San Pedro, Watts (partial), Willowbrook, Wilmington. Outside the city limits, serving communities such as Carson, Compton, Gardena, Long Beach, Palos Verdes, Redondo Beach, Signal Hill, Torrance and Watts (partial). Spay/Neuter clinic on site. Closed Holidays.",
                 email: "",
                 phone: "",
@@ -219,7 +219,7 @@ Shelter.create!(name: "Harbor Care & Control",
                 sat_hours: "8 - 5",
                 slug: "Harbor")
 
-Shelter.create!(name: "West Valley Care & Control",
+Shelter.create!(name: "West Valley Shelter",
                 description: "Serving Bell Canyon, Canoga Park, Chatsworth, Encino, Granada Hills, Lake Balboa, Northridge, North Hills, Porter Ranch, Reseda, Sepulveda, Tarzana, Warner Center, West Hills, Winnetka, Woodland Hills. Outside the city limits, serving communities such as Agoura, Malibu, Santa Clarita, Valencia and Westlake Village. Closed Holidays.",
                 email: "",
                 phone: "",
