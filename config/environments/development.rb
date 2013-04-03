@@ -39,19 +39,7 @@ ShelterMe::Application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   
   # Configure ActionMailer's delivery method
-  #config.action_mailer.delivery_method = :letter_opener
-  
-  # Configure using Mandrill on Heroku
-  config.action_mailer.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.mandrillapp.com',
-    :port           => '587',
-    :authentication => :login,
-    :user_name      => 'app9008761@heroku.com',
-    :password       => 'M_TI9MMwRPXIuJqIQxj8_Q',
-    :domain         => 'heroku.com',
-    :enable_starttls_auto => true
-  }
+  config.action_mailer.delivery_method = :letter_opener
   
   # PandaStream video encoding access
   ENV['PANDASTREAM_URL'] = "https://7b60d5138313d23a36e7:526af7eb2acc1a401841@api.pandastream.com/ce6ab560e53b0bfe49a0d48ad59dc42a"

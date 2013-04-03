@@ -59,7 +59,7 @@ ShelterMe::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.mandrillapp.com',
     :port           => '587',
-    :authentication => :plain,
+    :authentication => :login,
     :user_name      => ENV['MANDRILL_USERNAME'],
     :password       => ENV['MANDRILL_APIKEY'],
     :domain         => 'heroku.com',
