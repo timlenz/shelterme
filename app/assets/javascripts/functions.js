@@ -307,6 +307,7 @@ $(function(){
   $('#absentPet').click(function(){
     $('#submitAbsentPet').click();
     $.cookie("pet_state_change", "available", { expires: 1, path: '/' });
+    $.cookie("absent_pet_submit", "true", { expires: 1, path: '/' });
   });
 
   // Change text on expand/collapse of all shelters on Find Shelter

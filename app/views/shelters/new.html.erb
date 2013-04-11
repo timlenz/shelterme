@@ -41,11 +41,7 @@
           <%= f.input :sat_hours, label: "Saturday" %>
         </div>
         <div class="clearfix"></div>
-        <% if current_user.admin? %>
         <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
-        <% else %>
-        <%= link_to "Add Shelter", "mailto:admin@shelterme.com?subject=New shelter submission&body=", class: "formBtn btn", style: "width:145px;", target: "_blank", id: "submitShelter" %>
-        <% end %>
         <%= link_to("Cancel", root_path, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>

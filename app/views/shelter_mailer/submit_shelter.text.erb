@@ -1,0 +1,25 @@
+At <%= Time.now.strftime("%I:%M %p on %b %d, %Y") %>, <%= @user.name %> submitted information for this new shelter.
+
+Please take the following steps:
+  1. Confirm that the shelter is indeed a valid shelter and not already in the system
+  2. Add the shelter to the system
+  3. Email <%= @user.name %> at <%= @user.email %> to inform them of the addition
+	
+The submitted shelter information:
+
+       NAME:  <%= @shelter.name %>
+      PHONE:  <%= @shelter.phone %>
+DESCRIPTION:  <%= @shelter.description %>
+     STREET:  <%= @shelter.street %>
+       CITY:  <%= @shelter.city %>
+      STATE:  <%= @shelter.state %>
+        ZIP:  <%= @shelter.zipcode %>
+        SUN:  <%= @shelter.sun_hours %>
+        MON:  <%= @shelter.mon_hours %>
+        TUE:  <%= @shelter.tue_hours %>
+        WED:  <%= @shelter.wed_hours %>
+        THU:  <%= @shelter.thu_hours %>
+        FRI:  <%= @shelter.fri_hours %>
+        SAT:  <%= @shelter.sat_hours %>
+
+Thanks!

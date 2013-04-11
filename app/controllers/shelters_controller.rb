@@ -11,14 +11,20 @@ class SheltersController < ApplicationController
   
   def create
     @shelter = Shelter.new(params[:shelter])
-    if @shelter.save
-      flash[:success] = "#{@shelter.name} added to available shelters"
-      redirect_to @shelter
+    if current_user.admin?
+      if @shelter.save
+        flash[:success] = "#{@shelter.name} added to available shelters"
+        redirect_to @shelter
+      else
+        render 'new'
+      end
     else
-      render 'new'
+      ShelterMailer.submit_shelter(@shelter, current_user).deliver
+      flash[:notice] = "Thank you! We will review the information and inform you when the shelter has been added."
+      redirect_to root_path and return
     end
   rescue
-    flash[:notice] = "whoops"
+    flash[:notice] = "Shelter not created."
     render 'new'
   end
   

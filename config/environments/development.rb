@@ -41,6 +41,4 @@ ShelterMe::Application.configure do
   # Configure ActionMailer's delivery method
   config.action_mailer.delivery_method = :letter_opener
   
-  # PandaStream video encoding access
-  ENV['PANDASTREAM_URL'] = "https://7b60d5138313d23a36e7:526af7eb2acc1a401841@api.pandastream.com/ce6ab560e53b0bfe49a0d48ad59dc42a"
 end

@@ -1,8 +1,8 @@
 CarrierWave.configure do |config|
   config.fog_credentials = {
     provider: "AWS",
-    aws_access_key_id: "AKIAI27IZMEGC7FUYMIQ",
-    aws_secret_access_key: "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",
+    aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     region: "us-east-1"
   }
   config.fog_directory = "smphotos"

@@ -7,7 +7,7 @@
       <%= link_to("Edit pet", edit_shelter_pet_path(@pet.shelter, @pet), class: "btn btn-header btn-warning btn-admin") %>
     <% end %>
     <% if signed_in? and @pet.pet_state.status == 'available' %>
-      <%= link_to "Pet not at shelter?", "mailto:admin@shelterme.com?subject=Pet status update&body=As of #{Date.today.strftime("%A, %B %d")}, could not find #{@pet.name} (#{@pet.animal_code}) at #{@pet.shelter.name}", target: "_blank", style: "line-height:26px;", id: "absentPet", rel: "tooltip", title: "Click to report a missing pet" %>
+      <%= link_to "Pet not at shelter?", "#", style: "line-height:26px;", id: "absentPet", rel: "tooltip", title: "Click to report a missing pet" %>
       <div class="hidden">
         <%= simple_form_for @pet do |p| %>
           <%= p.hidden_field :pet_state_id, value: '4' %>

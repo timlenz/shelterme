@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :handle_mobile
   
   unless Rails.application.config.consider_all_requests_local
-    #rescue_from Exception, with: :render_error
+    rescue_from Exception, with: :render_error
     rescue_from ActiveRecord::RecordNotFound, with: :routing_error
     rescue_from ActionController::RoutingError, with: :routing_error
     rescue_from ActionController::UnknownController, with: :routing_error
@@ -53,6 +53,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     logger.warn "#{exception.message}"
+    ErrorMailer.error_notification(exception).deliver
     render file: "errors/500", layout: false
   end
 

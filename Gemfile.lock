@@ -31,6 +31,9 @@ GEM
     addressable (2.3.3)
     annotate (2.4.1.beta1)
     arel (3.0.2)
+    asset_sync (0.5.4)
+      activemodel
+      fog
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.2)
     bootstrap-will_paginate (0.0.5)
@@ -97,11 +100,6 @@ GEM
     guard-spork (0.3.2)
       guard (>= 0.8.4)
       spork (>= 0.8.4)
-    heroku (2.25.0)
-      launchy (>= 0.3.2)
-      netrc (~> 0.7.1)
-      rest-client (~> 1.6.1)
-      rubyzip
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -134,7 +132,6 @@ GEM
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.5)
-    netrc (0.7.7)
     newrelic_rpm (3.5.7.59)
     nokogiri (1.5.6)
     panda (1.6.0)
@@ -178,8 +175,6 @@ GEM
     rb-fsevent (0.4.3.1)
     rdoc (3.12.1)
       json (~> 1.4)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
       rspec-expectations (~> 2.9.0)
@@ -244,6 +239,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (~> 2.4.1.beta)
+  asset_sync
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.0.2)
   bootstrap-will_paginate (= 0.0.5)
@@ -257,7 +253,6 @@ DEPENDENCIES
   growl (= 1.0.3)
   guard-rspec (= 0.5.5)
   guard-spork (= 0.3.2)
-  heroku
   jquery-fileupload-rails
   jquery-rails (= 2.0.2)
   jquery-ui-rails (= 0.4.0)

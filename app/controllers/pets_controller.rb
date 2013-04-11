@@ -227,6 +227,10 @@ class PetsController < ApplicationController
           @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
           cookies[:pet_state_change] = "false"
         end
+        if cookies[:absent_pet_submit] != "false"
+          PetMailer.absent_pet(@pet,current_user).deliver
+          cookies[:absent_pet_submit] = "false"
+        end
         flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
         redirect_to [@pet.shelter, @pet]
       end

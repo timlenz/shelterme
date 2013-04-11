@@ -12,7 +12,6 @@ gem 'geocoder'
 gem 'carrierwave'
 gem 'rails3-jquery-autocomplete'
 gem 'pg'
-gem 'heroku'
 gem 'thin'
 gem 'profanity_filter'
 gem 'squeel'
@@ -38,8 +37,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-ui-rails', '0.4.0'
+  gem 'asset_sync'
 end
-
 
 group :test do
   gem 'rspec-rails', '2.9.0'

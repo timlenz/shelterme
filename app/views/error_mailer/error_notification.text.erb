@@ -1,0 +1,15 @@
+ShelterMe.com has experienced a 500 error at <%= Time.now.strftime("%I:%M %p on %b %d, %Y") %>.
+
+================
+
+Message:
+
+<%= @exception.message.html_safe %>
+
+================
+
+Trace:
+
+<%= @exception.backtrace.join("\n").html_safe %>
+
+================
