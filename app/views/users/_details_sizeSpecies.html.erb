@@ -1,9 +1,0 @@
-<span class="weight"><%= number_with_precision((@user.pets.map{|p| p.weight}.inject{|sum, el| sum + el}.to_f + @user.watched_pets.map{|p| p.weight}.inject{|sum, el| sum + el}.to_f) / (@user.pets.size + @user.watched_pets.size), precision: 0) %></span>
-  <%= image_tag("#{ ["low", "mid", "high"].fetch( number_with_precision( ( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) * 1 +
-(@user.pets.select{|p| p.size.name == 'medium'}.count + @user.watched_pets.select{|p| p.size.name == 'medium'}.count) * 2 +
-(@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) * 3 ) / 
-( (@user.pets.select{|p| p.size.name == 'small'}.count + @user.watched_pets.select{|p| p.size.name == 'small'}.count) +
-(@user.pets.select{|p| p.size.name == 'medium'}.count + @user.watched_pets.select{|p| p.size.name == 'medium'}.count) +
-(@user.pets.select{|p| p.size.name == 'large'}.count + @user.watched_pets.select{|p| p.size.name == 'large'}.count) ), precision: 0).to_i - 1 ) }Size#{(@user.pets.select{|p| p.species.name == 'cat'}.count + @user.watched_pets.select{|p| p.species.name == 'cat'}.count) >
-(@user.pets.select{|p| p.species.name == 'dog'}.count + @user.watched_pets.select{|p| p.species.name == 'dog'}.count) ?
-"Cat" : "Dog"}Icon.png")%>

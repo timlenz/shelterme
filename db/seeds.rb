@@ -23,9 +23,7 @@ User.create!(name:     "Ady Gil",
              password_confirmation: "letsGoHome",
              location: "Woodland Hills, CA",
              phone:    "",
-             bio:      "",
-             manager:  "",
-             shelter_id:  "")
+             bio:      "")
              
 User.create!(name:    "Steven Latham",
             email:    "steven@stevenlathamproductions.com",
@@ -34,8 +32,6 @@ User.create!(name:    "Steven Latham",
             location: "Santa Monica, CA",
             phone:    "",
             bio:      "",
-            manager:  "",
-            shelter_id:  "",
             admin:    true)
              
 User.create!(name:    "Tim Lenz",
@@ -45,8 +41,6 @@ User.create!(name:    "Tim Lenz",
             location: "Red Hook, NY",
             phone:    "",
             bio:      "",
-            manager:  "",
-            shelter_id:  "",
             admin:    true)
 
 ["newest", "oldest", "popular", "unpopular"].each do |elem|
@@ -69,7 +63,7 @@ end
   Breed.create!(name: var, species_id: 1)
 end
 
-["relaxed", "balanced", "tireless"].each do |var|
+["relaxed", "moderate", "energetic"].each do |var|
   EnergyLevel.create!(level: var)
 end
 
@@ -85,7 +79,7 @@ end
   Gender.create!(sex: var)
 end
 
-["submissive", "playful", "dominant"].each do |var|
+["submissive", "playful", "confident"].each do |var|
   Nature.create!(name: var)
 end
 
@@ -183,7 +177,7 @@ Shelter.create!(name: "North Central Shelter",
                 sat_hours: "8 - 5",
                 slug: "NorthCentral")
 
-Shelter.create!(name: "West Los Angeles Shelter",
+Shelter.create!(name: "West LA Shelter",
                 description: "Serving Bel Air, Benedict Canyon, Beverlywood, Beverly Crest, Beverly Hills, Brentwood, Century City, Cheviot Hills, Del Rey, Fairfax, Holmby Hills, Kenter Canyon, Laurel Canyon, Mandeville Canyon, Marina Peninsula, Mar Vista, Melrose District, Pacific Palisades, Palisades Highlands, Palms, Rancho Park, Rustic Canyon, Venice, Westchester, Westdale, Westside Village, West Pico. Outside the city limits, serving communities such as Culver City, Santa Monica and West Hollywood. Spay/Neuter Clinic on site. Closed Holidays.",
                 email: "",
                 phone: "",
@@ -199,7 +193,7 @@ Shelter.create!(name: "West Los Angeles Shelter",
                 thu_hours: "8 - 5",
                 fri_hours: "8 - 5",
                 sat_hours: "8 - 5",
-                slug: "WestLosAngeles")
+                slug: "WestLA")
 
 Shelter.create!(name: "Harbor Shelter",
                 description: "Serving Harbor City, San Pedro, Watts (partial), Willowbrook, Wilmington. Outside the city limits, serving communities such as Carson, Compton, Gardena, Long Beach, Palos Verdes, Redondo Beach, Signal Hill, Torrance and Watts (partial). Spay/Neuter clinic on site. Closed Holidays.",
@@ -273,7 +267,7 @@ Shelter.create!(name: "Baldwin Park Animal Care Center",
                 sat_hours: "10 - 5",
                 slug: "BaldwinPark")
 
-Shelter.create!(name: "Carson Animal Care Center",
+Shelter.create!(name: "Carson/Gardena Animal Care Center",
                 description: "Proudly serving the cities/areas of: Carson, Culver City, El Camino Village, Gardena, Harbor City, Inglewood, Ladera Heights, Lawndale, Lennox, Lomita, Los Angeles 90008, Los Angeles 90043, Los Angeles 90044, Los Angeles 90047, Los Angeles 90056, Los Angeles 90061, Marina Del Rey, Palos Verdes, Palos Verdes Estates, Rancho Palos Verdes, Rolling Hills, Rolling Hills Estates, San Pedro, Torrance, Universal Studios, West Hollywood. Closed Holidays.",
                 email: "",
                 phone: "(310) 523-9566",
@@ -289,7 +283,7 @@ Shelter.create!(name: "Carson Animal Care Center",
                 thu_hours: "12 - 7",
                 fri_hours: "10 - 5",
                 sat_hours: "10 - 5",
-                slug: "Carson")
+                slug: "CarsonGardena")
 
 Shelter.create!(name: "Castaic Animal Care Center",
                 description: "Proudly serving the cities/areas of: Acton, Agua Dulce, Bouquet Canyon, Canyon Country, Castaic, Gorman, Green Valley, Kagel Canyon, Lang, Newhall, San Fernando, Santa Clarita, Saugus, Stevenson Ranch, Tujunga, Valencia. Closed Holidays. Alternate phone (818) 367-8065.",

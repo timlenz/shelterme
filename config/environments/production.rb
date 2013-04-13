@@ -43,7 +43,7 @@ ShelterMe::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "https://sheltermeassets.s3.amazonaws.com"
+  config.action_controller.asset_host = "https://d1cfuubd0nzl7w.cloudfront.net"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( mobile.css )
@@ -52,7 +52,7 @@ ShelterMe::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Established mailer default host
-  config.action_mailer.default_url_options = { host: "facundosprotegant.herokuapp.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
+  config.action_mailer.default_url_options = { host: "kennel.shelterme.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
 
   # Configure using Mandrill on Heroku
   config.action_mailer.delivery_method = :smtp

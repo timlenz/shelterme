@@ -2,12 +2,11 @@
   <div class="container">
     <div class="pull-left">
       <ul>
-        <li><%= link_to "Help",     help_path %></li>
-        <li><%= link_to "About",   about_path %></li>
         <li><%= link_to "FAQ",      faq_path %></li>
+        <li><%= link_to "About",   about_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
         <li><%= link_to "Terms",   terms_path %></li>
         <li><%= link_to "Privacy", privacy_path %></li>
-        <li><%= link_to "Contact", contact_path %></li>
       </ul>
       <div class="clearfix"></div>
       <div class="quote">
@@ -20,7 +19,7 @@
         <%= link_to image_tag("twitter.png", class: "twitter"), "http://www.twitter.com/ShelterMeTV", target: "_blank" %>
         <%= link_to image_tag("shelterMeSmall.png", class: "logo"), root_path %>
         <br><br>
-        <div class="bottomBit">&copy; <%= Time.now.year %> Shelter Me. All rights reserved.</div>
+        <div class="bottomBit">&copy; <%= Time.now.year == 2013 ? Time.now.year : "2013 - " + Time.now.year.to_s %> Shelter Me. All rights reserved.</div>
       </div>
     </div>
   </div>

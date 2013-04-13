@@ -90,7 +90,7 @@ class SheltersController < ApplicationController
       end
     end
     if @current_location != "MapQuest not responding"
-      nearbys = Shelter.near(@current_location, 50, order: "distance")
+      nearbys = Shelter.near(@current_location, 70, order: "distance")
       @nearbys = nearbys.limit(5) # limit due to Google Static Map API restriction
       @all_nearbys = nearbys - @nearbys
     else

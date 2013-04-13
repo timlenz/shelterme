@@ -2227,7 +2227,8 @@ ol.activity {
 
 .featured-pets {
   h2 {
-    margin-top: 20px;
+    margin-top: 25px;
+		margin-bottom: 5px;
   }
 }
 
@@ -3816,7 +3817,7 @@ ul.typeahead {
 }
 
 .staticNav {
-  float: left;
+  position: fixed;
   width: 165px;
   margin-right: 30px;
   ul {
@@ -3847,7 +3848,7 @@ ul.typeahead {
   .active {
     background-color: $blueLight;
     color: $orangeDark;
-    padding-bottom: 5px;
+		padding-bottom: 5px;
     a {
       font-weight: normal;
       padding: 2px 10px 2px 20px;
@@ -3856,7 +3857,7 @@ ul.typeahead {
 }
 
 .staticContent {
-  float: left;
+  float: right;
   width: 700px;
   .staticEntry {
     padding-bottom: 20px;

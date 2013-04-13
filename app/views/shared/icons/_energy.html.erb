@@ -1,7 +1,7 @@
 <div class="icon">
   <% if f.energy_level.level == 'relaxed' %>
     <%= link_to image_tag("lowEnergyIcon.png"), "#", rel: "tooltip", title: f.energy_level.level.humanize %>
-  <% elsif f.energy_level.level == 'balanced' %>
+  <% elsif f.energy_level.level == 'moderate' %>
     <%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: f.energy_level.level.humanize %>
   <% else %>
     <%= link_to image_tag("highEnergyIcon.png"), "#", rel: "tooltip", title: f.energy_level.level.humanize %>

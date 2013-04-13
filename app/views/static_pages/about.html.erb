@@ -6,7 +6,6 @@
         <div class="staticNav">
           <ul>
             <li><%= link_to "FAQ", faq_path %></li>
-            <li><%= link_to "Help", help_path %></li>
             <li class="active">
               <h4>About Us</h4>
               <%= link_to "Ady Gil", "#ady" %>
@@ -19,6 +18,13 @@
           </ul>
         </div>
         <div class="staticContent">
+	        <div class="staticEntry">
+	        	<h3>About the Site</h3>
+	          <div class="staticBlurb">
+	          	<p>ShelterMe.com is a social network to help shelter animals get adopted.  It’s a tool to get the public involved with their local shelters.  ShelterMe.com is a platform that allows anyone to create beautiful profiles of shelter pets by uploading photos, video and detailed descriptions of each animal.</p>
+							<p>This site will increase the visibility of shelter pets, encourage people to adopt and help these incredible animals get a new home.</p>
+	          </div>
+	        </div>
           <a name="ady"></a>
           <div class="staticEntry">
             <h3>Ady Gil</h3>
@@ -43,8 +49,8 @@
             </div>
             <div class="clearfix"></div>
           </div>
+	        <a name="steven"></a>
           <div class="staticEntry">
-            <a name="steven"></a>
             <h3>Steven Latham</h3>
             <div class="staticImage">
               <%= image_tag("stevenDogs.jpg") %>
@@ -79,8 +85,8 @@
             </div>
             <div class="clearfix"></div>
           </div>
+	        <a name="tim"></a>
           <div class="staticEntry last">
-            <a name="tim"></a>
             <h3>Tim Lenz</h3>
             <div class="staticImage">
               <%= image_tag("timYogi.jpg") %>
@@ -91,7 +97,7 @@
                   <li><%= link_to image_tag("seniorMaleIcon.png"), "#", rel: "tooltip", title: "Senior male" %></li>
                   <li><%= link_to image_tag("midSizeDogIcon.png"), "#", rel: "tooltip", title: "80 lb medium dog"%><span class="weight">80</span></li>
                   <li><%= link_to image_tag("mediumBlackWhiteIcon.png"), "#", rel: "tooltip", title: "Medium black & white fur"%></li>
-                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "Balanced"%></li>
+                  <li><%= link_to image_tag("midEnergyIcon.png"), "#", rel: "tooltip", title: "moderate"%></li>
                   <li><%= link_to image_tag("midDogNatureIcon.png"), "#", rel: "tooltip", title: "Playful"%></li>
                   <li><%= link_to image_tag("highAffectionIcon.png"), "#", rel: "tooltip", title: "Devoted"%></li>
                 </ul>

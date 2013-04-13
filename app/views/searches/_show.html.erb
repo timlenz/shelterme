@@ -19,7 +19,7 @@
     <p>There 
      <% if @local_sbgasan.count > 0 %>
       <%= @local_sbgasan.count == 1 ? "is a" : "are" %>
-      <%= link_to "#{@local_sbgasan.count == 1 ? "" : @local_sbgasan.count} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "dominant")}, #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasan.count)}", "#", id: "local_sbgasan" %>
+      <%= link_to "#{@local_sbgasan.count == 1 ? "" : @local_sbgasan.count} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")}, #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}, #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")}, #{@search.age_group}, #{(@search.gender_id == 1 ? "male" : "female")} #{@search.breed.name.pluralize(@local_sbgasan.count)}", "#", id: "local_sbgasan" %>
       available near <%= @search.location %>.
      <% elsif @local_sbgasa.count > 0 %>
       <%= @local_sbgasa.count == 1 ? "is a" : "are" %>

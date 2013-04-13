@@ -13,7 +13,7 @@ require 'spec_helper'
 describe EnergyLevel do
 
   before do
-    @energy_level = EnergyLevel.new(level: "tireless")
+    @energy_level = EnergyLevel.new(level: "energetic")
   end
   
   subject { @energy_level }

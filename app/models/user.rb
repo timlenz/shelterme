@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
   def matchme
     u_char = ["curious", "cautious", "spontaneous", "disciplined", "quiet", "enthusiastic", 
               "cynical", "considerate", "calm", "impatient", "orderly", "cluttered", "relaxed", "active"]
-    p_char = ["submissive", "playful", "dominant", "relaxed", "balanced", "tireless", 
+    p_char = ["submissive", "playful", "confident", "relaxed", "moderate", "energetic", 
               "devoted", "friendly", "reserved"]
     matrix = [[0, 0.5, 1, 0, 0.5, 1, 0, 1, 0],
               [1, 0.5, 0, 1, 0.5, 0, 1, 0.5, -0.5],
@@ -292,15 +292,15 @@ class User < ActiveRecord::Base
   
   def ave_energy
     low = pets.select{|p| p.energy_level.level == 'relaxed'}.count + watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count
-    mid = pets.select{|p| p.energy_level.level == 'balanced'}.count + watched_pets.select{|p| p.energy_level.level == 'balanced'}.count
-    high = pets.select{|p| p.energy_level.level == 'tireless'}.count + watched_pets.select{|p| p.energy_level.level == 'tireless'}.count
+    mid = pets.select{|p| p.energy_level.level == 'moderate'}.count + watched_pets.select{|p| p.energy_level.level == 'moderate'}.count
+    high = pets.select{|p| p.energy_level.level == 'energetic'}.count + watched_pets.select{|p| p.energy_level.level == 'energetic'}.count
     energy = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
   end
   
   def ave_nature
     low = pets.select{|p| p.nature.name == 'submissive'}.count + watched_pets.select{|p| p.nature.name == 'submissive'}.count
     mid = pets.select{|p| p.nature.name == 'playful'}.count + watched_pets.select{|p| p.nature.name == 'playful'}.count
-    high = pets.select{|p| p.nature.name == 'dominant'}.count + watched_pets.select{|p| p.nature.name == 'dominant'}.count
+    high = pets.select{|p| p.nature.name == 'confident'}.count + watched_pets.select{|p| p.nature.name == 'confident'}.count
     level = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
     dog = pets.select{|p| p.species.name == 'dog'}.count + watched_pets.select{|p| p.species.name == 'dog'}.count
     cat = pets.select{|p| p.species.name == 'cat'}.count + watched_pets.select{|p| p.species.name == 'cat'}.count

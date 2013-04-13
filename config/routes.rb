@@ -84,7 +84,6 @@ ShelterMe::Application.routes.draw do
   match '/sm',                to: 'users#managers'
   match '/shelter_admins',    to: 'users#managers'
   
-  match '/help',              to: 'static_pages#help'
   match '/about',             to: 'static_pages#about'
   match '/contact',           to: 'static_pages#contact'
   match '/faq',               to: 'static_pages#faq'

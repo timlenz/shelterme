@@ -54,15 +54,15 @@
         <label class="string required control-label" for="pet_Energy_Level"><abbr title="required">*</abbr> Energy Level</label>
         <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[energy_level_id]">
           <button type="button" data-toggle="button" class="btn" value="1">Relaxed</button>
-          <button type="button" data-toggle="button" class="btn" value="2">Balanced</button>
-          <button type="button" data-toggle="button" class="btn" value="3">Tireless</button>
+          <button type="button" data-toggle="button" class="btn" value="2">Moderate</button>
+          <button type="button" data-toggle="button" class="btn" value="3">Energetic</button>
         </div>
         <%= f.hidden_field :energy_level_id, label: false %>
         <%= f.label "Nature", class: "control-label", required: true %>
         <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[nature_id]">
           <button type="button" data-toggle="button" class="btn" value="1">Submissive</button>
           <button type="button" data-toggle="button" class="btn" value="2">Playful</button>
-          <button type="button" data-toggle="button" class="btn" value="3">Dominant</button>
+          <button type="button" data-toggle="button" class="btn" value="3">Confident</button>
         </div>
         <%= f.hidden_field :nature_id, label: false %>
         <%= f.label "Affection", class: "control-label", required: true %>
