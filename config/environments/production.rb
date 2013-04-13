@@ -52,7 +52,7 @@ ShelterMe::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Established mailer default host
-  config.action_mailer.default_url_options = { host: "kennel.shelterme.com" } # UPDATE WITH PROPER PRODUCTION HOST NAME!!!!!
+  config.action_mailer.default_url_options = { host: "shelterme.com" }
 
   # Configure using Mandrill on Heroku
   config.action_mailer.delivery_method = :smtp

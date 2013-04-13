@@ -39,18 +39,6 @@ ShelterMe::Application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   
   # Configure ActionMailer's delivery method
-  #config.action_mailer.delivery_method = :letter_opener
-  
-  # Configure using Mandrill on Heroku
-  config.action_mailer.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.mandrillapp.com',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['MANDRILL_USERNAME'],
-    :password       => ENV['MANDRILL_APIKEY'],
-    :domain         => 'shelterme.com',
-    :enable_starttls_auto => true
-  }
+  config.action_mailer.delivery_method = :letter_opener
   
 end
