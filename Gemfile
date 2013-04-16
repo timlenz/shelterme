@@ -22,6 +22,7 @@ gem 'newrelic_rpm'
 gem 'jquery-rails', '2.0.2'
 gem 'jquery-fileupload-rails'
 gem 'net-scp', '1.1.0'
+gem 'nokogiri'
 
 group :development do
   gem 'rspec-rails', '2.9.0'

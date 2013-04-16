@@ -3,6 +3,8 @@ class StaticPagesController < ApplicationController
   def home
     respond_to do |format|
       format.html {
+        require 'open-uri'
+        require 'nokogiri'
         location = "MapQuest not responding"
         if cookies[:location]
           location = cookies[:location]
@@ -34,14 +36,29 @@ class StaticPagesController < ApplicationController
           @pets = []
           @shelter = []
         end
+        @blog = true
+        blog = Nokogiri::XML(open("http://blog.shelterme.com/feed", read_timeout: 2))
+        if blog.nil?
+          @blog = false
+        else
+          first_post = blog.xpath('//item').first
+          @title = first_post.xpath('title').inner_text
+          @link = first_post.xpath('link').inner_text
+          @content = first_post.xpath('description').inner_html
+          image = Nokogiri::HTML.parse(first_post.xpath('content:encoded').inner_html).css('img')
+          if image.empty?
+            @image = "none"
+          else
+            @image = image.first.attribute("src").text
+          end 
+        end
       }
     end
+  rescue Timeout::Error
+    @blog = false
   rescue
     flash[:notice] = "There are no shelters near your location."
     redirect_to findshelter_path and return
-  end
-
-  def help
   end
   
   def about

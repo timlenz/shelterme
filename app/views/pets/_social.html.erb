@@ -9,9 +9,13 @@
   <% render 'pinterest' %>
   <div class="socialItem short">
     <%= simple_form_for @pet, :html => {style: "float:left;"} do |f| %>
+    <% if request.host_with_port != "localhost:3000"%>
     <% tempURL = "http://api.bitly.com/v3/shorten?login=timlenz&apiKey=R_d75522808cf11eb400f96d8b5478bc2b&longUrl=#{u(request.protocol+request.host_with_port+request.fullpath)}&format=txt" %>
-    <!--< % shortURL = open("#{tempURL}").read % >-->
-    <%= f.input :text, label: false, input_html: { value: "# {tempURL}" }, readonly: true %>
+    <% shortURL = open("#{tempURL}").read %>
+    <% else %>
+    <% shortURL = "local" %>
+    <% end %>
+    <%= f.input :text, label: false, input_html: { value: "#{shortURL}" } %>
     <% end %>
   </div>
   <div class="clearfix"></div>

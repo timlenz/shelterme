@@ -260,6 +260,7 @@ DEPENDENCIES
   mini_magick
   net-scp (= 1.1.0)
   newrelic_rpm
+  nokogiri
   panda (~> 1.6.0)
   pg
   profanity_filter

@@ -8,7 +8,9 @@
     </div>
     <div class="span4 sidebar"> <!-- CALLOUTS -->
       <%= render "adopted" %>
+			<% if @blog != false %>
       <%= render "blog_blurb" %>
+			<% end %>
       <%= render "mobile_blurb" %>
     </div>
   </div>
