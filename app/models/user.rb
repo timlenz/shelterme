@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
                   :energy_value_id, :species_id, :open_value_attributes,
                   :plan_value_attributes, :social_value_attributes, :attitude_value_attributes,
                   :emotion_value_attributes, :clean_value_attributes,
-                  :energy_value_attributes, :species_attributes, :avatar
+                  :energy_value_attributes, :species_attributes, :avatar, :avatar_cache
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   has_secure_password

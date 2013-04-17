@@ -27,16 +27,18 @@
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;font-size:16px;">
         This window will close once your upload is complete.
       </div>
-      <%= simple_form_for @user, :html => {:multipart => true} do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <%= f.file_field :avatar, class: "btn-media" %>
-        <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;", disabled: "true" %>
-        <button class="text-close" data-dismiss="modal">Cancel</button>
-      <% end %>
-    </div>
-    <div id="loadingPhoto" class="hide">
-      <%= image_tag("spinner.gif")%>
-      <h2 style="text-align:center;">Loading...</h2>
+			<%= simple_form_for @user, :html => {:multipart => true} do |f| %>
+			  <%= render 'shared/error_messages', object: f.object %>
+			  <%= f.hidden_field :avatar_cache %>
+			  <%= f.file_field :avatar, class: "btn-media" %>
+			  <%= f.button :submit, "Upload", class: "formBtn", style: "width:145px;", disabled: "true" %>
+			  <button class="text-close" data-dismiss="modal">Cancel</button>
+			<% end %>
+
+			<div id="loadingPhoto" class="hide">
+			  <%= image_tag("spinner.gif")%>
+			  <h2 style="text-align:center;">Loading...</h2>
+			</div>
     </div>
   </div>
 </div>

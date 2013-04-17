@@ -24,6 +24,9 @@
 <% end %>
 <%= render 'layouts/footer' %>  
 <%= javascript_include_tag "application" %>
+<% if params[:controller] == 'users' && params[:action] == 'editasdf' %>
+<%= cloudinary_js_config %>
+<% end %>
 <% if params[:controller] == 'pets' && params[:action] == 'show' %>
   <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 	<style type="text/css">iframe {display:none;}</style>

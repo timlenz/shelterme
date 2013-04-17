@@ -22,4 +22,5 @@
 //= require jquery.sparkline.min
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require cloudinary
 //= require_tree .

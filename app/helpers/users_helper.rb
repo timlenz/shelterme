@@ -13,9 +13,10 @@ module UsersHelper
     size = options[:size]
     if user.avatar.blank?
       avatar_url = "blankProfile.png"
+      image_tag(avatar_url, alt: user.name, class: "gravatar", style: "width:#{size}px;")
     else
       avatar_url = user.avatar.to_s
+      cl_image_tag(avatar_url, alt: user.name, class: "gravatar", width: "#{size}", height: "#{size}", :crop => :scale, :gravity => :face)
     end
-    image_tag(avatar_url, alt: user.name, class: "gravatar", style: "width:#{size}px;")
   end
 end
