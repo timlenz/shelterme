@@ -8,15 +8,15 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
   end
   
-  # Returns the user-uploaded avatar from Amazon S3
+  # If no user-specified avatar, use default image
+  # Returns customized avatar from Cloudinary
   def avatar_for(user, options = { size: 40})
     size = options[:size]
     if user.avatar.blank?
-      avatar_url = "blankProfile.png"
-      image_tag(avatar_url, alt: user.name, class: "gravatar", style: "width:#{size}px;")
-    else
-      avatar_url = user.avatar.to_s
-      cl_image_tag(avatar_url, alt: user.name, class: "gravatar", width: "#{size}", height: "#{size}", :crop => :scale, :gravity => :face)
+      image_tag("blankProfile.png", alt: user.name, class: "gravatar", style: "width:#{size}px;")
+    else 
+      cloudinary_url = user.avatar.to_s.gsub!(/upload\//,"upload/w_#{size},h_#{size},c_thumb,g_faces,a_exif/")
+      image_tag(cloudinary_url, alt: user.name, class: "gravatar")
     end
   end
 end

@@ -9,7 +9,7 @@
       <% elsif f.pet_photos.count == 1 %>
         <%= link_to image_tag(f.pet_photos.first.image_url(:thumb).to_s), [f.shelter, f] %>
       <% end %>
-      <% if f.name %>
+      <% if f.name != '' %>
       <%= link_to f.name, [f.shelter, f] %>
       <% else %>
       <%= link_to f.animal_code, [f.shelter, f] %>

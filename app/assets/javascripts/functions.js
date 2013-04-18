@@ -55,6 +55,13 @@ $(function(){
     $(this).find("a").css("color","#722705");
   });
   
+	// Highlight Enter Animal ID field on mouseover of .animalID spans
+	$('.animalID').mouseover(function(){
+		$('#addPet').css("background-color","#c0dce5"); // 
+	}).mouseout(function(){
+		$('#addPet').css("background-color","#d3cacb");
+	});
+
   // Center Add Pet potential matches for one or two pets
   if ( $('#potentialMatch').length ) {
     var pet_tiles = $('div.pet-tile').size();

@@ -1,24 +1,19 @@
 <div class="row">
   <div class="leftHalf">
-    <%= image_tag("withMobileApp.png", class: "formHeader")%>
-    <p>Use the ShelterMe mobile app to create a new profile or add to an existing pet profile.</p>
-    <p>Coming soon for both iOS and Android.</p>
-    <br><br>
-    <div class="sideImage">
-      <%= image_tag("apple64.png") %>
-    </div>
-    <div class="sideImage">
-      <%= image_tag("android64.png") %>
-    </div>
-  </div>
-  <div class="centerOr">
-    <%= image_tag("centerOr.png") %>
+	  <p>Please complete the following steps:</p>
+	  <div class="listCircle">1</div>
+    <p>Enter the <span class="animalID">animal ID</span> for the pet.</p>
+		<div class="listCircle">2</div>
+    <p>Click the ADD button.</p>
+		<div class="listCircle">3</div>
+		<p>Click OK in the pop-up dialog (click Cancel if you made a mistake).</p>
+		<div class="listCircle">4</div>
+		<p>Enter information about the pet.</p>
+		<div class="listCircle">5</div>
+		<p>Add a photo of the pet. Make sure you have one available!</p>
   </div>
   <div class="rightHalf">
-    <%= image_tag("onOurSite.png", class: "formHeader")%>
-    <p>To add a pet to ShelterMe, please enter the animal ID from its shelter cage card into the search field above and click the ADD button. The ID will typically look something like "A1234567."</p>
-    <p>Pets must have a unique ID at their shelter, so first we check the ID you enter against the pets already in our database. If there is no match, you can then create a profile for the pet.</p>
-    <p>If there is a match for the ID you entered, that means a pet with that ID already has a profile. If that pet is at your shelter, you can still help by contributing your photos, videos and comments. If, however, the pet is not at your local shelter, you may create a profile for your pet.</p>
+    <%= image_tag "baby_cageCard.jpg", style:"float:right;margin-bottom:30px;", width: 500, class: "animalID" %>
     <%= image_tag("logo_small.png", alt: "Shelter Me", class: "logoLR") %>
   </div>
 </div>

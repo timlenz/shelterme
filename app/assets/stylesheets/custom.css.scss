@@ -2133,6 +2133,8 @@ ol.activity {
   .gravatar {
     display: block;
     margin-bottom: 10px;
+		width: 150px;
+		height: 150px;
   }
   a {
     padding-top: 10px;
@@ -3345,26 +3347,28 @@ th {
       width: 70%;
       padding-top: 5px;
     }
-    .listCircle {
-      float: left;
-      width: $diameter;
-      height: $diameter;
-      -webkit-border-radius: $diameter / 2;
-      -moz-border-radius: $diameter / 2;
-      border-radius: $diameter /2;
-      font-size: $diameter / 2;
-      font-weight: bold;
-      line-height: $diameter;
-      color: white;
-      text-align: center;
-      margin: 0 10px;
-      background-color: $orange;
-    }
     .shelterHours {
       margin-top: 5px;
       margin-bottom: 0;
     }
   }
+}
+
+
+.listCircle {
+  float: left;
+  width: $diameter;
+  height: $diameter;
+  -webkit-border-radius: $diameter / 2;
+  -moz-border-radius: $diameter / 2;
+  border-radius: $diameter /2;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: $diameter;
+  color: white;
+  text-align: center;
+  margin: 0 10px;
+  background-color: $orange;
 }
 
 .headerButtons {
@@ -3433,6 +3437,12 @@ th {
     font-size: 28px;
     line-height: 0.1;
   }
+	.leftHalf {
+	
+	}
+	.rightHalf {
+		float: right;
+	}
 }
 
 #new_pet, .fullEditForm #data {

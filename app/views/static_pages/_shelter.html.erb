@@ -21,6 +21,9 @@
   <% end %>
   <% else %>
   <div class="noShelters">
+    <% if location = "MapQuest not responding" %>
+    <p>Our apologies, but we cannot look up any shelters right now. Our geocoding service is currently unavailable. Please try back later.</p>
+    <% else %>
     <p>Our apologies, but there are no shelters in our database near <%= cookies[:location] %>.</p>
     <p>Search online to see if there are 
     <%= link_to "shelters in your area.", "https://maps.google.com/maps?q=animal+shelter+#{cookies[:location].gsub(/ |, /,'+')}&hl=en&z=10", target: "_blank" %>
@@ -32,6 +35,7 @@
       <a href="newshelter"><span style="font-weight:bold;font-size:28px;">+</span> Add Shelter</a>
     </li>
     </ul>
+  <% end %>
   <% end %>
   </div>
   <% end %>

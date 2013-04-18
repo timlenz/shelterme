@@ -41,7 +41,7 @@
         <%= image_tag("shelterIcon.png", alt: "Visit #{ @pet.name }") %>
       </div>
       <div class="headerInfo" style="width:385px;">
-        <h1>Vist <%= @pet.name %></h1>
+        <h1>Vist <%= @pet.name != "" ? @pet.name : @pet.animal_code %></h1>
       </div>
       <div class="headerButtons">
         <a class="close" data-dismiss="modal" style="background-color:none;"><i class="icon-remove" style="margin-top:5px;"></i></a>
