@@ -91,7 +91,6 @@ class User < ActiveRecord::Base
   
   before_validation :generate_slug, on: :create
   after_validation :geocode
-  after_update :crop_avatar
   
   def to_param
     slug
