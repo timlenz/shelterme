@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
                   :emotion_value_attributes, :clean_value_attributes,
                   :energy_value_attributes, :species_attributes, :avatar, :avatar_cache
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   has_secure_password
   has_many :microposts#, dependent: :destroy DON'T DELETE USER COMMENTS
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -68,7 +67,7 @@ class User < ActiveRecord::Base
   before_save { generate_token(:remember_token) }
 
   validates :name, presence: true, length: { maximum: 50 }
-  validates :bio, length: { maximum: 520 }
+  validates :bio, length: { maximum: 480 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX }, 
@@ -103,10 +102,6 @@ class User < ActiveRecord::Base
     while User.find{|s| s.slug == self.slug} || Shelter.find{|s| s.slug == self.slug} do
       self.slug = self.slug + Random.rand(1..9).to_s
     end
-  end
-  
-  def crop_avatar
-    avatar.recreate_versions! if crop_x.present?
   end
   
   def feed

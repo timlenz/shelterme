@@ -13,14 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery.Jcrop.min
 //= require bootstrap
 //= require autocomplete-rails
 //= require jquery.cookie
 //= require jquery.panda-uploader.min
 //= require video.min
 //= require jquery.sparkline.min
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
-//= require cloudinary
+//= require jquery.iframe-transport
+//= require jquery.fileupload
+//= require jquery.cloudinary
 //= require_tree .

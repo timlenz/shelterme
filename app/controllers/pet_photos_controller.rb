@@ -14,7 +14,8 @@ class PetPhotosController < ApplicationController
       @pet_photo.primary = true
     end
     if @pet_photo.save
-      render :crop
+      redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
+      flash[:notice] = "Photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} added."
     else
       flash[:error] = "Whoops. The photo of #{@pet_photo.pet.name != "" ? @pet_photo.pet.name : @pet_photo.pet.animal_code} was not added."
       redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]

@@ -5,10 +5,14 @@
   </div>
 <% if $search.pets.size > 0 && @search_results != nil %>
   <div id="results">
-    <h2 style="margin-top:10px;"><%= pluralize(@search.pets.size, "Pet") %> Found</h2>
+    <h2 style="margin-top:10px;">
+      <%= pluralize(@search.pets.size, "Pet") %> Found
+	    <% if @search.pets.size > 36 %>
+	    <span style="color:gray;text-transform:lowercase;font-weight:normal;font-size:0.8em;">(36 closest shown)</span>
+		  <% end %>
+    </h2>
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
     <div class="clearfix"></div>
-    <%= will_paginate @search_results %>
   </div>
 <% elsif @search.far_species.count > 0 %>
   <div class="findBlurb" style="height:400px;">
@@ -177,7 +181,8 @@ $(function(){
       species = $('#search_species_id').val();
       gender = $('#search_gender_id').val();
       age = $('#search_age_group').val();
-      $('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').not('#search_age_group').val("");
+	
+	$('input[id^="search"]').not('#search_species_id').not('#search_location').not('#search_breed_name').not('#search_gender_id').not('#search_age_group').val("");
       $('#new_search button').removeClass('active');
       $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
       $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');

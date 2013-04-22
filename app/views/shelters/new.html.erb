@@ -17,7 +17,15 @@
           <%= f.input :phone %>
           <%= f.input :description, as: :text %>
           <% if current_user.admin? %>
-          <%= f.association :precedence, label_method: :rank, include_blank: false, hint: "Set the display order for your pets." %>
+          <%= f.label "Precedence", class: "control-label", required: true %>
+          <div class="btn-group four-btn-full btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[precedence_id]">
+            <button type="button" data-toggle="button" class="btn" value="1">Newest</button>
+            <button type="button" data-toggle="button" class="btn" value="2">Oldest</button>
+            <button type="button" data-toggle="button" class="btn" value="3">Popular</button>
+            <button type="button" data-toggle="button" class="btn" value="4">Unpopular</button>
+          </div>
+          <p class="help-block" style="margin-top:-15px;">Set the display order for your pets</p>
+          <%= f.hidden_field :precedence_id, label: false %>
           <% end %>
           <% unless current_user.admin? %>
             <div class="addInstructions" style="height:90px;">

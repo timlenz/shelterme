@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
   
   def routing_error(exception)
     logger.warn "#{exception.message}"
+    ErrorMailer.error_notification(exception).deliver
     render file: "errors/404"
   end
 

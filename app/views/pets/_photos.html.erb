@@ -1,10 +1,11 @@
 <div id="photoFader" class="fader <%= @pet.pet_photos.size == 0 and @pet.user == current_user ? 'noPhoto' : '' %>">
   <div class="fader-inner">
     <% @pet.pet_photos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
+		  <% cloudinary_url = m.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_394,r_10,w_592/g_south_east,l_watermark_semq96,x_10,y_5")%>
       <% if i == 0 %>
-        <%= image_tag(m.image_url(:large).to_s, class: "active", title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
+        <%= image_tag(cloudinary_url, class: "active", title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
       <% else %>
-        <%= image_tag(m.image_url(:large).to_s, title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
+        <%= image_tag(cloudinary_url, title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
       <% end %>
     <% end %>
   </div>

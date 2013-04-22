@@ -1,6 +1,6 @@
 <div class="pet-tile editPhoto">
   <div class="tile-photo">
-    <%= image_tag(f.image_url(:thumb).to_s, title: "Photo contributed by #{f.user ? f.user.name : "Shelter Me"}") %>
+    <%= image_tag(f.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_200,w_300/w_75,g_south_east,l_watermark_semq96,x_5,y_5"), title: "Photo contributed by #{f.user ? f.user.name : "Shelter Me"}") %>
   </div>
   <% if current_user.admin? or @pet.user == current_user or
     (current_user.manager? && current_user.shelter_id == @pet.shelter.id) or

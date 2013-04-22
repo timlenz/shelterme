@@ -1,21 +1,38 @@
 <div class="span8 userDetails">
-  <strong>Joined on:&nbsp;</strong> <%= @user.created_at.to_date.to_formatted_s(:long) %>
   <div class="bio">
     <%= @user.bio %>
-    <%= @colors %>
   </div>
   <% if @user.pets.size > 0 or @user.watched_pets.size > 0 %>
   <div class="petTiles">
+    <h3><%= image_tag("myIdealPet.png", alt: "My Ideal Pet") %></h3>
     <ul>
-      <li><%= image_tag("#{@user.ave_ageGender}Icon.png") %></li>
       <li>
-        <span class="weight"><%= @user.ave_weight %></span>
-        <%= image_tag("#{@user.ave_sizeSpecies}Icon.png")%>
+	      <% ageGender = @user.ave_ageGender.gsub(/[A-Z][a-z]+/, ' \0').humanize %>
+        <%= link_to image_tag("#{@user.ave_ageGender}Icon.png"), "#", rel: "tooltip", title: ageGender %>
       </li>
-      <li><%= image_tag("#{@user.ave_coat}Icon.png") %></li>
-      <li><%= image_tag("#{@user.ave_energy}EnergyIcon.png") %></li>
-      <li><%= image_tag("#{@user.ave_nature}NatureIcon.png") %></li>
-      <li><%= image_tag("#{@user.ave_affection}AffectionIcon.png") %></li>
+      <li>
+	      <% size = @user.ave_sizeSpecies.gsub(/(Size)[a-zA-Z]+/, '') %>
+		    <% species = @user.ave_sizeSpecies.gsub(/[a-zA-Z]+(Size)/, '') %>
+        <%= link_to image_tag("#{@user.ave_sizeSpecies}Icon.png"), "#", rel: "tooltip", 
+            title: ((size  == "low" ? "Small" : (@user.ave_energy == "mid" ? "Medium" : "Large")) + " " + species).humanize %>
+      </li>
+      <li>
+	      <% coat = @user.ave_coat.gsub(/[A-Z][a-z]+/, ' \0').humanize %>
+        <%= link_to image_tag("#{@user.ave_coat}Icon.png"), "#", rel: "tooltip", title: coat + " fur" %>
+      </li>
+      <li>
+        <%= link_to image_tag("#{@user.ave_energy}EnergyIcon.png"), "#", rel: "tooltip", 
+            title: @user.ave_energy == "low" ? "Relaxed" : (@user.ave_energy == "medium" ? "Moderate" : "Energetic") %>
+      </li>
+      <li>
+	      <% nature = @user.ave_nature.gsub(/(Cat|Dog)/,"") %>
+        <%= link_to image_tag("#{@user.ave_nature}NatureIcon.png"), "#", rel: "tooltip", 
+            title: nature == "low" ? "Submissive" : (nature == "medium" ? "Playful" : "Confident") %>
+      </li>
+      <li>
+        <%= link_to image_tag("#{@user.ave_affection}AffectionIcon.png"), "#", rel: "tooltip", 
+            title: @user.ave_affection == "low" ? "Reserved" : (@user.ave_affection == "medium" ? "Friendly" : "Devoted") %>
+      </li>
     </ul>
   </div>
   <% end %>

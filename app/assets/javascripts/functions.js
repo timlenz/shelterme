@@ -1,7 +1,9 @@
 $(function(){
   
   // Hover tooltip for pet tile icons
-  $('[rel=tooltip]').tooltip();
+  $('[rel=tooltip]').tooltip({
+		container: 'body'
+	});
   
   // Pet profile follow/unfollow button mouseover text, style swap
   $('.btn-unfollow').mouseover(function(){
@@ -113,7 +115,7 @@ $(function(){
   // History Slider controls
   if ( $('#historySlider').length ) {
     var tiles = $('.small-pet-tile').length;
-    var tile_width = $('.small-pet-tile').outerWidth([true]);
+    var tile_width = $('.small-pet-tile').outerWidth(true);
     var inner_width = tiles * tile_width;
     var hslider_width = $('#historySlider .container').width();
     var hslide_right = "+=" + (tile_width * 3);
@@ -239,7 +241,7 @@ $(function(){
   });
   
   // AJAX render of admin index pages, sorting & pagination
-  $('#shelters th a, #shelters .pagination a, #users th a, #users .pagination a, #pets th a, #pets .pagination a').live('click', function () {
+  $('#shelters th a, #shelters .pagination a, #users th a, #users .pagination a, #pets th a, #pets .pagination a').bind('click', function () {
     $.getScript(this.href);
     return false;
   });
@@ -481,7 +483,7 @@ $(function(){
   
   // Enable MatchMe submit button once descriptive terms have been selected
   // Live enabling
-  $('.form-blue').live('click', function(){
+  $('.form-blue').bind('click', function(){
     var ones = $('.form-blue input[id^="user_"][value="1"]').length;
     var twos = $('.form-blue input[id^="user_"][value="2"]').length;
     if ( ones + twos >= 7 && $('#user_location').val() != "MapQuest not responding" ) {
@@ -507,19 +509,36 @@ $(function(){
     $('#loadingCrop').show();
   });
 
-  // User avatar processing
-  // Enable Submit button after file is selected
-  $('#user_avatar').change(function(){
-    $(this).next('.formBtn').prop('disabled', false);
-  });
-  
-  // Hide extra modal elements during upload
-  $('#addAvatar input[type="submit"]').click(function(){
-    $('#addAvatar .text-close, #addAvatar input[type="submit"], #addAvatar input[type="file"]').hide();
-    $('#loadingPhoto').show();
-    $('.mediaModal .handhold').show();
-    $.cookie("avatar", "true");
-  });
+	// Show progress bar on upload start
+	$('.cloudinary-fileupload').bind('fileuploadstart', function() {  
+  	$('#loadingPhoto, .handhold').show();
+		$('button.close, .filedrop').hide();
+		$('.cloudinary-fileupload').bind('fileuploadprogress', function(e, data){
+			$('.mediaModal .headerInfo p').text(data.files[0].name);
+			progress = parseInt(data.loaded / data.total * 100, 10);
+			$('.progress .bar').css('width', progress + '%');
+		});
+	  return true;
+	});
+	
+	// Show selected avatar photo name
+	$('.cloudinary-fileupload input[type=file]').change(function(){
+		var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
+		$('.mediaModal .headerInfo p').text("new_label");
+	});
+	
+	// Reset form if photo upload failure
+	$('.cloudinary-fileupload').bind('fail', function() {
+		alert("Upload failed.");
+  	$('#loadingPhoto, .handhold').hide();
+		$('button.close, .filedrop').show();		
+	});
+	
+	// Submit uploaded avatar info to db when uploaded
+	$('#addAvatar .cloudinary-fileupload').bind('fileuploaddone', function() {
+		$('.filedrop input[type=submit]').click();
+	  $.cookie("avatar", "true");
+	});
   
   // Explicitly set avatar cookie to false on Save click
   $('#saveUser, #saveUserAccount').click(function(){
@@ -530,16 +549,24 @@ $(function(){
   $('.commentEntry textarea').attr('rows', 5);
 
   // Character count on pet profile comment field
-  $('#micropost_content').keyup(function(){
+  $('#micropost_content, #user_bio').keyup(function(){
     var cnt = $(this).val().length;
-    var maxcnt = 240;
+		if (this.id == "micropost_content") {
+	    var maxcnt = 240;
+		} else {
+	    var maxcnt = 480;
+		};
     $('#char_count').text(maxcnt - cnt);
     if (maxcnt - cnt < 0) {
       $('input[name="commit"]').prop('disabled', true);
       $('#char_count').css('color','#ec520a');
     } else {
       $('input[name="commit"]').prop('disabled', false);
-      $('#char_count').css('color','#c7c7c7');
+			if (this.id == "micropost_content") {
+	      $('#char_count').css('color','#c7c7c7');
+			} else {
+	      $('#char_count').css('color','#722705');
+			};
     };
   });
   
@@ -676,14 +703,14 @@ $(function(){
     };
     // Set cookie for any clicked tab
     var tab_links = $('.nav-tabs li a')
-    tab_links.live('click', function(){
+    tab_links.bind('click', function(){
       current_tab = $(this).attr('href');
       $.cookie("active_tab", current_tab);
     });
   };
 
   // Connect radio buttons with hidden input elements
-  $('div.btn-group[data-toggle-name=*]').each(function(){
+  $('div.btn-group[data-toggle-name]').each(function(){
     var group   = $(this);
     var form    = group.parents('form').eq(0);
     var name    = group.attr('data-toggle-name');
@@ -691,7 +718,7 @@ $(function(){
     var current_value;
     $('button', group).each(function(){
       var button = $(this);
-      button.live('click', function(){
+      button.bind('click', function(){
         current_value = hidden.val();
 				// Remove highlight required field on selection
 				if ( group.hasClass('btn-required') ) {

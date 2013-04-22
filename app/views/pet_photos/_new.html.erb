@@ -8,72 +8,77 @@
         <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1><br>
 				<p></p>
       </div>
+	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
-	    <% if $pet.pet_photos.size >= 1 %>
+	    <% if $pet.pet_photos.size > 0 %>
       <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %>.</p>
       <% end %>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This window will close once your upload is complete.
       </div>
-      <%= simple_form_for @pet_photo, :html => {multipart: true, id: "fileupload"} do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
+			<%= simple_form_for @pet_photo do |f| %>
         <%= f.hidden_field :pet_id %>
         <%= f.hidden_field :user_id, value: current_user.id %>
-				<div class="row fileupload-buttonbar">
-            <div>
-                <span class="btn formBtn fileinput-button" style="width:145px;margin-left:20px;">
-                    <span>Choose Photo</span>
-                    <%= f.file_field :image %>
-                </span>
-                <%= f.button :submit, "Upload", class: "formBtn start", style: "width:145px;", disabled: true %>
-						    <button class="text-close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">Cancel</button>
-            </div>
-            <div>
-                <!-- The global progress bar -->
-                <div class="progress progress-success progress-striped active fade">
-                    <div class="bar" style="width:0%;"></div>
-                </div>
-            </div>
+			  <div class="row filedrop">
+          <div>
+            <span class="btn formBtn fileinput-button" style="width:145px;margin-left:20px;">
+              <span>Choose Photo</span>
+              <%= f.cl_image_upload(:image, tags: "#{$pet.slug}") %>
+            </span>
+            <p>Or drop file here</p>
+            <%= f.button :submit, "Upload", style: "width:1px;" %>
+          </div>
         </div>
-      <% end %>
+			<% end %>
+			<div id="loadingPhoto" class="hide">
+			  <div class="progress progress-striped active">
+			  	<div class="bar" style="width: 0%"></div>
+			  </div>
+			</div>
     </div>
   </div>
 </div>
 
-<script>
-$(function(){
+<%= cloudinary_js_config %>
+<script src="/assets/jquery.cloudinary.js?body=1" type="text/javascript"></script>
+<script>	
+	$(function(){
+		
+		// Show progress bar on upload start
+		$('.cloudinary-fileupload').bind('fileuploadstart', function() {  
+	  	$('#loadingPhoto, .handhold').show();
+			$('button.close, .filedrop, .form p').hide();
+			$('.cloudinary-fileupload').bind('fileuploadprogress', function(e, data){
+				$('.mediaModal .headerInfo p').text(data.files[0].name);
+				progress = parseInt(data.loaded / data.total * 100, 10);
+				$('.progress .bar').css('width', progress + '%');
+			});
+		  return true;
+		});
 
-	// Show selected photo name & check for proper file type
-	$('input[type=file]').change(function(){
-		var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
-		$('.mediaModal .headerInfo p').text(new_label);
-		var file_type = new_label.split('.').pop();
-		var valid_types = ['gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff', 'JPG', 'JPEG', 'PNG', 'GIF', 'TIF', 'TIFF'];
-		var type_check = $.inArray(file_type, valid_types);
-		if ( type_check == -1 ) {
-			$('input[type=file]').val("");
-			$('.mediaModal .headerInfo p').text("");
-			alert("Please select a valid image file.");
-		} else {
-			if (this.files[0].size > 4000000) {
-				$('.mediaModal input[type="submit"]').prop('disabled', true);
-				alert("Image is too large - must be less than 4 MB.")
-			} else {
-				// Enable Submit button when file selected
-				$('.mediaModal input[type="submit"]').prop('disabled', false);
-			};
-		};
+		// Show selected avatar photo name
+		$('.cloudinary-fileupload input[type=file]').change(function(){
+			var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
+			$('.mediaModal .headerInfo p').text("new_label");
+		});
+
+		// Reset form if photo upload failure
+		$('.cloudinary-fileupload').bind('fail', function() {
+			alert("Upload failed.");
+	  	$('#loadingPhoto, .handhold').hide();
+			$('button.close, .filedrop').show();		
+		});
+
+		// Submit uploaded avatar info to db when uploaded
+		$('#addAvatar .cloudinary-fileupload').bind('fileuploaddone', function() {
+			$('.filedrop input[type=submit]').click();
+		  $.cookie("avatar", "true");
+		});
+
+		// Submit uploaded avatar info to db when uploaded
+		$('#addPhoto .cloudinary-fileupload').bind('fileuploaddone', function() {
+			$('.filedrop input[type=submit]').click();
+		});
 	});
-	
-	// Initialize the jQuery File Upload widget:
-  //$('#fileupload').fileupload();
-  
-  // Hide extra photo elements during upload
-  $('#fileupload :submit').click(function(){
-    $('.mediaModal .text-close, .form p, .fileupload-buttonbar').hide();
-    $('.mediaModal .handhold').show();
-  });
-
-});
 </script>

@@ -24,7 +24,7 @@
 <% end %>
 <%= render 'layouts/footer' %>  
 <%= javascript_include_tag "application" %>
-<% if params[:controller] == 'users' && params[:action] == 'editasdf' %>
+<% if params[:controller] == 'users' && params[:action] == 'edit' %>
 <%= cloudinary_js_config %>
 <% end %>
 <% if params[:controller] == 'pets' && params[:action] == 'show' %>

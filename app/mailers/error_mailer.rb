@@ -3,6 +3,6 @@ class ErrorMailer < ActionMailer::Base
   
   def error_notification(exception)
     @exception = exception
-    mail to: 'admin@shelterme.com', subject: "500 Error Encountered"
+    mail to: 'admin@shelterme.com', subject: "Error Encountered"
   end
 end
