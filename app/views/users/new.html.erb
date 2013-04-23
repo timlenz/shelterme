@@ -11,14 +11,14 @@
           <%= render 'shared/error_messages', object: f.object %>
           <%= f.input :name, label: "Your Name", hint: "Sets your account URL, so choose wisely" %>
           <%= f.input :location, label: "Your Location", hint: "Not required, but helps to find local results" %>
-          <%= f.input :email, label: "Your Email" %>
+          <%= f.input :email, label: "Your Email", hint: "You'll use this to signin" %>
           <%= f.input :password, required: true, label: "Choose Password", hint: "Must be at least six characters" %>
           <%= f.input :password_confirmation, label: "Re-enter Password" %>
           <%= f.submit "Join", class: "btn btn-header", style: "width:120px;" %>
         <% end %>
       </div>
       <div class="rightHalf">
-        <p style="font-size:13px;">When you join our community, you can make a difference for shelter pets in your area.</p>
+        <p style="font-size:13px;line-height:18px;">When you join our community, you can make a difference for shelter pets in your area.</p>
         <ul>
           <li>Create pet profiles</li>
           <li>Add photos and videos of shelter pets</li>
@@ -29,7 +29,7 @@
         </ul>
         <br>
         <div class="subtlep">
-          <p>You can certainly use ShelterMe without joining our community, but not all site features will be available. By creating an account on ShelterMe.com, you agree to our <%= link_to "terms of use", terms_path %>.</p>
+	        <p>Not all site feature are available unless you join our community. By creating an account on ShelterMe.com, you agree to our <%= link_to "terms of use", terms_path %>.</p>
         </div>
       </div>
     </div>
