@@ -278,11 +278,13 @@ class User < ActiveRecord::Base
     colors = (primary + secondary).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries
     one_or_two = ((primary_color_count + secondary_color_count) / pet_count ).round
     one_color = colors.max_by {|entry| entry.last}.first.capitalize.gsub(/-/,"")
-    first_of_two = colors.sort_by{|k,v| v}.reverse.first.first.capitalize
-    second_of_two = colors.sort_by{|k,v| v}.reverse.second.first.capitalize
-    if ((first_of_two == "red" || first_of_two == "yellow") && second_of_two == "orange") ||
-      ((second_of_two == "red" || second_of_two == "yellow") && first_of_two == "orange")
-      one_or_two = 1
+    if one_or_two > 1
+      first_of_two = colors.sort_by{|k,v| v}.reverse.first.first.capitalize
+      second_of_two = colors.sort_by{|k,v| v}.reverse.second.first.capitalize
+      if ((first_of_two == "red" || first_of_two == "yellow") && second_of_two == "orange") ||
+        ((second_of_two == "red" || second_of_two == "yellow") && first_of_two == "orange")
+        one_or_two = 1
+      end
     end
     color = ( one_or_two == 1 ) ? one_color : first_of_two + second_of_two
     return length + color

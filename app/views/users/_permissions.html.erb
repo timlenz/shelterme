@@ -1,4 +1,4 @@
-<div class="editForm">
+<div class="editForm" style="width:450px;">
   <h3>Shelter Management</h3>
   <br><br>
   <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
@@ -7,6 +7,7 @@
     <label class="string optional control-label" for="user_shelter_name">Select Shelter</label>
     <div class="controls">
       <%= f.text_field :shelter_name, as: :autocomplete, data: {autocomplete_source: listshelters_path}, style: "width:280px;" %>
+      <p class="help-block">Start typing and shelter names will appear</p>
     </div>
   </div>
   <%= f.input :manager, as: :boolean, label: "Manager" %>
@@ -17,7 +18,7 @@
 </div>
 <div style="border-left:1px solid white;width:1px;height:500px;float:left;margin-left:20px;margin-right:20px;"></div>
 <% if !@user.admin? %>
-<div class="editForm" style="width:350px;">
+<div class="editForm" style="width:340px;">
   <h3>System Administration</h3>
   <br><br>
   <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
