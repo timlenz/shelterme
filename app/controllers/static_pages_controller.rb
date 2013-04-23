@@ -5,21 +5,21 @@ class StaticPagesController < ApplicationController
       format.html {
         require 'open-uri'
         require 'nokogiri'
-        location = "MapQuest not responding"
+        @location = "MapQuest not responding"
         if cookies[:location]
-          location = cookies[:location]
+          @location = cookies[:location]
         end
-        if (validate_location(location) == false) && (signed_in? and current_user.location?)
-          location = current_user.location
+        if (validate_location(@location) == false) && (signed_in? and current_user.location?)
+          @location = current_user.location
         end
-        if validate_location(location) == false    
+        if validate_location(@location) == false    
           s = Geocoder.search(remote_ip)
-          location = s[0].city + ", " + s[0].state_code
+          @location = s[0].city + ", " + s[0].state_code
         end
-        cookies[:location] = location
-        shelters = Shelter.near(location, 50, order: "distance")
+        cookies[:location] = @location
+        shelters = Shelter.near(@location, 50, order: "distance")
         unless shelters.count > 0
-          shelters = Shelter.near(location, 200, order: "distance")
+          shelters = Shelter.near(@location, 200, order: "distance")
         end
         nearbys = shelters.map{|s| s.id}
         @pets = Pet.order(:name)
@@ -29,7 +29,7 @@ class StaticPagesController < ApplicationController
         # select four random pets from list
         #@pets = @pets.sort_by{rand}.first(4)
         @pets = @pets.shuffle!.first(4)
-        if location != "MapQuest not responding"
+        if @location != "MapQuest not responding"
           @pets
           @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
         else

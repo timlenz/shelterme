@@ -85,7 +85,7 @@ class PetPhotosController < ApplicationController
   
   def index
     if signed_in? && current_user.admin?
-      @pet_photos = PetPhoto.all.paginate(page: params[:page], per_page: 12)
+      @pet_photos = PetPhoto.all.paginate(page: params[:page], per_page: 24)
     else
       redirect_to root_path
     end

@@ -12,9 +12,9 @@ class UsersController < ApplicationController
   
   def show
     @microposts = @user.microposts.paginate(page: params[:microposts_page], per_page: 24)
-    @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 12)
-    @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 12)
-    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
+    @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 24)
+    @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 24)
+    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 24)
   rescue
     raise ActionController::RoutingError.new('Not Found')
   end
