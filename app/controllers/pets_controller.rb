@@ -11,7 +11,6 @@ class PetsController < ApplicationController
   def new
     @shelters = Shelter.all
     $pet = ""
-    @@pass = ""
     @pet = Pet.new
     @pet.animal_code = @@pass
     @pet.pet_state_id = PetState.first.id
@@ -51,9 +50,9 @@ class PetsController < ApplicationController
     end
     cookies[:exclude_shelter] = ""
   rescue
-    #flash[:error] = "Unable to create new pet."
-    flash[:error] = $!.message
-    redirect_to root_path and return
+    flash[:error] = "Unable to create new pet."
+    #flash[:error] = $!.message
+    redirect_to addpet_path and return
   end
 
   def create
