@@ -356,7 +356,7 @@ a {
   background-image: -webkit-linear-gradient(top, $offWhite, $brownLighter);
   background-image: -o-linear-gradient(top, $offWhite, $brownLighter);
   background-image: linear-gradient(top, $offWhite, $brownLighter);
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-left: 4px;
   text-align: center;
   color:#722705;
@@ -2467,10 +2467,10 @@ ol.activity {
 .pet-info {
   clear:both;
   float: left;
-  margin: 2px 0 4px 6px;
+  margin: 1px 0 4px 6px;
   padding-top:6px;
   width: 258px;
-  height: 52px;
+  height: 53px;
   overflow: hidden;
   text-overflow: ellipsis;
   h3 {
@@ -2689,9 +2689,12 @@ ol.activity {
   -webkit-box-shadow: 1px 2px 2px rgba(50, 50, 50, 0.12);
   -moz-box-shadow:    1px 2px 2px rgba(50, 50, 50, 0.12);
   box-shadow:         1px 2px 2px rgba(50, 50, 50, 0.12);
-  .leftHalf, rightHalf {
+  .leftHalf {
     width: 410px;
   }
+	.rightHalf {
+		width: 450px;
+	}
   .btn {
     font-size: 14px;
     line-height: 22px;
@@ -2704,19 +2707,18 @@ ol.activity {
   }
 }
 
-.leftHalf {
-  margin-left:20px;
-}
-
-.leftHalf, .rightHalf {
-  float: left;
-  padding: 0 30px 0 30px;
-  width: 378px;
-}
-
-.centerOr {
-  float: left;
-  width: 64px;
+.addContent {
+	.leftHalf, .rightHalf {
+	  float: left;
+	}
+	.leftHalf {
+		width: 340px;
+		padding-left: 40px;
+	}
+	.rightHalf {
+		width: 560px;
+		padding-right: 20px;
+	}
 }
 
 .formHeader {
@@ -2789,6 +2791,7 @@ ol.activity {
   width: 940px;
   min-height: 329px;
 	padding-bottom: 1px;
+	padding-left: 1px;
 }
 
 .possibleScroll {

@@ -187,57 +187,61 @@ class User < ActiveRecord::Base
           1.5, -1.5, 0, -1, 1, 0, -2, 1, -1, 2, 0, 0, 2, 1, 1, 1, 1]      
     nearbys = Shelter.near(location, 200, order: "distance").map{|s| s.id} if location.present?
     if nearbys
-    scores = Array.new
-    @matches = Pet.order(:name)
-    @matches = @matches.where('shelter_id in (?)', nearbys)
-    @matches = @matches.where(species_id: species_id) if species_id.present?
-    @matches = @matches.select{|p| p.pet_state.status == "available"}
-    # Calculate match scores for pets in array against user's characteristics
-    @matches = @matches.each_with_index do |p, i|
-      n_col = p_char.index(p.nature.name)
-      el_col = p_char.index(p.energy_level.level)
-      a_col = p_char.index(p.affection.name)
-      if open_value_id.present?
-        row = u_char.index(OpenValue.all[open_value_id - 1].name)
-        scores[i] = matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
+      scores = Array.new
+      @matches = Pet.order(:name)
+      @matches = @matches.where('shelter_id in (?)', nearbys)
+      @matches = @matches.where(species_id: species_id) if species_id.present?
+      @matches = @matches.select{|p| p.pet_state.status == "available"}
+      if !@matches.blank?
+        # Calculate match scores for pets in array against user's characteristics
+        @matches = @matches.each_with_index do |p, i|
+          n_col = p_char.index(p.nature.name)
+          el_col = p_char.index(p.energy_level.level)
+          a_col = p_char.index(p.affection.name)
+          if open_value_id.present?
+            row = u_char.index(OpenValue.all[open_value_id - 1].name).to_i
+            scores[i] = matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if plan_value_id.present?
+            row = u_char.index(PlanValue.all[plan_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if social_value_id.present?
+            row = u_char.index(SocialValue.all[social_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if attitude_value_id.present?
+            row = u_char.index(AttitudeValue.all[attitude_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if emotion_value_id.present?
+            row = u_char.index(EmotionValue.all[emotion_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if clean_value_id.present?
+            row = u_char.index(CleanValue.all[clean_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+          if energy_value_id.present?
+            row = u_char.index(EnergyValue.all[energy_value_id - 1].name)
+            scores[i] = scores[i] + matrix[row][n_col].to_i + matrix[row][el_col].to_i + matrix[row][a_col].to_i
+          end
+        end
+        # Combine match scores with pets in two-dimensional array
+        @matches = @matches.zip(scores)
+        # Modify match scores with mo lookup
+        @matches = @matches.each{|v| v[1] = v[1] + mo[Random.rand(0..35)]}
+        # Limit to those pets with maximum modified match score
+        @matches = @matches.select{|p| p[1] == @matches.map{|v| v[1]}.max}
+        #recapture just the array of pets, stripping out match values
+        @matches = @matches.map{|p| p[0]}
+        # sort by closest shelter
+        @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
+        $match = true
+        @matches
+      else
+        @matches = []
       end
-      if plan_value_id.present?
-        row = u_char.index(PlanValue.all[plan_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-      if social_value_id.present?
-        row = u_char.index(SocialValue.all[social_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-      if attitude_value_id.present?
-        row = u_char.index(AttitudeValue.all[attitude_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-      if emotion_value_id.present?
-        row = u_char.index(EmotionValue.all[emotion_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-      if clean_value_id.present?
-        row = u_char.index(CleanValue.all[clean_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-      if energy_value_id.present?
-        row = u_char.index(EnergyValue.all[energy_value_id - 1].name)
-        scores[i] = scores[i] + matrix[row][n_col] + matrix[row][el_col] + matrix[row][a_col]
-      end
-    end
-    # Combine match scores with pets in two-dimensional array
-    @matches = @matches.zip(scores)
-    # Modify match scores with mo lookup
-    @matches = @matches.each{|v| v[1] = v[1] + mo[Random.rand(0..35)]}
-    # Limit to those pets with maximum modified match score
-    @matches = @matches.select{|p| p[1] == @matches.map{|v| v[1]}.max}
-    #recapture just the array of pets, stripping out match values
-    @matches = @matches.map{|p| p[0]}
-    # sort by closest shelter
-    @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
-    $match = true
-    @matches
     else
       @matches = []
     end

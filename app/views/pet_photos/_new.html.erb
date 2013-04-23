@@ -57,7 +57,7 @@
 		  return true;
 		});
 
-		// Show selected avatar photo name
+		// Show selected photo photo name
 		$('.cloudinary-fileupload input[type=file]').change(function(){
 			var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
 			$('.mediaModal .headerInfo p').text("new_label");
@@ -70,13 +70,13 @@
 			$('button.close, .filedrop').show();		
 		});
 
-		// Submit uploaded avatar info to db when uploaded
+		// Submit uploaded photo info to db when uploaded
 		$('#addAvatar .cloudinary-fileupload').bind('fileuploaddone', function() {
 			$('.filedrop input[type=submit]').click();
 		  $.cookie("avatar", "true");
 		});
 
-		// Submit uploaded avatar info to db when uploaded
+		// Submit uploaded photo info to db when uploaded
 		$('#addPhoto .cloudinary-fileupload').bind('fileuploaddone', function() {
 			$('.filedrop input[type=submit]').click();
 		});

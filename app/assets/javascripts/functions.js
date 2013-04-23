@@ -474,7 +474,7 @@ $(function(){
   });
   
   // Show loading interstitial during MatchMe search
-  $('form[id^="edit_user"] :submit').click(function(){
+  $('.match-me').click(function(){
     $('#matchme .findBlurb, #matchme .row, #results').hide();
     $('#waiting').show();
     // Set cookie for generating MatchMe results after submission

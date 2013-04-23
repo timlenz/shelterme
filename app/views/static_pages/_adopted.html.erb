@@ -5,9 +5,9 @@
     <% recent_adoptions.each do |f| %>
     <div class="item">
       <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
-        <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_40,w_40")), [f.shelter, f] %>
+        <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_adopted")), [f.shelter, f] %>
       <% elsif f.pet_photos.count == 1 %>
-        <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_40,w_40")), [f.shelter, f] %>
+        <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_adopted")), [f.shelter, f] %>
       <% end %>
       <% if f.name != '' %>
       <%= link_to f.name, [f.shelter, f] %>

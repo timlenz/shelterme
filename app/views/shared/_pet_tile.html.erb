@@ -1,9 +1,9 @@
 <div class="pet-tile <%= f.pet_state.status %>">
   <div class="tile-photo">
     <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
-      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_200,w_300/w_75,g_south_east,l_watermark_semq96,x_5,y_5")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
+      <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_tile")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% elsif f.pet_photos.count == 1 %>
-      <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/a_exif,c_fill,g_faces,h_200,w_300/w_75,g_south_east,l_watermark_semq96,x_5,y_5")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
+      <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_tile")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% else %>
       <%= link_to "", [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
     <% end %>

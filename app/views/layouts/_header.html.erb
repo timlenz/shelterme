@@ -88,12 +88,12 @@
               </li>
             <% else %>
             <% if params[:controller] == 'users' and params[:action] == 'new' %>
-              <li class="signInOn" style= "padding:9px 15px 9px;width:50px;">Join</li>
+              <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Join</li>
             <% else %>  
               <li class="signInit"><%= link_to "Join", join_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
             <% end %>
               <% if params[:controller] == 'sessions' and params[:action] == 'new' %>
-                <li class="signInOn" style= "padding:9px 15px 9px;width:50px;">Sign In</li>
+                <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Sign In</li>
               <% else %>  
                 <li class="signInit"><%= link_to "Sign In", signin_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
               <% end %>
