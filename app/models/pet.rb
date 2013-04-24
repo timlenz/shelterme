@@ -86,8 +86,9 @@ class Pet < ActiveRecord::Base
   validates :species_id, presence: true
   validates :pet_state_id, presence: true
   validates :shelter_id, presence: true
-  validates :age, presence: true
+  validates :age, presence: true, numericality: { greater_than: 0, less_than: 250 }
   validates :age_period_id, presence: true
+  validates :weight, numericality: { greater_than: 0, less_than: 250 }, allow_blank: true
   validates :affection_id, presence: true
   validates :energy_level_id, presence: true
   validates :nature_id, presence: true

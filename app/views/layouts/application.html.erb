@@ -6,6 +6,8 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
+		<% if params[:controller] == 'pets' && params[:action] == 'show' && (@pet.pet_photos.size == 0 and @pet.user == current_user) %>
+		<% end %>
   </head>
   <body>
     <div id="sm">

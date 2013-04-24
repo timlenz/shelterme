@@ -51,8 +51,8 @@ class PetsController < ApplicationController
     cookies[:exclude_shelter] = ""
   rescue
     flash[:error] = "Unable to create new pet."
-    #flash[:error] = $!.message
-    redirect_to addpet_path and return
+    ErrorMailer.error_notification($!).deliver
+    redirect_to :back
   end
 
   def create
@@ -70,8 +70,9 @@ class PetsController < ApplicationController
       render 'new'
     end
   rescue
-    flash[:error] = "Unable to create new pet."
-    redirect_to :back
+    flash[:error] = "Unable to save pet. Please resubmit."
+    ErrorMailer.error_notification($!).deliver
+    render 'new'
   end
     
   def addpet
