@@ -193,7 +193,7 @@
             <% end %>
             <span class="action">Added a video of</span>
             <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
-            <%= link_to (image_tag p[4].panda_video.encodings["h264"].screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
+            <%= link_to (image_tag p[4].panda_video.encodings["thumbnail"].screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>

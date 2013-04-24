@@ -40,7 +40,7 @@ class SheltersController < ApplicationController
   
   def index
     if signed_in? && current_user.admin?
-      @shelters = Shelter.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      @shelters = Shelter.search(params[:search]).paginate(page: params[:page])
     else
       redirect_to root_path
     end
