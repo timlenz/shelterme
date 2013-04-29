@@ -1,7 +1,7 @@
 ShelterMe::Application.routes.draw do
 
+  get "messages/new"
   get "journals/new"
-
   get "pet_videos/new"
   get "pet_photos/new"
   get "shelter_admins/new"
@@ -25,6 +25,7 @@ ShelterMe::Application.routes.draw do
   resources :pet_photos
   resources :pet_videos
   resources :pets, except: [:create, :new, :show, :edit, :destroy]
+  resources :messages
 
   resources :bonds, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
@@ -35,7 +36,6 @@ ShelterMe::Application.routes.draw do
   root to: 'static_pages#home'
   
   match '/addphoto',          to: 'pet_photos#new'
-  match '/crop',              to: 'pet_photos#crop'
   match '/pp',                to: 'pet_photos#index'
   
   match '/addvideo',          to: 'pet_videos#new'
@@ -45,7 +45,6 @@ ShelterMe::Application.routes.draw do
   
   match '/s',                 to: 'shelters#index'
   match '/newshelter',        to: 'shelters#new'
-  #match '/s/:id',             to: 'shelters#show'
   match '/findshelter',       to: 'shelters#find'
   match '/listshelters',      to: 'shelters#list'
   match '/mymanagedpets',     to: 'shelters#managed'
@@ -54,12 +53,10 @@ ShelterMe::Application.routes.draw do
   match '/p',                 to: 'pets#index'
   match '/addpet',            to: 'pets#addpet'
   match '/newpet',            to: 'pets#new'
-  #match '/p/:id',             to: 'pets#show'
   match '/potd',              to: 'pets#potd'
   match '/la',                to: 'pets#potd'
   
   match '/findpet',           to: 'searches#new'
-  #match '/searches/:id',      to: 'searches#new'
   
   match '/signin',            to: 'sessions#new'
   match '/signout',           to: 'sessions#destroy', via: :delete
@@ -84,8 +81,8 @@ ShelterMe::Application.routes.draw do
   match '/sm',                to: 'users#managers'
   match '/shelter_admins',    to: 'users#managers'
   
+  match '/contact',           to: 'messages#new'
   match '/about',             to: 'static_pages#about'
-  match '/contact',           to: 'static_pages#contact'
   match '/faq',               to: 'static_pages#faq'
   match '/terms',             to: 'static_pages#terms'
   match '/privacy',           to: 'static_pages#privacy'
@@ -100,6 +97,7 @@ ShelterMe::Application.routes.draw do
   end
   
   # Any routes that aren't defined above here go to the 404
+  match '/:shelter_id/*a',    to: "application#routing_error"
   match "*a",                 to: "application#routing_error"
   
   # The priority is based upon order of creation:

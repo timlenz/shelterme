@@ -1,0 +1,40 @@
+<% provide(:title, 'Contact') %>
+<div class="container content">
+  <div class="profile-section">
+    <div class="row">
+      <div class="rowContent">
+        <div class="staticNav">
+          <ul>
+            <li><%= link_to "FAQ", faq_path %></li>
+            <li><%= link_to "About Us", about_path %></li>
+            <li class="active">
+              <h4>Contact Us</h4>
+            </li>
+            <li><%= link_to "Terms of Use", terms_path %></li>
+            <li><%= link_to "Privacy Policy", privacy_path %></li>
+          </ul>
+        </div>
+        <div class="staticContent">
+          <div class="staticEntry last">
+            <h3>Send us a message</h3>
+            <div class="staticBlurb">
+	            <p>If you have questions about ShelterMe or how to do something on the site, please visit our <%= link_to "FAQ page", faq_path %>.</p>
+	            <p>We would love to hear from you with any feedback or comments you may have.</p>
+	            <br>
+							<%= simple_form_for(@message, html: { class: 'form-horizontal' }) do |f| %>
+							  <%= render 'shared/error_messages', object: f.object %>
+							  <%= f.input :name %>
+							  <%= f.input :email %>
+							  <%= f.hidden_field :checker %>
+			          <%= f.input :content, as: :text %>
+								<div class="clearfix"></div>
+				        <%= f.button :submit, "Send Message", class: "formBtn", style: "width:145px;" %>
+							<% end %>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

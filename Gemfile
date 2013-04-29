@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
@@ -21,12 +21,14 @@ gem 'jquery-fileupload-rails'
 gem 'net-scp', '1.1.0'
 gem 'nokogiri'
 gem 'cloudinary'
+gem 'active_attr'
 
 group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'guard-rspec', '0.5.5'
   gem 'letter_opener'
+  gem 'debugger'
 end
 
 # Gems used only for assets and not required

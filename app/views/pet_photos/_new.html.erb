@@ -5,15 +5,16 @@
         <%= image_tag("photoIcon.png", alt: "Add Photo") %>
       </div>
       <div class="headerInfo" style="width:450px;">
-        <h1>Add a Photo of <%= $pet.name != '' ? $pet.name : $pet.animal_code %></h1><br>
+        <h1>Add a Photo of <%= @pet.name != '' ? @pet.name : @pet.animal_code %></h1><br>
 				<p></p>
       </div>
 	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
-	    <% if $pet.pet_photos.size > 0 %>
-      <p>For tips on how to take a great photo, please check our <%= link_to "photo hints", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %>.</p>
+	    <% if @pet.pet_photos.size > 0 %>
+      <p>See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. 
       <% end %>
+      Photos are limited to 5000x5000 and 20MB.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This window will close once your upload is complete.
       </div>
@@ -24,10 +25,10 @@
           <div>
             <span class="btn formBtn fileinput-button" style="width:145px;margin-left:20px;">
               <span>Choose Photo</span>
-              <%= f.cl_image_upload(:image, tags: "#{$pet.slug}") %>
+              <%= f.cl_image_upload(:image, tags: "#{@pet.slug}") %>
             </span>
             <p>Or drop file here</p>
-            <%= f.button :submit, "Upload", style: "width:1px;" %>
+            <%= f.button :submit, "Upload" %>
           </div>
         </div>
 			<% end %>

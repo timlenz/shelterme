@@ -4,13 +4,18 @@ class PetPhotosController < ApplicationController
   respond_to :html, :js
   
   def new
-    @pet_photo = PetPhoto.new(pet_id: $pet.id)
+    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    @pet_photo = PetPhoto.new(pet_id: @pet.id)
     cookies[:photo] = "new"
+  rescue
+    flash[:error] = "Can't add photo right now."
+    redirect_to :back
   end
 
   def create
     @pet_photo = PetPhoto.create!(params[:pet_photo])
-    if $pet.pet_photos.size == 0
+    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    if @pet.pet_photos.size == 0
       @pet_photo.primary = true
     end
     if @pet_photo.save

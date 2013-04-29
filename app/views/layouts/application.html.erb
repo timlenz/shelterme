@@ -6,19 +6,17 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
-		<% if params[:controller] == 'pets' && params[:action] == 'show' && (@pet.pet_photos.size == 0 and @pet.user == current_user) %>
-		<% end %>
   </head>
   <body>
     <div id="sm">
 <%= render 'layouts/header' %>   
 <%= render 'layouts/errors' %>
 <%= yield %>
-      <% if Rails.env.development? && signed_in? && current_user.admin? %>
-        <div class="container noPrint">
-          <%= debug(params) %>
-        </div>
-      <% end %>
+<% if Rails.env.development? && signed_in? && current_user.admin? %>
+  <div class="container noPrint">
+    <%= debug(params) %>
+  </div>
+<% end %>
       <div class="push"></div>
     </div>  
 <% if signed_in? && pet_list.count > 1 %>

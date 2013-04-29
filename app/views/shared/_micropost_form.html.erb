@@ -1,3 +1,4 @@
+<div id="char_count" class="comment"></div>
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div>
@@ -8,5 +9,4 @@
     <%= f.text_area :content, placeholder: "Share your thoughts...", style: "margin-bottom: 15px;" %>
   </div>
   <%= f.submit "Comment", class: "btn btn-header", style: "width: 117px; height: 28px;" %>
-  <div id="char_count">240</div>
 <% end %>

@@ -4,12 +4,13 @@ class PetVideosController < ApplicationController
   respond_to :html, :js
 
   def new
-    @pet_video = PetVideo.new(pet_id: $pet.id)
+    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    @pet_video = PetVideo.new(pet_id: @pet.id)
   end
 
   def create
     @pet_video = PetVideo.create!(params[:pet_video])
-    if $pet.pet_videos.size == 0
+    if @pet_video.pet.pet_videos.size == 1
       @pet_video.primary = true
     end
     if @pet_video.save

@@ -17,7 +17,7 @@
   <% end %>
 </div>
 <div style="border-left:1px solid white;width:1px;height:500px;float:left;margin-left:20px;margin-right:20px;"></div>
-<% if !@user.admin? %>
+<% if !@user.admin? || current_user.name == "Tim Lenz" %>
 <div class="editForm" style="width:340px;">
   <h3>System Administration</h3>
   <br><br>

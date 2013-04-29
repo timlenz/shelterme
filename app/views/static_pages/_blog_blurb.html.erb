@@ -4,9 +4,9 @@
   <%= image_tag(@image, class: "sideImage", style:"float:right;") %>
   <% end %>
   <div class="blurb">
-    <h4><%= @title %></h4>
+    <h4><%= link_to @title, @link, target: "_blank" %></h4>
     <p><%= @content %></p>
-    <a href="<%= @link %>" target="_blank">Read more&#8230;</a>
+    <%= link_to "Read more", @link, target: "_blank" %>
   </div>
   <div class="clearfix"></div>
   <hr>

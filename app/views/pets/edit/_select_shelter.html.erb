@@ -3,6 +3,6 @@
 <div id="changeLocation" class="collapse">
   <div class="wrapper">
     <%= f.text_field :location, name: "", value: "#{ @current_location ? @current_location : (@pet.shelter.city + ", " + @pet.shelter.state) }" %>
-    <button type="button" class="btn btn-header" id="updateLocation">Change</button>
+    <button type="button" class="btn btn-header" id="updateLocation" style="margin-left:12px;">Change</button>
   </div>
 </div>

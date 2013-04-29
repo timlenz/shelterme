@@ -44,7 +44,7 @@ class StaticPagesController < ApplicationController
           first_post = blog.xpath('//item').first
           @title = first_post.xpath('title').inner_text
           @link = first_post.xpath('link').inner_text
-          @content = first_post.xpath('description').inner_html
+          @content = first_post.xpath('description').inner_text.html_safe
           image = Nokogiri::HTML.parse(first_post.xpath('content:encoded').inner_html).css('img')
           if image.empty?
             @image = "none"
@@ -62,9 +62,6 @@ class StaticPagesController < ApplicationController
   end
   
   def about
-  end
-  
-  def contact
   end
   
   def statistics

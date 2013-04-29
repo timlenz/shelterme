@@ -10,9 +10,8 @@ class PetsController < ApplicationController
   
   def new
     @shelters = Shelter.all
-    $pet = ""
     @pet = Pet.new
-    @pet.animal_code = @@pass
+    @pet.animal_code = cookies[:animal_ID]
     @pet.pet_state_id = PetState.first.id
     @current_location = "asdfasdf"
     if cookies[:location]
@@ -30,8 +29,8 @@ class PetsController < ApplicationController
     end
     @nearbys = Array.new
     @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(15)
-    if cookies[:shelter_id].to_i > 0
-      recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
+    if cookies[:recent_shelter_id].to_i > 0
+      recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
       if @nearbys.count > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
@@ -40,15 +39,17 @@ class PetsController < ApplicationController
       end
     end
     # if pets with same ID have been found, remove their shelters from the list of available shelters
-    if $exclude_shelter && $exclude_shelter.count > 0 && cookies[:exclude_shelter] != "false"
-      @nearbys = @nearbys.reject{|s| $exclude_shelter.include? s }
+    if !cookies[:exclude_shelters].blank? && cookies[:exclude] != "false"
+      exclude_shelters = cookies[:exclude_shelters].split(" ").map{|s| s.to_i}.uniq
+      exclude_shelters = exclude_shelters.map{|s| Shelter.select{|x| x.id == s}}.flatten
+      @nearbys = @nearbys.reject{|s| exclude_shelters.include? s }
     end
     # can't add a pet if there aren't any shelters available
     if @nearbys.count == 0
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
-    cookies[:exclude_shelter] = ""
+    cookies[:exclude] = ""
   rescue
     flash[:error] = "Unable to create new pet."
     ErrorMailer.error_notification($!).deliver
@@ -59,8 +60,8 @@ class PetsController < ApplicationController
     # Because of the shelter/pet nested routing, must create pet from shelter rather than user
     @shelter = Shelter.find(params[:pet][:shelter_id])
     @pet = @shelter.pets.create(params[:pet])
-    $pet = @pet
     $exclude_shelter = []
+    cookies[:exclude_shelters] = ""
     if @pet.save
       @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
       flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
@@ -77,14 +78,17 @@ class PetsController < ApplicationController
     
   def addpet
     if signed_in?
+      cookies[:animal_ID] = ''
       if params[:search].present?
-        @@pass = params[:search].parameterize.titleize.gsub(" ","")
-        @pets = Pet.select{|p| p.animal_code == @@pass }
+        cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
+        @pets = Pet.select{|p| p.animal_code == cookies[:animal_ID] }
         if @pets.count > 0
           render 'add_found'
           $exclude_shelter = @pets.map{|p| p.shelter }
+          cookies[:exclude_shelters] = @pets.map{|p| p.shelter.id.to_s}
         else
           redirect_to newpet_path
+          cookies[:exclude_shelters] = ""
         end
       end
     else
@@ -117,7 +121,7 @@ class PetsController < ApplicationController
   end
   
   def show
-    $pet = @pet
+    cookies[:pet_id] = @pet.id
     canonical_url(pet_url(@pet))
     @microposts = @pet.microposts
     @feed_items = @pet.feed
@@ -131,7 +135,7 @@ class PetsController < ApplicationController
       cookies.permanent[:history] = " "
     end    
   rescue
-    raise ActionController::RoutingError.new('Not Found')  
+    raise ActionController::RoutingError.new('Not Found')
   end
   
   def potd
@@ -175,8 +179,8 @@ class PetsController < ApplicationController
       end
     end
     @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5)
-    if cookies[:shelter_id].to_i > 0
-      recent_shelter = Shelter.all.find{|s| s.id == cookies[:shelter_id].to_i}
+    if cookies[:recent_shelter_id].to_i > 0
+      recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
       if @nearbys.count > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
@@ -228,12 +232,12 @@ class PetsController < ApplicationController
           @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
           cookies[:pet_state_change] = "false"
           # alert admin if user submitted absent pet
-          if cookies[:absent_pet_submit] != "false"
+          if cookies[:absent_pet_submit] == "true"
             PetMailer.absent_pet(@pet,current_user).deliver
             cookies[:absent_pet_submit] = "false"
           end
+          flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
         end
-        flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
         redirect_to [@pet.shelter, @pet]
       end
     else

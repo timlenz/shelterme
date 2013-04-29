@@ -26,6 +26,7 @@
           </div>
           <p class="help-block" style="margin-top:-15px;">Set the display order for your pets</p>
           <%= f.hidden_field :precedence_id, label: false %>
+          <div id="char_count" class="addShelter"></div>
           <% end %>
           <% unless current_user.admin? %>
             <div class="addInstructions" style="height:90px;">

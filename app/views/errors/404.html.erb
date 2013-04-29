@@ -4,7 +4,7 @@
 		<%= image_tag("badLink.png", id: "badLink")%>
     <div id="message">
       <p>Answers to the name of "<%= request.fullpath %>"</p>
-      <p>Please contact <a href="mailto:admin@shelterme.com" target="_blank">admin@shelterme.com</a> with any information.</p>
+      <p>Please <%= link_to "contact us", contact_path %> with any information.</p>
     </div>
   </div>
 </div>

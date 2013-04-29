@@ -13,7 +13,7 @@ class SheltersController < ApplicationController
     @shelter = Shelter.new(params[:shelter])
     if current_user.admin?
       if @shelter.save
-        flash[:success] = "#{@shelter.name} added to available shelters"
+        flash[:success] = "The shelter #{@shelter.name} has been added."
         redirect_to @shelter
       else
         render 'new'
@@ -33,7 +33,7 @@ class SheltersController < ApplicationController
     @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 24)
     @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 24)
     @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 24)
-    cookies[:shelter_id] = @shelter.id
+    cookies[:recent_shelter_id] = @shelter.id
   rescue
     raise ActionController::RoutingError.new('Not Found')
   end

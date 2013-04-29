@@ -15,7 +15,6 @@
         <%= @pet.primary_breed.name %> / <%= @pet.secondary_breed.name %>
       <% end %>
     </span>
-     at 
-    <%= link_to @pet.shelter.name, @pet.shelter %>
-  </p>
+  </p><br>
+  <p><%= link_to @pet.shelter.name, @pet.shelter %></p>
 </div>

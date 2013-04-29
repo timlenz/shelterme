@@ -1,106 +1,97 @@
 <header class="navbar navbar-fixed-top noPrint">
   <div class="navbar-inner">
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <div class="nav-collapse">
-        <div>
-          <%= link_to image_tag("silhouetteWhite.png", alt: "Home", class: "navLogo"), root_path %>
-          <%= image_tag("navSpinner.gif", class: "navSpinner") %>
-          <ul class="nav pull-left">
-            <li>
-              <% if params[:controller] == 'pets' and (params[:action] == 'addpet' or params[:action] == 'new') %>
-                <%= image_tag("addPetOn.png", alt: "Add Pet", class: "currentNav navAddPet") %>
-              <% else %>
-                <%= link_to image_tag("addPetOff.png", mouseover: "addPetOver.png", alt: "Add Pet", class: "navAddPet"), addpet_path %>
-              <% end %>
-            </li>
-            <li class="vertDivide"> </li>
-            <li>
-              <% if params[:controller] == 'searches' and params[:action] == 'new' %>
-                <%= image_tag("findPetOn.png", alt: "Find Pet", class: "currentNav navFindPet") %>
-              <% else %>
-                <%= link_to image_tag("findPetOff.png", mouseover: "findPetOver.png", alt: "Find Pet", class: "navFindPet"), findpet_path %>
-              <% end %>
-            </li>
-            <li class="vertDivide"> </li>
-            <li>
-              <% if params[:action] == 'find' and params[:controller] == 'shelters' %>
-                <%= image_tag("findShelterOn.png", alt: "Find Shelter", class: "currentNav navFindShelter") %>
-              <% else %>
-                <%= link_to image_tag("findShelterOff.png", mouseover: "findShelterOver.png", alt: "Find Shelter", class: "navFindShelter"), findshelter_path %>
-              <% end %>
-            </li>
-            <li class="vertDivide"> </li>
-            <li>
-              <% if params[:action] == 'matchme' %>
-                <%= image_tag("matchMeOn.png", alt: "Match Me", class: "currentNav navMatchMe") %>
-              <% else %>
-                <%= link_to image_tag("matchMeOff.png", mouseover: "matchMeOver.png", alt: "Match Me", class: "navMatchMe"), matchme_path %>
-              <% end %>
-            </li>
-          </ul>
-          <ul class="nav pull-right">
-            <% if signed_in? %>
-              <li id="fat-menu" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top:7px;">
-                  <%= image_tag("profileIcon.png", mouseover: "profileIconOver.png", alt: "Profile") %></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="menu-photo">
-                    <%= avatar_for current_user, size: 40 %>
-                    <div class="menu-name"><%= current_user.name %></div>
-                  </li>
-                  <li class="divider"></li>
-                  <li><%= link_to "My Profile", current_user %></li>
-                  <li><%= link_to "Edit My Profile", edit_user_path(current_user) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "My Sponsored Pets", mysponsoredpets_path %></li>
-                  <% if current_user.manager? %>
-                  <li class="admin"><%= link_to "My Managed Pets", mymanagedpets_path %></li>
-                  <% end %>
-                  <li><%= link_to "My Followed Pets", myfollowedpets_path %></li>
-                  <li><%= link_to "My Followed Users", myfollowedusers_path %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "My Updates", myupdates_path %></li>
-                  <li><%= link_to "My Photos", myphotos_path %></li>
-                  <li><%= link_to "My Videos", myvideos_path %></li>
-                  <li class="divider"></li>
-                  <% if current_user.admin? %>
-                  <li class="admin"><%= link_to "Statistics", statistics_path %></li>
-                  <li class="admin"><%= link_to "All Pets", p_path %></li>
-                  <li class="admin"><%= link_to "All Users", u_path %></li>
-                  <li class="admin"><%= link_to "All Shelters", s_path %></li>
-                  <li class="admin"><%= link_to "All Managers", sm_path %></li>
-                  <li class="divider"></li>
-                  <li class="admin"><%= link_to "All Comments", pc_path %></li>
-                  <li class="admin"><%= link_to "All Photos", pp_path %></li>
-                  <li class="admin"><%= link_to "All Videos", pv_path %></li>
-                  <li class="divider"></li>
-                  <% end %>
-                  <li style="text-align:left;">
-                    <%= link_to "Sign Out", signout_path, method: "Delete" %>
-                  </li>
-                </ul>
-              </li>
-            <% else %>
-            <% if params[:controller] == 'users' and params[:action] == 'new' %>
-              <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Join</li>
-            <% else %>  
-              <li class="signInit"><%= link_to "Join", join_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
-            <% end %>
-              <% if params[:controller] == 'sessions' and params[:action] == 'new' %>
-                <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Sign In</li>
-              <% else %>  
-                <li class="signInit"><%= link_to "Sign In", signin_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+       <%= link_to image_tag("silhouetteWhite.png", alt: "Home", class: "navLogo"), root_path %>
+       <%= image_tag("navSpinner.gif", class: "navSpinner") %>
+       <ul class="nav pull-left">
+         <li>
+           <% if params[:controller] == 'pets' and (params[:action] == 'addpet' or params[:action] == 'new') %>
+             <%= image_tag("addPetOn.png", alt: "Add Pet", class: "currentNav navAddPet") %>
+           <% else %>
+             <%= link_to image_tag("addPetOff.png", mouseover: "addPetOver.png", alt: "Add Pet", class: "navAddPet"), addpet_path %>
+           <% end %>
+         </li>
+         <li class="vertDivide"> </li>
+         <li>
+           <% if params[:controller] == 'searches' and params[:action] == 'new' %>
+             <%= image_tag("findPetOn.png", alt: "Find Pet", class: "currentNav navFindPet") %>
+           <% else %>
+             <%= link_to image_tag("findPetOff.png", mouseover: "findPetOver.png", alt: "Find Pet", class: "navFindPet"), findpet_path %>
+           <% end %>
+         </li>
+         <li class="vertDivide"> </li>
+         <li>
+           <% if params[:action] == 'find' and params[:controller] == 'shelters' %>
+             <%= image_tag("findShelterOn.png", alt: "Find Shelter", class: "currentNav navFindShelter") %>
+           <% else %>
+             <%= link_to image_tag("findShelterOff.png", mouseover: "findShelterOver.png", alt: "Find Shelter", class: "navFindShelter"), findshelter_path %>
+           <% end %>
+         </li>
+         <li class="vertDivide"> </li>
+         <li>
+           <% if params[:action] == 'matchme' %>
+             <%= image_tag("matchMeOn.png", alt: "Match Me", class: "currentNav navMatchMe") %>
+           <% else %>
+             <%= link_to image_tag("matchMeOff.png", mouseover: "matchMeOver.png", alt: "Match Me", class: "navMatchMe"), matchme_path %>
+           <% end %>
+         </li>
+       </ul>
+       <ul class="nav pull-right">
+         <% if signed_in? %>
+           <li id="fat-menu" class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top:7px;">
+               <%= image_tag("profileIcon.png", mouseover: "profileIconOver.png", alt: "Profile") %></span>
+             </a>
+             <ul class="dropdown-menu">
+               <li class="menu-photo">
+                 <%= avatar_for current_user, size: 40 %>
+                 <div class="menu-name"><%= current_user.name %></div>
+               </li>
+               <li class="divider"></li>
+               <li><%= link_to "My Profile", current_user %></li>
+               <li><%= link_to "Edit My Profile", edit_user_path(current_user) %></li>
+               <li class="divider"></li>
+               <li><%= link_to "My Sponsored Pets", mysponsoredpets_path %></li>
+               <% if current_user.manager? %>
+               <li class="admin"><%= link_to "My Managed Pets", mymanagedpets_path %></li>
+               <% end %>
+               <li><%= link_to "My Followed Pets", myfollowedpets_path %></li>
+               <li><%= link_to "My Followed Users", myfollowedusers_path %></li>
+               <li class="divider"></li>
+               <li><%= link_to "My Updates", myupdates_path %></li>
+               <li><%= link_to "My Photos", myphotos_path %></li>
+               <li><%= link_to "My Videos", myvideos_path %></li>
+               <li class="divider"></li>
+               <% if current_user.admin? %>
+               <li class="admin"><%= link_to "Statistics", statistics_path %></li>
+               <li class="admin"><%= link_to "All Pets", p_path %></li>
+               <li class="admin"><%= link_to "All Users", u_path %></li>
+               <li class="admin"><%= link_to "All Shelters", s_path %></li>
+               <li class="admin"><%= link_to "All Managers", sm_path %></li>
+               <li class="divider"></li>
+               <li class="admin"><%= link_to "All Comments", pc_path %></li>
+               <li class="admin"><%= link_to "All Photos", pp_path %></li>
+               <li class="admin"><%= link_to "All Videos", pv_path %></li>
+               <li class="divider"></li>
+               <% end %>
+               <li style="text-align:left;">
+                 <%= link_to "Sign Out", signout_path, method: "Delete" %>
+               </li>
+             </ul>
+           </li>
+         <% else %>
+         <% if params[:controller] == 'users' and params[:action] == 'new' %>
+           <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Join</li>
+         <% else %>  
+           <li class="signInit"><%= link_to "Join", join_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
+         <% end %>
+           <% if params[:controller] == 'sessions' and params[:action] == 'new' %>
+             <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Sign In</li>
+           <% else %>  
+             <li class="signInit"><%= link_to "Sign In", signin_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
+           <% end %>
+         <% end %>
+       </ul>
     </div>
   </div>
 </header>

@@ -329,116 +329,6 @@ $(function(){
     };
   });
 
-  // User submission of a new shelter, populate email body for submission to admin
-  if ( $('#new_shelter').length && $('#submitShelter').length ) {
-    var _name = "";
-    var _phone = "";
-    var _description = "";
-    var _street = "";
-    var _city = "";
-    var _state = "";
-    var _zipcode = "";
-    var _sunday = "";
-    var _monday = "";
-    var _tuesday = "";
-    var _wednesday = "";
-    var _thursday = "";
-    var _friday = "";
-    var _saturday = "";
-    $('#shelter_name').focus(function(){
-      $(this).keyup(function(){
-        _name = $('#shelter_name').val();
-      });
-    });
-    $('#shelter_phone').focus(function(){
-      $(this).keyup(function(){
-        _phone = $('#shelter_phone').val();
-      });
-    });
-    $('#shelter_description').focus(function(){
-      $(this).keyup(function(){
-        _description = $('#shelter_description').val();
-      });
-    });
-    $('#shelter_street').focus(function(){
-      $(this).keyup(function(){
-        _street = $('#shelter_street').val();
-      });
-    });
-    $('#shelter_city').focus(function(){
-      $(this).keyup(function(){
-        _city = $('#shelter_city').val();
-      });
-    });
-    $('#shelter_state').focus(function(){
-      $(this).keyup(function(){
-        _state = $('#shelter_state').val();
-      });
-    });
-    $('#shelter_zipcode').focus(function(){
-      $(this).keyup(function(){
-        _zipcode = $('#shelter_zipcode').val();
-      });
-    });
-    $('#shelter_sun_hours').focus(function(){
-      $(this).keyup(function(){
-        _sunday = $('#shelter_sun_hours').val();
-      });
-    });
-    $('#shelter_mon_hours').focus(function(){
-      $(this).keyup(function(){
-        _monday = $('#shelter_mon_hours').val();
-      });
-    });
-    $('#shelter_tue_hours').focus(function(){
-      $(this).keyup(function(){
-        _tuesday = $('#shelter_tue_hours').val();
-      });
-    });
-    $('#shelter_wed_hours').focus(function(){
-      $(this).keyup(function(){
-        _wednesday = $('#shelter_wed_hours').val();
-      });
-    });
-    $('#shelter_thu_hours').focus(function(){
-      $(this).keyup(function(){
-        _thursday = $('#shelter_thu_hours').val();
-      });
-    });
-    $('#shelter_fri_hours').focus(function(){
-      $(this).keyup(function(){
-        _friday = $('#shelter_fri_hours').val();
-      });
-    });
-    $('#shelter_sat_hours').focus(function(){
-      $(this).keyup(function(){
-        _saturday = $('#shelter_sat_hours').val();
-      });
-    });
-    // Append data to email body
-    $('#submitShelter').mousedown(function(){
-      var _href = $(this).attr('href');
-      _name = "Name: " + _name + "%0A%0A";
-      _phone = "Phone: " + _phone + "%0A%0A";
-      _description = "Description: " + _description + "%0A%0A";
-      _street = "Street: " + _street + "%0A%0A";
-      _city = "City: " + _city + "%0A%0A";
-      _state = "State: " + _state + "%0A%0A";
-      _zipcode = "ZIP code: " + _zipcode + "%0A%0A";
-      _sunday = "Sun hours: " + _sunday + "%0A%0A";
-      _monday = "Mon hours: " + _monday + "%0A%0A";
-      _tuesday = "Tue hours: " + _tuesday + "%0A%0A";
-      _wednesday = "Wed hours: " + _wednesday + "%0A%0A";
-      _thursday = "Thu hours: " + _thursday + "%0A%0A";
-      _friday = "Fri hours: " + _friday + "%0A%0A";
-      _saturday = "Sat hours: " + _saturday + "%0A%0A";
-      $(this).attr('href', _href + _name + _phone + _description + _street + _city + _state + _zipcode
-                    + _sunday + _monday + _tuesday + _wednesday + _thursday + _friday + _saturday);
-      // Go back to whatever page user was on previously  
-      location.href = document.referrer;
-    });
-  };
-
   // Show Add Pet Photo modal dialog if no pet photos exist for current pet
   if ($('.noPhoto').length) {
     $('#photoClick').click();
@@ -463,7 +353,7 @@ $(function(){
 	// explicitly prevents the exclusion of shelters from potential pet shelter locations
 	if ( $('#potentialMatch').length ) {
 		$('#addPet').click(function(){
-			$.cookie("exclude_shelter", "false");
+			$.cookie("exclude", "false");
 		});
 	};
   
@@ -546,15 +436,48 @@ $(function(){
   });
   
   // Resize comment field on pet profile
-  $('.commentEntry textarea').attr('rows', 5);
+  $('.commentEntry textarea').attr('rows', 6);
 
-  // Character count on pet profile comment field
-  $('#micropost_content, #user_bio').keyup(function(){
+  // Resize edit pet text area
+  $('.rightEditForm textarea').attr('rows', 17);
+
+	// Populate character count on text entry fields
+	if ($('textarea').length) {		
+		activeArea = $('textarea').attr('id');
+		var cnt = $('textarea').val().length;
+		switch(activeArea) {
+			case "shelter_description":
+				var maxcnt = 770;
+				break;
+			case "pet_description":
+				var maxcnt = 800;
+				break;
+			case "user_bio":
+				var maxcnt = 480;
+				break;
+			case "micropost_content":
+				var maxcnt = 240;
+				break;
+		};
+		$('#char_count').text(maxcnt - cnt);
+	};
+
+  // Update character count on text entry fields
+  $('#micropost_content, #user_bio, #pet_description, #shelter_description').keyup(function(){
     var cnt = $(this).val().length;
-		if (this.id == "micropost_content") {
-	    var maxcnt = 240;
-		} else {
-	    var maxcnt = 480;
+		switch(this.id) {
+			case "shelter_description":
+				var maxcnt = 770;
+				break;
+			case "pet_description":
+				var maxcnt = 800;
+				break;
+			case "user_bio":
+				var maxcnt = 480;
+				break;
+			case "micropost_content":
+				var maxcnt = 240;
+				break;
 		};
     $('#char_count').text(maxcnt - cnt);
     if (maxcnt - cnt < 0) {
@@ -562,16 +485,9 @@ $(function(){
       $('#char_count').css('color','#ec520a');
     } else {
       $('input[name="commit"]').prop('disabled', false);
-			if (this.id == "micropost_content") {
-	      $('#char_count').css('color','#c7c7c7');
-			} else {
-	      $('#char_count').css('color','#722705');
-			};
+      $('#char_count').css('color','#999999');
     };
   });
-  
-  // Resize edit pet text area
-  $('.rightEditForm textarea').attr('rows', 17);
 
   // Check if profile .headerInfo h1 field is too long and adjust font-size if needed
   if ($('.headerInfo h1').length) {
