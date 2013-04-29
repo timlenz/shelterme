@@ -25,7 +25,7 @@ ShelterMe::Application.routes.draw do
   resources :pet_photos
   resources :pet_videos
   resources :pets, except: [:create, :new, :show, :edit, :destroy]
-  resources :messages
+  resources :messages, only: [:new, :create]
 
   resources :bonds, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
