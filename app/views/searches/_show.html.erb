@@ -88,8 +88,9 @@
 <% else %>
 	<div class="findBlurb" style="height:400px;">
 		<h3><%= image_tag("noMatchesFound.png")%></h3><br>
-		<p>Unfortunately, there are no pets available near <%= @search.location %>.<br>
-			Please visit a <%= link_to "local shelter", findshelter_path %> and add pets from it to our database.</p>
+		<p>Unfortunately, there are no pets available near <%= @search.location %>.</p>
+	  <p>During the initial phase of this project the site is focused on the Los Angeles City and County animal shelters. This summer we will be adding municipal shelters in other areas.</p>
+		<!--p>Please visit a <%= link_to "local shelter", findshelter_path %> and add pets from it to our database.</p-->
 	  <div class="row" style="margin-top:110px;">
 	    <div class="noPets">
 	      <%= image_tag("noPetsImage.png") %>

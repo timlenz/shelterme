@@ -21,7 +21,7 @@
     <%= image_tag("editIcon.png", alt: "Comments") %>
   <% elsif params[:controller] == 'pet_photos' %>
     <%= image_tag("photoIcon.png", alt: "Photos") %>
-  <% elsif params[:controller] == 'pet_videos' %>
+  <% elsif params[:controller] == 'pet_videos' || (params[:controller] == 'static_pages' && params[:action] == 'tutorial') %>
     <%= image_tag("videoIcon.png", alt: "Videos") %>
   <% end %>
 </div>

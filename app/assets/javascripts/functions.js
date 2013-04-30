@@ -156,7 +156,7 @@ $(function(){
     });
   };
   
-  // Video Display controls
+  // Pet Video Display controls
   $('#videoDisplay li a').click(function(){
     // Grab number for new video
     var new_thumb = $(this).attr('id').replace('thumb',''); 

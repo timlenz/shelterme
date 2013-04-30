@@ -1,0 +1,22 @@
+<% provide(:title, 'Tutorial') %>
+<div class="container content">
+	<div class="profile-section">
+    <div class="pageHeader" style="border-bottom:none;">
+      <%= render "shared/header_logo" %>
+      <div class="headerInfo">
+			  <h1>Tutorial</h1>
+			</div>
+    </div>
+  </div>
+  <div class="tutorialVideo">
+	  <div class="outer">
+			<div class="inner">
+        <video id="tutorial" width="920" height="518" class="video-js vjs-default-skin active" 
+          controls autoplay preload="auto" data-setup='{}' title="ShelterMe Tutorial"
+          poster="assets/tutorialPoster.jpg">
+          <source src="assets/sm_640x360.mp4" type="video/mp4">
+        </video>
+			</div>
+	  </div>
+	</div>
+</div>

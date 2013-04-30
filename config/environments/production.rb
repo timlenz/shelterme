@@ -28,7 +28,7 @@ ShelterMe::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false # CHANGE TO true WHEN WWW.SHELTERME.COM IS LIVE
+  config.force_ssl = true
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
@@ -52,7 +52,7 @@ ShelterMe::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Established mailer default host
-  config.action_mailer.default_url_options = { host: "kennel.shelterme.com" } # CHANGE FOR FINAL RELEASE TO SHELTERME.COM
+  config.action_mailer.default_url_options = { host: "www.shelterme.com" }
 
   # Configure using Mandrill on Heroku
   config.action_mailer.delivery_method = :smtp

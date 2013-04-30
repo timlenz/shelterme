@@ -87,6 +87,7 @@ ShelterMe::Application.routes.draw do
   match '/terms',             to: 'static_pages#terms'
   match '/privacy',           to: 'static_pages#privacy'
   match '/statistics',        to: 'static_pages#statistics'
+  match '/tutorial',          to: 'static_pages#tutorial'
   match '/mobile',            to: 'static_pages#home'
 
   # Put these at the bottom to avoid over-riding the explicit routes above

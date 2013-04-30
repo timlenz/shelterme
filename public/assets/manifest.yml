@@ -561,6 +561,12 @@ thisIsHello.png: thisIsHello-3214e9c7c9db91411dd890619885025e.png
 thisIsHello/index.png: thisIsHello-3214e9c7c9db91411dd890619885025e.png
 timYogi.jpg: timYogi-6a2e86e51d882d6138ed99e8936a43a6.jpg
 timYogi/index.jpg: timYogi-6a2e86e51d882d6138ed99e8936a43a6.jpg
+tutorial.jpg: tutorial-fac3bced90da8e55a9937dd183515e81.jpg
+tutorial/index.jpg: tutorial-fac3bced90da8e55a9937dd183515e81.jpg
+tutorial.png: tutorial-ee3b17ea3a56deea3b5427726222febf.png
+tutorial/index.png: tutorial-ee3b17ea3a56deea3b5427726222febf.png
+tutorialPoster.jpg: tutorialPoster-64a58c17a146cf9306e4ae4799db4d70.jpg
+tutorialPoster/index.jpg: tutorialPoster-64a58c17a146cf9306e4ae4799db4d70.jpg
 tvSeries.png: tvSeries-6db9f3e79f580327fe62f99c5bdbc966.png
 tvSeries/index.png: tvSeries-6db9f3e79f580327fe62f99c5bdbc966.png
 twitter.png: twitter-db96a5f8249a2480ed90f9268ade181c.png
@@ -591,10 +597,10 @@ youngFemaleIcon.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngFemaleIcon/index.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngMaleIcon.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
 youngMaleIcon/index.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
-application.js: application-02d9c3b262046a1ec8db2355541dbd07.js
-application/index.js: application-02d9c3b262046a1ec8db2355541dbd07.js
-application.css: application-88a952862d831aad1f3454daa69e92fb.css
-application/index.css: application-88a952862d831aad1f3454daa69e92fb.css
+application.js: application-16121c397a762a26086345c2f3f3cd09.js
+application/index.js: application-16121c397a762a26086345c2f3f3cd09.js
+application.css: application-dfa1e0f8b25e30cd0b125137486cb1dc.css
+application/index.css: application-dfa1e0f8b25e30cd0b125137486cb1dc.css
 mobile.css: mobile-86d6bdd98f56e11d6177106ffef8b010.css
 mobile/index.css: mobile-86d6bdd98f56e11d6177106ffef8b010.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png

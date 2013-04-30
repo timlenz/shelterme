@@ -2707,6 +2707,16 @@ ol.activity {
   }
 }
 
+img.tutorialTease {
+	width: 259px;
+	height: 144px;
+	&:hover {
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 85, 128, 0.75);
+    -moz-box-shadow:    0px 0px 8px rgba(0, 85, 128, 0.75);
+    box-shadow:         0px 0px 8px rgba(0, 85, 128, 0.75);
+	}
+}
+
 /* SIGN IN */
 
 .signinDialog {
@@ -4088,6 +4098,7 @@ ul.typeahead {
   }
   img {
     @include small_border_radius;
+		margin-bottom: 4px;
   }
   .staticBlurb {
     display: inline;
@@ -4095,13 +4106,9 @@ ul.typeahead {
       font-size: 13px;
       line-height: 18px;
     }
-    h4 {
-      margin: 2px 0;
-      display: inline;
-    }
-    .breed {
-      color: gray;
-    }
+		ul {
+			list-style: disc;
+		}
   }
   .answer {
     float: left;
@@ -4112,7 +4119,55 @@ ul.typeahead {
     background-color: $blueLight;
     border: 1px solid $grayMedium;
     @include tiny_border_radius;
+  }	
+  h4 {
+    font-weight: bold;
+		line-height: 28px;
+		padding-left: 4px;
   }
+  .breed {
+    color: gray;
+		font-weight: normal;
+		margin-top: 1px;
+		float: right;
+  }
+	.pet-icons {
+		margin-bottom: 4px;
+		li {
+			height: 52px;
+			width: 52px;
+			margin-left: 4px;
+			img {
+				margin: 4px;
+			}
+		}
+	}
+}
+
+.tutorialVideo {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 940px;
+	margin: -280px 0 0 -470px;
+	z-index: 950;
+	.outer {
+	  @include border-radius;
+	  -webkit-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+	  -moz-box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+	  box-shadow: 1px 1px 2px rgba(50, 50, 50, 0.12);
+	  background-color: #000000;
+	  border: 10px solid rgb(85, 85, 85);
+	  border: 10px solid rgba(0, 0, 0, .2);
+	  -moz-background-clip: padding;
+	  -webkit-background-clip: padding-box;
+	  background-clip: padding-box;
+	  background: rgba(0, 0, 0, .2);
+	}
+	.inner {
+	  @include small-border-radius;
+	  background: #000000;
+	}
 }
 
 .print {

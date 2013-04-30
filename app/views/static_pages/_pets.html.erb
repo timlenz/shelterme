@@ -9,6 +9,7 @@
       <p>Our apologies, but we cannot look up any pets right now. Our geocoding service is currently unavailable. Please try back later.</p>
     <% else %>
       <p>Sorry, but there aren't any available pets in our database near <%= cookies[:location] %>.</p>
+      <p>During the initial phase of this project the site is focused on the Los Angeles City and County animal shelters. This summer we will be adding municipal shelters in other areas.</p>
     <% end %>
   <div class="noPets" style="margin-top: 20px;margin-bottom: 20px;">
     <%= image_tag("noPetsImage.png") %>
