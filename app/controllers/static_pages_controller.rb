@@ -37,7 +37,7 @@ class StaticPagesController < ApplicationController
           @shelter = []
         end
         @blog = true
-        blog = Nokogiri::XML(open("http://blog.shelterme.com/feed", read_timeout: 1))
+        blog = Nokogiri::XML(open("http://blog.shelterme.com/feed", read_timeout: 0.5))
         if blog.nil?
           @blog = false
         else
