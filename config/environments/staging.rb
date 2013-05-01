@@ -33,7 +33,7 @@ ShelterMe::Application.configure do
   config.assets.debug = false
   
   # Established mailer default host
-  config.action_mailer.default_url_options = { host: "desolate-hamlet-7979.herokuapp.com" }
+  config.action_mailer.default_url_options = { host: "staging.shelterme.com" }
   
   # Configure ActionMailer's delivery method
   config.action_mailer.delivery_method = :letter_opener
@@ -55,4 +55,7 @@ ShelterMe::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
 end

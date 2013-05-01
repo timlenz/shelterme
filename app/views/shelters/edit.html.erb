@@ -23,7 +23,9 @@
           <%= f.input :name %> 
           <%= f.input :phone %>
           <%= f.input :description, as: :text %>
+					<% if current_user.admin? %>
           <%= f.input :slug, label: "Slug" %>
+					<% end %>
           <%= f.label "Precedence", class: "control-label", required: true %>
           <div class="btn-group four-btn-full btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[precedence_id]">
             <button type="button" data-toggle="button" class="btn" value="1">Newest</button>

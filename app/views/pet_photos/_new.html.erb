@@ -11,10 +11,9 @@
 	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
+	    <p>
 	    <% if @pet.pet_photos.size > 0 %>
-      <p>See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. 
-      <% end %>
-      Photos are limited to 5000x5000 and 20MB.</p>
+      See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. <% end %>Photos are limited to 5000x5000 and 20MB.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This window will close once your upload is complete.
       </div>
