@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <div class="foundShelters">
-        <% if @nearbys.count == 0 %>
+        <% if @nearbys.blank? %>
         <div class="noShelters">
           <p>There are no shelters in our database near the specified location.</p>
           <p>Please change your target location using the search box on the right.</p>

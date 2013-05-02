@@ -19,7 +19,7 @@
 <% end %>
       <div class="push"></div>
     </div>  
-<% if signed_in? && pet_list.count > 1 %>
+<% if signed_in? && pet_list.count > 1 && params[:action] != "tutorial" %>
 <%= render 'layouts/history' %>
 <% end %>
 <%= render 'layouts/footer' %>  

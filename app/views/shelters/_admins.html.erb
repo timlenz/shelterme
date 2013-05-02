@@ -1,9 +1,8 @@
 <div class="shelterAdmin">
   <div class="admin">
     <%= link_to avatar_for(f), f, size: 50 %>
-    &nbsp;&nbsp; <%= link_to f.name, f %>
-    <br>
-    &nbsp;&nbsp; <%= f.location %>
+    <p><%= link_to f.name, f %><br>
+    <%= f.location %></p>
   </div>
   <div class="userIcon">
     <%= link_to image_tag("addIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.pets.count, "Sponsored Pet") %><br>

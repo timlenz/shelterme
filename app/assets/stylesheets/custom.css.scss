@@ -1784,7 +1784,6 @@ ol.activity {
   padding: 10px 0;
   border-bottom: 3px solid $grayLighter; 
   margin-bottom: 4px;
-	overflow: hidden;
   p {
     font-size: 13px;
     line-height: 19px;
@@ -2170,6 +2169,10 @@ ol.activity {
     height: 22px;
     font-size: 11px;
   }
+}
+
+.fb_edge_widget_with_comment {
+	position: absolute;
 }
 
 .short {
@@ -2908,7 +2911,7 @@ img.tutorialTease {
   margin-right: 9px;
   .admin {
     float: left;
-    width: 200px;
+    width: 220px;
     height: 40px;
     padding: 10px;
     margin-bottom: 10px;
@@ -2917,8 +2920,11 @@ img.tutorialTease {
       letter-spacing: 0;
     }
     p {
-      font-size: 11px;
+      font-size: 12px;
     }
+		img {
+			margin-right: 6px;
+		}
   }
   &:hover {
     background-color: $grayLight;
