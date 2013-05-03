@@ -36,62 +36,7 @@
            <% end %>
          </li>
        </ul>
-       <ul class="nav pull-right">
-         <% if signed_in? %>
-           <li id="fat-menu" class="dropdown">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top:7px;">
-               <%= image_tag("profileIcon.png", mouseover: "profileIconOver.png", alt: "Profile") %></span>
-             </a>
-             <ul class="dropdown-menu">
-               <li class="menu-photo">
-                 <%= avatar_for current_user, size: 40 %>
-                 <div class="menu-name"><%= current_user.name %></div>
-               </li>
-               <li class="divider"></li>
-               <li><%= link_to "My Profile", current_user %></li>
-               <li><%= link_to "Edit My Profile", edit_user_path(current_user) %></li>
-               <li class="divider"></li>
-               <li><%= link_to "My Sponsored Pets", mysponsoredpets_path %></li>
-               <% if current_user.manager? %>
-               <li class="admin"><%= link_to "My Managed Pets", mymanagedpets_path %></li>
-               <% end %>
-               <li><%= link_to "My Followed Pets", myfollowedpets_path %></li>
-               <li><%= link_to "My Followed Users", myfollowedusers_path %></li>
-               <li class="divider"></li>
-               <li><%= link_to "My Updates", myupdates_path %></li>
-               <li><%= link_to "My Photos", myphotos_path %></li>
-               <li><%= link_to "My Videos", myvideos_path %></li>
-               <li class="divider"></li>
-               <% if current_user.admin? %>
-               <li class="admin"><%= link_to "Statistics", statistics_path %></li>
-               <li class="admin"><%= link_to "All Pets", p_path %></li>
-               <li class="admin"><%= link_to "All Users", u_path %></li>
-               <li class="admin"><%= link_to "All Shelters", s_path %></li>
-               <li class="admin"><%= link_to "All Managers", sm_path %></li>
-               <li class="divider"></li>
-               <li class="admin"><%= link_to "All Comments", pc_path %></li>
-               <li class="admin"><%= link_to "All Photos", pp_path %></li>
-               <li class="admin"><%= link_to "All Videos", pv_path %></li>
-               <li class="divider"></li>
-               <% end %>
-               <li style="text-align:left;">
-                 <%= link_to "Sign Out", signout_path, method: "Delete" %>
-               </li>
-             </ul>
-           </li>
-         <% else %>
-         <% if params[:controller] == 'users' and params[:action] == 'new' %>
-           <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Join</li>
-         <% else %>  
-           <li class="signInit"><%= link_to "Join", join_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
-         <% end %>
-           <% if params[:controller] == 'sessions' and params[:action] == 'new' %>
-             <li class="signInOn" style= "padding:8px 15px 8px;width:50px;">Sign In</li>
-           <% else %>  
-             <li class="signInit"><%= link_to "Sign In", signin_path, style: "padding:8px 15px 8px;color:#722705;width:50px;" %></li>
-           <% end %>
-         <% end %>
-       </ul>
+       <%= render "layouts/nav_menu" %>
     </div>
   </div>
 </header>

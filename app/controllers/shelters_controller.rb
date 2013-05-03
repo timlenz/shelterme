@@ -72,7 +72,7 @@ class SheltersController < ApplicationController
   end
   
   def find
-    @current_location = "MapQuest not responding"
+    @current_location = "" # Temporary fix for LA beta - was "MapQuest not responding"
     if params[:search].present?
       @current_location = params[:search]
       cookies[:location] = @current_location
@@ -85,7 +85,9 @@ class SheltersController < ApplicationController
     end
     if validate_location(@current_location) == false   
       s = Geocoder.search(remote_ip)
-      if s[0].city != ""
+      if s[0].city.blank?
+        @current_location = s[0].latitude.to_s + ", " + s[0].longitude.to_s
+      else
         @current_location = s[0].city + ", " + s[0].state_code
       end
     end

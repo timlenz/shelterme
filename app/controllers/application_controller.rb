@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   
   def validate_location(location) # No support for non-US addresses
     m = Geocoder.search(location)
-    if m[0].address == "US"
+    if m.blank? or m[0].address == "US"
       return false
     end
     return true

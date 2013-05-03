@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
       format.html {
         require 'open-uri'
         require 'nokogiri'
-        @location = "MapQuest not responding"
+        @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
         if cookies[:location]
           @location = cookies[:location]
         end

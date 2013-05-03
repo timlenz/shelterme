@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
   
   def new
     @search = Search.new
-    @current_location = "MapQuest not responding"
+    @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
     if location.present?
       @current_location = location
     end

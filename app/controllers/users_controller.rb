@@ -114,7 +114,7 @@ class UsersController < ApplicationController
   def matchme
     if signed_in?
       @user = current_user
-      @current_location = "MapQuest not responding"
+      @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
       if location.present?
         @current_location = location
       end
