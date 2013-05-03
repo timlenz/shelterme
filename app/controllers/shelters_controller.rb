@@ -72,7 +72,7 @@ class SheltersController < ApplicationController
   end
   
   def find
-    @current_location = "" # Temporary fix for LA beta - was "MapQuest not responding"
+    @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was "MapQuest not responding"
     if params[:search].present?
       @current_location = params[:search]
       cookies[:location] = @current_location
