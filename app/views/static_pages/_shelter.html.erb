@@ -21,7 +21,7 @@
   <% end %>
   <% else %>
   <div class="noShelters">
-    <% if @location == "MapQuest not responding" %>
+    <% if @current_location == "MapQuest not responding" %>
     <p>Our apologies, but we cannot look up any shelters right now. Our geocoding service is currently unavailable. Please try back later.</p>
     <% else %>
     <p>Our apologies, but there are no shelters in our database near <%= cookies[:location] %>.</p>

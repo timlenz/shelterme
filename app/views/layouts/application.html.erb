@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
-    <% if params[:controller] == 'pets' and params[:action] == 'show' %>
+    <% if params[:controller] == 'pets' and params[:action] == 'show' and @pet %>
       <%= render 'pets/open_graph'%>
     <% end %>
   </head>
