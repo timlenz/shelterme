@@ -149,6 +149,8 @@ logoMobile.png: logoMobile-c500980dcbbd512631cda97445f22ce7.png
 logoMobile/index.png: logoMobile-c500980dcbbd512631cda97445f22ce7.png
 logoWhite.png: logoWhite-b54077723fa62d91169c09bc8a0057d7.png
 logoWhite/index.png: logoWhite-b54077723fa62d91169c09bc8a0057d7.png
+logo_print.png: logo_print-c7430bea0599fb723bc94c4d9d2aaef1.png
+logo_print/index.png: logo_print-c7430bea0599fb723bc94c4d9d2aaef1.png
 logo_small.png: logo_small-4b5763400fa1d18d41b07461071c7f47.png
 logo_small/index.png: logo_small-4b5763400fa1d18d41b07461071c7f47.png
 longBlackBrownIcon.png: longBlackBrownIcon-5a9c1fa3e68c6a9f76420edebae50272.png
@@ -597,12 +599,10 @@ youngFemaleIcon.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngFemaleIcon/index.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngMaleIcon.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
 youngMaleIcon/index.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
-application.js: application-16121c397a762a26086345c2f3f3cd09.js
-application/index.js: application-16121c397a762a26086345c2f3f3cd09.js
-application.css: application-19bc79522989732fc01a27162a9d408f.css
-application/index.css: application-19bc79522989732fc01a27162a9d408f.css
-mobile.css: mobile-97377c2cd337fa5aff8c589f141ebccc.css
-mobile/index.css: mobile-97377c2cd337fa5aff8c589f141ebccc.css
+application.js: application-7b27ab0ce8a87042d35bc33651fa12bd.js
+application/index.js: application-7b27ab0ce8a87042d35bc33651fa12bd.js
+application.css: application-8ae539b613669b3d59fb4b759927d62f.css
+application/index.css: application-8ae539b613669b3d59fb4b759927d62f.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png

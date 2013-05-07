@@ -1,11 +1,15 @@
 <div class="pet-tile editVideo">
   <div class="tile-photo">
-    <% if f.panda_video.encodings["thumbnail"].screenshots.first %>
+    <% if f.panda_video.encodings["thumbnail"].screenshots.first && f.panda_video.status == "success" %>
     <%= image_tag(f.thumbnail.screenshots.first) %>
-    <% else %>
+    <% elsif f.panda_video.status != "fail"  %>
       <div class="processing">
         <p>We are still processing this video...please reload the page in a few minutes.</p>
       </div>
+    <% else %>
+    <div class="processing">
+      <p>The video encoding failed. Please delete this and try uploading it again.</p>
+    </div>
     <% end %>
   </div>
   <% if current_user.admin? or @pet.user == current_user or

@@ -96,7 +96,7 @@ $(function(){
     var current_image = $('.fader .active');
     var next_image = (current_image.next().length > 0) ? current_image.next() : $('.fader img:first');
     next_image.css('z-index', 2).show(); // move next image up in pile
-    current_image.fadeOut(1500, function() {
+    current_image.fadeOut(750, function() {
       current_image.css('z-index', 1).show().removeClass('active'); // reset z-index and unhide
       next_image.css('z-index', 3).addClass('active'); // move next image to top
     });
@@ -106,7 +106,7 @@ $(function(){
     var current_image = $('.fader .active');
     var prev_image = (current_image.prev().length > 0) ? current_image.prev() : $('.fader img:last');
     prev_image.css('z-index', 2).show(); // move prev image up in pile
-    current_image.fadeOut(1500, function() {
+    current_image.fadeOut(750, function() {
       current_image.css('z-index', 1).show().removeClass('active'); // reset z-index and unhide
       prev_image.css('z-index', 3).addClass('active'); // move prev image to top
     });    
@@ -334,16 +334,16 @@ $(function(){
     $('#photoClick').click();
   };
   
-  // Hide Add Media buttons if user agent is iPad (and other tablets)
+  // Hide Add Media buttons if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
   if ( $('.addMedia').length ) {
-    if ( navigator.userAgent.match(/iPad|Tablet/i) != null ) {
+    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad|Tablet/i) != null ) {
       $('.mediaButtons input').prop('disabled', true);
     };
   };
   
-  // Hide Add Pet if user agent is iPad (and other tablets)
+  // Hide Add Pet if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
   if ( $('#addPet').length) {
-    if ( navigator.userAgent.match(/iPad|Tablet/i) != null ) {
+    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad|Tablet/i) != null ) {
       $('#addPet').hide();
 			$('#tabletAlert').show();
     };

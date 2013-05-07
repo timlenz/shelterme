@@ -4176,14 +4176,14 @@ ul.typeahead {
 	}
 }
 
-.print {
+.print, .printText, .printLogo {
   display: none;
 }
 
 /* PRINT PET PROFILE */
 
 @media print {
-  .headerButtons, .push, footer, #videoCarousel, #videoDisplay, .mediaButtons, .microposts, .commentEntry, .carousel-control, .noPrint {
+  .headerButtons, .push, footer, #videoCarousel, #videoDisplay, .mediaButtons, .microposts, .comments, .commentEntry, .carousel-control, .noPrint {
     display: none;
   }
   .profile-section {
@@ -4256,8 +4256,9 @@ ul.typeahead {
     font-size: 13px;
     margin: 0;
   }
-  body {
+  body, html {
     margin: 0;
+		height: auto;
   }
   a {
     color: $grayDark;
@@ -4273,4 +4274,17 @@ ul.typeahead {
     font-size: 14px;
     text-transform: uppercase;
   }
+	.printText {
+		display: inline;
+	}
+	.printLogo {
+    position: absolute;
+    right: 0;
+		display: inline;
+		height: 65px;
+		width: 150px;
+		img {
+			height: 100%;
+		}
+	}
 }

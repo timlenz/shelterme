@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   
-  before_filter :handle_mobile
+  #before_filter :handle_mobile RE-ENABLE WHEN MOBILE APPS ARE READY
   
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: :render_error
