@@ -1,16 +1,21 @@
 <div class="pet-tile editVideo">
   <div class="tile-photo">
-    <% if f.panda_video.encodings["thumbnail"].screenshots.first && f.panda_video.status == "success" %>
+    <% if f.panda_video.status == "fail" %>
+    <div class="processing">
+      <p>Video upload failed. Please delete this and try uploading the video again.</p>
+    </div>
+    <% elsif f.thumbnail.status == "success" && f.h264.status == "success" && f.webm.status == "success" %>
     <%= link_to image_tag(f.thumbnail.screenshots.first), 
         [f.pet.shelter, f.pet], 
         title: "Video of #{f.pet.name != '' ? f.pet.name : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
-    <% elsif f.panda_video.status != "fail"  %>
+    <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" or f.webm.status == "fail" %>
     <div class="processing">
-      <p>We are still processing this video...please reload the page in a few minutes.</p>
+      <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : ( f.h264.status == "fail" ? "H264 video" : "WebM video" ) %> encoding failed.<br>Please <%= link_to "let us know", contact_path %>.</p>
     </div>
     <% else %>
     <div class="processing">
-      <p>The video encoding failed. Please delete this and try uploading it again.</p>
+     <p><%= f.thumbnail.status == "processing" ? "Processing thumbnail..." : ( f.h264.status == "processing" ? "Processing H264 video..." : "Processing WebM video..." ) %><br>
+      Please reload the page in a few minutes.</p>
     </div>
     <% end %>
   </div>

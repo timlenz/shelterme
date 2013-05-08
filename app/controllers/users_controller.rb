@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 24)
     @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 24)
     @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 24)
+    if @user.shelter.blank?
+      @pseudo_boosted = (@user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter})
+    else
+      @pseudo_boosted = @user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter} << @user.shelter
+    end
+    @pseudo_boosted = @pseudo_boosted.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse.map{|k,v| k}.compact
   rescue
     raise ActionController::RoutingError.new('Not Found')
   end

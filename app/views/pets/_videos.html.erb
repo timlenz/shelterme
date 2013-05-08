@@ -1,22 +1,19 @@
 <div id="videoDisplay">
   <div class="innerVideo">
     <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
-      <% if m.panda_video.status == "success" && m.thumbnail.screenshots %>
+      <% if m.panda_video.encodings["thumbnail"].status == "success" && m.h264.status == "success" && m.webm.status == "success" %>
         <video id="movie<%= i %>" width="592" height="333" class="video-js vjs-default-skin<%= i == 0 ? " active" : ''%>" 
-          preload="none" data-setup='{"example_option":true}' title="Video contributed by <%= m.user ? m.user.name : "Shelter Me" %>"
+          preload="auto" data-setup='{"example_option":true}' title="Video contributed by <%= m.user ? m.user.name : "Shelter Me" %>"
           poster="<%= m.thumbnail.screenshots.first %>" controls>
           <source src="<%= m.h264.url %>" type="video/mp4">
           <source src="<%= m.webm.url %>" type="video/webm">
         </video>
-      <% elsif m.panda_video.status != "fail" %>
-        <div class="processing">
-          <p>We are still processing this video...please reload the page in a few minutes.</p>
-        </div>
-      <% else %>
-	    <div class="processing">
-	      <p>The video encoding failed. Please delete this and try uploading it again.</p>
-	    </div>
-      <% end %>
+      <% elsif m.panda_video.encodings["thumbnail"].status == "processing" or m.h264.status == "processing" or m.webm.status == "processing" %>
+		    <div class="processing">
+		     <p><%= m.panda_video.encodings["thumbnail"].status == "processing" ? "Processing thumbnail..." : ( m.h264.status == "processing" ? "Processing H264 video..." : "Processing WebM video..." ) %><br>
+		      Please reload the page in a few minutes.</p>
+		    </div>
+		    <% end %>
     <% end %>
   </div>
   <% if @pet.pet_videos.size > 1 %>
@@ -24,9 +21,9 @@
     <ol>
     <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
       <li class="thumb<%= i == 0 ? " selected" : ''%>">
-        <% if m.panda_video.status == "success" && m.thumbnail.screenshots.first %>
+        <% if m.thumbnail.status == "success" && m.h264.status == "success" && m.webm.status == "success" %>
         <%= link_to image_tag(m.thumbnail.screenshots.first), "#", id: "thumb#{i}" %>
-        <% elsif m.panda_video.status != "fail" %>
+        <% elsif m.thumbnail.status == "processing" or m.h264.status == "processing" or m.webm.status == "processing" %>
           <div class="waiting">
             <p>Not ready just yet...</p>
           </div>

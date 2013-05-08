@@ -1,3 +1,4 @@
+<% if @pet.watchers.size > 0 or (signed_in? && @pet.pet_state.status != 'unavailable') or @feed_items.any? %>
 <div class="comments">
 	<% if @pet.watchers.size > 0 %>
   <h3><%= image_tag("followingMe.png", alt: "Following Me", class: "noPrint") %><span class="print">Following Me</span></h3>
@@ -11,3 +12,4 @@
   </div>
   <% end %>
 </div>
+<% end %>

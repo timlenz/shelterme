@@ -102,7 +102,30 @@
       bottom: 0;
       left: 5px;
     }
+		.btn-link {
+			background-color: transparent;
+			background-image: none;
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+			color: #388CB2;
+	    font-weight: bold;
+	    text-decoration: none;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+			cursor: pointer;
+			border-color: transparent;
+			-webkit-border-radius: 0;
+			-moz-border-radius: 0;
+			border-radius: 0;
+		}
   </style>
+  <script>
+	function goBack()
+	  {
+	  window.history.back()
+	  }
+	</script>
 </head>
 
 <body>
@@ -113,8 +136,9 @@
         <div id="message">
           <p>Um, oops. Our server is misbehaving.</p>
           <p>Sorry about that. It's been trained better than this.</p><br>
-          <p>Please <%= link_to "contact us", contact_path %> if this behavior continues to be a problem.</p><br>
-          <a href="http://www.shelterme.com">Back to the home page</a>
+          <p>Please <%= link_to "contact us", contact_path %> if this continues to be a problem.</p><br>
+          Return to 
+          <input type="button" value="previous page" class="btn-link" onclick="goBack()">
         </div>
         <div id="logo">
           <img src="/assets/logo_small.png">

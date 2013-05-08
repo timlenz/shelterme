@@ -122,7 +122,7 @@ $(function(){
     var hslide_left = "-=" + (tile_width * 3);
     // Set width of sliding element
     $('#historySlider ol').width(inner_width);
-    // Video Display slider controls
+    // Slider controls
     $('.slider-control').click(function(){
       var clicked = $(this).attr('class').replace(' slider-control','');
       if ( clicked == "right" ) {
@@ -174,16 +174,17 @@ $(function(){
     return false;
   });
   
+	// Pet Video Display slider controls
   if ( $('#videoDisplay').length ) {
     var thumbs = $('.outerVideo li').length;
-    var thumb_width = $('.outerVideo li').outerWidth([true]);
+    var thumb_width = $('.outerVideo li').outerWidth(true);
     var ol_width = thumbs * thumb_width;
-    var slider_width = $('.outerVideo').outerWidth([true]);
+    var slider_width = $('.outerVideo').outerWidth(true);
     var slide_right = "+=" + (thumb_width * 4);
-    var slide_left = "-=" + (thumb_width * 4)
+    var slide_left = "-=" + (thumb_width * 4);
     // Set width of sliding element
     $('#videoDisplay ol').width(ol_width);
-    // Video Display slider controls
+    // Slider controls
     $('.slide-control').click(function(){
       var clicked = $(this).attr('class').replace(' slide-control','');
       if ( clicked == "right" ) {
