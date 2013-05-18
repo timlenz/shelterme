@@ -8,7 +8,7 @@ class StaticPagesController < ApplicationController
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
           @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
           @shelter = Shelter.select{|s| s.id == cookies[:featured_shelter].to_i}.first
-          @shelter_pets = cookies[:featured_shelter_pets].split(" ").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
+          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
         else  
           @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
           if cookies[:location]
