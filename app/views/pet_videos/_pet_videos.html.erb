@@ -4,17 +4,17 @@
     <div class="processing">
       <p>Video upload failed. Please delete this and try uploading the video again.</p>
     </div>
-    <% elsif f.thumbnail.status == "success" && f.h264.status == "success" && f.webm.status == "success" %>
+    <% elsif f.thumbnail.status == "success" && f.h264.status == "success" %>
     <%= link_to image_tag(f.thumbnail.screenshots.first), 
         [f.pet.shelter, f.pet], 
-        title: "Video of #{f.pet.name != '' ? f.pet.name : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
-    <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" or f.webm.status == "fail" %>
+        title: "Video of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
+    <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" %>
     <div class="processing">
-      <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : ( f.h264.status == "fail" ? "H264 video" : "WebM video" ) %> encoding failed.<br>Please <%= link_to "let us know", contact_path %>.</p>
+      <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : "Video" %> encoding failed.<br>Please <%= link_to "let us know", contact_path %>.</p>
     </div>
     <% else %>
     <div class="processing">
-     <p><%= f.thumbnail.status == "processing" ? "Processing thumbnail..." : ( f.h264.status == "processing" ? "Processing H264 video..." : "Processing WebM video..." ) %><br>
+     <p>Processing <%= f.thumbnail.status == "processing" ? "thumbnail..." : "video..." %><br>
       Please reload the page in a few minutes.</p>
     </div>
     <% end %>
@@ -27,6 +27,6 @@
     <% end %>
   <% end %>
   <%= form_for f, html: {multipart: true} do |p| %>
-    <%= link_to "Delete", f, method: :delete, class: "deleteMedia", confirm: "Are you certain you want to delete this video of #{f.pet.name != '' ? f.pet.name : f.pet.animal_code}?" %>
+    <%= link_to "Delete", f, method: :delete, class: "deleteMedia", confirm: "Are you certain you want to delete this video of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code}?" %>
   <% end %>
 </div>

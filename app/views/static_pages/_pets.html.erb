@@ -1,8 +1,8 @@
 <div class="featured-pets">
   <h2><%= image_tag("featuredPets.png", alt: "Featured Pets") %></h2>
-  <% if @pets.count > 0 %>
+  <% if @featured_pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
-      collection: @pets, 
+      collection: @featured_pets, 
       as: :f %>
   <% else %>
     <% if @location == "MapQuest not responding" %>

@@ -29,11 +29,15 @@ class SheltersController < ApplicationController
   end
   
   def show
-    @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 24)
-    @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 24)
-    @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 24)
-    @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 24)
-    cookies[:recent_shelter_id] = @shelter.id
+    respond_to do |format|
+      format.html {
+        @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 24)
+        @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 24)
+        @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 24)
+        @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 24)
+        cookies[:recent_shelter_id] = @shelter.id
+      }
+    end
   rescue
     raise ActionController::RoutingError.new('Not Found')
   end

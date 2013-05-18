@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:success] = "#{@user.name} has been deleted."
-    redirect_to root_path
+    redirect_to :back
   rescue
     flash[:notice] = "User not deleted."
   end
@@ -146,9 +146,9 @@ class UsersController < ApplicationController
       flash[:notice] = "You must be signed in to access this page."
       redirect_to join_path
     end
-  #rescue
-   # flash[:error] = "Unable to find a match for you."
-    #redirect_to root_path
+  rescue
+    flash[:error] = "Unable to find a match for you."
+    redirect_to :back
   end
   
   def sponsored

@@ -1,1 +1,35 @@
 $('#managed_pets').html('<%= escape_javascript(render("managed_pets")) %>');
+
+$('div.btn-group[data-toggle-name]').each(function(){
+  var group   = $(this);
+  var form    = group.parents('form').eq(0);
+  var name    = group.attr('data-toggle-name');
+  var hidden  = $('input[name="' + name + '"]', form);
+  var current_value;
+  $('button', group).each(function(){
+    var button = $(this);
+    button.on('click', function(){
+      current_value = hidden.val();
+			// Remove highlight required field on selection
+			if ( group.hasClass('btn-required') ) {
+				group.removeClass('btn-required');
+			};
+      // Set value of clicked element to hidden control
+      hidden.val($(this).val());
+
+      // Submit pet state changes on click for Managed Pets, Admin Pets views
+      if($('#managed_pets, #pets').length) {
+        $(this).parent().parent().find("input[type=submit]").click();
+      };
+      // Set cookie when pet state is changed
+      if(name == 'pet[pet_state_id]') {
+        $.cookie("pet_state_change", current_value, { expires: 1, path: '/' });
+      };
+    });
+    if(button.val() == hidden.val()) {
+      // Set clicked button to active
+      button.addClass('active');
+    };
+  });
+});
+

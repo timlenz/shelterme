@@ -5,5 +5,6 @@ class ShelterMailer < ActionMailer::Base
     @shelter = shelter
     @user = user
     mail to: 'admin@shelterme.com', subject: "New user shelter submission"
+    mail reply_to: @user.email
   end
 end

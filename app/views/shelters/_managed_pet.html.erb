@@ -4,10 +4,22 @@
       <td class="adminAdded" style="width:112px;"><%= f.created_at.to_date.to_formatted_s(:long) %></td>
       <td class="adminFollowers" style="width:120px;"><%= f.animal_code %></td>
       <td class="managedName">
+	      <div class="adminPhoto">
+		      <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
+		        <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [f.shelter, f] %>
+		      <% elsif f.pet_photos.count == 1 %>
+		        <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [f.shelter, f] %>
+		      <% else %>
+			      <%= link_to "", [f.shelter, f] %>
+		      <% end %>
+				  <% if f.pet_state.status == 'available' || f.pet_state.status == 'absent' %>
+				  <div class="corner <%= f.created_at < 1.month.ago ? 'veteran' : ( f.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition"></div>
+				  <% end %>
+	      </div>
         <% if f.name != '' %>
         <%= link_to f.name, [f.shelter, f] %>
         <% else %>
-        <%= link_to "No Name", [f.shelter, f] %>
+        <%= link_to "[ ]", [f.shelter, f] %>
         <% end %>
       </td>
       <td class="managedStatus">

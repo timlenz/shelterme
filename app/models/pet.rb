@@ -15,7 +15,7 @@
 #  pet_state_id       :integer
 #  weight             :integer
 #  shelter_id         :integer
-#  age                :integer
+#  age                :float
 #  age_period_id      :integer
 #  affection_id       :integer
 #  energy_level_id    :integer
@@ -29,7 +29,6 @@
 #
 
 class Pet < ActiveRecord::Base
-  before_validation :convert_values, on: :create
   attr_accessible :name, :description, :animal_code, :weight, :size_id, 
                   :gender_id, :species_id, :pet_state_id, :shelter_id,
                   :age, :age_period_id, :affection_id,
@@ -101,6 +100,8 @@ class Pet < ActiveRecord::Base
   validate :check_breed_match
   
   before_validation :generate_slug, on: :create
+  before_validation :regenerate_slug, on: :update, if: lambda { :name_changed? || :shelter_id_changed? }
+  before_validation :convert_values, on: :create
 
   default_scope order: 'pets.created_at DESC'
 
@@ -108,17 +109,6 @@ class Pet < ActiveRecord::Base
 
   def to_param
     slug
-  end
-  
-  def generate_slug
-    if name != ""
-      self.slug ||= name.parameterize.titleize.gsub(" ","")
-    else
-      self.slug ||= animal_code.parameterize.titleize.gsub(" ","")
-    end
-    while Pet.find{|s| s.slug == self.slug} do
-      self.slug = self.slug + Random.rand(1..9).to_s
-    end
   end
   
   def journalize!(shelter, pet_state, old_pet_state)
@@ -164,8 +154,8 @@ class Pet < ActiveRecord::Base
   def current_age
     s_day = 86400
     s_week = 604800
-    s_month = 2629743.83
-    s_year = 31556926
+    s_month = 2628000
+    s_year = 31536000
     
     if self.age_period.length == "day"
       raw = self.age * s_day
@@ -178,16 +168,16 @@ class Pet < ActiveRecord::Base
     end
     
     elapsed = Time.now - (self.created_at.kind_of?(Time) ? self.created_at : Time.parse(self.created_at))
-    temp = (raw + elapsed).to_i
+    temp = raw + elapsed
     
     if temp < s_week * 2
-      current = (temp / s_day).round(0).to_s + " day"
+      current = (temp / s_day).round.to_s + " day"
     elsif temp < s_month * 4
-      current = (temp / s_week).round(0).to_s + " week"
-    elsif temp < s_year
-      current = (temp / s_month).round(0).to_s + " month"
+      current = (temp / s_week).round.to_s + " week"
+    elsif temp < s_year * 2
+      current = (temp / s_month).round.to_s + " month"
     else
-      current = (temp / s_year).round(0).to_s + " year"
+      current = (temp / s_year).round.to_s + " year"
     end
     
     return current
@@ -233,6 +223,28 @@ class Pet < ActiveRecord::Base
   
   private
   
+    def generate_slug
+      if name != ""
+        self.slug ||= name.parameterize.titleize.gsub(" ","")
+      else
+        self.slug ||= animal_code.parameterize.titleize.gsub(" ","")
+      end
+      while Pet.find{|s| s.slug == self.slug} do
+        self.slug = self.slug + Random.rand(1..9).to_s
+      end
+    end
+ 
+    def regenerate_slug
+      if name != ""
+        self.slug = name.parameterize.titleize.gsub(" ","")
+      else
+        self.slug = animal_code.parameterize.titleize.gsub(" ","")
+      end
+      while Pet.find{|s| s.slug == self.slug} do
+        self.slug = self.slug + Random.rand(1..9).to_s
+      end
+    end 
+    
     def convert_values
       size_id = size_id.to_i
       pet_state_id = 1

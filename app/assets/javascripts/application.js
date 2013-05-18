@@ -16,8 +16,6 @@
 //= require bootstrap
 //= require autocomplete-rails
 //= require jquery.cookie
-//= require jquery.panda-uploader.min
-//= require video.min
 //= require jquery.sparkline.min
 //= require jquery.iframe-transport
 //= require jquery.fileupload

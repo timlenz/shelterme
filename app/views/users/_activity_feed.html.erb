@@ -13,7 +13,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"><%= p[3]%></span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Added' %>
@@ -31,7 +31,7 @@
           <div class="post wide">
             <%= link_to p[0].name, p[0] %>
             <span class="action"> also started following </span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <br>
@@ -63,7 +63,7 @@
         <div class="innerComment">
           <div class="avatar"><%= link_to avatar_for(p[1]), p[1] %></div>
           <div class="post wide">
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <span class="action">is <%= p[3]%> you</span>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
@@ -99,7 +99,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">commented on</span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %> 
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %> 
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
             <p><%= p[4] %></p>
           </div>
@@ -109,7 +109,7 @@
       <li class="<%= p[4] == 'unavailable' ? 'unavailable' : ''%>">
         <div class="innerComment">
           <div class="post wide">
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %> 
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %> 
             <span class="action"><%= p[4] == 'adopted' ? "has been" : "is now" %></span>
             <span class="status"><%= p[4]%></span>            
             <% if p[4] == 'adopted' %>
@@ -135,7 +135,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added</span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Managed' %>
@@ -157,7 +157,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"> started following </span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <br>
             <span class="time"> <%= time_ago_in_words(p[2]) %></span>
           </div>
@@ -174,7 +174,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added a photo of</span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <%= link_to (image_tag p[4].image_url.to_s.gsub!(/upload/,"upload/t_adopted"), class: "media"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
@@ -192,7 +192,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action">Added a video of</span>
-            <%= link_to "#{p[1].name != '' ? p[1].name : p[1].animal_code}", [p[1].shelter, p[1]] %>
+            <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
             <%= link_to (image_tag p[4].panda_video.encodings["thumbnail"].screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>

@@ -12,10 +12,10 @@
   <div class="foundShelterPets">
     <ul>
       <li class="dogs">
-        <%= link_to f.pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count, f %>
+        <%= link_to f.available_dogs.count, f %>
       </li>          
       <li class="cats">
-        <%= link_to f.pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count, f %>
+        <%= link_to f.available_cats.count, f %>
       </li>
     </ul>
   </div>

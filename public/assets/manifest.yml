@@ -9,6 +9,8 @@
 340x240/index.gif: 340x240-57a664694e084d48012cbd07d5cee9df.gif
 absentIcon.png: absentIcon-d512eb097f76832175085a39d78a2e25.png
 absentIcon/index.png: absentIcon-d512eb097f76832175085a39d78a2e25.png
+addComment.png: addComment-b87a57c964fd991b4e08869575439c87.png
+addComment/index.png: addComment-b87a57c964fd991b4e08869575439c87.png
 addIcon.png: addIcon-0454014afc836a917b1d61ed5185cc6d.png
 addIcon/index.png: addIcon-0454014afc836a917b1d61ed5185cc6d.png
 addPetOff.png: addPetOff-41d9afdfba8251f7d9cd5ff8f1140495.png
@@ -59,8 +61,8 @@ centerOr.png: centerOr-ece1c7a2ef6e86ec0ca90e4b16c49ebf.png
 centerOr/index.png: centerOr-ece1c7a2ef6e86ec0ca90e4b16c49ebf.png
 comment.png: comment-2b891bb3739e9d07f2f6acb3e806ef37.png
 comment/index.png: comment-2b891bb3739e9d07f2f6acb3e806ef37.png
-comments.png: comments-c3f4276285efad45a5e7b95d77630282.png
-comments/index.png: comments-c3f4276285efad45a5e7b95d77630282.png
+comments.png: comments-05271da71b1e79051df08d1c099616ac.png
+comments/index.png: comments-05271da71b1e79051df08d1c099616ac.png
 connectFacebook.png: connectFacebook-2ca3933479033b45c87ee6476341ad8b.png
 connectFacebook/index.png: connectFacebook-2ca3933479033b45c87ee6476341ad8b.png
 contact.png: contact-b61a1d930629090794cfae7e7846542f.png
@@ -153,6 +155,8 @@ logo_print.png: logo_print-c7430bea0599fb723bc94c4d9d2aaef1.png
 logo_print/index.png: logo_print-c7430bea0599fb723bc94c4d9d2aaef1.png
 logo_small.png: logo_small-4b5763400fa1d18d41b07461071c7f47.png
 logo_small/index.png: logo_small-4b5763400fa1d18d41b07461071c7f47.png
+logo_w_tag.jpg: logo_w_tag-e1af0bb0d1510add1d2ca9df12645a84.jpg
+logo_w_tag/index.jpg: logo_w_tag-e1af0bb0d1510add1d2ca9df12645a84.jpg
 longBlackBrownIcon.png: longBlackBrownIcon-5a9c1fa3e68c6a9f76420edebae50272.png
 longBlackBrownIcon/index.png: longBlackBrownIcon-5a9c1fa3e68c6a9f76420edebae50272.png
 longBlackGrayIcon.png: longBlackGrayIcon-e0473a78224d61ba2e1b74a2249829d8.png
@@ -389,8 +393,8 @@ midSizeCatIcon.png: midSizeCatIcon-e09999cf959c96c8ed062eee72b7be09.png
 midSizeCatIcon/index.png: midSizeCatIcon-e09999cf959c96c8ed062eee72b7be09.png
 midSizeDogIcon.png: midSizeDogIcon-5fbbed7a604bf941616af3139c0c3098.png
 midSizeDogIcon/index.png: midSizeDogIcon-5fbbed7a604bf941616af3139c0c3098.png
-middleAddition.png: middleAddition-d2a6520f8f337ebc9463ba8086e4166e.png
-middleAddition/index.png: middleAddition-d2a6520f8f337ebc9463ba8086e4166e.png
+middleAddition.png: middleAddition-ec94d67a7b5e1e556de9c79736ba2f53.png
+middleAddition/index.png: middleAddition-ec94d67a7b5e1e556de9c79736ba2f53.png
 mobileIcon.png: mobileIcon-871404ff2cea9c920157ba628c67466a.png
 mobileIcon/index.png: mobileIcon-871404ff2cea9c920157ba628c67466a.png
 myIdealPet.png: myIdealPet-130b04292c43cf3517beffdc41ae749e.png
@@ -399,8 +403,8 @@ mySponsor.png: mySponsor-58ea62ac0b463d1b1ece7a96107d1a05.png
 mySponsor/index.png: mySponsor-58ea62ac0b463d1b1ece7a96107d1a05.png
 navSpinner.gif: navSpinner-a44e4fdc94248041067d7b09d9d32f2f.gif
 navSpinner/index.gif: navSpinner-a44e4fdc94248041067d7b09d9d32f2f.gif
-newAddition.png: newAddition-f0d2a8e6b05ad07971ddd6146ac72968.png
-newAddition/index.png: newAddition-f0d2a8e6b05ad07971ddd6146ac72968.png
+newAddition.png: newAddition-d857b958adaa86088393b541a1ae732d.png
+newAddition/index.png: newAddition-d857b958adaa86088393b541a1ae732d.png
 noMatchesFound.png: noMatchesFound-ecb6d5fd2c523667dbb1cb719148a84e.png
 noMatchesFound/index.png: noMatchesFound-ecb6d5fd2c523667dbb1cb719148a84e.png
 noPetsFound.png: noPetsFound-2a88620980a941e87e22a390ef4ea553.png
@@ -577,8 +581,8 @@ unavailableIcon.png: unavailableIcon-870cdf74377b44ad7b3ff0a0efebdf35.png
 unavailableIcon/index.png: unavailableIcon-870cdf74377b44ad7b3ff0a0efebdf35.png
 updateBtn.png: updateBtn-c4bee4a99e605c5adce0a34da4ce306f.png
 updateBtn/index.png: updateBtn-c4bee4a99e605c5adce0a34da4ce306f.png
-veteranAddition.png: veteranAddition-2e7f085cd4b2f5fd16679d722cc6ae15.png
-veteranAddition/index.png: veteranAddition-2e7f085cd4b2f5fd16679d722cc6ae15.png
+veteranAddition.png: veteranAddition-b487740db9c1bcfb9ca39174e44c9e60.png
+veteranAddition/index.png: veteranAddition-b487740db9c1bcfb9ca39174e44c9e60.png
 video-js.png: video-js-9a1776e6cb06f4699ec6e5e8864d1042.png
 video-js/index.png: video-js-9a1776e6cb06f4699ec6e5e8864d1042.png
 videoClickBkg.png: videoClickBkg-31279bcb1eac510f19713b805adb9e39.png
@@ -599,10 +603,10 @@ youngFemaleIcon.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngFemaleIcon/index.png: youngFemaleIcon-5a1f0c7caa1f1b9b71c05cc1ab51e883.png
 youngMaleIcon.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
 youngMaleIcon/index.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
-application.js: application-29979886331364f68786ae607c95e3a0.js
-application/index.js: application-29979886331364f68786ae607c95e3a0.js
-application.css: application-7b083d4765a9f1983bd1ce0b3779dbfb.css
-application/index.css: application-7b083d4765a9f1983bd1ce0b3779dbfb.css
+application.js: application-4306bf54b91022a12fe91f5d82b4f93e.js
+application/index.js: application-4306bf54b91022a12fe91f5d82b4f93e.js
+application.css: application-8d4c027fd2c371e4cf97240c0bc54cc4.css
+application/index.css: application-8d4c027fd2c371e4cf97240c0bc54cc4.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png

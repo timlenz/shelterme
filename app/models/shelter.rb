@@ -68,7 +68,7 @@ class Shelter < ActiveRecord::Base
   geocoded_by :full_street_address
   
   before_validation :generate_slug, on: :create
-  after_validation :geocode
+  after_validation :geocode, if: lambda { :street_changed || :city_changed? || :state_changed? }
   
   profanity_filter :name, :description, :street, :city, :state, :zipcode, :sun_hours, :mon_hours, 
                    :tue_hours, :wed_hours, :thu_hours, :fri_hours, :sat_hours, :email
@@ -97,7 +97,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_dogs
-    pet_list = pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+    pet_list = pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -111,7 +111,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_cats
-    pet_list = pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+    pet_list = pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -125,7 +125,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def adopted
-    pet_list = pets.select{|p| p.pet_state.status == 'adopted'}
+    pet_list = pets.select{|p| p.pet_state.status == 'adopted'}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -139,7 +139,7 @@ class Shelter < ActiveRecord::Base
   end
 
   def available
-    pet_list = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+    pet_list = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -153,7 +153,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def unavailable
-    pet_list = pets.select{|p| p.pet_state.status == 'unavailable'}
+    pet_list = pets.select{|p| p.pet_state.status == 'unavailable'}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -167,7 +167,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def absent
-    pet_list = pets.select{|p| p.pet_state.status == 'absent'}
+    pet_list = pets.select{|p| p.pet_state.status == 'absent'}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -181,7 +181,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def fostered
-    pet_list = pets.select{|p| p.pet_state.status == 'fostered'}
+    pet_list = pets.select{|p| p.pet_state.status == 'fostered'}.select{|p| p.pet_photos.count > 0}
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -193,6 +193,20 @@ class Shelter < ActiveRecord::Base
     end
     return sorted_pet_list
   end
+  
+  def rescued
+    pet_list = pets.select{|p| p.pet_state.status == 'rescued'}.select{|p| p.pet_photos.count > 0}
+    if sort_by == "unpopular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
+    elsif sort_by == "popular"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }.reverse
+    elsif sort_by == "oldest"
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }
+    else
+      sorted_pet_list = pet_list.sort{ |p1, p2| p1.created_at <=> p2.created_at }.reverse
+    end
+    return sorted_pet_list
+  end  
   
   def available_journal
     newlist = journals.select{|s| s.pet_state.status == "available"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
@@ -270,6 +284,10 @@ class Shelter < ActiveRecord::Base
   end
 
   private
+  
+  def address_change
+    
+  end
   
   def sort_by
     self.precedence.rank

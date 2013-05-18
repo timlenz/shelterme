@@ -11,7 +11,7 @@
   </table>
   <ul>
     <%= render partial: 'managed_pet', 
-        collection: @pets.sort_by{|p| ['available', 'absent', 'adopted', 'unavailable'].index(p.pet_state.status)}, 
+        collection: @pets, 
         as: :f %>
   </ul>
   <%= will_paginate @pets %>

@@ -1,4 +1,4 @@
-<% provide(:title, "Edit #{@pet.name}") %> 
+<% provide(:title, "Edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}") %> 
 <div class="container content">
   <div class="form-section">
     <div class="pageHeader pageFormHeader">
@@ -6,12 +6,12 @@
         <%= image_tag("editIcon.png", alt: "Edit Pet") %>
       </div>
       <div class="headerInfo">
-        <h1>Edit <%= @pet.name != '' ? @pet.name : @pet.animal_code %></h1><br>
+        <h1>Edit <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
       </div>
       <% if current_user.admin? %>
       <div class="headerButtons" style="right:10px;">
         <div class="headerEdit">
-          <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name != '' ? @pet.name : @pet.animal_code}?", class: "btn btn-header btn-warning btn-admin" %>
+          <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}?", class: "btn btn-header btn-warning btn-admin" %>
         </div>
       </div>
       <% end %>
@@ -45,7 +45,7 @@
         <div class="tab-pane" id="videos">
           <div id="editVideos">
             <% if @pet.pet_videos.count == 0 %>
-              <p style="font-size:13px;">There are no videos for <%= @pet.name != '' ? @pet.name : @pet.animal_code %>.</p>
+              <p style="font-size:13px;">There are no videos for <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %>.</p>
             <% else %>
             <%= render partial: "edit_videos", 
                 collection: @pet.pet_videos.sort{|a,b| (a.primary == b.primary) ? ((a.id < b.id) ? -1 : 1) : (a.primary ? -1 : 1)}, 

@@ -10,8 +10,8 @@
     <% end %>
   </div>
   <% if @pet.pet_state.status == 'available' || @pet.pet_state.status == 'absent' %>
-  <div class="corner noPrint <%= @pet.created_at < 2.weeks.ago ? 'veteran' : ( @pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
-		<%= link_to "", "#", rel: "tooltip", title: "#{@pet.created_at < 2.weeks.ago ? 'Added more than two weeks ago' : ( @pet.created_at < 1.week.ago ? 'Added less than two weeks ago' : 'Newly added' )}" %>
+  <div class="corner noPrint <%= @pet.created_at < 1.month.ago ? 'veteran' : ( @pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
+		<%= link_to "", "#", rel: "tooltip", title: "#{@pet.created_at < 1.month.ago ? 'Added more than a month ago' : ( @pet.created_at < 1.week.ago ? 'Added in the last month' : 'Newly added' )}" %>
 	</div>
   <% end %>
   <% if @pet.pet_state.status == 'adopted' %>

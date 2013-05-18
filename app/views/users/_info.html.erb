@@ -8,9 +8,10 @@
     <%= f.input :name %> 
     <%= f.input :location %>
     <%= f.input :bio, as: :text %>
+    <div id="char_count" class="editUser"></div>
+		<div class="clearfix"></div>
     <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;", id: "saveUser" %>
     <%= link_to("Back to user profile", @user, style: "float:right;padding-top:4px;")%>
-    <div id="char_count" style="margin-right:30px;margin-top:5px;"></div>
   <% end %>
 </div>
 

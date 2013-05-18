@@ -2,17 +2,31 @@
   <table class="table-condensed">
     <tr>
       <td class="adminId"><%= pet.id %></td>
-      <td class="adminAdded"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
-      <td class="adminCode" style="width:120px;"><%= pet.animal_code %></td>
-      <td class="managedName" style="width:190px;">
+      <td class="adminAdded" style="width:116px"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminCode" style="width:86px;"><%= pet.animal_code %></td>
+      <td class="managedName" style="width:198px;">
+	      <div class="adminPhoto">
+		      <% if pet.pet_photos.count > 0 && pet.pet_photos.select{|p| p.primary == true}.count > 0 %>
+		        <%= link_to image_tag(pet.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [pet.shelter, pet] %>
+		      <% elsif pet.pet_photos.count == 1 %>
+		        <%= link_to image_tag(pet.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [pet.shelter, pet] %>
+		      <% else %>
+			      <%= link_to "", [pet.shelter, pet] %>
+		      <% end %>
+				  <% if pet.pet_state.status == 'available' || pet.pet_state.status == 'absent' %>
+				  <div class="corner <%= pet.created_at < 1.month.ago ? 'veteran' : ( pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition"></div>
+				  <% end %>
+	      </div>
+	      <div class="name">
         <% if pet.name != '' %>
-        <%= link_to pet.name, [pet.shelter, pet] %>
+        <%= link_to pet.name.titleize, [pet.shelter, pet] %>
         <% else %>
-        <%= link_to "No Name", [pet.shelter, pet] %>
+        <%= link_to "", [pet.shelter, pet] %>
         <% end %>
+        </div>
       </td>
       <td class="managedStatus">
-        <%= simple_form_for(pet, html: {class: 'form-horizontal' }) do |p| %>
+        <%= simple_form_for(pet, html: {class: 'form-horizontal', style: 'width: 300px;' }) do |p| %>
           <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
             <button type="button" data-toggle="button" class="btn" value="1">Available</button>
             <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
@@ -20,11 +34,11 @@
             <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
           </div>
           <%= p.hidden_field :pet_state_id, label: false %>
-          <%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name : pet.animal_code}'s status?" %>
+          <%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name.titleize : pet.animal_code}'s status?" %>
         <% end %>
       </td>
       <td class="managedDelete">
-        <%= link_to "Delete", [pet.shelter, pet], method: :delete, confirm: "Are you certain you want to delete #{pet.name != '' ? pet.name : pet.animal_code}?" %>
+        <%= link_to "Delete", [pet.shelter, pet] %>
       </td>
     </tr>
   </table>

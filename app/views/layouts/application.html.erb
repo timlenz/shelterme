@@ -7,6 +7,10 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= canonical_link_tag %>
+    <% if (params[:controller] == 'pets' && params[:action] == 'show') or (params[:controller] == 'static_pages' && params[:action] == 'tutorial') %>
+		<link href="http://vjs.zencdn.net/4.0/video-js.css" rel="stylesheet">
+		<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+		<% end %>
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
@@ -14,7 +18,7 @@
       <%= render 'pets/open_graph'%>
     <% end %>
   </head>
-  <body>
+  <body onLoad="testCookies();">
     <div id="sm">
 <%= render 'layouts/header' %>   
 <%= render 'layouts/errors' %>
@@ -37,11 +41,8 @@
 <% if params[:controller] == 'pets' && params[:action] == 'show' %>
   <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   <script src="//d21qbsp9m249bi.cloudfront.net/u/1.4/jquery.panda-uploader.min.js" type="text/javascript"></script> 
-  <script>_V_.options.flash.swf = "video-js.swf"</script>
 <% end %>
-<% if params[:controller] == 'static_pages' && params[:action] == 'tutorial' %>
-  <script>_V_.options.flash.swf = "video-js.swf"</script>
-<% end %>
+<% if !Rails.env.development? %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36076402-1']);
@@ -51,6 +52,17 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+</script>
+<% end %>
+<script type="text/javascript">  
+	function testCookies() {  
+	  document.cookie = "cookie_test=test;";  
+	  var results = document.cookie.match ( '(^|;) ?cookie_test=([^;]*)(;|$)' );  
+	  if (!results) // No cookies were set - The browser doesn't allow cookies.  
+	    $('.cookieCheck').show(); 
+	  else // Delete the cookie - It's no longer needed.  
+	    document.cookie = "cookie_test=; expires=01/01/2001 00:00:00;";  
+	}  
 </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<% provide(:title, @pet.slug) %>
+<% provide(:title, @pet.name != "" ? @pet.name : @pet.animal_code) %>
 <div class="container content">
   <div class="profile-section <%= @pet.pet_state.status %>">
     <div class="pageHeader">

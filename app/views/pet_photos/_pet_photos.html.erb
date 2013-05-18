@@ -2,7 +2,7 @@
   <div class="tile-photo">
     <%= link_to image_tag(f.image_url.to_s.gsub!(/upload/,"upload/t_tile")), 
         [f.pet.shelter, f.pet], 
-        title: "Photo of #{f.pet.name != '' ? f.pet.name : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
+        title: "Photo of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
   </div>
   <% if f.pet.pet_photos.size > 1 %>
     <% if f.primary? %>
@@ -13,7 +13,7 @@
       <% end %>
     <% end %>
     <%= form_for f, html: {multipart: true} do |p| %>
-      <%= link_to "Delete", f, method: :delete, class: "deleteMedia", confirm: "Are you certain you want to delete this photo of #{f.pet.name != '' ? f.pet.name : f.pet.animal_code}?" %>
+      <%= link_to "Delete", f, method: :delete, class: "deleteMedia", confirm: "Are you certain you want to delete this photo of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code}?" %>
     <% end %>  
   <% else %>
     <span class="makeDefault" style="padding-top:6px;">Primary</span>

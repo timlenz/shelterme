@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208074156) do
+ActiveRecord::Schema.define(:version => 20130509041043) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(:version => 20130208074156) do
     t.integer  "pet_state_id"
     t.integer  "weight"
     t.integer  "shelter_id"
-    t.integer  "age"
+    t.float    "age"
     t.integer  "age_period_id"
     t.integer  "affection_id"
     t.integer  "energy_level_id"

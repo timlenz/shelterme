@@ -36,6 +36,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0}
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     else
       pets = []
@@ -49,6 +50,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0}
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
       pets = pets.select{|p| p.shelter_id == nearest}
@@ -64,6 +66,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0}
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
       pets = pets.select{|p| p.shelter_id == nearest}
@@ -80,6 +83,7 @@ class Search < ActiveRecord::Base
       pets = pets.where(species_id: species_id)
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0}
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
       pets = pets.select{|p| p.shelter_id == nearest}
@@ -96,6 +100,7 @@ class Search < ActiveRecord::Base
       pets = pets.where(species_id: species_id)
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0}
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
       pets = pets.select{|p| p.shelter_id == nearest}
@@ -127,6 +132,7 @@ private
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id) if breed_id.present?
       pets = pets.select{|p| p.age_group == age_group} if age_group.present?
       pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
+      pets = pets.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?
     else
       pets = []

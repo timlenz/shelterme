@@ -6,7 +6,7 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(params[:micropost])
     if @micropost.save
-      flash[:success] = "Comment added for #{@micropost.pet.name}."
+      flash[:success] = "Comment added for #{@micropost.pet.name != "" ? @micropost.pet.name.titleize : @micropost.pet.animal_code}."
       redirect_to :back
     else
       flash[:error] = "Comment too long."

@@ -5,53 +5,67 @@ class StaticPagesController < ApplicationController
       format.html {
         require 'open-uri'
         require 'nokogiri'
-        @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
-        if cookies[:location]
-          @location = cookies[:location]
-        end
-        if (validate_location(@location) == false) && (signed_in? and current_user.location?)
-          @location = current_user.location
-        end
-        if validate_location(@location) == false    
-          s = Geocoder.search(remote_ip)
-          @location = s[0].city + ", " + s[0].state_code
-        end
-        cookies[:location] = @location
-        shelters = Shelter.near(@location, 50, order: "distance")
-        unless shelters.count > 0
-          shelters = Shelter.near(@location, 200, order: "distance")
-        end
-        nearbys = shelters.map{|s| s.id}
-        @pets = Pet.order(:name)
-        @pets = @pets.where('shelter_id in (?)', nearbys)
-        @pets = @pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-        @pets = @pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
-        # select four random pets from list
-        #@pets = @pets.sort_by{rand}.first(4)
-        @pets = @pets.shuffle!.first(4)
-        if @location != "MapQuest not responding"
-          @pets
-          @shelter = shelters.max_by{|s| s.pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.count}
-        else
-          @pets = []
-          @shelter = []
-        end
-        @blog = true
-        blog = Nokogiri::XML(open("http://blog.shelterme.com/feed", read_timeout: 0.5))
-        if blog.nil?
-          @blog = false
-        else
-          first_post = blog.xpath('//item').first
-          @title = first_post.xpath('title').inner_text
-          @link = first_post.xpath('link').inner_text
-          @content = first_post.xpath('description').inner_text.html_safe
-          image = Nokogiri::HTML.parse(first_post.xpath('content:encoded').inner_html).css('img')
-          if image.empty?
-            @image = "none"
+        if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
+          @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
+          @shelter = Shelter.select{|s| s.id == cookies[:featured_shelter].to_i}.first
+          @shelter_pets = cookies[:featured_shelter_pets].split(" ").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
+        else  
+          @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+          if cookies[:location]
+            @location = cookies[:location]
+          end
+          if (validate_location(@location) == false) && (signed_in? and current_user.location?)
+            @location = current_user.location
+          end
+          if validate_location(@location) == false    
+            s = Geocoder.search(remote_ip)
+            @location = s[0].city + ", " + s[0].state_code
+          end
+          cookies[:location] = @location
+          shelters = Shelter.near(@location, 70, order: "distance")
+          unless shelters.count > 0
+            shelters = Shelter.near(@location, 200, order: "distance")
+          end
+          nearbys = shelters.map{|s| s.id}
+          @pets = Pet.order(:name)
+          @pets = @pets.where('shelter_id in (?)', nearbys)
+          @pets = @pets.select{|p| p.pet_state.status == 'available'}
+          @pets = @pets.select{|p| p.pet_photos.count > 0} # Don't show any pets without photos
+          if @location != "MapQuest not responding"
+            @featured_pets = @pets.sample(4)
+            #@shelter = shelters.max_by{|s| s.pets.select{|p| p.pet_state.status == 'available'}.count}
+            @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
+            @shelter_pets = @shelter.available.select{|p| p.pet_photos.count > 0}.sample(2)
+            # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
+            cookies[:featured_pets] = { value: @pets.map{|p| p.id}, expires: 1.day.from_now }
+            cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }
+            cookies[:featured_shelter_pets] = { value: @shelter_pets.map{|p| p.id}, expires: 1.day.from_now}
           else
-            @image = image.first.attribute("src").text
-          end 
+            @featured_pets = []
+            @shelter = []
+          end
         end
+        # TEMPORARY HACK IN LIEU OF TRUE MEMCACHING OF BLOG CONTENT
+        #@blog = true
+        #blog = Nokogiri::XML(open("http://blog.shelterme.com/feed", read_timeout: 0.5))
+        #if blog.nil?
+         # @blog = false
+        #else
+        #  first_post = blog.xpath('//item').first
+        #  @title = first_post.xpath('title').inner_text
+        #  @link = first_post.xpath('link').inner_text
+        #  @content = first_post.xpath('description').inner_text.html_safe
+        #  image = Nokogiri::HTML.parse(first_post.xpath('content:encoded').inner_html).css('img')
+        #  if image.empty?
+        #    @image = "none"
+        #  else
+        #    @image = image.first.attribute("src").text
+        #  end 
+        #end
+        @title = "I am a Proud Poppa of Three Shelter Dogs"
+        @link = "http://blog.shelterme.com/i-am-a-proud-poppa-of-three-shelter-dogs/".html_safe
+        @content = "Do you have photos of your pets at work? Do you post pictures of them on Facebook? When you are with friends do you just have to show a photo (or three) of your pets on your phone? Then you have come to the right place. My name is Steven Latham and I am crazy about my dogs.".html_safe
+        @image = "http://blog.shelterme.com/wp-content/uploads/2013/04/Steven_Dogs-300x225.jpg".html_safe
       }
     end
   rescue Timeout::Error

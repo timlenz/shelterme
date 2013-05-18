@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
                   :energy_value_attributes, :species_attributes, :avatar, :avatar_cache
 
   has_secure_password
-  has_many :microposts#, dependent: :destroy DON'T DELETE USER COMMENTS
+  has_many :microposts#, dependent: :destroy DON'T DELETE USER COMMENTS WITH USER
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -192,6 +192,7 @@ class User < ActiveRecord::Base
       @matches = @matches.where('shelter_id in (?)', nearbys)
       @matches = @matches.where(species_id: species_id) if species_id.present?
       @matches = @matches.select{|p| p.pet_state.status == "available"}
+      @matches = @matches.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
       if !@matches.blank?
         # Calculate match scores for pets in array against user's characteristics
         @matches = @matches.each_with_index do |p, i|
@@ -238,7 +239,7 @@ class User < ActiveRecord::Base
         # sort by closest shelter
         @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
         $match = true
-        @matches
+        @matches.sample(3)
       else
         @matches = []
       end

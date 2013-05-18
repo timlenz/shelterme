@@ -18,4 +18,4 @@
   <% end %>  
   <span class="weight"><%= @pet.weight %></span>
 </div>
-<div class="tiletag"><%= @pet.size.name %> <%= @pet.weight %> lbs</div>
+<div class="tiletag"><%= @pet.size.name %> <%= @pet.weight? ? @pet.weight.to_s + " lbs" : "" %> <%= @pet.species.name %></div>

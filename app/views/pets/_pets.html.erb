@@ -1,17 +1,17 @@
-<div class="span12 adminView">
+<div class="span12 adminView">	
   <%= will_paginate %>
   <table class="table table-condensed table-bordered">
     <thead>
-      <th style="width:56px;"><%= sortable "id", "SMID" %></th>
-      <th style="width:125px;"><%= sortable "created_at", "Added" %></th>
-      <th style="width:90px;"><%= sortable "animal_code", "Animal ID" %></th>
-      <th style="width:200px;"><%= sortable "name" %></th>
+      <th style="width:49px;">SMID</th>
+      <th style="width:119px;">Added</th>
+      <th style="width:89px;">Animal ID</th>
+      <th style="width:204px;">Name</th>
       <th>Status</th>
     </thead>
     </tr>
   </table>
   <ul>
     <%= render @pets %>
-  </ul>
-  <%= will_paginate %>
+  </ul>	
+	<%= will_paginate %>
 </div>

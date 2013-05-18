@@ -64,7 +64,7 @@ class PetsController < ApplicationController
     cookies[:exclude_shelters] = ""
     if @pet.save
       @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
-      flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added"
+      flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added"
       redirect_to [@shelter, @pet]
     else
       flash[:error] = "Please enter all required information."
@@ -154,8 +154,9 @@ class PetsController < ApplicationController
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.select{|p| p.pet_state.status == "available"}
+      pets = pets.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
       @pet = pets[Random.rand(0..(pets.count-1))]
-      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet for the day."
+      flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} is your featured pet."
       redirect_to [@pet.shelter, @pet]
     else
       flash[:error] = "There are no pets available near you."
@@ -193,7 +194,7 @@ class PetsController < ApplicationController
       @nearbys = @nearbys << @pet.shelter
     end
   rescue
-    flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name : @pet.animal_code}."
+    flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
     redirect_to :back
   end
   
@@ -211,21 +212,13 @@ class PetsController < ApplicationController
     end
     @pets = @pets.paginate(page: params[:page])
   end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-  
-  def sort_column
-    Pet.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
   
   def update
     if @pet.update_attributes(params[:pet])
       if cookies[:managed_pets] == "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
-        flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code}'s status has been updated."
-        redirect_to :back
+        flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}'s status has been updated."
+        redirect_to :back  #EXPLICIT REDIRECT NO LONGER REQUIRED WITH AJAX SUBMISSION
       else
         # if pet state has changed, then journalize
         if cookies[:pet_state_change] != "false"
@@ -236,7 +229,7 @@ class PetsController < ApplicationController
             PetMailer.absent_pet(@pet,current_user).deliver
             cookies[:absent_pet_submit] = "false"
           end
-          flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
+          flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been updated."
         end
         redirect_to [@pet.shelter, @pet]
       end
@@ -244,13 +237,13 @@ class PetsController < ApplicationController
       render 'edit'
     end
   rescue
-    flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name : @pet.animal_code}."
+    flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
     redirect_to :back
   end
   
   def destroy
     @pet.destroy
-    flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been deleted."
+    flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been deleted."
     if cookies[:delete_managed_pet] == "true"
       redirect_to :back
       cookies[:delete_managed_pet] = "false"
@@ -258,18 +251,18 @@ class PetsController < ApplicationController
       redirect_to root_path
     end
   rescue
-    flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name : @pet.animal_code}."
+    flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
     redirect_to :back
   end
   
   private
   
-    def sort_column
-      params[:sort] || "name"
-    end
-
     def sort_direction
-      params[:direction] || "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+  
+    def sort_column
+      Pet.column_names.include?(params[:sort]) ? params[:sort] : "name"
     end
     
     def find_pet

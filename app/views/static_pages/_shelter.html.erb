@@ -3,7 +3,7 @@
   <% if !@shelter.blank? %>
   <div class="featured-shelter-map">
     <div class="address-block">
-      <h3><%= link_to @shelter.name, @shelter %></h3> <!-- Closest shelter with the most available pets -->
+      <h3><%= link_to @shelter.name, @shelter %></h3>
       <p><%= @shelter.street %>, <%= @shelter.city %> <%= @shelter.state %></p>
     </div>
     <div class="address-map">
@@ -11,9 +11,9 @@
     </div>
   </div>
   <h4>At this Shelter</h4>
-  <% if @pets.count > 0 %>
+  <% if @shelter_pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
-      collection: @shelter.available.first(2), 
+      collection: @shelter_pets, 
       as: :f %>
   <% else %>
     <br>

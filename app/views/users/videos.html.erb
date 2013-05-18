@@ -13,7 +13,7 @@
     </div>
     <div id="pet_videos" class="row">
       <%= will_paginate @videos %>
-      <%= render partial: "video", collection: @videos, as: :f %>
+      <%= render partial: "video", collection: @videos.reverse, as: :f %>
       <div class="clearfix"></div>
       <%= will_paginate @videos %>
     </div>

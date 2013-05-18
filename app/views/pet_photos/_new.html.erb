@@ -5,15 +5,18 @@
         <%= image_tag("photoIcon.png", alt: "Add Photo") %>
       </div>
       <div class="headerInfo" style="width:450px;">
-        <h1>Add a Photo of <%= @pet.name != '' ? @pet.name : @pet.animal_code %></h1><br>
+        <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
 				<p></p>
       </div>
 	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
 	    <p>
-	    <% if @pet.pet_photos.size > 0 %>
-      See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. <% end %>Photos are limited to 5000x5000 and 20MB.</p>
+		  <% if @pet.pet_photos.size == 0 %>
+		  <span style="color:#d54509;font-weight:bold;">
+		  <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %> will not be visible on the site without a photo. Please add one now.</span></p><p>
+	    <% end %>
+      See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. Photos are limited to 5000x5000 and 20MB.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This window will close once your upload is complete.
       </div>
@@ -75,12 +78,6 @@
 			alert("Upload failed.");
 	  	$('#loadingPhoto, .handhold').hide();
 			$('button.close, .filedrop').show();		
-		});
-
-		// Submit uploaded photo info to db when uploaded
-		$('#addAvatar .cloudinary-fileupload').bind('fileuploaddone', function() {
-			$('.filedrop input[type=submit]').click();
-		  $.cookie("avatar", "true");
 		});
 
 		// Submit uploaded photo info to db when uploaded

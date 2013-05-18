@@ -9,7 +9,7 @@
     </div>
     <div id="pet_photos" class="row">
       <%= will_paginate %>
-      <%= render partial: 'pet_photos', collection: @pet_photos, as: :f %>
+      <%= render partial: 'pet_photos', collection: @pet_photos.reverse, as: :f %>
       <div class="clearfix"></div>
       <%= will_paginate %>
     </div>

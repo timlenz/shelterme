@@ -15,7 +15,7 @@
 #  pet_state_id       :integer
 #  weight             :integer
 #  shelter_id         :integer
-#  age                :integer
+#  age                :float
 #  age_period_id      :integer
 #  affection_id       :integer
 #  energy_level_id    :integer

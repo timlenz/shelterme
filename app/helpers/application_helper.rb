@@ -14,6 +14,18 @@ module ApplicationHelper
     tag(:link, rel: :canonical, href: @canonical_url) if @canonical_url
   end
   
+  def my_photoless # current user's pets without a photo
+    pets = current_user.pets.select{|p| p.pet_photos.count == 0}.count
+  end
+  
+  def managed_photoless # current user's pets without a photo
+    pets = current_user.shelter.pets.select{|p| p.pet_photos.count == 0}.count
+  end
+  
+  def all_photoless # current user's pets without a photo
+    pets = Pet.select{|p| p.pet_photos.count == 0}.count
+  end
+  
   def pet_list
     if cookies[:history]
       pets = cookies[:history].split(" ").map{|s| s.to_i }.reverse.uniq

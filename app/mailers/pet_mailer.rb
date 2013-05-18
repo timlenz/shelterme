@@ -5,5 +5,6 @@ class PetMailer < ActionMailer::Base
     @pet = pet
     @user = user
     mail to: 'admin@shelterme.com', subject: "Absent pet notice"
+    mail reply_to: @user.email
   end
 end
