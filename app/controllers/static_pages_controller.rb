@@ -37,7 +37,7 @@ class StaticPagesController < ApplicationController
             @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
             @shelter_pets = @shelter.available.select{|p| p.pet_photos.count > 0}.sample(2)
             # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
-            cookies[:featured_pets] = { value: @pets.map{|p| p.id}, expires: 1.day.from_now }
+            cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
             cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }
             cookies[:featured_shelter_pets] = { value: @shelter_pets.map{|p| p.id}, expires: 1.day.from_now}
           else
