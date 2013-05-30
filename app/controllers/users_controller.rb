@@ -119,28 +119,29 @@ class UsersController < ApplicationController
   
   def matchme
     if signed_in?
-      @user = current_user
-      @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
-      if location.present?
-        @current_location = location
-      end
-      if (validate_location(@current_location) == false) && (cookies[:location])
-        @current_location = cookies[:location]
-      end
-      if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
-        @current_location = current_user.location
-      end
-      if validate_location(@current_location) == false    
-        flash[:notice] = "Estimating your location."
-        s = Geocoder.search(remote_ip)
-        if s[0].city != ""
-          @current_location = s[0].city + ", " + s[0].state_code
-        end
-      end
-      cookies[:location] = @current_location
       if cookies[:matchme] == "true"
         @user.matchme
         cookies[:matchme] = "false"
+      else
+        @user = current_user
+        @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+        if location.present?
+          @current_location = location
+        end
+        if (validate_location(@current_location) == false) && (cookies[:location])
+          @current_location = cookies[:location]
+        end
+        if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+          @current_location = current_user.location
+        end
+        if validate_location(@current_location) == false    
+          flash[:notice] = "Estimating your location."
+          s = Geocoder.search(remote_ip)
+          if s[0].city != ""
+            @current_location = s[0].city + ", " + s[0].state_code
+          end
+        end
+        cookies[:location] = @current_location
       end
     else
       flash[:notice] = "You must be signed in to access this page."

@@ -2,7 +2,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<%=request.protocol+request.host_with_port+request.fullpath%>" />
 <meta property="og:description" content="<%= truncate(@pet.description, length: 300, separator: '.') %>" />
-<% image = @pet.pet_photos.blank? ? "" : @pet.pet_photos.sort_by {|p| p.primary ? 0:1 }.first.image_url.to_s.gsub!(/upload/,'upload/t_facebook') %>
+<% image = @pet.pet_photos.blank? ? "" : @pet.pet_photos.sort_by {|p| p.primary ? 0:1 }.first.image_url.to_s.gsub!(/upload/,'upload/t_facebook2') %>
 <meta property="og:image" content="<%= image %>" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="150" />

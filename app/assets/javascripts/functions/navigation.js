@@ -4,6 +4,14 @@ $(function(){
   $('.navSpinner').hide();
   $('.navLogo').show();
 
+	// Hide nav spinner on ESC key-press
+	$(document).keyup(function(e) {
+	  if (e.keyCode == 27) {   // esc
+			$('.navSpinner').hide();
+		  $('.navLogo').show();
+		}
+	});
+
   // Show nav spinner on page navigation
   $('a[href^="/"], #addPet input[type="submit"]').click(function(){
     $('.navLogo').hide();

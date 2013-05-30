@@ -52,7 +52,7 @@
             <%= link_to p[0].name, p[0] %> 
             <% end %>
             <span class="action"><%= p[3]%></span>
-            <%= link_to p[1].name, [p[1].shelter, p[1]] %>
+            <%= link_to p[1].name, p[1] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>
@@ -91,12 +91,16 @@
     <% elsif p[3] == 'post' || p[3] == 'post managed' %> <!-- microposts -->
       <li class="<%= p[3] == 'post managed' ? 'managed' : ''%>">
         <div class="innerComment">
-          <% if @user != p[0]%>
+          <% if @user != p[0] and !p[0].blank? %>
           <div class="avatar"><%= link_to avatar_for(p[0]), p[0] %></div>
           <% end %>
           <div class="post wide">
             <% if @user != p[0] %>
-            <%= link_to p[0].name, p[0] %> 
+              <% if p[0].blank? %>
+                <span style="font-weight:bold;">Shelter Me</span>
+              <% else %>
+                <%= link_to p[0].name, p[0] %> 
+              <% end %>
             <% end %>
             <span class="action">commented on</span>
             <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %> 
@@ -175,7 +179,7 @@
             <% end %>
             <span class="action">Added a photo of</span>
             <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
-            <%= link_to (image_tag p[4].image_url.to_s.gsub!(/upload/,"upload/t_adopted"), class: "media"), [p[1].shelter, p[1]] %>
+            <%= link_to (image_tag p[4].image_url.to_s.gsub!(/upload/,"upload/t_mini"), class: "media"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>

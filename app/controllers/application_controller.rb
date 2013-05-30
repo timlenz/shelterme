@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     logger.warn "#{exception.message}"
-    ErrorMailer.error_notification(exception).deliver
+    ErrorMailer.error_notification(exception,current_user,request.fullpath).deliver
     render file: "/errors/500", layout: false
   end
 

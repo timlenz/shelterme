@@ -29,15 +29,20 @@
       <li><%= render 'shared/icons/nature', f: f %></li>
       <li><%= render 'shared/icons/affection', f: f %></li>
     </ul>
-  </div>
-  <div class="pet-info">
-    <h3>
+  </div> 
+  <div class="pet-name">
+  	<h3>
       <% if f.name != '' %>
-      <%= link_to f.name.titleize, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
+        <% if signed_in? and (current_user.manager? && current_user.shelter_id == f.shelter.id) %>
+        <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %> &mdash; 
+        <% end %>
+        <%= link_to f.name.titleize, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
       <% else %>
-      <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
+        <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
       <% end %>
     </h3>
+  </div>
+  <div class="pet-info">
     <p style="color:gray;">
       <% if f.secondary_breed == nil %>
         <%= f.primary_breed.name %>

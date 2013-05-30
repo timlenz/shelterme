@@ -100,7 +100,8 @@ class Pet < ActiveRecord::Base
   validate :check_breed_match
   
   before_validation :generate_slug, on: :create
-  before_validation :regenerate_slug, on: :update, if: lambda { :name_changed? || :shelter_id_changed? }
+  before_validation :regenerate_slug, on: :update, if: :name_changed?
+  before_validation :regenerate_slug, on: :update, if: :shelter_id_changed?
   before_validation :convert_values, on: :create
 
   default_scope order: 'pets.created_at DESC'
@@ -246,9 +247,10 @@ class Pet < ActiveRecord::Base
     end 
     
     def convert_values
-      size_id = size_id.to_i
-      pet_state_id = 1
-      shelter_id = shelter_id.to_i
+      self.age = age.to_f
+      self.size_id = size_id.to_i
+      self.pet_state_id = 1
+      self.shelter_id = shelter_id.to_i
     end
     
     def check_color_match

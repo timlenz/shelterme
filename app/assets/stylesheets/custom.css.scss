@@ -2538,28 +2538,13 @@ ol.activity {
 }
 
 .pet-info {
-  clear:both;
+  clear: both;
   float: left;
   margin: 1px 0 4px 6px;
-  padding-top:6px;
   width: 258px;
-  height: 53px;
+  height: 33px;
   overflow: hidden;
   text-overflow: ellipsis;
-  h3 {
-    font-size:16px;
-    margin-bottom:4px;
-    color: $grayDark;
-    a {
-      color: $grayDark;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-    .animal_code {
-      color: $grayLightDark;
-    }
-  }
   p {
     color: $grayDark;
     font-size: 13px;
@@ -2577,9 +2562,37 @@ ol.activity {
   }
 }
 
+.pet-name {
+	clear: both;
+	float: left;
+	padding-top: 7px;
+	margin-left: 6px;
+	width: 284px;
+	height: 20px;
+	overflow: hidden;
+	h3 {
+		height: 100%;
+    font-size:16px;
+    color: $grayDark;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+    a {
+      color: $grayDark;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .animal_code {
+      color: $grayLightDark;
+    }
+  }
+}
+
 .pet-state {
   float: left;
-  margin: 32px 0 3px 0;
+  margin: 2px 0 3px 0;
   width: 26px;
   height: 30px;
   .commentCount {

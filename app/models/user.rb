@@ -439,7 +439,7 @@ class User < ActiveRecord::Base
     
     # All pet activity sorted by date, most recent first
     ap = (fua + fme + bs + wpa + spa + mpa).uniq.sort!{|a,b| a[2] <=> b[2]}.reverse
-    # [user, pet/shelter, created_at, message, status/comment, media]
+    # [user, pet/shelter/other_user, created_at, message, status/comment, media]
     return ap
   end
   
