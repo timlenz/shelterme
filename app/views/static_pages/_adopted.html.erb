@@ -12,7 +12,7 @@
         <%= link_to image_tag(), [f.shelter, f] %>
       <% end %>
       <% if f.name != '' %>
-      <%= link_to f.name, [f.shelter, f] %>
+      <%= link_to f.name.titleize, [f.shelter, f] %>
       <% else %>
       <%= link_to f.animal_code, [f.shelter, f] %>
       <% end %>

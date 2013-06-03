@@ -31,7 +31,7 @@
         <%= f.hidden_field :gender_id, label: false %>
         <%= render 'pets/edit/age', f: f %>
         <%= render 'pets/edit/weight', f: f %>
-        <%= f.label "Size", class: "control-label", required: true %>
+        <label class="string required control-label" for="pet_Size"><abbr title="required">*</abbr> Size</label>
         <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[size_id]">
           <button type="button" data-toggle="button" class="btn" value="1">Small</button>
           <button type="button" data-toggle="button" class="btn" value="2">Medium</button>

@@ -120,6 +120,7 @@ class UsersController < ApplicationController
   def matchme
     if signed_in?
       if cookies[:matchme] == "true"
+        debugger
         @user.matchme
         cookies[:matchme] = "false"
       else

@@ -36,7 +36,7 @@ module ApplicationHelper
   end
   
   def recent_adoptions
-    pets = Pet.all.select{|p| p.pet_state.status == "adopted"}.sort_by{|d| d.updated_at}.reverse.first(4)
+    pets = Pet.all.select{|p| p.pet_state.status == "adopted"}.sort_by{|d| d.updated_at}.select{|p| p.pet_photos.count > 0}.reverse.first(4)
   end
   
   def sortable(column, title = nil)

@@ -381,6 +381,8 @@ mediumYellowRedIcon.png: mediumYellowRedIcon-ddf2f2e9d76cb540b2bbed156834ddd5.pn
 mediumYellowRedIcon/index.png: mediumYellowRedIcon-ddf2f2e9d76cb540b2bbed156834ddd5.png
 mediumYellowWhiteIcon.png: mediumYellowWhiteIcon-569ed2c2bc3d33f8664a570899540826.png
 mediumYellowWhiteIcon/index.png: mediumYellowWhiteIcon-569ed2c2bc3d33f8664a570899540826.png
+midAdd.png: midAdd-ec94d67a7b5e1e556de9c79736ba2f53.png
+midAdd/index.png: midAdd-ec94d67a7b5e1e556de9c79736ba2f53.png
 midAffectionIcon.png: midAffectionIcon-27f9ab4d75344bc39689f37baeadaa05.png
 midAffectionIcon/index.png: midAffectionIcon-27f9ab4d75344bc39689f37baeadaa05.png
 midCatNatureIcon.png: midCatNatureIcon-57ba356eddee34a510511d9ca36c20db.png
@@ -393,8 +395,6 @@ midSizeCatIcon.png: midSizeCatIcon-e09999cf959c96c8ed062eee72b7be09.png
 midSizeCatIcon/index.png: midSizeCatIcon-e09999cf959c96c8ed062eee72b7be09.png
 midSizeDogIcon.png: midSizeDogIcon-5fbbed7a604bf941616af3139c0c3098.png
 midSizeDogIcon/index.png: midSizeDogIcon-5fbbed7a604bf941616af3139c0c3098.png
-middleAddition.png: middleAddition-ec94d67a7b5e1e556de9c79736ba2f53.png
-middleAddition/index.png: middleAddition-ec94d67a7b5e1e556de9c79736ba2f53.png
 mobileIcon.png: mobileIcon-871404ff2cea9c920157ba628c67466a.png
 mobileIcon/index.png: mobileIcon-871404ff2cea9c920157ba628c67466a.png
 myIdealPet.png: myIdealPet-130b04292c43cf3517beffdc41ae749e.png
@@ -403,8 +403,8 @@ mySponsor.png: mySponsor-58ea62ac0b463d1b1ece7a96107d1a05.png
 mySponsor/index.png: mySponsor-58ea62ac0b463d1b1ece7a96107d1a05.png
 navSpinner.gif: navSpinner-a44e4fdc94248041067d7b09d9d32f2f.gif
 navSpinner/index.gif: navSpinner-a44e4fdc94248041067d7b09d9d32f2f.gif
-newAddition.png: newAddition-d857b958adaa86088393b541a1ae732d.png
-newAddition/index.png: newAddition-d857b958adaa86088393b541a1ae732d.png
+newAdd.png: newAdd-d857b958adaa86088393b541a1ae732d.png
+newAdd/index.png: newAdd-d857b958adaa86088393b541a1ae732d.png
 noMatchesFound.png: noMatchesFound-ecb6d5fd2c523667dbb1cb719148a84e.png
 noMatchesFound/index.png: noMatchesFound-ecb6d5fd2c523667dbb1cb719148a84e.png
 noPetsFound.png: noPetsFound-2a88620980a941e87e22a390ef4ea553.png
@@ -581,8 +581,8 @@ unavailableIcon.png: unavailableIcon-870cdf74377b44ad7b3ff0a0efebdf35.png
 unavailableIcon/index.png: unavailableIcon-870cdf74377b44ad7b3ff0a0efebdf35.png
 updateBtn.png: updateBtn-c4bee4a99e605c5adce0a34da4ce306f.png
 updateBtn/index.png: updateBtn-c4bee4a99e605c5adce0a34da4ce306f.png
-veteranAddition.png: veteranAddition-b487740db9c1bcfb9ca39174e44c9e60.png
-veteranAddition/index.png: veteranAddition-b487740db9c1bcfb9ca39174e44c9e60.png
+vetAdd.png: vetAdd-b487740db9c1bcfb9ca39174e44c9e60.png
+vetAdd/index.png: vetAdd-b487740db9c1bcfb9ca39174e44c9e60.png
 video-js.png: video-js-9a1776e6cb06f4699ec6e5e8864d1042.png
 video-js/index.png: video-js-9a1776e6cb06f4699ec6e5e8864d1042.png
 videoClickBkg.png: videoClickBkg-31279bcb1eac510f19713b805adb9e39.png
@@ -605,8 +605,8 @@ youngMaleIcon.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
 youngMaleIcon/index.png: youngMaleIcon-6f8e5bae9e5b44fff8324183f329ae39.png
 application.js: application-434b171b4b5d9a076caf4a9e5c8abbb0.js
 application/index.js: application-434b171b4b5d9a076caf4a9e5c8abbb0.js
-application.css: application-074b415caaf42dd04ced65788db9d824.css
-application/index.css: application-074b415caaf42dd04ced65788db9d824.css
+application.css: application-dad7bbb7c5d4443965f6a4ad5df9f223.css
+application/index.css: application-dad7bbb7c5d4443965f6a4ad5df9f223.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png

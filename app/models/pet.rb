@@ -248,7 +248,6 @@ class Pet < ActiveRecord::Base
     
     def convert_values
       self.age = age.to_f
-      self.size_id = size_id.to_i
       self.pet_state_id = 1
       self.shelter_id = shelter_id.to_i
     end
