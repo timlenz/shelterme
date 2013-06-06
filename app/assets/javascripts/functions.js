@@ -183,13 +183,13 @@ $(function(){
     $('#matchme .findBlurb, #matchme .row, #results').hide();
     $('#waiting').show();
     // Set cookie for generating MatchMe results after submission
-    $.cookie("matchme", "true");
+    $.cookie("matchme", "true", {path: '/'});
   });
 
 	// Reset MatchMe flag on fresh load of page
-	$('.navMatchMe').click(function(){
+	if ( $('button.match-me').length ) {
 		$.cookie("matchme", "false", {path: '/'});
-	});
+	};
   
   // Enable MatchMe submit button once descriptive terms have been selected
   // Live enabling

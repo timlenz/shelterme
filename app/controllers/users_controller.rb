@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 24)
     @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 24)
     @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 24)
+    cookies[:matchme] = "false"
     if @user.shelter.blank?
       @pseudo_boosted = (@user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter})
     else
@@ -62,7 +63,7 @@ class UsersController < ApplicationController
   def create
     unless signed_in?
       @user = User.new(params[:user])
-      $match = false
+      cookies[:matchme] = "false"
       if @user.save
         sign_in @user
         redirect_to @user
@@ -75,7 +76,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    $match = false
+    cookies[:matchme] = "false"
     cookies[:avatar] = "false"
   rescue
     flash[:error] = "Unable to edit user profile."
@@ -93,9 +94,10 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(params[:user])
       if current_user == @user
-        if $match == true
+        if cookies[:matchme] == "true"
           sign_in @user
           render :matchme
+          cookies[:matchme] = "false"
           return
         end
         if cookies[:avatar] == "false"        
@@ -115,35 +117,33 @@ class UsersController < ApplicationController
       render 'edit'
     end
     cookies.delete :location
+  rescue
+    flash[:notice] = "User not updated."
+    redirect_to :back
   end
   
   def matchme
     if signed_in?
-      if cookies[:matchme] == "true"
-        debugger
-        @user.matchme
-        cookies[:matchme] = "false"
-      else
-        @user = current_user
-        @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
-        if location.present?
-          @current_location = location
-        end
-        if (validate_location(@current_location) == false) && (cookies[:location])
-          @current_location = cookies[:location]
-        end
-        if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
-          @current_location = current_user.location
-        end
-        if validate_location(@current_location) == false    
-          flash[:notice] = "Estimating your location."
-          s = Geocoder.search(remote_ip)
-          if s[0].city != ""
-            @current_location = s[0].city + ", " + s[0].state_code
-          end
-        end
-        cookies[:location] = @current_location
+      @user = current_user
+      cookies[:matchme] = "false"
+      @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+      if location.present?
+        @current_location = location
       end
+      if (validate_location(@current_location) == false) && (cookies[:location])
+        @current_location = cookies[:location]
+      end
+      if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+        @current_location = current_user.location
+      end
+      if validate_location(@current_location) == false    
+        flash[:notice] = "Estimating your location."
+        s = Geocoder.search(remote_ip)
+        if s[0].city != ""
+          @current_location = s[0].city + ", " + s[0].state_code
+        end
+      end
+      cookies[:location] = @current_location
     else
       flash[:notice] = "You must be signed in to access this page."
       redirect_to join_path

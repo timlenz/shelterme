@@ -238,8 +238,7 @@ class User < ActiveRecord::Base
         @matches = @matches.map{|p| p[0]}
         # sort by closest shelter
         @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
-        $match = true
-        @matches.sample(3)
+        @matches = @matches.sample(3)
       else
         @matches = []
       end

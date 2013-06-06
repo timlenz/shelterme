@@ -33,7 +33,7 @@
   <div class="pet-name">
   	<h3>
       <% if f.name != '' %>
-        <% if signed_in? and (current_user.manager? && current_user.shelter_id == f.shelter.id) %>
+        <% if signed_in? and ((current_user.manager? && current_user.shelter_id == f.shelter.id) or current_user.admin?) %>
         <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %> &mdash; 
         <% end %>
         <%= link_to f.name.titleize, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>

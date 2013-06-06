@@ -52,7 +52,7 @@ class PetsController < ApplicationController
     cookies[:exclude] = ""
   rescue
     flash[:error] = "Unable to create new pet."
-    ErrorMailer.error_notification($!).deliver
+    ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
     redirect_to :back
   end
 
@@ -72,7 +72,7 @@ class PetsController < ApplicationController
     end
   rescue
     flash[:error] = "Unable to save pet. Please resubmit."
-    ErrorMailer.error_notification($!).deliver
+    ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
     render 'new'
   end
     
@@ -81,7 +81,9 @@ class PetsController < ApplicationController
       cookies[:animal_ID] = ''
       if params[:search].present?
         cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
-        @pets = Pet.select{|p| p.animal_code == cookies[:animal_ID] }
+        #@pets = Pet.select{|p| p.animal_code == cookies[:animal_ID] }
+        # Check for match with end of animal ID, not including first character
+        @pets = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
         if @pets.count > 0
           render 'add_found'
           $exclude_shelter = @pets.map{|p| p.shelter }
