@@ -13,15 +13,14 @@ class PetsController < ApplicationController
     @pet = Pet.new
     @pet.animal_code = cookies[:animal_ID]
     @pet.pet_state_id = PetState.first.id
-    @current_location = "asdfasdf"
-    if cookies[:location]
+    @current_location = "Los Angeles, CA" # Non-null starting location, especially for original beta phase in LA
+    unless cookies[:location].blank?
       @current_location = cookies[:location]
     end
-    if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
+    if (signed_in? and current_user.location?) or (validate_location(@current_location) == false)
       @current_location = current_user.location
     end
     if validate_location(@current_location) == false    
-      flash[:notice] = "Estimating your location."
       s = Geocoder.search(remote_ip)
       if s[0].city != ""
         @current_location = s[0].city + ", " + s[0].state_code
@@ -171,7 +170,8 @@ class PetsController < ApplicationController
 
   def edit
     cookies[:managed_pets] = "false"
-    if cookies[:location]
+    @current_location = "Los Angeles, CA"
+    unless cookies[:location].blank?
       @current_location = cookies[:location]
     end
     if (@current_location && (validate_location(@current_location) == false))
@@ -181,7 +181,7 @@ class PetsController < ApplicationController
         @current_location = current_user.location
       end
     end
-    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(5)
+    @nearbys = Shelter.near(@current_location, 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
       if @nearbys.count > 0

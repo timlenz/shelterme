@@ -100,8 +100,7 @@ class Pet < ActiveRecord::Base
   validate :check_breed_match
   
   before_validation :generate_slug, on: :create
-  before_validation :regenerate_slug, on: :update, if: :name_changed?
-  before_validation :regenerate_slug, on: :update, if: :shelter_id_changed?
+  before_validation :regenerate_slug, on: :update, if: :changed?
   before_validation :convert_values, on: :create
 
   default_scope order: 'pets.created_at DESC'
@@ -224,6 +223,12 @@ class Pet < ActiveRecord::Base
   
   private
   
+    def changed?
+      if :name_changed? or :shelter_id_changed?
+        return true
+      end
+    end
+    
     def generate_slug
       if name != ""
         self.slug ||= name.parameterize.titleize.gsub(" ","")

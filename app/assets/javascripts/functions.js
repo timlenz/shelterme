@@ -123,7 +123,7 @@ $(function(){
   // Update Add Pet location
   $('#updateLocation').click(function(){
     var newLocation = $('#pet_location').val();
-    $.cookie("location", newLocation);
+    $.cookie("location", newLocation, { path: '/'});
     location.reload();
   });
 
