@@ -504,7 +504,6 @@ div.imageNav {
 	font-size: 14px;
 	font-weight: bold;
 	margin: 11px 10px 0 0;
-	border: 1px solid $brownDarkest;
 	@include small_border_radius;
 }
 
@@ -559,7 +558,6 @@ div.imageNav {
 		color: #ffffff;
 		background: $blueHilite;
 		padding: 2px 6px;
-		border: 1px solid $brownDarkest;
 		@include small_border_radius;
 	}
 }
