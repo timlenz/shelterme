@@ -35,6 +35,10 @@ module ApplicationHelper
     end
   end
   
+  def current_pet
+    pet = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID]}").first
+  end
+  
   def recent_adoptions
     pets = Pet.all.select{|p| p.pet_state.status == "adopted"}.sort_by{|d| d.updated_at}.select{|p| p.pet_photos.count > 0}.reverse.first(4)
   end

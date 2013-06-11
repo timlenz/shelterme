@@ -6,7 +6,7 @@
       </div>
       <div class="headerInfo" style="width:450px;">
         <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
-				<p></p>
+				<p><span class="file-name"></span></p>
       </div>
 	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
     </div>
@@ -16,9 +16,9 @@
 		  <span style="color:#d54509;font-weight:bold;">
 		  <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %> will not be visible on the site without a photo. Please add one now.</span></p><p>
 	    <% end %>
-      See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot great photos. Photos are limited to 5000x5000 and 20MB.</p>
+      Horizontal photos work best. Limited to 5000x5000 and 20 MB. See <%= link_to "tips for great photos", faq_path(anchor: "photoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
-        This window will close once your upload is complete.
+        This page will refresh once your upload is complete. Do not close the browser window.
       </div>
 			<%= simple_form_for @pet_photo do |f| %>
         <%= f.hidden_field :pet_id %>
@@ -29,6 +29,7 @@
               <span>Choose Photo</span>
               <%= f.cl_image_upload(:image, tags: "#{@pet.slug}") %>
             </span>
+            <%= image_tag("horiziPhone.png", class: "horiz")%>
             <p>Or drop file here</p>
             <%= f.button :submit, "Upload" %>
           </div>
@@ -67,10 +68,10 @@
 		  return true;
 		});
 
-		// Show selected photo photo name
+		// Show selected photo name and size
 		$('.cloudinary-fileupload input[type=file]').change(function(){
 			var new_label = escape($('input[type=file]').val()).replace('C%3A%5Cfakepath%5C','');
-			$('.mediaModal .headerInfo p').text("new_label");
+			$('.mediaModal .headerInfo span.file-name').text("new_label");
 		});
 
 		// Reset form if photo upload failure

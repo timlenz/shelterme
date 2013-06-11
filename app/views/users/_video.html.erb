@@ -8,7 +8,7 @@
     <%= link_to image_tag(f.thumbnail.screenshots.first), [f.pet.shelter, f.pet], title: "#{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code}" %>
     <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" %>
     <div class="processing">
-      <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : "Video" %> encoding failed.<br>Please <%= link_to "let us know", contact_path %>.</p>
+      <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : "Video" %> encoding failed.</p>
     </div>
     <% else %>
     <div class="processing">

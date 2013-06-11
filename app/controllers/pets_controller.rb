@@ -80,7 +80,6 @@ class PetsController < ApplicationController
       cookies[:animal_ID] = ''
       if params[:search].present?
         cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
-        #@pets = Pet.select{|p| p.animal_code == cookies[:animal_ID] }
         # Check for match with end of animal ID, not including first character
         @pets = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
         if @pets.count > 0
@@ -122,8 +121,8 @@ class PetsController < ApplicationController
   end
   
   def show
-    cookies[:pet_id] = @pet.id
     canonical_url(pet_url(@pet))
+    cookies[:pet_id] = @pet.id
     @microposts = @pet.microposts
     @feed_items = @pet.feed
     cookies[:delete_managed_pet] = "false"
@@ -170,6 +169,7 @@ class PetsController < ApplicationController
 
   def edit
     cookies[:managed_pets] = "false"
+    cookies[:photo] = "edit"
     @current_location = "Los Angeles, CA"
     unless cookies[:location].blank?
       @current_location = cookies[:location]
@@ -236,7 +236,7 @@ class PetsController < ApplicationController
         redirect_to [@pet.shelter, @pet]
       end
     else
-      render 'edit'
+      redirect_to :back
     end
   rescue
     flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."

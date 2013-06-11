@@ -503,7 +503,8 @@ div.imageNav {
 	padding: 0 8px;
 	font-size: 14px;
 	font-weight: bold;
-	margin: 12px 10px 0 0;
+	margin: 11px 10px 0 0;
+	border: 1px solid $brownDarkest;
 	@include small_border_radius;
 }
 
@@ -558,6 +559,7 @@ div.imageNav {
 		color: #ffffff;
 		background: $blueHilite;
 		padding: 2px 6px;
+		border: 1px solid $brownDarkest;
 		@include small_border_radius;
 	}
 }
@@ -1548,17 +1550,17 @@ ol.activity {
 }
 
 .newAddition {
-	background: url(newAdd.png) no-repeat;
+	background: url(newAddCorner.png) no-repeat;
 	background-size: 100%;
 }
 
 .middleAddition {
-	background: url(midAdd.png) no-repeat;
+	background: url(midAddCorner.png) no-repeat;
 	background-size: 100%;
 }
 
 .veteranAddition {
-	background: url(vetAdd.png) no-repeat;
+	background: url(vetAddCorner.png) no-repeat;
 	background-size: 100%;
 }
 
@@ -2109,9 +2111,11 @@ ol.activity {
 			filter: alpha(opacity=0);
 			width: 1px;
 		}
+		.horiz {
+			margin: -10px 25px -10px 0;
+		}
 		p {
 			display: inline;
-			margin-left: 90px;
 			font-size: 14px;
 			font-weight: bold;
 			line-height: 30px;
@@ -2567,26 +2571,34 @@ ol.activity {
 	float: left;
 	padding-top: 7px;
 	margin-left: 6px;
-	width: 284px;
+	width: 290px;
 	height: 20px;
 	overflow: hidden;
 	h3 {
 		height: 100%;
     font-size:16px;
     color: $grayDark;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		-o-text-overflow: ellipsis;
     a {
+			display: inline-block;
+			height: 100%;
       color: $grayDark;
       &:hover {
         text-decoration: none;
       }
     }
     .animal_code {
-      color: $grayLightDark;
+			width: 95px;
+			text-align: right;
+			white-space: nowrap;
+			overflow: hidden;
     }
+		.animal_name {
+			width: 190px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-o-text-overflow: ellipsis;
+		}
   }
 }
 

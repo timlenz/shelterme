@@ -20,7 +20,7 @@
   <div class="outerVideo">
     <ol>
     <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
-      <% if m.panda_video.status == "success" %>
+      <% if m.h264.status == "success" %>
       <li class="thumb<%= i == 0 ? " selected" : '' %>">
         <% if m.thumbnail.status == "success" %>
         <%= link_to image_tag(m.thumbnail.screenshots.first), "#", id: "thumb#{i}" %>

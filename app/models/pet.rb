@@ -100,8 +100,9 @@ class Pet < ActiveRecord::Base
   validate :check_breed_match
   
   before_validation :generate_slug, on: :create
-  before_validation :regenerate_slug, on: :update, if: :changed?
   before_validation :convert_values, on: :create
+  before_validation :regenerate_slug, on: :update, if: :name_changed?
+  before_validation :check_duplicates, on: :update, if: :shelter_id_changed?
 
   default_scope order: 'pets.created_at DESC'
 
@@ -122,15 +123,6 @@ class Pet < ActiveRecord::Base
   
   def feed
     microposts
-  end
-  
-  def self.search(search)
-    if search
-      #where('name iLIKE ?', "%#{search}%")
-      find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
-    else
-      scoped
-    end
   end
   
   def age_group
@@ -187,7 +179,7 @@ class Pet < ActiveRecord::Base
     @pet == Pet.all.find{|p| p.animal_code == params[:addpet] }
     alert(@pet.name)
     if @pet.nil?
-      #redirect_to newpet_path
+      redirect_to newpet_path
     else
       redirect_to [@pet.shelter, @pet]
     end
@@ -222,10 +214,20 @@ class Pet < ActiveRecord::Base
   end
   
   private
+    
+    def self.search(search)
+      if search
+        #where('name iLIKE ?', "%#{search}%")
+        find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
+      else
+        scoped
+      end
+    end
   
-    def changed?
-      if :name_changed? or :shelter_id_changed?
-        return true
+    def check_duplicates
+      # check if pet at new shelter has same slug
+      unless Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug}.nil?
+        regenerate_slug
       end
     end
     
@@ -235,7 +237,8 @@ class Pet < ActiveRecord::Base
       else
         self.slug ||= animal_code.parameterize.titleize.gsub(" ","")
       end
-      while Pet.find{|s| s.slug == self.slug} do
+      # limit to current shelter only and exclude self before generating slug
+      while Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug} do 
         self.slug = self.slug + Random.rand(1..9).to_s
       end
     end
@@ -246,7 +249,8 @@ class Pet < ActiveRecord::Base
       else
         self.slug = animal_code.parameterize.titleize.gsub(" ","")
       end
-      while Pet.find{|s| s.slug == self.slug} do
+      # limit to current shelter only and exclude self before generating slug
+      while Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug} do
         self.slug = self.slug + Random.rand(1..9).to_s
       end
     end 

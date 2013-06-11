@@ -11,19 +11,20 @@
 	    <button class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
-      <p>See <%= link_to "our tips", faq_path(anchor: "mediaTips"), style: "line-height:28px;font-size:12px;" %> on how to shoot a great video. Videos are limited to 100 MB.</p>
+      <p>Horizontal videos work best. Limited to 100 MB. See <%= link_to "tips for great videos", faq_path(anchor: "videoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
-        This window will close once your upload is complete.
+        This page will refresh once your upload is complete. Do not close the browser window.
       </div>
       <%= simple_form_for @pet_video do |f| %>
        <%= render 'shared/error_messages', object: f.object %>
        <%= f.hidden_field :pet_id %>
        <%= f.hidden_field :user_id, value: current_user.id %>
 			<div id="file-drop" class="row filedrop">
-			  <span class="btn formBtn fileinput-button" style="width:145px;">
+			  <span class="btn formBtn fileinput-button" style="width:145px;margin-left:-5px;">
 	        <span>Choose Video</span>
 	        <input type="hidden" name="pet_video[panda_video_id]" id="returned_video_id" />
-	       </span>	
+	       </span>		
+         <%= image_tag("horiziPhone.png", class: "horiz")%>
          <p>Or drop file here</p>
          <%= f.button :submit, "Upload", class: "formBtn" %>
        </div>

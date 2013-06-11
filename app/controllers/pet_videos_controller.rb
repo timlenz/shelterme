@@ -13,10 +13,11 @@ class PetVideosController < ApplicationController
     if @pet_video.pet.pet_videos.size == 1
       @pet_video.primary = true
     end
-    if @pet_video.save
+    if @pet_video.save and @pet_video.h264.status == "success"
       flash[:notice] = "Video of #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code} added."
     else
       flash[:notice] = "Upload of video failed."
+      # SEND FAILED VIDEO UPLOAD ALERT EMAIL
     end
     redirect_to [@pet_video.pet.shelter, @pet_video.pet]
   rescue
