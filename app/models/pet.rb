@@ -94,7 +94,7 @@ class Pet < ActiveRecord::Base
   validates :primary_color_id, presence: true
   validates :fur_length_id, presence: true
   validates :primary_breed_id, presence: true
-  validates :slug, uniqueness: true, presence: true
+  validates :slug, presence: true
 
   validate :check_color_match
   validate :check_breed_match
