@@ -65,8 +65,8 @@ class PetsController < ApplicationController
       @shelter = Shelter.find(params[:pet][:shelter_id])
       @pet = @shelter.pets.create(params[:pet])
       cookies[:exclude_shelters] = ""
-      cookies[:duplicate_pet] = "true"
       if @pet.save
+        cookies[:duplicate_pet] = "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
         flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added."
         redirect_to [@shelter, @pet]
