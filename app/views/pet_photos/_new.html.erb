@@ -8,7 +8,7 @@
         <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
 				<p><span class="file-name"></span></p>
       </div>
-	    <button class="close <%= @pet_photo.pet.pet_photos.size == 0 ? 'hide' : '' %>" data-dismiss="modal">&times;</button>
+	    <button class="close" data-dismiss="modal">&times;</button>
     </div>
     <div class="form">
 	    <p>
@@ -16,7 +16,7 @@
 		  <span style="color:#d54509;font-weight:bold;">
 		  <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %> will not be visible on the site without a photo. Please add one now.</span></p><p>
 	    <% end %>
-      Horizontal photos work best. Limited to 5000x5000 and 20 MB. See <%= link_to "tips for great photos", faq_path(anchor: "photoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
+      Horizontal photos work best, as vertical photos will be cropped automatically to fit. Limited to 5000x5000 and 20 MB. See <%= link_to "detailed photo info and tips", faq_path(anchor: "photoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">
         This page will refresh once your upload is complete. Do not close the browser window.
       </div>
@@ -46,13 +46,15 @@
 
 <%= cloudinary_js_config %>
 <script src="/assets/jquery.cloudinary.js?body=1" type="text/javascript"></script>
+<% if @pet.pet_photos.size == 0 %>
 <script>
-	//window.onbeforeunload = requirePhoto;
+	window.onbeforeunload = requirePhoto;
 	function requirePhoto() 
 	{
-		return "Please add a photo to complete the pet's profile.";
+		return "Please add a photo to complete the profile.";
 	}
 </script>
+<% end %>
 <script>	
 	$(function(){
 		

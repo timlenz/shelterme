@@ -22,7 +22,9 @@
     <div id="sm">
 <%= render 'layouts/header' %>   
 <%= render 'layouts/errors' %>
+
 <%= yield %>
+
 <% if Rails.env.development? && signed_in? && current_user.admin? %>
   <div class="container noPrint">
     <%= debug(params) %>

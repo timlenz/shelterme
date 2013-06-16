@@ -19,7 +19,7 @@
     <div class="row">
       <div id="results">
         <div class="potentialMatch">
-          <h3><%= image_tag("matchFound.png", class: "formHeader")%></h3>
+          <h3><%= image_tag("matchFound.png", class: "formHeader", height: 30, width: 376)%></h3>
           <p>There <%= @pets.count == 1 ? "is a pet with an Animal ID" : "are pets with Animal IDs" %> similar to <%= params[:search] %> already in our database.</p>
           <p>If the pet you are trying to add is shown below, please select it and add to its profile.</p>
         </div>
@@ -28,9 +28,9 @@
         </div>
         <div class="clearfix"></div>
         <div class="potentialMatch">
-          <p>If your pet is not shown, you may add it now (the <%= link_to "ADD PET", newpet_path, class: "btn btn-header" %>
-          <%= "shelter".pluralize(@pets.count) %>
-           above cannot be selected).</p>
+          <p>Otherwise, you may add your pet to the shelters without an exactly matching animal ID.
+          <%= link_to "ADD PET", newpet_path, class: "btn btn-header" %>
+          </p>
         </div>
       </div>
     </div>

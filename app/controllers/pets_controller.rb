@@ -27,7 +27,7 @@ class PetsController < ApplicationController
       end
     end
     @nearbys = Array.new
-    @nearbys = Shelter.near(@current_location, 50, order: "distance").limit(15)
+    @nearbys = Shelter.near(@current_location, 70, order: "distance").limit(15)
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
       if @nearbys.count > 0
@@ -38,8 +38,8 @@ class PetsController < ApplicationController
       end
     end
     # if pets with same ID have been found, remove their shelters from the list of available shelters
-    if !cookies[:exclude_shelters].blank? && cookies[:exclude] != "false"
-      exclude_shelters = cookies[:exclude_shelters].split(" ").map{|s| s.to_i}.uniq
+    unless cookies[:exclude_shelters].blank?
+      exclude_shelters = cookies[:exclude_shelters].split("&").map{|s| s.to_i}.uniq
       exclude_shelters = exclude_shelters.map{|s| Shelter.select{|x| x.id == s}}.flatten
       @nearbys = @nearbys.reject{|s| exclude_shelters.include? s }
     end
@@ -48,7 +48,6 @@ class PetsController < ApplicationController
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
-    cookies[:exclude] = ""
   rescue
     flash[:error] = "Unable to create new pet."
     ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
@@ -56,18 +55,25 @@ class PetsController < ApplicationController
   end
 
   def create
-    # Because of the shelter/pet nested routing, must create pet from shelter rather than user
-    @shelter = Shelter.find(params[:pet][:shelter_id])
-    @pet = @shelter.pets.create(params[:pet])
-    $exclude_shelter = []
-    cookies[:exclude_shelters] = ""
-    if @pet.save
-      @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
-      flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added"
-      redirect_to [@shelter, @pet]
+    # Check to see if user has navigated backwards to new pet form before resubmitting
+    if cookies[:duplicate_pet] == "true"
+      flash[:notice] = "#{params[:pet][:name] != "" ? params[:pet][:name].titleize : params[:pet][:animal_code]} has been added already."
+      @shelter = Shelter.find(params[:pet][:shelter_id])
+      redirect_to @shelter and return
     else
-      flash[:error] = "Please enter all required information."
-      render 'new'
+      # Because of the shelter/pet nested routing, must create pet from shelter rather than user
+      @shelter = Shelter.find(params[:pet][:shelter_id])
+      @pet = @shelter.pets.create(params[:pet])
+      cookies[:exclude_shelters] = ""
+      cookies[:duplicate_pet] = "true"
+      if @pet.save
+        @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
+        flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added."
+        redirect_to [@shelter, @pet]
+      else
+        flash[:error] = "Please enter all required information."
+        render 'new'
+      end
     end
   rescue
     flash[:error] = "Unable to save pet. Please resubmit."
@@ -78,14 +84,15 @@ class PetsController < ApplicationController
   def addpet
     if signed_in?
       cookies[:animal_ID] = ''
+      cookies[:duplicate_pet] = "false"
       if params[:search].present?
         cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
         # Check for match with end of animal ID, not including first character
         @pets = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
+        @exact_pets = Pet.where('animal_code LIKE ?', "#{cookies[:animal_ID]}")
         if @pets.count > 0
+          cookies[:exclude_shelters] = @exact_pets.map{|p| p.shelter.id.to_s}
           render 'add_found'
-          $exclude_shelter = @pets.map{|p| p.shelter }
-          cookies[:exclude_shelters] = @pets.map{|p| p.shelter.id.to_s}
         else
           redirect_to newpet_path
           cookies[:exclude_shelters] = ""

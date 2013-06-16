@@ -70,6 +70,8 @@ class StaticPagesController < ApplicationController
     end
   rescue Timeout::Error
     @blog = false
+    @featured_pets = []
+    @shelter = []
   rescue
     flash[:notice] = "There are no shelters near your location."
     redirect_to findshelter_path and return
