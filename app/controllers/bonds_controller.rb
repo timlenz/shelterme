@@ -5,8 +5,13 @@ class BondsController < ApplicationController
 
   def create
     @pet = Pet.find(params[:bond][:pet_id])
-    current_user.watch!(@pet)
-    respond_with [@pet.shelter, @pet]
+    if current_user.watching?(@pet)
+      flash[:notice] = "You are already following #{ @pet.name ? @pet.name.titleize : @pet.animal_code }."
+      respond_with [@pet.shelter, @pet]
+    else
+      current_user.watch!(@pet)
+      respond_with [@pet.shelter, @pet]
+    end
   end
 
   def destroy

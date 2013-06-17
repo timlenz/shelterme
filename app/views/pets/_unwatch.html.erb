@@ -1,3 +1,3 @@
-<%= form_for(current_user.bonds.find_by_pet_id(@pet), html: { method: :delete }) do |f| %>
+<%= form_for(current_user.bonds.find_by_pet_id(@pet), html: { method: :delete }, remote: true) do |f| %>
   <%= f.submit "Unfollow Me", class: "btn btn-header btn-unfollow btn-info" %>
 <% end %>

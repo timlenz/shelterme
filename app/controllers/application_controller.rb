@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
     rescue_from AbstractController::ActionNotFound, with: :routing_error
   end
   
-  private
+private
+
   def handle_mobile
     request.format = :mobile if mobile_user_agent?
   end

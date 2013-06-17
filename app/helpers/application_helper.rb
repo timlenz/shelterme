@@ -15,15 +15,15 @@ module ApplicationHelper
   end
   
   def my_photoless # current user's pets without a photo
-    pets = current_user.pets.select{|p| p.pet_photos.count == 0}.count
+    pets = current_user.pets.select{|p| p.pet_photos.size == 0}.size
   end
   
   def managed_photoless # current user's pets without a photo
-    pets = current_user.shelter.pets.select{|p| p.pet_photos.count == 0}.count
+    pets = current_user.shelter.pets.select{|p| p.pet_photos.size == 0}.size
   end
   
   def all_photoless # current user's pets without a photo
-    pets = Pet.select{|p| p.pet_photos.count == 0}.count
+    pets = Pet.select{|p| p.pet_photos.size == 0}.size
   end
   
   def pet_list

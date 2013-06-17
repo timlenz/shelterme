@@ -5,8 +5,13 @@ class RelationshipsController < ApplicationController
   
   def create
     @user = User.find(params[:relationship][:followed_id])
-    current_user.follow!(@user)
-    respond_with @user
+    if current_user.following?(@user)
+      flash[:notice] = "You are already following #{@user.name}."
+      respond_with @user
+    else
+      current_user.follow!(@user)
+      respond_with @user
+    end
   end
 
   def destroy
