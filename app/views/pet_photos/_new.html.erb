@@ -46,15 +46,7 @@
 
 <%= cloudinary_js_config %>
 <script src="/assets/jquery.cloudinary.js?body=1" type="text/javascript"></script>
-<% if @pet.pet_photos.size == 0 %>
-<script>
-	//window.onbeforeunload = requirePhoto;
-	function requirePhoto() 
-	{
-		return "Please add a photo to complete the profile.";
-	}
-</script>
-<% end %>
+
 <script>	
 	$(function(){
 		
