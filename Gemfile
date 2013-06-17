@@ -22,7 +22,6 @@ gem 'net-scp', '1.1.0'
 gem 'nokogiri'
 gem 'cloudinary'
 gem 'active_attr'
-gem 'rack-mini-profiler'
 
 group :development do
   gem 'rspec-rails', '2.9.0'
@@ -31,6 +30,7 @@ group :development do
   gem 'letter_opener'
   gem 'debugger'
   gem 'bullet'
+  gem 'rack-mini-profiler'
 end
 
 # Gems used only for assets and not required
