@@ -13,7 +13,7 @@ class Bond < ActiveRecord::Base
   attr_accessible :pet_id
   
   belongs_to :user
-  belongs_to :pet, counter_cache: true
+  belongs_to :pet#, counter_cache: true
   
   validates :user_id, presence: true
   validates :pet_id, presence: true

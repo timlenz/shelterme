@@ -16,7 +16,7 @@ class PetPhoto < ActiveRecord::Base
   
   attr_accessible :image, :pet_id, :primary, :user_id
   
-  belongs_to :pet, counter_cache: true
+  belongs_to :pet#, counter_cache: true
   belongs_to :user
   
   validates :image, presence: true
