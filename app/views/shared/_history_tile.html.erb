@@ -1,8 +1,8 @@
 <li class="small-pet-tile <%= f.pet_state.status %>">
   <div class="small-tile-photo">
-    <% if f.pet_photos.count > 0 && f.pet_photos.select{|p| p.primary == true}.count > 0 %>
+    <% if f.pet_photos.size > 0 && f.pet_photos.select{|p| p.primary == true}.size > 0 %>
       <%= link_to image_tag(f.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_history")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
-    <% elsif f.pet_photos.count == 1 %>
+    <% elsif f.pet_photos.size == 1 %>
       <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_history")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
     <% else %>
       <%= link_to "", [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
@@ -51,6 +51,6 @@
     </ul>
   </div>
   <div class="small-pet-state">
-      <span class="commentCount"><%= link_to f.watchers.count, "#", rel: "tooltip", title: pluralize(f.watchers.count.to_s, " follower"), class: "unlink" %></span>
+      <span class="commentCount"><%= link_to f.watchers.size, "#", rel: "tooltip", title: pluralize(f.watchers.size.to_s, " follower"), class: "unlink" %></span>
   </div>
 </li>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509041043) do
+ActiveRecord::Schema.define(:version => 20130617045526) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -211,8 +211,8 @@ ActiveRecord::Schema.define(:version => 20130509041043) do
   create_table "pets", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "user_id"
     t.string   "animal_code"
     t.integer  "size_id"
@@ -232,6 +232,8 @@ ActiveRecord::Schema.define(:version => 20130509041043) do
     t.integer  "primary_breed_id"
     t.integer  "secondary_breed_id"
     t.string   "slug"
+    t.integer  "pet_photos_count",   :default => 0, :null => false
+    t.integer  "watchers_count",     :default => 0, :null => false
   end
 
   add_index "pets", ["affection_id"], :name => "index_pets_on_affection_id"
