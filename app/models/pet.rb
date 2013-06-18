@@ -103,7 +103,7 @@ class Pet < ActiveRecord::Base
   
   before_validation :generate_slug, on: :create
   before_validation :convert_values, on: :create
-  before_validation :regenerate_slug, on: :update#, if: :name_changed?
+  before_validation :regenerate_slug, on: :update, if: :name_changed?
 
   default_scope order: 'pets.created_at DESC'
 
