@@ -21,7 +21,7 @@ class PetVideo < ActiveRecord::Base
   validates :pet_id, presence: true
   validates :user_id, presence: true
   
-  default_scope order: 'pet_videos.created_at ASC'
+  default_scope order: 'pet_videos.created_at DESC'
   
   def panda_video
     @panda_video ||= Panda::Video.find(panda_video_id)

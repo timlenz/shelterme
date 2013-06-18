@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20130617045526) do
     t.integer  "secondary_breed_id"
     t.string   "slug"
     t.integer  "pet_photos_count",   :default => 0, :null => false
-    t.integer  "watchers_count",     :default => 0, :null => false
+    t.integer  "bonds_count",        :default => 0, :null => false
   end
 
   add_index "pets", ["affection_id"], :name => "index_pets_on_affection_id"

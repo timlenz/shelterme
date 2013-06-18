@@ -96,15 +96,14 @@ class Pet < ActiveRecord::Base
   validates :primary_color_id, presence: true
   validates :fur_length_id, presence: true
   validates :primary_breed_id, presence: true
-  validates :slug, presence: true
+  validates :slug, uniqueness: true, presence: true
 
   validate :check_color_match
   validate :check_breed_match
   
   before_validation :generate_slug, on: :create
   before_validation :convert_values, on: :create
-  before_validation :regenerate_slug, on: :update, if: :name_changed?
-  before_validation :check_duplicates, on: :update, if: :shelter_id_changed?
+  before_validation :regenerate_slug, on: :update#, if: :name_changed?
 
   default_scope order: 'pets.created_at DESC'
 
@@ -115,7 +114,6 @@ class Pet < ActiveRecord::Base
   end
   
   def journalize!(shelter, pet_state, old_pet_state)
-    #old_state = cookies[:pet_state_change]
     if old_pet_state
       journals.create!(shelter_id: shelter.id, pet_state_id: pet_state.id, old_pet_state_id: old_pet_state.values[0])
     else
@@ -219,42 +217,27 @@ class Pet < ActiveRecord::Base
     
     def self.search(search)
       if search
-        #where('name iLIKE ?', "%#{search}%")
         find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
       else
         scoped
       end
     end
-  
-    def check_duplicates
-      # check if pet at new shelter has same slug
-      unless Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug}.nil?
-        regenerate_slug
-      end
-    end
     
     def generate_slug
+      debugger
       if name != ""
         self.slug ||= name.parameterize.titleize.gsub(" ","")
       else
         self.slug ||= animal_code.parameterize.titleize.gsub(" ","")
       end
-      # limit to current shelter only and exclude self before generating slug
-      while Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug} do 
+      # exclude self before checking if slug already exists; if so, append rand number; repeat
+      while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
         self.slug = self.slug + Random.rand(1..9).to_s
       end
     end
  
     def regenerate_slug
-      if name != ""
-        self.slug = name.parameterize.titleize.gsub(" ","")
-      else
-        self.slug = animal_code.parameterize.titleize.gsub(" ","")
-      end
-      # limit to current shelter only and exclude self before generating slug
-      while Pet.select{|p| p.shelter == self.shelter}.reject{|p| p == self}.find{|s| s.slug == self.slug} do
-        self.slug = self.slug + Random.rand(1..9).to_s
-      end
+      generate_slug
     end 
     
     def convert_values
