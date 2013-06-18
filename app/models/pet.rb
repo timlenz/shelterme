@@ -236,7 +236,15 @@ class Pet < ActiveRecord::Base
     end
  
     def regenerate_slug
-      generate_slug
+      if name != ""
+        self.slug = name.parameterize.titleize.gsub(" ","")
+      else
+        self.slug = animal_code.parameterize.titleize.gsub(" ","")
+      end
+      # exclude self before checking if slug already exists; if so, append rand number; repeat
+      while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
+        self.slug = self.slug + Random.rand(1..9).to_s
+      end
     end 
     
     def convert_values
