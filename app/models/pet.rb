@@ -224,7 +224,6 @@ class Pet < ActiveRecord::Base
     end
     
     def generate_slug
-      debugger
       if name != ""
         self.slug ||= name.parameterize.titleize.gsub(" ","")
       else
