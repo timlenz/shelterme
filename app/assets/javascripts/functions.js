@@ -145,7 +145,10 @@ $(function(){
   });
 
   // Show Add Pet Photo modal dialog if no pet photos exist for current pet
+	// Set pet_slug cookie value to check for pet_id mismatch on back nav
   if ($('.noPhoto').length) {
+		var pet_slug = window.location.pathname.match(/[^\/]+$/);
+		$.cookie("pet_slug", pet_slug, { path: '/'});
     $('#photoClick').click();
   };
 
