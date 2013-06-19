@@ -96,13 +96,6 @@ class User < ActiveRecord::Base
     slug
   end
   
-  def generate_slug
-    self.slug ||= name.parameterize.titleize.gsub(" ","")
-    while User.find{|s| s.slug == self.slug} || Shelter.find{|s| s.slug == self.slug} do
-      self.slug = self.slug + Random.rand(1..9).to_s
-    end
-  end
-  
   def feed
     #Micropost.from_users_followed_by(self)
     microposts
@@ -462,5 +455,12 @@ class User < ActiveRecord::Base
       begin
         self[column] = SecureRandom.urlsafe_base64
       end while User.exists?(column => self[column])
+    end
+    
+    def generate_slug
+      self.slug = name.parameterize.titleize.gsub(" ","")
+      while User.find{|s| s.slug == self.slug} do
+        self.slug = self.slug + Random.rand(1..9).to_s
+      end
     end
 end

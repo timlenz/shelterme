@@ -148,6 +148,13 @@ $(function(){
   if ($('.noPhoto').length) {
     $('#photoClick').click();
   };
+
+	// Force correct pet target for added media on click of Add Photo / Add Video
+	// Set pet_slug cookie value to check for pet_id mismatch on back nav
+	$('#photoClick, #videoClick').click(function(){
+		var pet_slug = window.location.pathname.match(/[^\/]+$/);
+		$.cookie("pet_slug", pet_slug, { path: '/'});
+	});
   
   // Hide Add Media buttons if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
   if ( $('.addMedia').length ) {

@@ -4,8 +4,11 @@ class PetVideosController < ApplicationController
   respond_to :html, :js
 
   def new
-    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_video = PetVideo.new(pet_id: @pet.id)
+  rescue
+    flash[:error] = "Can't add video right now."
+    redirect_to :back
   end
 
   def create

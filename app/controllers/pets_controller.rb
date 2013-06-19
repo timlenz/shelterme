@@ -129,7 +129,7 @@ class PetsController < ApplicationController
   
   def show
     canonical_url(pet_url(@pet))
-    cookies[:pet_id] = @pet.id
+    cookies[:pet_slug] = @pet.slug
     @microposts = @pet.microposts
     @feed_items = @pet.feed
     cookies[:delete_managed_pet] = "false"

@@ -4,7 +4,7 @@ class PetPhotosController < ApplicationController
   respond_to :html, :js
   
   def new
-    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_photo = PetPhoto.new(pet_id: @pet.id)
     cookies[:photo] = "new"
   rescue
@@ -14,7 +14,7 @@ class PetPhotosController < ApplicationController
 
   def create
     @pet_photo = PetPhoto.create!(params[:pet_photo])
-    @pet = Pet.all.find{|p| p.id == cookies[:pet_id].to_i}
+    @pet = Pet.all.find{|p| p.slug == cookies[:pet_slug]}
     if @pet.pet_photos.size == 1
       @pet_photo.primary = true
     end

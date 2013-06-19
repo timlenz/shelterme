@@ -22,8 +22,8 @@ class UsersController < ApplicationController
       @pseudo_boosted = @user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter} << @user.shelter
     end
     @pseudo_boosted = @pseudo_boosted.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse.map{|k,v| k}.compact
-  #rescue
-    #raise ActionController::RoutingError.new('Not Found')
+  rescue
+    raise ActionController::RoutingError.new('Not Found')
   end
   
   def index
@@ -215,5 +215,6 @@ class UsersController < ApplicationController
     
     def find_user
       @user = User.find_by_slug(params[:id])
+      #@user = User.where('slug iLIKE ?', "#{params[:id]}")
     end
 end
