@@ -29,7 +29,7 @@ class PetsController < ApplicationController
     @nearbys = Array.new
     @nearbys = Shelter.near(@current_location, 70, order: "distance").limit(15)
     if cookies[:recent_shelter_id].to_i > 0
-      recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
+      recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.count > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
@@ -76,9 +76,9 @@ class PetsController < ApplicationController
       end
     end
   rescue
-    flash[:error] = "Unable to save pet. Please resubmit."
+    flash[:error] = "Unable to create pet."
     ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
-    render 'new'
+    redirect_to addpet_path
   end
     
   def addpet
@@ -190,7 +190,7 @@ class PetsController < ApplicationController
     end
     @nearbys = Shelter.near(@current_location, 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
-      recent_shelter = Shelter.all.find{|s| s.id == cookies[:recent_shelter_id].to_i}
+      recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.count > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
@@ -203,7 +203,11 @@ class PetsController < ApplicationController
       @nearbys = @nearbys << @pet.shelter
     end
   rescue
-    flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    if @pet
+      flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    else
+      flash[:error] = "Unable to edit pet."
+    end  
     redirect_to :back
   end
   
@@ -246,7 +250,12 @@ class PetsController < ApplicationController
       redirect_to :back
     end
   rescue
-    flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    if @pet
+      flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    else
+      flash[:error] = "Unable to update pet."
+    end  
+    ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
     redirect_to :back
   end
   
@@ -260,7 +269,11 @@ class PetsController < ApplicationController
       redirect_to root_path
     end
   rescue
-    flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    if @pet
+      flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+    else
+      flash[:error] = "Unable to delete pet."
+    end  
     redirect_to :back
   end
   

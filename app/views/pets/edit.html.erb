@@ -30,6 +30,11 @@
           <%= render "edit_data" %>
         </div>
         <div class="tab-pane" id="photos">
+	        <div id="waiting" class="hide">
+					 <%= image_tag("spinner.gif")%>
+					 <br>
+					 <h2 style="text-align:center;">Updating...</h2>
+					</div>
           <div id="editPhotos">
             <%= render partial: "edit_photos", 
                 collection: @pet.pet_photos.sort{|a,b| (a.primary == b.primary) ? ((a.id < b.id) ? -1 : 1) : (a.primary ? -1 : 1)}, 

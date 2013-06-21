@@ -8,26 +8,25 @@ class PetPhotosController < ApplicationController
     @pet_photo = PetPhoto.new(pet_id: @pet.id)
     cookies[:photo] = "new"
   rescue
-    flash[:error] = "Can't add photo right now."
+    flash[:error] = "Unable to add photo."
     redirect_to :back
   end
 
   def create
+    @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_photo = PetPhoto.create!(params[:pet_photo])
-    @pet = Pet.all.find{|p| p.slug == cookies[:pet_slug]}
     if @pet.pet_photos.size == 1
       @pet_photo.primary = true
     end
     if @pet_photo.save
-      redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
       flash[:notice] = "Photo of #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code} added."
     else
-      flash[:error] = "Whoops. The photo of #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code} was not added."
-      redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
-    end
+      flash[:error] = "Upload of photo failed."
+    end  
+    redirect_to [@pet.shelter, @pet]
   rescue
-    flash[:error] = "Unable to add photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
-    redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
+    flash[:error] = "Unable to add photo for #{@pet.name.titleize != "" ? @pet.name.titleize : @pet.animal_code}."
+    redirect_to [@pet.shelter, @pet]
   end
 
   def edit
@@ -36,7 +35,11 @@ class PetPhotosController < ApplicationController
       cookies[:photo] = "edit"
     end
   rescue
-    flash[:error] = "Unable to edit photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    if @pet_photo
+      flash[:error] = "Unable to edit photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    else
+      flash[:error] = "Unable to edit photo."
+    end
     redirect_to :back
   end
 
@@ -64,7 +67,11 @@ class PetPhotosController < ApplicationController
     end
     cookies[:photo] = ""
   rescue
-    flash[:error] = "Unable to update photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    if @pet_photo
+      flash[:error] = "Unable to update photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    else
+      flash[:error] = "Unable to update photo."
+    end
     redirect_to :back
   end
 
@@ -84,7 +91,11 @@ class PetPhotosController < ApplicationController
       redirect_to edit_shelter_pet_path(@pet_photo.pet.shelter, @pet_photo.pet)
     end
   rescue
-    flash[:error] = "Unable to delete photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    if @pet_photo
+      flash[:error] = "Unable to delete photo for #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code}."
+    else
+      flash[:error] = "Unable to delete photo."
+    end
     redirect_to :back
   end
   

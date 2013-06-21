@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   
+  before_filter :set_cache_buster
   #before_filter :handle_mobile RE-ENABLE WHEN MOBILE APPS ARE READY
   
   unless Rails.application.config.consider_all_requests_local
@@ -13,6 +14,12 @@ class ApplicationController < ActionController::Base
   end
   
 private
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
   def handle_mobile
     request.format = :mobile if mobile_user_agent?

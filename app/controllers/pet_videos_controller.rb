@@ -7,13 +7,15 @@ class PetVideosController < ApplicationController
     @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_video = PetVideo.new(pet_id: @pet.id)
   rescue
-    flash[:error] = "Can't add video right now."
+    flash[:error] = "Unable to add video."
     redirect_to :back
   end
 
   def create
+    debugger
+    @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_video = PetVideo.create!(params[:pet_video])
-    if @pet_video.pet.pet_videos.size == 1
+    if @pet.pet_videos.size == 1
       @pet_video.primary = true
     end
     if @pet_video.save
@@ -21,17 +23,21 @@ class PetVideosController < ApplicationController
     else
       flash[:notice] = "Upload of video failed."
       # SEND FAILED VIDEO UPLOAD ALERT EMAIL
-    end
-    redirect_to [@pet_video.pet.shelter, @pet_video.pet]
+    end  
+    redirect_to [@pet.shelter, @pet]
   rescue
-    flash[:error] = "Unable to add video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
-    redirect_to [@pet_video.pet.shelter, @pet_video.pet]
+    flash[:error] = "Unable to add video for #{@pet.name.titleize != "" ? @pet.name.titleize : @pet.animal_code}."
+    redirect_to [@pet.shelter, @pet]
   end
   
   def edit
     @pet_video = PetVideo.find(params[:id])
   rescue
-    flash[:error] = "Unable to edit video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    if @pet_video
+      flash[:error] = "Unable to edit video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    else
+      flash[:error] = "Unable to edit video."
+    end
     redirect_to :back
   end
   
@@ -40,14 +46,18 @@ class PetVideosController < ApplicationController
     PetVideo.select{|pp| @pet_video.pet.id == pp.pet.id }.each{|pp| pp.primary = false }.each(&:save)
     @pet_video.primary = true
     if @pet_video.update_attributes(params[:pet_video])
-      flash[:notice] = "Updated the primary photo for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+      flash[:notice] = "Updated the primary video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     else
       flash[:error] = "The video of #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code} was not updated."
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
   rescue
-    flash[:error] = "Unable to update video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    if @pet_video
+      flash[:error] = "Unable to update video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    else
+      flash[:error] = "Unable to update video."
+    end
     redirect_to :back
   end
   
@@ -63,7 +73,11 @@ class PetVideosController < ApplicationController
       redirect_to edit_shelter_pet_path(@pet_video.pet.shelter, @pet_video.pet)
     end
   rescue
-    flash[:error] = "Unable to delete video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    if @pet_video
+      flash[:error] = "Unable to delete video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."
+    else
+      flash[:error] = "Unable to delete video."
+    end
     redirect_to :back
   end
 

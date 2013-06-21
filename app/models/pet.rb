@@ -175,8 +175,8 @@ class Pet < ActiveRecord::Base
     return current
   end
   
-  def self.addpet(addpet)
-    @pet == Pet.all.find{|p| p.animal_code == params[:addpet] }
+  def self.addpet(addpet) # is this method used anymore? consider deleting it.
+    @pet == Pet.where(animal_code: params[:addpet])
     alert(@pet.name)
     if @pet.nil?
       redirect_to newpet_path
