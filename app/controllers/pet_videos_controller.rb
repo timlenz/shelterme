@@ -19,11 +19,12 @@ class PetVideosController < ApplicationController
     end
     if @pet_video.save
       flash[:notice] = "Video of #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code} added."
+      redirect_to [@pet_video.pet.shelter, @pet_video.pet]
     else
       flash[:notice] = "Upload of video failed."
+      redirect_to [@pet.shelter, @pet]
       # SEND FAILED VIDEO UPLOAD ALERT EMAIL
     end  
-    redirect_to [@pet.shelter, @pet]
   rescue
     flash[:error] = "Unable to add video for #{@pet.name.titleize != "" ? @pet.name.titleize : @pet.animal_code}."
     redirect_to [@pet.shelter, @pet]

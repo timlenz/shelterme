@@ -20,10 +20,11 @@ class PetPhotosController < ApplicationController
     end
     if @pet_photo.save
       flash[:notice] = "Photo of #{@pet_photo.pet.name.titleize != "" ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code} added."
+      redirect_to [@pet_photo.pet.shelter, @pet_photo.pet]
     else
       flash[:error] = "Upload of photo failed."
-    end  
-    redirect_to [@pet.shelter, @pet]
+      redirect_to [@pet.shelter, @pet]
+    end
   rescue
     flash[:error] = "Unable to add photo for #{@pet.name.titleize != "" ? @pet.name.titleize : @pet.animal_code}."
     redirect_to [@pet.shelter, @pet]

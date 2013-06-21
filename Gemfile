@@ -22,6 +22,7 @@ gem 'net-scp', '1.1.0'
 gem 'nokogiri'
 gem 'cloudinary'
 gem 'active_attr'
+gem "meta_request", "~> 0.2.0"
 
 group :development do
   gem 'rspec-rails', '2.9.0'
