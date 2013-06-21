@@ -12,7 +12,6 @@ class PetVideosController < ApplicationController
   end
 
   def create
-    debugger
     @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_video = PetVideo.create!(params[:pet_video])
     if @pet.pet_videos.size == 1
