@@ -34,9 +34,18 @@ ShelterMe::Application.configure do
   
   # Established mailer default host
   config.action_mailer.default_url_options = { host: "staging.shelterme.com" }
-  
-  # Configure ActionMailer's delivery method
-  config.action_mailer.delivery_method = :letter_opener
+
+  # Configure using Mandrill on Heroku
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.mandrillapp.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['MANDRILL_USERNAME'],
+    :password       => ENV['MANDRILL_APIKEY'],
+    :domain         => 'shelterme.com',
+    :enable_starttls_auto => true
+  }
   
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = "https://d1cfuubd0nzl7w.cloudfront.net"
