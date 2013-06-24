@@ -71,9 +71,9 @@ class StaticPagesController < ApplicationController
     @blog = false
     @featured_pets = []
     @shelter = []
-  rescue
-    flash[:notice] = "There are no shelters near your location."
-    redirect_to findshelter_path and return
+  #rescue
+    #flash[:notice] = "There are no shelters near your location."
+    #redirect_to findshelter_path and return
   end
   
   def about
