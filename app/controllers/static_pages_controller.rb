@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
           @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
           @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.where(id: p)}.flatten
         else  
-          @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+          @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding; need to make this active again
           if cookies[:location]
             @location = cookies[:location]
           end
