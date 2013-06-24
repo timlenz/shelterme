@@ -6,24 +6,30 @@ class StaticPagesController < ApplicationController
         require 'open-uri'
         require 'nokogiri'
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
+          bingo = "block 1"
           @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
           @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
           @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.where(id: p)}.flatten
         else  
-          @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+          bingo = "block 1 else"
+          @location = "MapQuest not responding" # Temporary fix for LA beta - was MapQuest not responding
           if cookies[:location]
+            bingo = "block 1 else 1"
             @location = cookies[:location]
           end
           if (validate_location(@location) == false) && (signed_in? and current_user.location?)
+            bingo = "block 1 else 2"
             @location = current_user.location
           end
-          if validate_location(@location) == false    
+          if validate_location(@location) == false 
+            bingo = "block 1 else 3"   
             s = Geocoder.search(remote_ip)
             @location = s[0].city + ", " + s[0].state_code
           end
           cookies[:location] = @location
           shelters = Shelter.near(@location, 70, order: "distance")
           unless shelters.count > 0
+            bingo = "block 1 else 4"
             shelters = Shelter.near(@location, 200, order: "distance")
           end
           nearbys = shelters.map{|s| s.id}
@@ -32,14 +38,17 @@ class StaticPagesController < ApplicationController
           @pets = @pets.where(pet_state_id: 1)
           @pets = @pets.where('pet_photos_count > 0') # Don't show any pets without photos
           if @location != "MapQuest not responding"
+            bingo = "block 1 else 5"
             @featured_pets = @pets.sample(4)
             @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
-            @shelter_pets = @shelter.available.where('pet_photos_count > 0').sample(2)
+            @shelter_pets = @shelter.available.sample(2)
             # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
             cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
             cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }
             cookies[:featured_shelter_pets] = { value: @shelter_pets.map{|p| p.id}, expires: 1.day.from_now}
+            bingo = "line 43"
           else
+            bingo = "block 1 else 6"
             @featured_pets = []
             @shelter = []
           end
@@ -71,9 +80,10 @@ class StaticPagesController < ApplicationController
     @blog = false
     @featured_pets = []
     @shelter = []
-  #rescue
+  rescue
     #flash[:notice] = "There are no shelters near your location."
-    #redirect_to findshelter_path and return
+      flash[:notice] = bingo
+    redirect_to findshelter_path and return
   end
   
   def about
