@@ -7,8 +7,8 @@ class StaticPagesController < ApplicationController
         require 'nokogiri'
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
           @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
-          @shelter = Shelter.select{|s| s.id == cookies[:featured_shelter].to_i}.first
-          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
+          @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
+          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.where(id: p)}.flatten
         else  
           @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
           if cookies[:location]
@@ -29,13 +29,12 @@ class StaticPagesController < ApplicationController
           nearbys = shelters.map{|s| s.id}
           @pets = Pet.order(:name)
           @pets = @pets.where('shelter_id in (?)', nearbys)
-          @pets = @pets.select{|p| p.pet_state.status == 'available'}
-          @pets = @pets.select{|p| p.pet_photos.count > 0} # Don't show any pets without photos
+          @pets = @pets.where(pet_state_id: 1)
+          @pets = @pets.where('pet_photos_count > 0') # Don't show any pets without photos
           if @location != "MapQuest not responding"
             @featured_pets = @pets.sample(4)
-            #@shelter = shelters.max_by{|s| s.pets.select{|p| p.pet_state.status == 'available'}.count}
             @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
-            @shelter_pets = @shelter.available.select{|p| p.pet_photos.count > 0}.sample(2)
+            @shelter_pets = @shelter.available.where('pet_photos_count > 0').sample(2)
             # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
             cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
             cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }
@@ -87,8 +86,8 @@ class StaticPagesController < ApplicationController
     pets = Pet.all
     users = User.all
     @names = pets.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
-    @dog_names = pets.select{|p| p.species_id == 2}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
-    @cat_names = pets.select{|p| p.species_id == 1}.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @dog_names = pets.where(species_id: 2).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @cat_names = pets.where(species_id: 1).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
     @available_journal = Shelter.all.map{|s| s.available_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @absent_journal = Shelter.all.map{|s| s.absent_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @adopted_journal = Shelter.all.map{|s| s.adopted_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','

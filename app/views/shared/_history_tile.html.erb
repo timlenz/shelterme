@@ -40,17 +40,4 @@
       <%= link_to f.shelter.name, f.shelter, class: "shelter-tile", target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
     </p>
   </div>
-  <div class="small-pet-icons">
-    <ul>
-      <li><%= render 'shared/icons/ageGender', f: f %></li>
-      <li><%= render 'shared/icons/sizeWeight', f: f %></li>
-      <li><%= render 'shared/icons/color', f: f %></li>
-      <li><%= render 'shared/icons/energy', f: f %></li>
-      <li><%= render 'shared/icons/nature', f: f %></li>
-      <li><%= render 'shared/icons/affection', f: f %></li>
-    </ul>
-  </div>
-  <div class="small-pet-state">
-      <span class="commentCount"><%= link_to f.watchers.size, "#", rel: "tooltip", title: pluralize(f.watchers.size.to_s, " follower"), class: "unlink" %></span>
-  </div>
 </li>

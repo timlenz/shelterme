@@ -4,33 +4,33 @@
   </div>
   <% if @user.pets.size > 0 or @user.watched_pets.size > 0 %>
   <div class="petTiles">
-    <h3><%= image_tag("myIdealPet.png", alt: "My Ideal Pet") %></h3>
+    <h3 class="profileText myIdealPetText"></h3>
     <ul>
       <li>
 	      <% ageGender = @user.ave_ageGender.gsub(/[A-Z][a-z]+/, ' \0').humanize %>
-        <%= link_to image_tag("#{@user.ave_ageGender}Icon.png"), "#", rel: "tooltip", title: ageGender %>
+        <%= link_to "", "#", class: "petTile #{@user.ave_ageGender}Icon", rel: "tooltip", title: ageGender %>
       </li>
       <li>
 	      <% size = @user.ave_sizeSpecies.gsub(/(Size)[a-zA-Z]+/, '') %>
 		    <% species = @user.ave_sizeSpecies.gsub(/[a-zA-Z]+(Size)/, '') %>
-        <%= link_to image_tag("#{@user.ave_sizeSpecies}Icon.png"), "#", rel: "tooltip", 
+        <%= link_to "", "#", class: "petTile #{@user.ave_sizeSpecies}Icon", rel: "tooltip", 
             title: ((size  == "low" ? "Small" : (@user.ave_energy == "mid" ? "Medium" : "Large")) + " " + species).humanize %>
       </li>
       <li>
 	      <% coat = @user.ave_coat.gsub(/[A-Z][a-z]+/, ' \0').humanize %>
-        <%= link_to image_tag("#{@user.ave_coat}Icon.png"), "#", rel: "tooltip", title: coat + " fur" %>
+        <%= link_to "", "#", class: "petTile #{@user.ave_coat}Icon", rel: "tooltip", title: coat + " fur" %>
       </li>
       <li>
-        <%= link_to image_tag("#{@user.ave_energy}EnergyIcon.png"), "#", rel: "tooltip", 
+        <%= link_to "", "#", class: "petTile #{@user.ave_energy}EnergyIcon", rel: "tooltip", 
             title: @user.ave_energy == "low" ? "Relaxed" : (@user.ave_energy == "medium" ? "Moderate" : "Energetic") %>
       </li>
       <li>
 	      <% nature = @user.ave_nature.gsub(/(Cat|Dog)/,"") %>
-        <%= link_to image_tag("#{@user.ave_nature}NatureIcon.png"), "#", rel: "tooltip", 
+        <%= link_to "", "#", class: "petTile #{@user.ave_nature}NatureIcon", rel: "tooltip", 
             title: nature == "low" ? "Submissive" : (nature == "medium" ? "Playful" : "Confident") %>
       </li>
       <li>
-        <%= link_to image_tag("#{@user.ave_affection}AffectionIcon.png"), "#", rel: "tooltip", 
+        <%= link_to "", "#", class: "petTile #{@user.ave_affection}AffectionIcon", rel: "tooltip", 
             title: @user.ave_affection == "low" ? "Reserved" : (@user.ave_affection == "medium" ? "Friendly" : "Devoted") %>
       </li>
     </ul>

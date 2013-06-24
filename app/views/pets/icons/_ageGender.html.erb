@@ -1,6 +1,4 @@
-<div class="icon">
-  <%= image_tag("#{@pet.age_group}#{@pet.gender.sex.capitalize}Icon.png") %>
-</div>
+<div class="icon petTile <%= @pet.age_group %><%= @pet.gender.sex.capitalize %>Icon"></div>
 <div class="tiletag">
   <%= @pet.current_age %>
    old 

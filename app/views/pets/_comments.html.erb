@@ -1,5 +1,6 @@
 <div class="comments">
-  <h3><%= image_tag("followingMe.png", alt: "Following Me", class: "noPrint") %><span class="print">Following Me</span></h3>
+  <h3 class="profileText followingMeText noPrint"></h3>
+  <h3><span class="print">Following Me</span></h3>
   <span class="commentCount"><%= @pet.watchers.size %></span>
   <div class="clearfix"></div>
   <span>
@@ -12,12 +13,12 @@
   </span>
   <hr>
   <% if @feed_items.any? %>
-  <h3><%= image_tag("comments.png", alt: "Comments") %></h3>
+  <h3 class="profileText commentsText"></h3>
   <% end %>
   <%= render 'shared/feed' %>
   <% if signed_in? && @pet.pet_state.status != 'unavailable' %>
   <div class="commentEntry">
-    <h3><%= image_tag("addComment.png", alt: "Add Comment") %></h3>
+    <h3 class="profileText addCommentText"></h3>
        <%= render 'shared/micropost_form' %>
   </div>
   <% end %>

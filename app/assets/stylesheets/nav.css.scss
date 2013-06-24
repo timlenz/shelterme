@@ -1,0 +1,74 @@
+$brownDarkest: #722705;
+$brownDark: #853a18;
+
+.navMain { 
+	background-image: url(nav.png); 
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.navMainOn {
+	background-color: $brownDark;
+	background-image: url(nav.png), -moz-linear-gradient(top, $brownDark, $brownDarkest);
+	background-image: url(nav.png), -ms-linear-gradient(top, $brownDark, $brownDarkest);
+	background-image: url(nav.png), -webkit-gradient(linear, 0 0, 0 100%, from($brownDark), to($brownDarkest));
+	background-image: url(nav.png), -webkit-linear-gradient(top, $brownDark, $brownDarkest);
+	background-image: url(nav.png), -o-linear-gradient(top, $brownDark, $brownDarkest);
+	background-image: url(nav.png), linear-gradient(top, $brownDark, $brownDarkest);
+}
+
+.addPetOff { 
+	background-position: -333px -37px;
+	&:hover {
+		background-position: -538px -37px;
+	}
+}
+.addPetOn {
+	background-position: -196px -37px;
+}
+
+.findPetOff {
+	background-position: -211px -74px;
+	&:hover {
+		background-position: 0 -74px;
+	}
+}
+
+.findPetOn {
+	background-position: -354px -74px;
+}
+
+.findShelterOff {
+	background-position: 0 0;
+	&:hover {
+		background-position: -181px 0;
+	}
+}
+
+.findShelterOn {
+	background-position: -497px -74px;
+}
+
+.matchMeOff {
+	background-position: -519px 0;
+	&:hover {
+		background-position: 0 -37px;
+	}
+}
+
+.matchMeOn {
+	background-position: -362px 0;
+}
+
+.profileIcon {
+	width: 67px;
+	height: 20px;
+	background-position: -143px -78px;
+	&:hover {
+		background-position: -470px -37px;
+	}
+}
+
+.navLogo {
+	background-position: -157px -37px;
+}

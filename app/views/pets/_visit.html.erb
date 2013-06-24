@@ -1,9 +1,9 @@
 <li>
   <div class="modalElement modalStep">
     <div class="listCircle">1</div>
-    <h3>
-      <%= image_tag("goTo.png", alt: "Go To", class: "noPrint") %>
-      <span class="print" style="float:left;margin-top:8px;">Contact</span>
+    <h3 class="profileText goToText noPrint"></h3>
+    <h3 class="print">
+      <span style="float:left;">Contact</span>
     </h3>
   </div>
   <div class="modalElement modalInfo">
@@ -37,8 +37,8 @@
 <li>
   <div class="modalElement modalStep">
     <div class="listCircle">2</div>
-    <h3><%= image_tag("askAbout.png", alt: "Ask About", class: "noPrint") %>
-    <span class="print" style="float:left;margin-top:8px;">Ask About</span></h3>
+    <h3 class="profileText askAboutText noPrint"></h3>
+    <h3 class="print"><span style="float:left;">Ask About</span></h3>
   </div>
   <div class="modalElement modalInfo">
     <p><%= @pet.animal_code %></p>

@@ -117,11 +117,9 @@ class PetsController < ApplicationController
     end
     if params[:find]
       #@pets = Pet.search(params[:search]).select{|p| p.pet_state.status == "available"}
-      @pets = Pet.select{|p| p.pet_state.status == "available"}.first(10)
+      @pets = Pet.where(pet_state_id: 1).first(10) # CHECK IF THIS CODE IS USED
     end
-    @pets = Pet.select{|p| p.pet_state.status == "available"}
-    @pets = @pets.select{|p| p.species.name == 'dog'}
-    @pets = @pets.select{|p| p.pet_photos.present?}
+    @pets = Pet.where(pet_state_id: 1, species_id: 2).where('pet_photos_count > 0')
   rescue
     flash[:error] = "Unable to find pets."
     redirect_to :back
@@ -158,10 +156,8 @@ class PetsController < ApplicationController
       nearbys = Shelter.near(@current_location, 200, order: "distance").map{|s| s.id}
     end
     if nearbys.count > 0
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
-      pets = pets.select{|p| p.pet_state.status == "available"}
-      pets = pets.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
+      pets = Pet.order(:name) # IS THIS NECESSARY?
+      pets = pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0')
       @pet = pets[Random.rand(0..(pets.count-1))]
       flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} is your featured pet."
       redirect_to [@pet.shelter, @pet]

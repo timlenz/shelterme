@@ -17,6 +17,9 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     redirect_to :back
+  rescue    
+    flash[:notice] = "Comment not deleted."
+    redirect_to :back
   end
   
   def index

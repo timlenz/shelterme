@@ -1,5 +1,8 @@
 <div class="sidebar-element">
-  <h3><%= image_tag("blogIcon.png", class: "sideIcon") %> <%= image_tag("blog.png", alt: "Blog") %></h3>
+	<h3>
+		<div class="sideIcon landingIcons blogIcon"></div>
+	  <div class="landingText blogText"></div>
+	</h3>
   <% unless @image == "none" %>
   <%= image_tag(@image, class: "sideImage", style:"float:right;") %>
   <% end %>

@@ -1,10 +1,2 @@
-<div class="icon">
-  <% if @pet.nature.name == 'submissive' %>
-    <%= image_tag("low#{@pet.species.name.humanize}NatureIcon.png") %>
-  <% elsif @pet.nature.name == 'playful' %>
-    <%= image_tag("mid#{@pet.species.name.humanize}NatureIcon.png") %>
-  <% else %>
-    <%= image_tag("high#{@pet.species.name.humanize}NatureIcon.png") %>
-  <% end %>
-</div>
+<div class="icon petTile <%= @pet.nature.name == 'submissive' ? 'low' : ( @pet.nature.name == 'playful' ? 'mid' : 'high' ) %><%= @pet.species.name.humanize%>NatureIcon"></div>
 <div class="tiletag"><%= @pet.nature.name %></div>

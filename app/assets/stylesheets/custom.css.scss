@@ -39,7 +39,7 @@ $blueHilite: #49afcd;
 $diameter: 26px;
 
 $footer: 95px;
-$stickyOffset: 295px;
+$stickyOffset: 250px; /* was 295px */
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -770,9 +770,7 @@ footer {
     }
   }
   .heroDog {
-    img {
-      margin-right: -40px;
-    }
+  	margin-right: -40px;
   }
 }
 
@@ -957,7 +955,7 @@ footer {
     display: inline-block;
   }
 	hr {
-	  border-bottom: 3px solid $grayLighter; 
+	  border-bottom: 2px solid $grayLighter; 
 	  margin: 10px 0;
 	}
   .count {
@@ -1187,6 +1185,8 @@ select {
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid $grayMedium;
+	border-left: none;
+	border-top: none;
   -webkit-border-top-left-radius: 12px;
   -webkit-border-top-right-radius: 12px;
   -moz-border-top-left-radius: 12px;
@@ -1492,7 +1492,7 @@ ol.activity {
 /* FADER */
 
 #photoFader {
-  margin-top: 15px;  
+  margin-top: 10px;  
   margin-bottom: 5px;
   width: 592px;
   height: 394px;
@@ -1609,7 +1609,7 @@ ol.activity {
 /* HISTORY FOOTER */
 
 #history {
-  height: 175px;
+  height: 130px; /* was 175px */
   margin-top: 20px;
   width: 100%;
   position: relative;
@@ -1625,7 +1625,7 @@ ol.activity {
   box-shadow:         0px -3px 2px rgba(50, 50, 50, 0.06);
   .container {
     overflow: hidden;
-    height: 177px;
+    height: 132px; /* was 177px */
   }
   .slider {
     background-color: $brownLighter;
@@ -1712,7 +1712,6 @@ ol.activity {
   width: 135px;
   height: 90px;
   float: left;
-  margin-bottom: 5px;
   background: url(logo_small.png) center no-repeat;
   -moz-background-attachment: fixed;
   img {
@@ -1724,6 +1723,9 @@ ol.activity {
 		-webkit-border-top-right-radius: 4px;
 		-moz-border-top-right-radius: 4px;
 		border-top-right-radius: 4px;
+		-webkit-border-bottom-left-radius: 4px;
+		-moz-border-bottom-left-radius: 4px;
+		border-bottom-left-radius: 4px;
   }
   a {
     display: block;
@@ -1771,7 +1773,7 @@ ol.activity {
   margin: 0;
   padding: 4px;
   width: 126px;
-  height: 86px;
+  height: 82px;
   overflow: hidden;
   h3 {
     font-size:13px;
@@ -2148,10 +2150,8 @@ ol.activity {
     margin-bottom: 10px;
   }
   .added {
-    margin-top: 6px;
     font-size: 12px;
     font-weight: normal;
-    float: right;
     color: $grayLightDark;
   }
   img {
@@ -2246,13 +2246,13 @@ ol.activity {
   }
   .petTiles {
     margin-top: 10px;
+		padding-top: 5px;
 		height: 80px;
     display:block;
 	  background-color: $grayMediumLight;
 		@include small_border_radius;
 	  h3 {
-	    margin: 10px 10px 0;
-			padding-top: 10px;
+	    margin: 5px 10px;
 	  }
     ul {
       list-style: none;
@@ -2366,8 +2366,12 @@ ol.activity {
 }
 
 .shelterBlurb {
-  height: 145px;
+  height: 184px;
   overflow: hidden;
+	p {
+	  font-size: 13px;
+		line-height: 18px;
+	}
 }
 
 .shelterContact {
@@ -2392,7 +2396,7 @@ ol.activity {
 }
 
 .shelterHours {
-  margin: 10px 0 15px;
+  margin: 0 0 15px;
   td {
     width: 84px;
     padding: 2px 4px;
@@ -2483,10 +2487,14 @@ ol.activity {
   .addMedia {
     border: 0;
   }
-  .pageHeader, .description, .sponsor, .social, .comments hr {
+  .pageHeader, .description, .sponsor, .social {
     border-bottom: 3px solid $blueFade;
     border-bottom: 3px solid rgba(56, 140, 178, 0.2);  
   }
+	.comments hr {
+    border-bottom: 3px solid $blueFade;
+    border-bottom: 3px solid rgba(56, 140, 178, 0.2);
+	}
 }
 
 .tile-photo {
@@ -3645,13 +3653,11 @@ th {
     }
     li {
       padding: 10px 0;
-      border-bottom: 1px solid $grayLighter;
     }
     .modalMap {
       margin-top: 10px;
       width: 540px;
       height: 162px;
-      background-color: tan;
     }
     .modalElement {
       float: left;
@@ -4254,8 +4260,8 @@ ul.typeahead {
 			height: 52px;
 			width: 52px;
 			margin-left: 4px;
-			img {
-				margin: 4px;
+			a {
+				margin: 5px;
 			}
 		}
 	}

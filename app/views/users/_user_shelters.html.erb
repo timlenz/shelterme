@@ -1,5 +1,5 @@
 <div class="userShelters rightColumn">
-  <h3><%= image_tag("favoriteShelters.png", alt: "Favorite Shelters") %></h3>
+  <h3 class="profileText favoriteSheltersText"></h3>
   <ul class="shelterList">
 	<% if @user.boosted_shelters.blank? %>
     <% @pseudo_boosted.first(3). each do |f|%>

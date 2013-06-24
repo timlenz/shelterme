@@ -1,6 +1,9 @@
 <% if recent_adoptions.count > 0%>
 <div class="sidebar-element">
-  <h3><%= image_tag("adoptedIcon.png", class: "sideIcon") %> <%= image_tag("adopted.png", alt: "Adopted!") %></h3>
+	<h3>
+		<div class="sideIcon landingIcons adoptedIcon"></div>
+	  <div class="landingText adoptedText"></div>
+	</h3>
   <div class="adoptions">
     <% recent_adoptions.each do |f| %>
     <div class="item">

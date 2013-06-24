@@ -9,10 +9,9 @@
     <div class="row">
       <div class="shelterDetails">
         <div class="shelterBlurb">
-          <%= @shelter.description %>
+          <%= simple_format(@shelter.description) %>
         </div>
         <%= render "hours" %>
-        <%= render "contact" %>
       </div>
       <div class="rightColumn">
         <%= render "map" %>

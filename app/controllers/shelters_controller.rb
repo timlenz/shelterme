@@ -131,6 +131,9 @@ class SheltersController < ApplicationController
     else
       redirect_to root_path
     end
+  rescue
+    flash[:notice] = "Shelter not deleted."
+    redirect_to :back
   end
   
   private

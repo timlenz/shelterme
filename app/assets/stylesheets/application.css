@@ -13,6 +13,10 @@
  *= require jquery.fileupload-ui
  *= require custom
  *= require dialogs
+ *= require nav
+ *= require tiles
+ *= require landing
+ *= require profile
  *= require_self
  *
 */

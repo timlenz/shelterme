@@ -1,5 +1,5 @@
 <div class="featured-pets">
-  <h2><%= image_tag("featuredPets.png", alt: "Featured Pets") %></h2>
+  <h2 class="landingText featuredPetsText"></h2>
   <% if @featured_pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
       collection: @featured_pets, 

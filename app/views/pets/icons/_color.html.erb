@@ -1,5 +1,2 @@
-<% if @pet.secondary_color == nil %>
-  <%= image_tag("#{@pet.fur_length.length}#{@pet.primary_color.color.capitalize.gsub(/-/,"")}Icon.png") %>
-<% else %>
-  <%= image_tag("#{@pet.fur_length.length}#{@pet.primary_color.color.capitalize}#{@pet.secondary_color.color.capitalize}Icon.png") %>
-<% end %>
+<%= @pet.secondary_color == nil ? @pet.fur_length.length + @pet.primary_color.color.capitalize.gsub(/-/,"") + "Icon" :
+@pet.fur_length.length + @pet.primary_color.color.capitalize + @pet.secondary_color.color.capitalize + "Icon" %>

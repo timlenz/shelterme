@@ -18,5 +18,8 @@ class BondsController < ApplicationController
     @pet = Bond.find(params[:id]).pet
     current_user.unwatch!(@pet)
     respond_with [@pet.shelter, @pet]
+  rescue
+    flash[:notice] = "Bond not deleted."
+    redirect_to :back
   end
 end

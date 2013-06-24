@@ -1,40 +1,40 @@
 <header class="navbar navbar-fixed-top noPrint">
   <div class="navbar-inner">
     <div class="container">
-       <%= link_to image_tag("silhouetteWhite.png", alt: "Home", class: "navLogo"), root_path %>
+       <%= link_to "", root_path, class: "navLogo navMain" %>
        <%= image_tag("navSpinner.gif", class: "navSpinner") %>
        <ul class="nav pull-left">
-         <li>
-           <% if params[:controller] == 'pets' and (params[:action] == 'addpet' or params[:action] == 'new') %>
-             <%= image_tag("addPetOn.png", alt: "Add Pet", class: "currentNav navAddPet") %>
-           <% else %>
-             <%= link_to image_tag("addPetOff.png", mouseover: "addPetOver.png", alt: "Add Pet", class: "navAddPet"), addpet_path %>
-           <% end %>
-         </li>
+			   <% if params[:controller] == 'pets' and (params[:action] == 'addpet' or params[:action] == 'new') %>
+				 <li class="navAddPet addPetOn navMainOn">
+				 <% else %>
+				 <li class="navAddPet addPetOff navMain">
+				   <%= link_to "", addpet_path, class: "navAddPet" %>
+				 <% end %>
+				 </li>
          <li class="vertDivide"> </li>
-         <li>
-           <% if params[:controller] == 'searches' and params[:action] == 'new' %>
-             <%= image_tag("findPetOn.png", alt: "Find Pet", class: "currentNav navFindPet") %>
-           <% else %>
-             <%= link_to image_tag("findPetOff.png", mouseover: "findPetOver.png", alt: "Find Pet", class: "navFindPet"), findpet_path %>
-           <% end %>
-         </li>
+         <% if params[:controller] == 'searches' and params[:action] == 'new' %>
+			   <li class="navFindPet findPetOn navMainOn">
+				 <% else %>
+			   <li class="navFindPet findPetOff navMain">
+			     <%= link_to "", findpet_path, class: "navFindPet" %>
+			   <% end %>
+			   </li>
          <li class="vertDivide"> </li>
-         <li>
-           <% if params[:action] == 'find' and params[:controller] == 'shelters' %>
-             <%= image_tag("findShelterOn.png", alt: "Find Shelter", class: "currentNav navFindShelter") %>
-           <% else %>
-             <%= link_to image_tag("findShelterOff.png", mouseover: "findShelterOver.png", alt: "Find Shelter", class: "navFindShelter"), findshelter_path %>
-           <% end %>
-         </li>
+			   <% if params[:action] == 'find' and params[:controller] == 'shelters' %>
+			   <li class="navFindShelter findShelterOn navMainOn">
+				 <% else %>
+			   <li class="navFindShelter findShelterOff navMain">
+			     <%= link_to "", findshelter_path, class: "navFindShelter" %>
+			   <% end %>
+			   </li>
          <li class="vertDivide"> </li>
-         <li>
-           <% if params[:action] == 'matchme' %>
-             <%= image_tag("matchMeOn.png", alt: "Match Me", class: "currentNav navMatchMe") %>
-           <% else %>
-             <%= link_to image_tag("matchMeOff.png", mouseover: "matchMeOver.png", alt: "Match Me", class: "navMatchMe"), matchme_path %>
-           <% end %>
-         </li>
+			   <% if params[:action] == 'matchme' %>
+			   <li class="navMatchMe matchMeOn navMainOn">
+				 <% else %>
+			   <li class="navMatchMe matchMeOff navMain">
+			     <%= link_to "", matchme_path, class: "navMatchMe" %>
+			   <% end %>
+			   </li>
        </ul>
        <%= render "layouts/nav_menu" %>
     </div>

@@ -1,0 +1,69 @@
+.landingText {
+	background-image: url(landing_text.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+  display: inline-block;
+	vertical-align: middle;
+}
+
+.adoptedText {
+	width: 82px; 
+	height: 10px; 
+	background-position: 0 0;
+}
+
+.blogText {
+	width: 41px; 
+	height: 10px; 
+	background-position: -83px 0; 
+}
+
+.featuredPetsText { 
+	width: 147px; 
+	height: 13px; 
+	background-position: 0 -11px;
+	display: block;
+}
+
+.featuredShelterText {
+	width: 185px; 
+	height: 13px; 
+	background-position: -148px -11px; 
+	display: block
+}
+
+.mobileText {
+	width: 97px;
+	height: 10px;
+	background-position: -125px 0;
+}
+
+.tutorialText { 
+	width: 81px; 
+	height: 10px; 
+	background-position: -223px 0; 
+}
+
+.landingIcons {
+	background-image: url(landing_icons.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+  display: inline-block;
+}
+
+.adoptedIcon {
+	background-position: 0 0;
+}
+
+.blogIcon {
+	background-position: -51px 0;
+}
+
+.mobileIcon {
+	background-position: -102px 0;
+}
+
+.tutorialIcon {
+	background-position: -153px 0;
+}

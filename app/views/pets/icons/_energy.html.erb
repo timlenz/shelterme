@@ -1,10 +1,2 @@
-<div class="icon">
-  <% if @pet.energy_level.level == 'relaxed' %>
-    <%= image_tag("lowEnergyIcon.png") %>
-  <% elsif @pet.energy_level.level == 'moderate' %>
-    <%= image_tag("midEnergyIcon.png") %>
-  <% else %>
-    <%= image_tag("highEnergyIcon.png") %>
-  <% end %>
-</div>
+<div class="icon petTile <%= @pet.energy_level.level == 'relaxed' ? 'low' : ( @pet.energy_level.level == 'moderate' ? 'mid' : 'high' ) %>EnergyIcon"></div>
 <div class="tiletag"><%= @pet.energy_level.level %></div>

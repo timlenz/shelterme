@@ -35,8 +35,8 @@ class Search < ActiveRecord::Base
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0}
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     else
       pets = []
@@ -49,11 +49,11 @@ class Search < ActiveRecord::Base
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0}
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.select{|p| p.shelter_id == nearest}
+      pets = pets.where(shelter_id: nearest)
     else
       pets = []
     end
@@ -65,8 +65,8 @@ class Search < ActiveRecord::Base
       pets = Pet.order(:name)
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0}
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
       pets = pets.select{|p| p.shelter_id == nearest}
@@ -82,11 +82,11 @@ class Search < ActiveRecord::Base
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0}
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.select{|p| p.shelter_id == nearest}
+      pets = pets.where(shelter_id: nearest)
     else
       pets = []
     end
@@ -99,11 +99,11 @@ class Search < ActiveRecord::Base
       pets = pets.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id)
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0}
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.select{|p| p.shelter_id == nearest}
+      pets = pets.where(shelter_id: nearest)
     else
       pets = []
     end
@@ -130,9 +130,9 @@ private
       pets = pets.where(affection_id: affection_id) if affection_id.present?
       pets = pets.where(nature_id: nature_id) if nature_id.present?
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id) if breed_id.present?
+      pets = pets.where(pet_state_id: [1,4])
+      pets = pets.where('pet_photos_count > 0') # Don't show any pets that don't have photos
       pets = pets.select{|p| p.age_group == age_group} if age_group.present?
-      pets = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}
-      pets = pets.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?
     else
       pets = []

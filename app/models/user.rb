@@ -184,8 +184,8 @@ class User < ActiveRecord::Base
       @matches = Pet.order(:name)
       @matches = @matches.where('shelter_id in (?)', nearbys)
       @matches = @matches.where(species_id: species_id) if species_id.present?
-      @matches = @matches.select{|p| p.pet_state.status == "available"}
-      @matches = @matches.select{|p| p.pet_photos.count > 0} # Don't show any pets that don't have photos
+      @matches = @matches.where(pet_state_id: 1)
+      @matches = @matches.where('pet_photos_count > 0') # Don't show any pets that don't have photos
       if !@matches.blank?
         # Calculate match scores for pets in array against user's characteristics
         @matches = @matches.each_with_index do |p, i|
@@ -241,31 +241,31 @@ class User < ActiveRecord::Base
   end
   
   def ave_affection
-    low = pets.select{|p| p.affection.name == 'reserved'}.count + watched_pets.select{|p| p.affection.name == 'reserved'}.count
-    mid = pets.select{|p| p.affection.name == 'friendly'}.count + watched_pets.select{|p| p.affection.name == 'friendly'}.count
-    high = pets.select{|p| p.affection.name == 'devoted'}.count + watched_pets.select{|p| p.affection.name == 'devoted'}.count
+    low = pets.where(affection_id: 3).size + watched_pets.where(affection_id: 3).size # reserved
+    mid = pets.where(affection_id: 2).size + watched_pets.where(affection_id: 2).size # friendly
+    high = pets.where(affection_id: 1).size + watched_pets.where(affection_id: 1).size # devoted
     affection = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
   end
   
   def ave_ageGender
-    low = pets.select{|p| p.age_group == 'young'}.count + watched_pets.select{|p| p.age_group == 'young'}.count
-    mid = pets.select{|p| p.age_group == 'adult'}.count + watched_pets.select{|p| p.age_group == 'adult'}.count
-    high = pets.select{|p| p.age_group == 'senior'}.count + watched_pets.select{|p| p.age_group == 'senior'}.count
+    low = pets.select{|p| p.age_group == 'young'}.size + watched_pets.select{|p| p.age_group == 'young'}.size
+    mid = pets.select{|p| p.age_group == 'adult'}.size + watched_pets.select{|p| p.age_group == 'adult'}.size
+    high = pets.select{|p| p.age_group == 'senior'}.size + watched_pets.select{|p| p.age_group == 'senior'}.size
     age = ["young", "adult", "senior"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
-    male = pets.select{|p| p.gender.sex == 'male'}.count + watched_pets.select{|p| p.gender.sex == 'male'}.count
-    female = pets.select{|p| p.gender.sex == 'female'}.count + watched_pets.select{|p| p.gender.sex == 'female'}.count
+    male = pets.where(gender_id: 1).size + watched_pets.where(gender_id: 1).size # male
+    female = pets.where(gender_id: 2).size + watched_pets.where(gender_id: 2).size # female
     gender = male > female ? "Male" : "Female"
     return age + gender
   end
   
   def ave_coat
-    short = pets.select{|p| p.fur_length.length == 'short'}.count + watched_pets.select{|p| p.fur_length.length == 'short'}.count
-    medium = pets.select{|p| p.fur_length.length == 'medium'}.count + watched_pets.select{|p| p.fur_length.length == 'medium'}.count
-    long = pets.select{|p| p.fur_length.length == 'long'}.count + watched_pets.select{|p| p.fur_length.length == 'long'}.count
+    short = pets.where(fur_length_id: 1).size + watched_pets.where(fur_length_id: 1).size # short
+    medium = pets.where(fur_length_id: 2).size + watched_pets.where(fur_length_id: 2).size # medium
+    long = pets.where(fur_length_id: 3).size + watched_pets.where(fur_length_id: 3).size # long
     length = ["short", "medium", "long"].fetch( ( (short + medium * 2 + long * 3) / (short + medium + long) ).round - 1 )
-    primary_color_count = pets.map{|p| p.primary_color}.compact.count + watched_pets.map{|p| p.primary_color}.compact.count
-    secondary_color_count = pets.map{|p| p.secondary_color}.compact.count + watched_pets.map{|p| p.secondary_color}.compact.count
-    pet_count = pets.count + watched_pets.count
+    primary_color_count = pets.map{|p| p.primary_color}.compact.size + watched_pets.map{|p| p.primary_color}.compact.size
+    secondary_color_count = pets.map{|p| p.secondary_color}.compact.size + watched_pets.map{|p| p.secondary_color}.compact.size
+    pet_count = pets.size + watched_pets.size
     primary = pets.map{|p| p.primary_color}.compact.map{|c| c.color} + watched_pets.map{|p| p.primary_color}.compact.map{|c| c.color}
     secondary = pets.map{|p| p.secondary_color}.compact.map{|c| c.color} + watched_pets.map{|p| p.secondary_color}.compact.map{|c| c.color}
     colors = (primary + secondary).inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries
@@ -284,45 +284,45 @@ class User < ActiveRecord::Base
   end
   
   def ave_energy
-    low = pets.select{|p| p.energy_level.level == 'relaxed'}.count + watched_pets.select{|p| p.energy_level.level == 'relaxed'}.count
-    mid = pets.select{|p| p.energy_level.level == 'moderate'}.count + watched_pets.select{|p| p.energy_level.level == 'moderate'}.count
-    high = pets.select{|p| p.energy_level.level == 'energetic'}.count + watched_pets.select{|p| p.energy_level.level == 'energetic'}.count
+    low = pets.where(energy_level_id: 1).size + watched_pets.where(energy_level_id: 1).size # relaxed
+    mid = pets.where(energy_level_id: 2).size + watched_pets.where(energy_level_id: 2).size # moderate
+    high = pets.where(energy_level_id: 3).size + watched_pets.where(energy_level_id: 3).size # energetic
     energy = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
   end
   
   def ave_nature
-    low = pets.select{|p| p.nature.name == 'submissive'}.count + watched_pets.select{|p| p.nature.name == 'submissive'}.count
-    mid = pets.select{|p| p.nature.name == 'playful'}.count + watched_pets.select{|p| p.nature.name == 'playful'}.count
-    high = pets.select{|p| p.nature.name == 'confident'}.count + watched_pets.select{|p| p.nature.name == 'confident'}.count
+    low = pets.where(nature_id: 1).size + watched_pets.where(nature_id: 1).size # submissive
+    mid = pets.where(nature_id: 2).size + watched_pets.where(nature_id: 2).size # playful
+    high = pets.where(nature_id: 3).size + watched_pets.where(nature_id: 3).size # confident
     level = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
-    dog = pets.select{|p| p.species.name == 'dog'}.count + watched_pets.select{|p| p.species.name == 'dog'}.count
-    cat = pets.select{|p| p.species.name == 'cat'}.count + watched_pets.select{|p| p.species.name == 'cat'}.count
+    dog = pets.where(species_id: 2).size + watched_pets.where(species_id: 2).size # dog
+    cat = pets.where(species_id: 1).size + watched_pets.where(species_id: 1).size # cat
     species = dog > cat ? "Dog" : "Cat"
     nature = level + species
   end
   
   def ave_sizeSpecies
-    low = pets.select{|p| p.size.name == 'small'}.count + watched_pets.select{|p| p.size.name == 'small'}.count
-    mid = pets.select{|p| p.size.name == 'medium'}.count + watched_pets.select{|p| p.size.name == 'medium'}.count
-    high = pets.select{|p| p.size.name == 'large'}.count + watched_pets.select{|p| p.size.name == 'large'}.count
+    low = pets.where(size_id: 1).size + watched_pets.where(size_id: 1).size # small
+    mid = pets.where(size_id: 2).size + watched_pets.where(size_id: 2).size # medium
+    high = pets.where(size_id: 3).size + watched_pets.where(size_id: 3).size # large
     level = ["low", "mid", "high"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
-    dog = pets.select{|p| p.species.name == 'dog'}.count + watched_pets.select{|p| p.species.name == 'dog'}.count
-    cat = pets.select{|p| p.species.name == 'cat'}.count + watched_pets.select{|p| p.species.name == 'cat'}.count
+    dog = pets.where(species_id: 2).size + watched_pets.where(species_id: 2).size # dog
+    cat = pets.where(species_id: 1).size + watched_pets.where(species_id: 1).size # cat
     species = dog > cat ? "Dog" : "Cat"
     nature = level + "Size" + species
   end
   
   def ave_weight
-    if self.pets.count > 0 && self.watched_pets.count > 0
+    if self.pets.size > 0 && self.watched_pets.size > 0
       weights = pets.map{|p| p.weight.to_i}.inject{|sum, el| sum + el} + watched_pets.map{|p| p.weight.to_i}.inject{|sum, el| sum + el}
-      weight = ( weights / (pets.count + watched_pets.count) ).round
+      weight = ( weights / (pets.size + watched_pets.size) ).round
     else
-      if self.pets.count > 0
+      if self.pets.size > 0
         weights = pets.map{|p| p.weight.to_i}.inject{|sum, el| sum + el}
-        weight = ( weights / pets.count ).round
+        weight = ( weights / pets.size ).round
       else       
         weights = watched_pets.map{|p| p.weight.to_i}.inject{|sum, el| sum + el}
-        weight = ( weights / watched_pets.count ).round
+        weight = ( weights / watched_pets.size ).round
       end  
     end
   end
@@ -330,7 +330,7 @@ class User < ActiveRecord::Base
   def activity
     # Followed users
     fu = relationships.map{|r| [self, r.followed, r.created_at, "Followed"]}
-    if fu.count > 0
+    if fu.size > 0
       # Users followed by followed users
       fufu = fu.map{|fu| fu[1]}.map{|fufu| fufu.relationships}.map{|x| x}.flatten.map{|r| [r.follower, r.followed, r.created_at, "Followed"]}
       # Pets sponsored by followed users
@@ -363,7 +363,7 @@ class User < ActiveRecord::Base
     
     # Watched pets
     wp = bonds.map{|b| [b.user, b.pet, b.created_at, "Started Following"]}
-    if wp.count > 0
+    if wp.size > 0
       # Watched pets status changes
       wpst = bonds.map{|b| [b.user, b.pet, b.updated_at, "state", b.pet.pet_state.status]}
       # Watched pets new watchers
@@ -385,7 +385,7 @@ class User < ActiveRecord::Base
     
     # Sponsored pets
     sp = pets.map{|p| [self, p, p.created_at, "Added"]}
-    if sp.count > 0
+    if sp.size > 0
       # Sponsored pets status changes
       spst = pets.map{|p| [self, p, p.updated_at, "state", p.pet_state.status]}
       # Sponsored pets new watchers

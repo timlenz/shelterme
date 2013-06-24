@@ -1,4 +1,8 @@
 <div class="headerInfo">
   <h1><%= @shelter.name %></h1><br>
-  <p><%= @shelter.city %>, <%= @shelter.state %></p>
+  <p><%= @shelter.street %>, <%= @shelter.city %>, <%= @shelter.state %> <%= @shelter.zipcode %></p>
+	<% if signed_in? and current_user.admin? %>
+	<br>
+  <p><%= @shelter.phone ? @shelter.phone : '' %></p>
+	<% end %>	
 </div>

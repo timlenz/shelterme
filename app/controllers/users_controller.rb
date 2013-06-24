@@ -89,6 +89,7 @@ class UsersController < ApplicationController
     redirect_to :back
   rescue
     flash[:notice] = "User not deleted."
+    redirect_to :back
   end
   
   def update

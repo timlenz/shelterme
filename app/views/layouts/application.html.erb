@@ -25,11 +25,6 @@
 
 <%= yield %>
 
-<% if Rails.env.development? && signed_in? && current_user.admin? %>
-  <div class="container noPrint">
-    <%= debug(params) %>
-  </div>
-<% end %>
       <div class="push"></div>
     </div>  
 <% if signed_in? && pet_list.count > 1 && params[:action] != "tutorial" %>

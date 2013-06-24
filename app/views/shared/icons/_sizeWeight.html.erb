@@ -1,21 +1,5 @@
 <div class="icon">
-  <% if f.species.name == 'cat' %>
-    <% if f.size.name == 'small' %>
-      <%= link_to image_tag("lowSizeCatIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% elsif f.size.name == 'medium' %>
-      <%= link_to image_tag("midSizeCatIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% else %>
-      <%= link_to image_tag("highSizeCatIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% end %>
-  <% else %>
-    <% if f.size.name == 'small' %>
-      <%= link_to image_tag("lowSizeDogIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% elsif f.size.name == 'medium' %>
-      <%= link_to image_tag("midSizeDogIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% else %>
-      <%= link_to image_tag("highSizeDogIcon.png"), "#", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %>
-    <% end %>
-  <% end %> 
+  <%= link_to "", "#", class: "petTile #{ f.size.name == 'small' ? 'low' : ( f.size.name == 'medium' ? 'mid' : 'high' ) }Size#{f.species.name.titleize}Icon", rel: "tooltip", title: "#{f.weight.blank? ? '' : f.weight.to_s + ' lb '}" + f.size.name.capitalize + " " + f.species.name %> 
   <% if f.weight != ''%> 
   <span class="weight"><%= f.weight %></span>
   <% end %>

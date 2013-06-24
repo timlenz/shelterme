@@ -1,0 +1,644 @@
+.petTile {
+	background-image: url(tiles.png); 
+	background-color: transparent; 
+	background-repeat: no-repeat;
+	height: 45px;
+	width: 45px;
+	display: block;
+}
+
+.adultFemaleIcon {
+	background-position: -46px -414px;
+}
+
+.adultMaleIcon {
+	background-position: -92px -276px;
+}
+
+.highAffectionIcon {
+	background-position: -414px -46px;
+}
+
+.highCatNatureIcon {
+	background-position: -92px -46px;
+}
+
+.highDogNatureIcon {
+	background-position: -460px -506px;
+}
+
+.highEnergyIcon {
+	background-position: -322px -506px;
+}
+
+.highSizeCatIcon {
+	background-position: -414px -506px;
+}
+
+.highSizeDogIcon {
+	background-position: -276px 0;
+}
+
+.longBlackBrownIcon {
+	background-position: -460px -138px;
+}
+
+.longBlackGrayIcon {
+	background-position: -184px 0;
+}
+
+.longBlackIcon {
+	background-position: -368px -92px;
+}
+
+.longBlackOrangeIcon {
+	background-position: 0 0;
+}
+
+.longBlackRedIcon {
+	background-position: -322px -46px;
+}
+
+.longBlackWhiteIcon {
+	background-position: -276px -92px;
+}
+
+.longBlackYellowIcon {
+	background-position: -92px -322px;
+}
+
+.longBrownBlackIcon {
+	background-position: 0 -506px;
+}
+
+.longBrownGrayIcon {
+	background-position: -368px -506px;
+}
+
+.longBrownIcon {
+	background-position: -92px -414px;
+}
+
+.longBrownOrangeIcon {
+	background-position: -184px -322px;
+}
+
+.longBrownRedIcon {
+	background-position: -184px -276px;
+}
+
+.longBrownWhiteIcon {
+	background-position: -92px -368px;
+}
+
+.longBrownYellowIcon {
+	background-position: -460px -230px;
+}
+
+.longGrayBlackIcon {
+	background-position: -230px -552px;
+}
+
+.longGrayBrownIcon {
+	background-position: -184px -598px;
+}
+
+.longGrayIcon {
+	background-position: -92px -184px;
+}
+
+.longGrayOrangeIcon {
+	background-position: -46px -276px;
+}
+
+.longGrayRedIcon {
+	background-position: -138px -230px;
+}
+
+.longGrayWhiteIcon {
+	background-position: 0 -46px;
+}
+
+.longGrayYellowIcon {
+	background-position: -138px -138px;
+}
+
+.longOrangeBlackIcon {
+	background-position: -184px -552px;
+}
+
+.longOrangeBrownIcon {
+	background-position: -414px -184px;
+}
+
+.longOrangeGrayIcon {
+	background-position: 0 -184px;
+}
+
+.longOrangeIcon {
+	background-position: 0 -552px;
+}
+
+.longOrangeWhiteIcon {
+	background-position: -368px -46px;
+}
+
+.longRedBlackIcon {
+	background-position: -184px -230px;
+}
+
+.longRedBrownIcon {
+	background-position: -460px -92px;
+}
+
+.longRedGrayIcon {
+	background-position: -46px -230px;
+}
+
+.longRedIcon {
+	background-position: -138px -552px;
+}
+
+.longRedWhiteIcon {
+	background-position: -92px -598px;
+}
+
+.longRedYellowIcon {
+	background-position: -138px -598px;
+}
+
+.longWhiteBlackIcon {
+	background-position: -368px -184px;
+}
+
+.longWhiteBrownIcon {
+	background-position: -138px -644px;
+}
+
+.longWhiteGrayIcon {
+	background-position: -230px -598px;
+}
+
+.longWhiteIcon {
+	background-position: -92px -552px;
+}
+
+.longWhiteOrangeIcon {
+	background-position: -414px -322px;
+}
+
+.longWhiteRedIcon {
+	background-position: -230px -414px;
+}
+
+.longWhiteYellowIcon {
+	background-position: -322px -276px;
+}
+
+.longYellowBlackIcon {
+	background-position: -276px -506px;
+}
+
+.longYellowBrownIcon {
+	background-position: -322px -92px;
+}
+
+.longYellowGrayIcon {
+	background-position: -276px -184px;
+}
+
+.longYellowIcon {
+	background-position: 0 -92px;
+}
+
+.longYellowRedIcon {
+	background-position: -276px -230px;
+}
+
+.longYellowWhiteIcon {
+	background-position: -46px -552px;
+}
+
+.lowAffectionIcon {
+	background-position: -138px 0;
+}
+
+.lowCatNatureIcon {
+	background-position: -368px 0;
+}
+
+.lowDogNatureIcon {
+	background-position: -230px -506px;
+}
+
+.lowEnergyIcon {
+	background-position: -460px -184px;
+}
+
+.lowSizeCatIcon {
+	background-position: -138px -460px;
+}
+
+.lowSizeDogIcon {
+	background-position: -414px 0;
+}
+
+.mediumBlackBrownIcon {
+	background-position: -184px -506px;
+}
+
+.mediumBlackGrayIcon {
+	background-position: -322px -644px;
+}
+
+.mediumBlackIcon {
+	background-position: -414px -414px;
+}
+
+.mediumBlackOrangeIcon {
+	background-position: -230px -46px;
+}
+
+.mediumBlackRedIcon {
+	background-position: -322px -138px;
+}
+
+.mediumBlackWhiteIcon {
+	background-position: 0 -230px;
+}
+
+.mediumBlackYellowIcon {
+	background-position: -138px -506px;
+}
+
+.mediumBrownBlackIcon {
+	background-position: -230px -184px;
+}
+
+.mediumBrownGrayIcon {
+	background-position: -184px -414px;
+}
+
+.mediumBrownIcon {
+	background-position: -322px -460px;
+}
+
+.mediumBrownOrangeIcon {
+	background-position: -322px -368px;
+}
+
+.mediumBrownRedIcon {
+	background-position: -46px -322px;
+}
+
+.mediumBrownWhiteIcon {
+	background-position: -322px -230px;
+}
+
+.mediumBrownYellowIcon {
+	background-position: -368px -322px;
+}
+
+.mediumGrayBlackIcon {
+	background-position: -322px -322px;
+}
+
+.mediumGrayBrownIcon {
+	background-position: -368px -276px;
+}
+
+.mediumGrayIcon {
+	background-position: -414px -368px;
+}
+
+.mediumGrayOrangeIcon {
+	background-position: -92px -230px;
+}
+
+.mediumGrayRedIcon {
+	background-position: -230px -138px;
+}
+
+.mediumGrayWhiteIcon {
+	background-position: -46px -46px;
+}
+
+.mediumGrayYellowIcon {
+	background-position: -368px -598px;
+}
+
+.mediumOrangeBlackIcon {
+	background-position: -414px -552px;
+}
+
+.mediumOrangeBrownIcon {
+	background-position: -92px 0;
+}
+
+.mediumOrangeGrayIcon {
+	background-position: -184px -46px;
+}
+
+.mediumOrangeIcon {
+	background-position: -368px -414px;
+}
+
+.mediumOrangeWhiteIcon {
+	background-position: -46px -92px;
+}
+
+.mediumRedBlackIcon {
+	background-position: -46px -506px;
+}
+
+.mediumRedBrownIcon {
+	background-position: -92px -506px;
+}
+
+.mediumRedGrayIcon {
+	background-position: -460px -460px;
+}
+
+.mediumRedIcon {
+	background-position: -46px -138px;
+}
+
+.mediumRedWhiteIcon {
+	background-position: -276px -644px;
+}
+
+.mediumRedYellowIcon {
+	background-position: -184px -184px;
+}
+
+.mediumWhiteBlackIcon {
+	background-position: -184px -92px;
+}
+
+.mediumWhiteBrownIcon {
+	background-position: -92px -460px;
+}
+
+.mediumWhiteGrayIcon {
+	background-position: -414px -230px;
+}
+
+.mediumWhiteIcon {
+	background-position: -368px -460px;
+}
+
+.mediumWhiteOrangeIcon {
+	background-position: -230px 0;
+}
+
+.mediumWhiteRedIcon {
+	background-position: -138px -322px;
+}
+
+.mediumWhiteYellowIcon {
+	background-position: -276px -460px;
+}
+
+.mediumYellowBlackIcon {
+	background-position: -230px -460px;
+}
+
+.mediumYellowBrownIcon {
+	background-position: -414px -276px;
+}
+
+.mediumYellowGrayIcon {
+	background-position: -414px -460px;
+}
+
+.mediumYellowIcon {
+	background-position: 0 -598px;
+}
+
+.mediumYellowRedIcon {
+	background-position: -184px -644px;
+}
+
+.mediumYellowWhiteIcon {
+	background-position: -276px -552px;
+}
+
+.midAffectionIcon {
+	background-position: -460px -276px;
+}
+
+.midCatNatureIcon {
+	background-position: 0 -414px;
+}
+
+.midDogNatureIcon {
+	background-position: 0 -276px;
+}
+
+.midEnergyIcon {
+	background-position: -460px -322px;
+}
+
+.midSizeCatIcon {
+	background-position: -460px -414px;
+}
+
+.midSizeDogIcon {
+	background-position: -414px -92px;
+}
+
+.seniorFemaleIcon {
+	background-position: -368px -230px;
+}
+
+.seniorMaleIcon {
+	background-position: -230px -92px;
+}
+
+.shortBlackBrownIcon {
+	background-position: -46px -460px;
+}
+
+.shortBlackGrayIcon {
+	background-position: 0 -644px;
+}
+
+.shortBlackIcon {
+	background-position: -276px -414px;
+}
+
+.shortBlackOrangeIcon {
+	background-position: -230px -322px;
+}
+
+.shortBlackRedIcon {
+	background-position: -230px -230px;
+}
+
+.shortBlackWhiteIcon {
+	background-position: 0 -322px;
+}
+
+.shortBlackYellowIcon {
+	background-position: -276px -276px;
+}
+
+.shortBrownBlackIcon {
+	background-position: -138px -92px;
+}
+
+.shortBrownGrayIcon {
+	background-position: -368px -368px;
+}
+
+.shortBrownIcon {
+	background-position: -138px -414px;
+}
+
+.shortBrownOrangeIcon {
+	background-position: -322px 0;
+}
+
+.shortBrownRedIcon {
+	background-position: -276px -322px;
+}
+
+.shortBrownWhiteIcon {
+	background-position: -368px -138px;
+}
+
+.shortBrownYellowIcon {
+	background-position: -460px -368px;
+}
+
+.shortGrayBlackIcon {
+	background-position: -368px -552px;
+}
+
+.shortGrayBrownIcon {
+	background-position: -46px 0;
+}
+
+.shortGrayIcon {
+	background-position: 0 -138px;
+}
+
+.shortGrayOrangeIcon {
+	background-position: -322px -414px;
+}
+
+.shortGrayRedIcon {
+	background-position: -138px -368px;
+}
+
+.shortGrayWhiteIcon {
+	background-position: -138px -276px;
+}
+
+.shortGrayYellowIcon {
+	background-position: -184px -460px;
+}
+
+.shortOrangeBlackIcon {
+	background-position: -184px -368px;
+}
+
+.shortOrangeBrownIcon {
+	background-position: -276px -46px;
+}
+
+.shortOrangeGrayIcon {
+	background-position: -92px -644px;
+}
+
+.shortOrangeIcon {
+	background-position: -230px -368px;
+}
+
+.shortOrangeWhiteIcon {
+	background-position: -138px -184px;
+}
+
+.shortRedBlackIcon {
+	background-position: -460px -46px;
+}
+
+.shortRedBrownIcon {
+	background-position: -460px 0;
+}
+
+.shortRedGrayIcon {
+	background-position: -322px -184px;
+}
+
+.shortRedIcon {
+	background-position: -92px -92px;
+}
+
+.shortRedWhiteIcon {
+	background-position: 0 -368px;
+}
+
+.shortRedYellowIcon {
+	background-position: -322px -552px;
+}
+
+.shortWhiteBlackIcon {
+	background-position: 0 -460px;
+}
+
+.shortWhiteBrownIcon {
+	background-position: -276px -368px;
+}
+
+.shortWhiteGrayIcon {
+	background-position: -138px -46px;
+}
+
+.shortWhiteIcon {
+	background-position: -46px -184px;
+}
+
+.shortWhiteOrangeIcon {
+	background-position: -46px -598px;
+}
+
+.shortWhiteRedIcon {
+	background-position: -46px -368px;
+}
+
+.shortWhiteYellowIcon {
+	background-position: -92px -138px;
+}
+
+.shortYellowBlackIcon {
+	background-position: -276px -598px;
+}
+
+.shortYellowBrownIcon {
+	background-position: -322px -598px;
+}
+
+.shortYellowGrayIcon {
+	background-position: -184px -138px;
+}
+
+.shortYellowIcon {
+	background-position: -46px -644px;
+}
+
+.shortYellowRedIcon {
+	background-position: -230px -644px;
+}
+
+.shortYellowWhiteIcon {
+	background-position: -414px -138px;
+}
+
+.youngFemaleIcon {
+	background-position: -230px -276px;
+}
+
+.youngMaleIcon {
+	background-position: -276px -138px;
+}

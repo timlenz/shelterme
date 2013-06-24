@@ -97,7 +97,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_dogs
-    pet_list = pets.select{|p| p.species.name == 'dog' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(species_id: 2, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -111,7 +111,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_cats
-    pet_list = pets.select{|p| p.species.name == 'cat' and (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(species_id: 1, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -125,7 +125,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def adopted
-    pet_list = pets.select{|p| p.pet_state.status == 'adopted'}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: 2).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -139,7 +139,7 @@ class Shelter < ActiveRecord::Base
   end
 
   def available
-    pet_list = pets.select{|p| (p.pet_state.status == 'available' || p.pet_state.status == 'absent')}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -153,7 +153,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def unavailable
-    pet_list = pets.select{|p| p.pet_state.status == 'unavailable'}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: 3).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -167,7 +167,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def absent
-    pet_list = pets.select{|p| p.pet_state.status == 'absent'}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: 4).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -181,7 +181,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def fostered
-    pet_list = pets.select{|p| p.pet_state.status == 'fostered'}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: 5).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -195,7 +195,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def rescued
-    pet_list = pets.select{|p| p.pet_state.status == 'rescued'}.select{|p| p.pet_photos.count > 0}
+    pet_list = pets.where(pet_state_id: 6).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -209,8 +209,8 @@ class Shelter < ActiveRecord::Base
   end  
   
   def available_journal
-    newlist = journals.select{|s| s.pet_state.status == "available"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
-    oldlist = journals.select{|s| s.old_pet_state_id == 1}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    newlist = journals.where(pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
@@ -224,8 +224,8 @@ class Shelter < ActiveRecord::Base
   end
 
   def absent_journal
-    newlist = journals.select{|s| s.pet_state.status == "absent"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
-    oldlist = journals.select{|s| s.old_pet_state_id == 4}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    newlist = journals.where(pet_state_id: 4).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 4).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
@@ -239,8 +239,8 @@ class Shelter < ActiveRecord::Base
   end
 
   def adopted_journal
-    newlist = journals.select{|s| s.pet_state.status == "adopted"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
-    oldlist = journals.select{|s| s.old_pet_state_id == 2}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    newlist = journals.where(pet_state_id: 2).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 2).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
@@ -254,8 +254,8 @@ class Shelter < ActiveRecord::Base
   end
   
   def unavailable_journal
-    newlist = journals.select{|s| s.pet_state.status == "unavailable"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
-    oldlist = journals.select{|s| s.old_pet_state_id == 3}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    newlist = journals.where(pet_state_id: 3).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 3).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
@@ -269,8 +269,8 @@ class Shelter < ActiveRecord::Base
   end
   
   def fostered_journal
-    newlist = journals.select{|s| s.pet_state.status == "fostered"}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
-    oldlist = journals.select{|s| s.old_pet_state_id == 5}.select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    newlist = journals.where(pet_state_id: 5).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 5).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count

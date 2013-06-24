@@ -18,5 +18,8 @@ class FavoritesController < ApplicationController
     @shelter = Favorite.find(params[:id]).shelter
     current_user.unboost!(@shelter)
     respond_with @shelter
+  rescue
+    flash[:notice] = "Favorite not deleted."
+    redirect_to :back
   end
 end

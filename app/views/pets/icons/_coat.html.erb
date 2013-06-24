@@ -1,13 +1,4 @@
-<div class="icon">
-  <%= render 'pets/icons/color' %>
-</div>
+<div class="icon petTile <%= render 'pets/icons/color' %>"></div>
 <div class="tiletag">
-  <% if @pet.primary_color == nil %>
-    <%= @pet.fur_length.length %> <%= @pet.secondary_color.color %>
-  <% elsif @pet.secondary_color == nil %>
-    <%= @pet.fur_length.length %> <%= @pet.primary_color.color %>
-  <% else %>
-    <%= @pet.fur_length.length %> <%= @pet.primary_color.color %> &amp; <%= @pet.secondary_color.color %>
-  <% end %>
-  Fur
+  <%= @pet.primary_color == nil ? @pet.fur_length.length + " " + @pet.secondary_color.color : ( @pet.secondary_color == nil ? @pet.fur_length.length + " " + @pet.primary_color.color : @pet.fur_length.length + " " + @pet.primary_color.color + " & " + @pet.secondary_color.color) %> Fur
 </div>

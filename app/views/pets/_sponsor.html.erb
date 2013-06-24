@@ -1,9 +1,7 @@
 <div class="sponsor">
+  <h3 class="profileText mySponsorText noPrint"></h3>
   <h3>
-    <%= image_tag("mySponsor.png", alt: "My Sponsor", class: "noPrint", style: "padding-top:6px;") %>
-    <span class="print" style="float:left;margin-top:8px;">My Sponsor</span>
-    <span class="added noPrint"><%= time_ago_in_words(@pet.created_at) %> ago</span>
-    <span class="added print"><%= @pet.created_at.to_date.strftime("%B %d, %Y") %></span>
+	  <span class="print" style="float:left;margin-top:8px;">My Sponsor</span>
   </h3>
   <div class="print clearfix"><br></div>
   <% if !@pet.user.nil? %>
@@ -18,7 +16,9 @@
     <span class="printText"><%= @pet.user.name %></span>
   <% end %>
   <br>
-  <%= @pet.user.location %></p>
+  <span class="added noPrint"><%= time_ago_in_words(@pet.created_at) %> ago</span>
+  <span class="added print"><%= @pet.created_at.to_date.strftime("%B %d, %Y") %></span>
+  </p>
   <% elsif @pet.pet_state.status == "adopted" %>
     <p>I've got my own human.</p>
   <% else %>
