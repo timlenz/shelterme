@@ -41,7 +41,7 @@ class StaticPagesController < ApplicationController
           if @location != "MapQuest not responding"
             @bingo = "block 1 else 5"
             @featured_pets = @pets.sample(4)
-            @bingo = "block 1 else 5 @featured_pets"
+            @bingo = "block 1 else 5 @featured_pets #{@pets.size}"
             @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
             @bingo = "block 1 else 5 @shelter"
             @shelter_pets = @shelter.available.sample(2)
