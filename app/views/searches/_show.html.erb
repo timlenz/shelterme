@@ -7,8 +7,8 @@
   <div id="results">
     <h2 style="margin-top:10px;">
       <%= pluralize(@search.pets.size, "Pet") %> Found
-	    <% if @search.pets.size > 36 %>
-	    <span style="color:gray;text-transform:lowercase;font-weight:normal;font-size:0.8em;">(36 closest shown)</span>
+	    <% if @search.pets.size > 12 %>
+	    <span style="color:gray;text-transform:lowercase;font-weight:normal;font-size:0.8em;">(12 closest shown)</span>
 		  <% end %>
     </h2>
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
@@ -88,7 +88,7 @@
 <% else %>
 	<div class="findBlurb" style="height:400px;">
 		<h3><%= image_tag("noPetsFound.png")%></h3><br>
-		<p>Unfortunately, there are no pets available near <%= @search.location %>.</p>
+		<p>Unfortunately, there are no pets available near <%= @search.location ? @search.location : 'your location' %>.</p>
 	  <p>During the initial phase of this project the site is focused on the Los Angeles City and County animal shelters. This summer we will be adding municipal shelters in other areas.</p>
 		<!--p>Please visit a <%= link_to "local shelter", findshelter_path %> and add pets from it to our database.</p-->
 	  <div class="row" style="margin-top:110px;">

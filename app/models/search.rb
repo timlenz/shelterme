@@ -53,7 +53,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.where(shelter_id: nearest)
+      pets = pets.select{|p| p.shelter_id == nearest}
     else
       pets = []
     end
@@ -86,7 +86,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.where(shelter_id: nearest)
+      pets = pets.select{|p| p.shelter_id == nearest}
     else
       pets = []
     end
@@ -103,7 +103,7 @@ class Search < ActiveRecord::Base
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       nearest = pets.map{|p| p.shelter_id }.first
-      pets = pets.where(shelter_id: nearest)
+      pets = pets.select{|p| p.shelter_id == nearest}
     else
       pets = []
     end

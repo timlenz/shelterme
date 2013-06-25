@@ -56,6 +56,8 @@ class SearchesController < ApplicationController
     @local_sbgasa = @local_sbgas.select{|p| p.affection_id == @search.affection_id}
     @local_sbgasan = @local_sbgasa.select{|p| p.nature_id == @search.nature_id}
     render :new
+  rescue
+    redirect_to :back and return
   end
   
 end
