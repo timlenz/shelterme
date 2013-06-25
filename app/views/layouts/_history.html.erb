@@ -6,7 +6,7 @@
       </ol>
     </div>
     <a class="left slider-control" href="#">&lsaquo;</a>
-    <% if pet_list.delete_if{|x| x == @pet}.count > 3 %>
+    <% if pet_list.delete_if{|x| x == @pet}.size > 3 %>
     <a class="right slider-control" href="#">&rsaquo;</a>
     <% end %>
   </div>

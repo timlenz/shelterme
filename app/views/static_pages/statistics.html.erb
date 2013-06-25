@@ -17,25 +17,25 @@
           <ul>
 	          <li>
 		          <h3>Available 
-			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'available'}.count %></span>
+			          <span style="padding-left: 10px;"><%= @available_pets %></span>
 			          <span class="sparklines"><!-- <%= @available_journal %> --></span> 
 			        </h3>
             </li>
 	          <li>
 		          <h3>Absent 
-			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'absent'}.count %></span>
+			          <span style="padding-left: 10px;"><%= @absent_pets %></span>
 			          <span class="sparklines"><!-- <%= @absent_journal %> --></span> 
 			        </h3>
             </li>
 	          <li>
 		          <h3>Adopted 
-			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'adopted'}.count %></span>
+			          <span style="padding-left: 10px;"><%= @adopted_pets %></span>
 			          <span class="sparklines"><!-- <%= @adopted_journal %> --></span> 
 			        </h3>
             </li>
 	          <li>
 		          <h3>Unavailable 
-			          <span style="padding-left: 10px;"><%= Pet.select{|p| p.pet_state.status == 'unavailable'}.count %></span>
+			          <span style="padding-left: 10px;"><%= @unavailable_pets %></span>
 			          <span class="sparklines"><!-- <%= @unavailable_journal %> --></span> 
 			        </h3>
             </li>
@@ -52,31 +52,31 @@
         <div class="adminColumn">
           <h2>
             <%= image_tag("catIcon.png") %> 
-            <%= Pet.select{|p| p.species.name == 'cat'}.count %> Cats
+            <%= @cats %> Cats
           </h2>
           <ul>
             <li>
 	            <h3>Available
-		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'available'}.count %></span>
+		            <span><%= @available_cats %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Absent
-		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'absent'}.count %></span>
+		            <span><%= @absent_cats %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Adopted
-		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'adopted'}.count %></span>
+		            <span><%= @adopted_cats %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Unavailable
-		            <span><%= Pet.select{|p| p.species.name == 'cat' and p.pet_state.status == 'unavailable'}.count %></span>
+		            <span><%= @unavailable_cats %></span>
 		          </h3>
 		        </li>
             <li>
-	            <h3>Most Common Names</h3><br>
+	            <h3>Most Common Cat Names</h3><br>
 		          <ol>
 			          <% @cat_names.each do |n| %>
 			          <li><%= n %></li>
@@ -88,31 +88,31 @@
         <div class="adminColumn">
           <h2>
             <%= image_tag("dogIcon.png") %> 
-            <%= Pet.select{|p| p.species.name == 'dog'}.count %> Dogs
+            <%= @dogs %> Dogs
           </h2>
           <ul>
             <li>
 	            <h3>Available
-		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'available'}.count %></span>
+		            <span><%= @available_dogs %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Absent
-		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'absent'}.count %></span>
+		            <span><%= @absent_dogs %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Adopted
-		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'adopted'}.count %></span>
+		            <span><%= @adopted_dogs %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Unavailable
-		            <span><%= Pet.select{|p| p.species.name == 'dog' and p.pet_state.status == 'unavailable'}.count %></span>
+		            <span><%= @unavailable_dogd %></span>
 		          </h3>
 		        </li>
             <li>
-	            <h3>Most Common Names</h3><br>
+	            <h3>Most Common Dog Names</h3><br>
 		          <ol>
 			          <% @dog_names.each do |n| %>
 			          <li><%= n %></li>
@@ -121,17 +121,18 @@
             </li>
           </ul>
         </div>
+        <div class="clearfix"></div>
         <div class="adminColumn">
           <h2><%= image_tag("editProfileIcon.png", alt: "Users") %><%= User.all.count %> Users</h2>
           <ul>
 	          <li>
-		          <h3>Total <span><%= User.all.count %></span></h3>
+		          <h3>Total <span><%= @users %></span></h3>
 		        </li>
 		        <li>
-		          <h3>Manager <span><%= User.all.select{|u| u.manager == true}.count %></span></h3>
+		          <h3>Manager <span><%= @managers %></span></h3>
 		        </li>
 		        <li>
-		          <h3>Admin <span><%= User.all.select{|u| u.admin == true}.count %></span></h3>
+		          <h3>Admin <span><%= @admins %></span></h3>
 		        </li>
 		        <li>
 			        <h3>Common Characteristics</h3><br>
@@ -164,12 +165,12 @@
         <div class="adminColumn">
           <h2>
             <%= image_tag("shelterIcon.png", alt: "Shelter") %>
-            <%= Shelter.all.count %> Shelters
+            <%= @shelters %> Shelters
           </h2>
           <ul>
 	          <li>
 		          <% @shelters_state.each do |n| %>
-		          <h3><%= n[0] %> <span><%= n[1] %></span></h3>
+		          <h3><%= n[0] %> <span><%= n[1] %></span></h3><br>
 		          <% end %>
 		        </li>
 	        </ul>

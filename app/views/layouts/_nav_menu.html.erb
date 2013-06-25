@@ -21,7 +21,7 @@
         <li><%= link_to "Edit My Profile", edit_user_path(current_user) %></li>
         <li class="divider"></li>
         <li>
-	      <% if current_user.name == "Timothy J Lenz" and my_photoless > 0 %>
+	      <% if my_photoless > 0 %>
 	      <a href="<%= mysponsoredpets_path %>" rel="tooltip" title="<%= pluralize(my_photoless.to_s,"pet") %> need photos">
 					<span class="alert-count"><%= my_photoless %></span> My Sponsored Pets
 	      </a>

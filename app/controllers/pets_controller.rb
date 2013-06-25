@@ -30,7 +30,7 @@ class PetsController < ApplicationController
     @nearbys = Shelter.near(@current_location, 70, order: "distance").limit(15)
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
-      if @nearbys.count > 0
+      if @nearbys.size > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
       else
@@ -44,7 +44,7 @@ class PetsController < ApplicationController
       @nearbys = @nearbys.reject{|s| exclude_shelters.include? s }
     end
     # can't add a pet if there aren't any shelters available
-    if @nearbys.count == 0
+    if @nearbys.size == 0
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
@@ -90,7 +90,7 @@ class PetsController < ApplicationController
         # Check for match with end of animal ID, not including first character
         @pets = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
         @exact_pets = Pet.where('animal_code LIKE ?', "#{cookies[:animal_ID]}")
-        if @pets.count > 0
+        if @pets.size > 0
           cookies[:exclude_shelters] = @exact_pets.map{|p| p.shelter.id.to_s}
           render 'add_found'
         else
@@ -152,13 +152,13 @@ class PetsController < ApplicationController
       @current_location = "Los Angeles"
     end
     nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
-    unless nearbys.count > 0
+    unless nearbys.size > 0
       nearbys = Shelter.near(@current_location, 200, order: "distance").map{|s| s.id}
     end
-    if nearbys.count > 0
+    if nearbys.size > 0
       pets = Pet.order(:name) # IS THIS NECESSARY?
       pets = pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0')
-      @pet = pets[Random.rand(0..(pets.count-1))]
+      @pet = pets[Random.rand(0..(pets.size-1))]
       flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} is your featured pet."
       redirect_to [@pet.shelter, @pet]
     else
@@ -187,7 +187,7 @@ class PetsController < ApplicationController
     @nearbys = Shelter.near(@current_location, 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
-      if @nearbys.count > 0
+      if @nearbys.size > 0
         @nearbys.unshift(recent_shelter)
         @nearbys.uniq_by!{|s| s.id }
       else
@@ -284,7 +284,7 @@ class PetsController < ApplicationController
     end
     
     def find_pet
-      @pet = Pet.find_by_slug(params[:id])
+      @pet = Pet.where(slug: params[:id]).first
     end
 end
 

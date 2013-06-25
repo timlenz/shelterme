@@ -96,8 +96,16 @@ class Shelter < ActiveRecord::Base
     [street, city, state].compact.join(', ')
   end
   
+  def available_dogs_count
+    pet_list = pets.where(species_id: 2, pet_state_id: [1,4]).where('pet_photos_count > 0').size # available & absent
+  end
+  
+  def available_cats_count
+    pet_list = pets.where(species_id: 1, pet_state_id: [1,4]).where('pet_photos_count > 0').size # available & absent
+  end
+  
   def available_dogs
-    pet_list = pets.where(species_id: 2, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
+    pet_list = pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(species_id: 2, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -111,7 +119,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def available_cats
-    pet_list = pets.where(species_id: 1, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
+    pet_list = pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(species_id: 1, pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -125,7 +133,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def adopted
-    pet_list = pets.where(pet_state_id: 2).where('pet_photos_count > 0')
+    pet_list = pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: 2).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -139,7 +147,7 @@ class Shelter < ActiveRecord::Base
   end
 
   def available
-    pet_list = pets.where(pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
+    pet_list = pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: [1,4]).where('pet_photos_count > 0') # available & absent
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -153,7 +161,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def unavailable
-    pet_list = pets.where(pet_state_id: 3).where('pet_photos_count > 0')
+    pet_list = pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: 3).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -213,7 +221,7 @@ class Shelter < ActiveRecord::Base
     oldlist = journals.where(old_pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
-      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
     end
     7.times do |n|
       if n < 6
@@ -228,7 +236,7 @@ class Shelter < ActiveRecord::Base
     oldlist = journals.where(old_pet_state_id: 4).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
-      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
     end
     7.times do |n|
       if n < 6
@@ -243,7 +251,7 @@ class Shelter < ActiveRecord::Base
     oldlist = journals.where(old_pet_state_id: 2).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
-      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
     end
     7.times do |n|
       if n < 6
@@ -258,7 +266,7 @@ class Shelter < ActiveRecord::Base
     oldlist = journals.where(old_pet_state_id: 3).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
-      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
     end
     7.times do |n|
       if n < 6
@@ -273,7 +281,7 @@ class Shelter < ActiveRecord::Base
     oldlist = journals.where(old_pet_state_id: 5).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
-      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.count
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
     end
     7.times do |n|
       if n < 6

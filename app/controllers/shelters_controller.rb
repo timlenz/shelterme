@@ -31,10 +31,10 @@ class SheltersController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 24)
-        @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 24)
-        @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 24)
-        @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 24)
+        @available_dogs = @shelter.available_dogs.paginate(page: params[:dogs_page], per_page: 12)
+        @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 12)
+        @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
+        @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
         cookies[:recent_shelter_id] = @shelter.id
       }
     end
@@ -143,6 +143,6 @@ class SheltersController < ApplicationController
     end
     
     def find_shelter
-      @shelter = Shelter.find_by_slug(params[:id])
+      @shelter = Shelter.where(slug: params[:id]).first
     end
 end

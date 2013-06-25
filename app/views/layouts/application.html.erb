@@ -27,7 +27,7 @@
 
       <div class="push"></div>
     </div>  
-<% if signed_in? && pet_list.count > 1 && params[:action] != "tutorial" %>
+<% if signed_in? && pet_list.size > 1 && params[:action] != "tutorial" %>
 <%= render 'layouts/history' %>
 <% end %>
 <%= render 'layouts/footer' %>  

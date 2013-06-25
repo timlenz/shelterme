@@ -6,9 +6,9 @@ class StaticPagesController < ApplicationController
         require 'open-uri'
         require 'nokogiri'
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
-          @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.select{|x| x.id == p}}.flatten
+          @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).select{|x| x.id == p}}.flatten
           @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
-          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.where(id: p)}.flatten
+          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p)}.flatten
         else  
           @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding; need to make this active again
           if cookies[:location]
@@ -23,17 +23,17 @@ class StaticPagesController < ApplicationController
           end
           cookies[:location] = @location
           shelters = Shelter.near(@location, 70, order: "distance")
-          unless shelters.count > 0
+          unless shelters.size > 0
             shelters = Shelter.near(@location, 200, order: "distance")
           end
           nearbys = shelters.map{|s| s.id}
-          @pets = Pet.order(:name)
+          @pets = Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
           @pets = @pets.where('shelter_id in (?)', nearbys)
           @pets = @pets.where(pet_state_id: 1)
           @pets = @pets.where('pet_photos_count > 0') # Don't show any pets without photos
           if @location != "MapQuest not responding"
-            @featured_pets = @pets.sample(4)
-            @shelter = Shelter.find(@pets.map{|sh| sh.shelter_id}.sample)
+            @featured_pets = @pets.includes(:pet_state).sample(4)
+            @shelter = Shelter.find(@pets.includes(:pet_state).map{|sh| sh.shelter_id}.sample)
             @shelter_pets = @shelter.available.sample(2)
             # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
             cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
@@ -83,22 +83,44 @@ class StaticPagesController < ApplicationController
     if !signed_in?
       redirect_to root_path
     end
-    pets = Pet.all
-    users = User.all
-    @names = pets.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
-    @dog_names = pets.where(species_id: 2).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
-    @cat_names = pets.where(species_id: 1).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @available_pets = Pet.where(pet_state_id: 1).size
+    @adopted_pets = Pet.where(pet_state_id: 2).size
+    @unavailable_pets = Pet.where(pet_state_id: 3).size
+    @absent_pets = Pet.where(pet_state_id: 4).size
+    #@fostered_pets = Pet.where(pet_state_id: 5).size
+    #@rescued_pets = Pet.where(pet_state_id: 6).size
+    @cats = Pet.where(species_id: 1).size
+    @dogs = Pet.where(species_id: 2).size
+    @available_cats = Pet.where(species_id: 1, pet_state_id: 1).size
+    @adopted_cats = Pet.where(species_id: 1, pet_state_id: 2).size
+    @unavailable_cats = Pet.where(species_id: 1, pet_state_id: 3).size
+    @absent_cats = Pet.where(species_id: 1, pet_state_id: 4).size
+    #@fostered_cats = Pet.where(species_id: 1, pet_state_id: 5).size
+    #@rescued_cats = Pet.where(species_id: 1, pet_state_id: 6).size
+    @available_dogs = Pet.where(species_id: 2, pet_state_id: 1).size
+    @adopted_dogs = Pet.where(species_id: 2, pet_state_id: 2).size
+    @unavailable_dogs = Pet.where(species_id: 2, pet_state_id: 3).size
+    @absent_dogs = Pet.where(species_id: 2, pet_state_id: 4).size
+    #@fostered_dogs = Pet.where(species_id: 2, pet_state_id: 5).size
+    #@rescued_dogs = Pet.where(species_id: 2, pet_state_id: 6).size
+    @users = User.all.size
+    @managers = User.where(manager: true).size
+    @admins = User.where(admin: true).size
+    @shelters = Shelter.all.size
+    @names = Pet.all.map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @dog_names = Pet.where(species_id: 2).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
+    @cat_names = Pet.where(species_id: 1).map{|n| n.name }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse[0..9].select{|p| p[1] > 1}.map{|pn| pn.first}.each{|e| e}.reject{|n| n == "Name"}
     @available_journal = Shelter.all.map{|s| s.available_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @absent_journal = Shelter.all.map{|s| s.absent_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @adopted_journal = Shelter.all.map{|s| s.adopted_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @unavailable_journal = Shelter.all.map{|s| s.unavailable_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @shelters_state = Shelter.all.map{|n| n.state }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse
-    @open = users.map{|u| u.open_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @plan = users.map{|u| u.plan_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @social = users.map{|u| u.social_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @attitude = users.map{|u| u.attitude_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @emotion = users.map{|u| u.emotion_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @clean = users.map{|u| u.clean_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
-    @energy = users.map{|u| u.energy_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @open = User.includes(:open_value).map{|u| u.open_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @plan = User.includes(:plan_value).map{|u| u.plan_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @social = User.includes(:social_value).map{|u| u.social_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @attitude = User.includes(:attitude_value).map{|u| u.attitude_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @emotion = User.includes(:emotion_value).map{|u| u.emotion_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @clean = User.includes(:clean_value).map{|u| u.clean_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
+    @energy = User.includes(:energy_value).map{|u| u.energy_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
   end
 end

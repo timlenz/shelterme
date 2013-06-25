@@ -44,7 +44,7 @@ class SearchesController < ApplicationController
   def show
     @search = Search.find(params[:id])
     $search = @search
-    @search_results = @search.pets.paginate(page: params[:page], per_page: 36)
+    @search_results = @search.pets.paginate(page: params[:page], per_page: 12)
     if @search.breed_id == nil
       @local_sb = []
     else

@@ -27,7 +27,7 @@
 #  secondary_breed_id :integer
 #  slug               :string(255)
 #  pet_photos_count   :integer         default(0), not null
-#  watchers_count     :integer         default(0), not null
+#  bonds_count        :integer         default(0), not null
 #
 
 class Pet < ActiveRecord::Base

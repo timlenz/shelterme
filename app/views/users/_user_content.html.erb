@@ -1,16 +1,16 @@
 <div class="profile-section">
   <ul class="nav nav-tabs">
     <li class="active">
-      <a href="#sponsored" data-toggle="tab"><span class="linkCount"><%= @user.pets.count %></span> Sponsored Pets</a>
+      <a href="#sponsored" data-toggle="tab"><span class="linkCount"><%= @user.pets.size %></span> Sponsored Pets</a>
     </li>
     <li>
-      <a href="#watched" data-toggle="tab"><span class="linkCount"><%= @user.watched_pets.count %></span> Followed Pets</a>
+      <a href="#watched" data-toggle="tab"><span class="linkCount"><%= @user.watched_pets.size %></span> Followed Pets</a>
     </li>
     <li>
-      <a href="#followed" data-toggle="tab"><span class="linkCount"><%= @user.followed_users.count %></span> Followed Users</a>
+      <a href="#followed" data-toggle="tab"><span class="linkCount"><%= @user.followed_users.size %></span> Followed Users</a>
     </li>
     <li>
-      <a href="#comments" data-toggle="tab"><span class="linkCount"><%= @user.microposts.count %></span> Comments</a>
+      <a href="#comments" data-toggle="tab"><span class="linkCount"><%= @user.microposts.size %></span> Comments</a>
     </li>
   </ul>
   <div class="possibleScroll">

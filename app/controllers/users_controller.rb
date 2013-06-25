@@ -11,15 +11,15 @@ class UsersController < ApplicationController
   respond_to :html, :js, only: [:matchme, :update]
   
   def show
-    @microposts = @user.microposts.paginate(page: params[:microposts_page], per_page: 24)
-    @sponsored = @user.pets.paginate(page: params[:sponsored_page], per_page: 24)
-    @watched = @user.watched_pets.paginate(page: params[:watched_page], per_page: 24)
-    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 24)
+    @microposts = @user.microposts.includes(:user, pet: :shelter).paginate(page: params[:microposts_page], per_page: 36)
+    @sponsored = @user.pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:sponsored_page], per_page: 12)
+    @watched = @user.watched_pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:watched_page], per_page: 12)
+    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
     cookies[:matchme] = "false"
     if @user.shelter.blank?
-      @pseudo_boosted = (@user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter})
+      @pseudo_boosted = (@user.watched_pets.includes(:shelter).map{|p| p.shelter} + @user.pets.includes(:shelter).map{|p| p.shelter})
     else
-      @pseudo_boosted = @user.watched_pets.map{|p| p.shelter} + @user.pets.map{|p| p.shelter} << @user.shelter
+      @pseudo_boosted = @user.watched_pets.includes(:shelter).map{|p| p.shelter} + @user.pets.includes(:shelter).map{|p| p.shelter} << @user.shelter
     end
     @pseudo_boosted = @pseudo_boosted.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse.map{|k,v| k}.compact
   rescue
@@ -215,7 +215,6 @@ class UsersController < ApplicationController
     end
     
     def find_user
-      @user = User.find_by_slug(params[:id])
-      #@user = User.where('slug iLIKE ?', "#{params[:id]}")
+      @user = User.where(slug: params[:id]).first
     end
 end

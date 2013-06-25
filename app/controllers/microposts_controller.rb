@@ -24,7 +24,7 @@ class MicropostsController < ApplicationController
   
   def index
     if signed_in? && current_user.admin?
-      @feed_items = Micropost.all.paginate(page: params[:page], per_page: 36)
+      @feed_items = Micropost.includes(:user).paginate(page: params[:page], per_page: 36)
     else
       redirect_to root_path
     end
@@ -33,7 +33,7 @@ class MicropostsController < ApplicationController
   private
     
     def admin_user
-      @micropost = Micropost.find_by_id(params[:id])
+      @micropost = Micropost.where(id: params[:id]).first
     end
     
     def correct_user

@@ -248,9 +248,12 @@ class User < ActiveRecord::Base
   end
   
   def ave_ageGender
-    low = pets.select{|p| p.age_group == 'young'}.size + watched_pets.select{|p| p.age_group == 'young'}.size
-    mid = pets.select{|p| p.age_group == 'adult'}.size + watched_pets.select{|p| p.age_group == 'adult'}.size
-    high = pets.select{|p| p.age_group == 'senior'}.size + watched_pets.select{|p| p.age_group == 'senior'}.size
+    low = pets.includes(:age_period).select{|p| p.age_group == 'young'}.size 
+          + watched_pets.includes(:age_period).select{|p| p.age_group == 'young'}.size
+    mid = pets.includes(:age_period).select{|p| p.age_group == 'adult'}.size 
+          + watched_pets.includes(:age_period).select{|p| p.age_group == 'adult'}.size
+    high = pets.includes(:age_period).select{|p| p.age_group == 'senior'}.size 
+          + watched_pets.includes(:age_period).select{|p| p.age_group == 'senior'}.size
     age = ["young", "adult", "senior"].fetch( ( (low + mid * 2 + high * 3) / (low + mid + high) ).round - 1 )
     male = pets.where(gender_id: 1).size + watched_pets.where(gender_id: 1).size # male
     female = pets.where(gender_id: 2).size + watched_pets.where(gender_id: 2).size # female
@@ -263,8 +266,10 @@ class User < ActiveRecord::Base
     medium = pets.where(fur_length_id: 2).size + watched_pets.where(fur_length_id: 2).size # medium
     long = pets.where(fur_length_id: 3).size + watched_pets.where(fur_length_id: 3).size # long
     length = ["short", "medium", "long"].fetch( ( (short + medium * 2 + long * 3) / (short + medium + long) ).round - 1 )
-    primary_color_count = pets.map{|p| p.primary_color}.compact.size + watched_pets.map{|p| p.primary_color}.compact.size
-    secondary_color_count = pets.map{|p| p.secondary_color}.compact.size + watched_pets.map{|p| p.secondary_color}.compact.size
+    primary_color_count = pets.includes(:primary_color).map{|p| p.primary_color}.compact.size 
+                        + watched_pets.includes(:primary_color).map{|p| p.primary_color}.compact.size
+    secondary_color_count = pets.includes(:secondary_color).map{|p| p.secondary_color}.compact.size 
+                          + watched_pets.includes(:secondary_color).map{|p| p.secondary_color}.compact.size
     pet_count = pets.size + watched_pets.size
     primary = pets.map{|p| p.primary_color}.compact.map{|c| c.color} + watched_pets.map{|p| p.primary_color}.compact.map{|c| c.color}
     secondary = pets.map{|p| p.secondary_color}.compact.map{|c| c.color} + watched_pets.map{|p| p.secondary_color}.compact.map{|c| c.color}

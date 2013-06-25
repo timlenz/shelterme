@@ -82,7 +82,7 @@ class PetVideosController < ApplicationController
 
   def index
     if signed_in? && current_user.admin?
-      @pet_videos = PetVideo.all.paginate(page: params[:page], per_page: 24)
+      @pet_videos = PetVideo.includes(:user, pet: :shelter).paginate(page: params[:page], per_page: 12)
     else
       redirect_to root_path
     end
