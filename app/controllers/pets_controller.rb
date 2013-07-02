@@ -283,7 +283,7 @@ class PetsController < ApplicationController
     end
     
     def find_pet
-      @pet = Pet.where('slug iLIKE ?', "%#{params[:id]}%").first # CASE INSENSITIVE LOOKUP
+      @pet = Pet.where('slug iLIKE ?', "#{params[:id]}").first # CASE INSENSITIVE LOOKUP
     end
 end
 
