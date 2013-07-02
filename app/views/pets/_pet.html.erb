@@ -6,9 +6,9 @@
       <td class="adminCode" style="width:86px;"><%= pet.animal_code %></td>
       <td class="managedName" style="width:198px;">
 	      <div class="adminPhoto">
-		      <% if pet.pet_photos.count > 0 && pet.pet_photos.select{|p| p.primary == true}.count > 0 %>
-		        <%= link_to image_tag(pet.pet_photos.select{|p| p.primary == true}.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [pet.shelter, pet] %>
-		      <% elsif pet.pet_photos.count == 1 %>
+		      <% if pet.pet_photos.where(primary: true).size > 0 %>
+		        <%= link_to image_tag(pet.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [pet.shelter, pet] %>
+		      <% elsif pet.pet_photos.count > 0 %>
 		        <%= link_to image_tag(pet.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [pet.shelter, pet] %>
 		      <% else %>
 			      <%= link_to "", [pet.shelter, pet] %>
@@ -26,7 +26,7 @@
         </div>
       </td>
       <td class="managedStatus">
-        <%= simple_form_for(pet, html: {class: 'form-horizontal', style: 'width: 300px;' }) do |p| %>
+        <%= simple_form_for(pet, html: {class: 'form-horizontal', style: 'width: 300px;' }, remote: true) do |p| %>
           <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
             <button type="button" data-toggle="button" class="btn" value="1">Available</button>
             <button type="button" data-toggle="button" class="btn" value="4">Absent</button>

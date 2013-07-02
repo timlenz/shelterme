@@ -396,19 +396,6 @@ a {
   font-size: 14px;
 }
 
-div.imageNav {
-  display: block;
-  float: left;
-  height: 14px;
-  .addPet {
-    width: 83px;
-    background: url(addPetOff.png);
-    &:hover {
-      background: url(addPetOn.png);
-    }
-  }
-}
-
 .navLogo {
   float: left;
   margin-right: 20px;
@@ -2925,7 +2912,7 @@ img.tutorialTease {
   border-bottom-color: $brownLight;
 }
 
-.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
   color: white;
   background-color: $brownDark;
   background-image: -moz-linear-gradient(top, $brownDark, $brownDarkest);
@@ -2940,8 +2927,9 @@ img.tutorialTease {
 }
 
 .nav-tabs > li > a {
-  padding-right: 40px;
-  padding-left: 40px;
+  padding-right: 30px;
+  padding-left: 30px;
+	padding-top: 7px;
   margin-right: 4px;
   -webkit-border-radius: 8px 8px 0 0;
   -moz-border-radius: 8px 8px 0 0;

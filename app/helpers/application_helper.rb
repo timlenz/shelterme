@@ -40,7 +40,7 @@ module ApplicationHelper
   end
   
   def recent_adoptions
-    pets = Pet.where(pet_state_id: 2).sort_by{|d| d.updated_at}.select{|p| p.pet_photos.size > 0}.reverse.first(4)
+    pets = Pet.where(pet_state_id: 2).includes(:shelter).sort_by{|d| d.updated_at}.select{|p| p.pet_photos.size > 0}.reverse.first(4)
   end
   
   def sortable(column, title = nil)

@@ -15,7 +15,7 @@ class PetPhotosController < ApplicationController
   def create
     @pet = Pet.where(slug: cookies[:pet_slug]).first
     @pet_photo = PetPhoto.create!(params[:pet_photo])
-    if @pet.pet_photos.size == 1
+    if @pet.pet_photos.size == 0
       @pet_photo.primary = true
     end
     if @pet_photo.save

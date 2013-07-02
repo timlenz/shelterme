@@ -5,10 +5,14 @@ class StaticPagesController < ApplicationController
       format.html {
         require 'open-uri'
         require 'nokogiri'
+        force_pet = Pet.where('slug iLIKE ?', "Nala4").where(pet_state_id: 1).first # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
-          @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).select{|x| x.id == p}}.flatten
+          @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p, pet_state_id: 1)}.flatten
+          if force_pet # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
+            @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
+          end
           @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
-          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p)}.flatten
+          @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p, pet_state_id: 1)}.flatten
         else  
           @location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding; need to make this active again
           if cookies[:location]
@@ -27,12 +31,13 @@ class StaticPagesController < ApplicationController
             shelters = Shelter.near(@location, 200, order: "distance")
           end
           nearbys = shelters.map{|s| s.id}
-          @pets = Pet.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
-          @pets = @pets.where('shelter_id in (?)', nearbys)
-          @pets = @pets.where(pet_state_id: 1)
-          @pets = @pets.where('pet_photos_count > 0') # Don't show any pets without photos
+          @pets = Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
+          @pets = @pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0') # Don't show any pets without photos
           if @location != "MapQuest not responding"
             @featured_pets = @pets.includes(:pet_state).sample(4)
+            if force_pet # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
+              @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
+            end
             @shelter = Shelter.find(@pets.includes(:pet_state).map{|sh| sh.shelter_id}.sample)
             @shelter_pets = @shelter.available.sample(2)
             # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)

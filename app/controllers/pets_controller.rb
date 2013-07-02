@@ -150,6 +150,9 @@ class PetsController < ApplicationController
       @current_location = s[0].city + ", " + s[0].state_code
     elsif accessor == "/la"
       @current_location = "Los Angeles"
+    elsif accessor == "/featured"
+      @pet = Pet.where('slug iLIKE ?', "Nala4").first
+      redirect_to [@pet.shelter, @pet] and return
     end
     nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
     unless nearbys.size > 0
@@ -210,24 +213,20 @@ class PetsController < ApplicationController
   def index
     if signed_in? && current_user.admin?
       cookies[:managed_pets] = "true"
-      @pets = Pet.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      @pets = Pet.search(params[:search]).paginate(page: params[:page])
     else
       redirect_to root_path
     end
   rescue  
-    @pets = Pet.search(params[:search]).sort_by{|p| p[sort_column]}
-    if sort_direction == "desc"
-      @pets = @pets.reverse
-    end
-    @pets = @pets.paginate(page: params[:page])
+    redirect_to :back
+    flash[:notice] = "Unable to display list of pets."
   end
   
   def update
     if @pet.update_attributes(params[:pet])
       if cookies[:managed_pets] == "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
-        flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}'s status has been updated."
-        redirect_to :back  #EXPLICIT REDIRECT NO LONGER REQUIRED WITH AJAX SUBMISSION
+        redirect_to :back
       else
         # if pet state has changed, then journalize
         if cookies[:pet_state_change] != "false"
@@ -284,7 +283,7 @@ class PetsController < ApplicationController
     end
     
     def find_pet
-      @pet = Pet.where(slug: params[:id]).first
+      @pet = Pet.where('slug iLIKE ?', "%#{params[:id]}%").first # CASE INSENSITIVE LOOKUP
     end
 end
 

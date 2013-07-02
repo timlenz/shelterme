@@ -219,7 +219,7 @@ class Pet < ActiveRecord::Base
       if search
         find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
       else
-        scoped
+        scoped.includes(:shelter, :pet_state)
       end
     end
     

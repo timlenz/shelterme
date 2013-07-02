@@ -12,8 +12,8 @@ class UsersController < ApplicationController
   
   def show
     @microposts = @user.microposts.includes(:user, pet: :shelter).paginate(page: params[:microposts_page], per_page: 36)
-    @sponsored = @user.pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:sponsored_page], per_page: 12)
-    @watched = @user.watched_pets.includes(:pet_state, :pet_photos, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:watched_page], per_page: 12)
+    @sponsored = @user.pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:sponsored_page], per_page: 12)
+    @watched = @user.watched_pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:watched_page], per_page: 12)
     @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
     cookies[:matchme] = "false"
     if @user.shelter.blank?
@@ -156,10 +156,16 @@ class UsersController < ApplicationController
   
   def sponsored
     @user = current_user
+    @pets = @user.pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :shelter, :primary_color, :secondary_color, :age_period)
+    @petsCount = @pets.size
+    @pets = @pets.paginate(page: params[:page], per_page: 12)
   end
 
   def followed
     @user = current_user
+    @pets = @user.watched_pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :shelter, :primary_color, :secondary_color, :age_period)
+    @petsCount = @pets.size
+    @pets = @pets.paginate(page: params[:page], per_page: 12)
   end
   
   def relationships
@@ -215,6 +221,7 @@ class UsersController < ApplicationController
     end
     
     def find_user
-      @user = User.where(slug: params[:id]).first
+      #@user = User.where(slug: params[:id]).first
+      @user = User.where('slug iLIKE ?', "#{params[:id]}").first # CASE INSENSITIVE LOOKUP
     end
 end

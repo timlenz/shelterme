@@ -6,12 +6,14 @@
         <%= image_tag("dogIcon.png")%>
       </div>
       <div class="headerInfo">
-        <h1>My <%= pluralize(current_user.pets.count, 'Sponsored Pet') %></h1>
+        <h1>My <%= pluralize(@petsCount, 'Sponsored Pet') %></h1>
       </div>
     </div>
     <div class="row">
       <div class="span12">
-        <%= render partial: "shared/pet_tile", collection: current_user.pets, as: :f %>
+	      <%= will_paginate @pets %>
+        <%= render partial: "shared/pet_tile", collection: @pets, as: :f %>
+        <%= will_paginate @pets %>
       </div>
     </div>
   </div>

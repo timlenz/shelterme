@@ -49,12 +49,14 @@ ShelterMe::Application.routes.draw do
   match '/listshelters',      to: 'shelters#list'
   match '/mymanagedpets',     to: 'shelters#managed'
   match '/mmp',               to: 'shelters#managed'
+  match '/:shelter_id/featured', to: 'shelters#featured'
   
   match '/p',                 to: 'pets#index'
   match '/addpet',            to: 'pets#addpet'
   match '/newpet',            to: 'pets#new'
   match '/potd',              to: 'pets#potd'
   match '/la',                to: 'pets#potd'
+  match '/featured',          to: 'pets#potd'
   
   match '/findpet',           to: 'searches#new'
   

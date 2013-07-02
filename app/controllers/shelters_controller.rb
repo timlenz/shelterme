@@ -120,6 +120,23 @@ class SheltersController < ApplicationController
     end
   end
   
+  def featured
+    accessor = request.fullpath.downcase
+    shelter = accessor.match(/\/(.*?)\//)[1]
+    @shelter = Shelter.where('slug iLIKE ?', "#{shelter}").first
+    #if accessor == "/WestValley/featured"
+    if accessor == "/agoura/featured"
+      @pet = Pet.where('slug iLIKE ?', "Madonna").first
+      flash[:notice] = "#{@pet.name ? @pet.name : @pet.animal_id} is the featured pet at #{@shelter.name}."
+      redirect_to [@shelter, @pet]
+    else
+      @pet = @shelter.available.sample(1)
+    end
+  rescue
+    flash[:notice] = "There is no featured pet at #{@shelter.name}."
+    redirect_to @shelter
+  end
+  
   def destroy
     # Remove all references to Shelter ID in users table; also remove manager flag for associated users
     User.all.select{|u| u.shelter_id == @shelter.id }.each{|u| u.shelter_id = ""}.each{|u| u.manager = false}.each{|m| m.save}
@@ -143,6 +160,6 @@ class SheltersController < ApplicationController
     end
     
     def find_shelter
-      @shelter = Shelter.where(slug: params[:id]).first
+      @shelter = Shelter.where('slug iLIKE ?', "#{params[:id]}").first # CASE INSENSITIVE LOOKUP
     end
 end
