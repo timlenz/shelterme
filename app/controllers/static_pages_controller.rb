@@ -23,7 +23,8 @@ class StaticPagesController < ApplicationController
           @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p, pet_state_id: 1)}.flatten
         else  
           #
-          # Set location for search in a cascade from most specific to least:
+          # Set location in a cascade from most specific to least.
+          # If option doesn't exist, or if validation of it fails, then move to next.
           # 1) value from location cookie
           # 2) current user location
           # 3) geocoder remote ip lookup
@@ -33,7 +34,7 @@ class StaticPagesController < ApplicationController
           if cookies[:location]
             @location = cookies[:location]
           end
-          if (validate_location(@location) == false) && (signed_in? and current_user.location?)
+          if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
             @location = current_user.location
           end
           if validate_location(@location) == false  

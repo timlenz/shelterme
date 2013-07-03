@@ -10,22 +10,22 @@ class PetsController < ApplicationController
   
   def new
     #
-    # Set location for adding pet in a cascade from most specific to least:
-    # 1) entered value in form
-    # 2) value from location cookie
-    # 3) current user location
-    # 4) geocoder remote ip lookup
-    # 5) failure handling of "mapquest not responding"
+    # Set location in a cascade from most specific to least.
+    # If option doesn't exist, or validation of it fails, then move to next.
+    # 1) value from location cookie (which can be updated from form)
+    # 2) current user location
+    # 3) geocoder remote ip lookup
+    # 4) failure handling of "mapquest not responding"
     #
     @shelters = Shelter.all
     @pet = Pet.new
     @pet.animal_code = cookies[:animal_ID]
     @pet.pet_state_id = PetState.first.id
-    @current_location = "Los Angeles, CA" # Non-null starting location, especially for original beta phase in LA
-    unless cookies[:location].blank?
+    @current_location = "MapQuest not responding"
+    if cookies[:location]
       @current_location = cookies[:location]
     end
-    if (signed_in? and current_user.location?) or (validate_location(@current_location) == false)
+    if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
       @current_location = current_user.location
     end
     if validate_location(@current_location) == false    

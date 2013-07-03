@@ -4105,6 +4105,12 @@ ul.typeahead, ul.ui-autocomplete, ul.ui-menu {
   }
 }
 
+ul.ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 ul.typeahead {
   width: 232px;
 }
