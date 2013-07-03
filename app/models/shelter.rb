@@ -216,6 +216,30 @@ class Shelter < ActiveRecord::Base
     return sorted_pet_list
   end  
   
+  def available_count
+    pet_list = pets.where(pet_state_id: 1).size
+  end
+
+  def adopted_count
+    pet_list = pets.where(pet_state_id: 2).size
+  end
+  
+  def unavailable_count
+    pet_list = pets.where(pet_state_id: 3).size
+  end
+  
+  def absent_count
+    pet_list = pets.where(pet_state_id: 4).size
+  end
+  
+  def fostered_count
+    pet_list = pets.where(pet_state_id: 5).size
+  end
+  
+  def rescued_count
+    pet_list = pets.where(pet_state_id: 6).size
+  end
+  
   def available_journal
     newlist = journals.where(pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     oldlist = journals.where(old_pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}

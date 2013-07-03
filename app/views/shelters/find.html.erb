@@ -27,9 +27,9 @@
             <%= render partial: 'found_shelters', collection: @nearbys, as: :f %>
           </ul>
         <% end %>
-        <% if (@nearbys + @all_nearbys).count > 0 %>
+        <% if (@nearbys + @all_nearbys).count > 5 %>
         <a href="#" id="sheltersToggle" data-toggle="collapse" data-target="#allShelters">
-        Show all <%= @all_nearbys.count + @nearbys.count %> shelters</a>
+        Show the <%= @all_nearbys.count %> additional nearby shelters</a>
         <div id="allShelters" class="collapse" style="margin-bottom: 40px;">
         <ul>
           <%= render partial: 'all_found_shelters', collection: @all_nearbys, as: :f %>

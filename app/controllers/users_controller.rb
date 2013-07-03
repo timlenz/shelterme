@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def managers
     if signed_in?
       if current_user.admin?
-        @shelter_admins = User.search(params[:search]).select{|u| u.manager == true}.paginate(page: params[:page])
+        @shelter_admins = User.search(params[:search]).where(manager: true).includes(:shelter).paginate(page: params[:page])
       end
     else
       redirect_to root_path
@@ -124,10 +124,19 @@ class UsersController < ApplicationController
   end
   
   def matchme
+    #
+    # Set location for search in a cascade from most specific to least.
+    # If one level doesn't exist or fails to validate then go to next:
+    # 1) entered value in form
+    # 2) value from location cookie
+    # 3) current user location
+    # 4) geocoder remote ip lookup
+    # 5) failure handling of "mapquest not responding"
+    #
     if signed_in?
       @user = current_user
       cookies[:matchme] = "false"
-      @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+      @current_location = "MapQuest not responding"
       if location.present?
         @current_location = location
       end
@@ -137,8 +146,7 @@ class UsersController < ApplicationController
       if (validate_location(@current_location) == false) && (signed_in? and current_user.location?)
         @current_location = current_user.location
       end
-      if validate_location(@current_location) == false    
-        flash[:notice] = "Estimating your location."
+      if validate_location(@current_location) == false
         s = Geocoder.search(remote_ip)
         if s[0].city != ""
           @current_location = s[0].city + ", " + s[0].state_code
@@ -174,12 +182,12 @@ class UsersController < ApplicationController
   
   def photos
     @user = current_user
-    @photos = PetPhoto.select{|u| u.user == @user}.paginate(page: params[:page], per_page: 12)
+    @photos = PetPhoto.where(user_id: @user.id).includes(pet: :user).includes(pet: :shelter).paginate(page: params[:page], per_page: 12)
   end
   
   def videos
     @user = current_user
-    @videos = PetVideo.select{|u| u.user == @user}.paginate(page: params[:page], per_page: 12)
+    @videos = PetVideo.where(user_id: @user.id).includes(pet: :shelter).paginate(page: params[:page], per_page: 12)
   end
   
   def activity

@@ -46,7 +46,7 @@ class PetPhotosController < ApplicationController
   def update
     @pet_photo = PetPhoto.find(params[:id])
     unless cookies[:photo] == "new"
-      PetPhoto.select{|pp| @pet_photo.pet.id == pp.pet.id }.each{|pp| pp.primary = false }.each(&:save)
+      PetPhoto.where(pet_id: @pet_photo.pet.id).each{|pp| pp.primary = false }.each(&:save)
       @pet_photo.primary = true
     end
     if @pet_photo.update_attributes(params[:pet_photo])
@@ -79,7 +79,7 @@ class PetPhotosController < ApplicationController
     @pet_photo = PetPhoto.find(params[:id])
     @pet_photo.destroy
     if @pet_photo.primary == true
-      new_primary = @pet_photo.pet.pet_photos.select{|p| p != @pet_photo}.first
+      new_primary = @pet_photo.pet.pet_photos.where('id != ?', @pet_photo.id).first
       new_primary.primary = true
       new_primary.save
     end

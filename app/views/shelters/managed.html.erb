@@ -4,7 +4,7 @@
     <div class="pageHeader">
       <%= render "shared/header_logo" %>
       <div class="headerInfo" style="width:385px;">
-        <h1><%= current_user.shelter.pets.count %> Pets (<%= current_user.shelter.pets.select {|p| p.pet_state.status == "available" }.count %> Available)</h1><br>
+        <h1><%= @pets.count %> Pets (<%= current_user.shelter.available_count %> Available)</h1><br>
         <p><%= link_to current_user.shelter.name, current_user.shelter %></p>
       </div>
       <div class="searchButton">

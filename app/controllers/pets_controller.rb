@@ -9,6 +9,14 @@ class PetsController < ApplicationController
   autocomplete :shelter, :name, full: true
   
   def new
+    #
+    # Set location for adding pet in a cascade from most specific to least:
+    # 1) entered value in form
+    # 2) value from location cookie
+    # 3) current user location
+    # 4) geocoder remote ip lookup
+    # 5) failure handling of "mapquest not responding"
+    #
     @shelters = Shelter.all
     @pet = Pet.new
     @pet.animal_code = cookies[:animal_ID]
@@ -104,32 +112,33 @@ class PetsController < ApplicationController
     end
   end
   
-  def find
-    if params[:location].present?
-      @current_location = params[:location]
-    elsif cookies[:location]
-      @current_location = cookies[:location]
-    elsif signed_in? and current_user.location?
-      @current_location = current_user.location
-    else      
-      s = Geocoder.search(remote_ip)
-      @current_location = s[0].city + ", " + s[0].state_code
-    end
-    if params[:find]
-      #@pets = Pet.search(params[:search]).select{|p| p.pet_state.status == "available"}
-      @pets = Pet.where(pet_state_id: 1).first(10) # CHECK IF THIS CODE IS USED
-    end
-    @pets = Pet.where(pet_state_id: 1, species_id: 2).where('pet_photos_count > 0')
-  rescue
-    flash[:error] = "Unable to find pets."
-    redirect_to :back
-  end
+  #def find
+  #  if params[:location].present?
+  #    @current_location = params[:location]
+  #  elsif cookies[:location]
+  #    @current_location = cookies[:location]
+  #  elsif signed_in? and current_user.location?
+  #    @current_location = current_user.location
+  #  else      
+  #    s = Geocoder.search(remote_ip)
+  #    @current_location = s[0].city + ", " + s[0].state_code
+  #  end
+  #  if params[:find]
+  #    @pets = Pet.where(pet_state_id: 1).first(10)
+  #  end
+  #  @pets = Pet.where(pet_state_id: 1, species_id: 2).where('pet_photos_count > 0')
+  #rescue
+  #  flash[:error] = "Unable to find pets."
+  #  redirect_to :back
+  #end
   
   def show
     canonical_url(pet_url(@pet))
     cookies[:pet_slug] = @pet.slug
     @microposts = @pet.microposts
     @feed_items = @pet.feed
+    @pet_photos = @pet.pet_photos.includes(:user).sort_by {|p| p.primary ? 0:1 }
+    @pet_videos = @pet.pet_videos.includes(:user).sort_by {|p| p.primary ? 0:1 }
     cookies[:delete_managed_pet] = "false"
     if signed_in?
       @micropost = current_user.microposts.build(pet_id: @pet.id)
@@ -150,9 +159,6 @@ class PetsController < ApplicationController
       @current_location = s[0].city + ", " + s[0].state_code
     elsif accessor == "/la"
       @current_location = "Los Angeles"
-    elsif accessor == "/featured"
-      @pet = Pet.where('slug iLIKE ?', "Nala4").first
-      redirect_to [@pet.shelter, @pet] and return
     end
     nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
     unless nearbys.size > 0
@@ -174,18 +180,22 @@ class PetsController < ApplicationController
   end
 
   def edit
+    #
+    # Set location for pet in a cascade from most specific to least:
+    # 1) current pet location
+    # 2) value from location cookie
+    # 3) current user location
+    #
     cookies[:managed_pets] = "false"
     cookies[:photo] = "edit"
-    @current_location = "Los Angeles, CA"
-    unless cookies[:location].blank?
+    @pet_photos = @pet.pet_photos.includes(:user).sort_by {|p| p.primary ? 0:1 }
+    @pet_videos = @pet.pet_videos.includes(:user).sort_by {|p| p.primary ? 0:1 }
+    if @pet
+      @current_location = @pet.shelter.city + ", " + @pet.shelter.state
+    elsif !cookies[:location].blank?
       @current_location = cookies[:location]
-    end
-    if (@current_location && (validate_location(@current_location) == false))
-      if @pet
-        @current_location = @pet.shelter.city + ", " + @pet.shelter.state
-      else
-        @current_location = current_user.location
-      end
+    else
+      @current_location = current_user.location
     end
     @nearbys = Shelter.near(@current_location, 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0

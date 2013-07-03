@@ -42,7 +42,7 @@ class PetVideosController < ApplicationController
   
   def update
     @pet_video = PetVideo.find(params[:id])
-    PetVideo.select{|pp| @pet_video.pet.id == pp.pet.id }.each{|pp| pp.primary = false }.each(&:save)
+    PetVideo.where(pet_id: @pet_video.pet.id).each{|pp| pp.primary = false }.each(&:save)
     @pet_video.primary = true
     if @pet_video.update_attributes(params[:pet_video])
       flash[:notice] = "Updated the primary video for #{@pet_video.pet.name != "" ? @pet_video.pet.name.titleize : @pet_video.pet.animal_code}."

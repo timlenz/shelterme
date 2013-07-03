@@ -7,7 +7,7 @@
       </div>
       <div class="headerInfo">
         <h1>
-          <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(PetPhoto.select{|u| u.user == @user}.count, 'Photo')}" %>
+          <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(@photos.count, 'Photo')}" %>
         </h1>
       </div>
     </div>

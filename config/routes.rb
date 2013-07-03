@@ -56,7 +56,6 @@ ShelterMe::Application.routes.draw do
   match '/newpet',            to: 'pets#new'
   match '/potd',              to: 'pets#potd'
   match '/la',                to: 'pets#potd'
-  match '/featured',          to: 'pets#potd'
   
   match '/findpet',           to: 'searches#new'
   

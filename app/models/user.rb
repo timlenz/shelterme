@@ -334,17 +334,17 @@ class User < ActiveRecord::Base
       # Users followed by followed users
       fufu = fu.map{|fu| fu[1]}.map{|fufu| fufu.relationships}.map{|x| x}.flatten.map{|r| [r.follower, r.followed, r.created_at, "Followed"]}
       # Pets sponsored by followed users
-      fusp = fu.map{|fu| fu[1]}.map{|fusp| fusp.pets}.map{|x| x}.flatten.map{|p| [p.user, p, p.created_at, "Added"]}
+      fusp = fu.map{|fu| fu[1]}.map{|fusp| fusp.pets.includes(:user)}.map{|x| x}.flatten.map{|p| [p.user, p, p.created_at, "Added"]}
       # Pets followed by followed users
-      fuwp = fu.map{|fu| fu[1]}.map{|fuwp| fuwp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "Started Following"]}
+      fuwp = fu.map{|fu| fu[1]}.map{|fuwp| fuwp.bonds.includes(:user, :pet)}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "Started Following"]}
       # Shelters boosted by followed users
-      fubs = fu.map{|fu| fu[1]}.map{|u| Favorite.select{|f| f.user == u}}.flatten.map{|f| [f.user, f.shelter, f.created_at, "Favorite"]}
+      fubs = fu.map{|fu| fu[1]}.map{|u| Favorite.where(user_id: u.id)}.flatten.map{|f| [f.user, f.shelter, f.created_at, "Favorite"]}
       # Comments added by followed users
-      fum = fu.map{|fu| fu[1]}.map{|fum| fum.microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
+      fum = fu.map{|fu| fu[1]}.map{|fum| fum.microposts.includes(:user, pet: :shelter)}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
       # Photos added by followed users
-      fup = fu.map{|fu| fu[1]}.map{|s| PetPhoto.select{|u| u.user == s}}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
+      fup = fu.map{|fu| fu[1]}.map{|s| PetPhoto.where(user_id: s.id).includes(:user)}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
       # Videos added by followed users
-      fuv = fu.map{|fu| fu[1]}.map{|s| PetVideo.select{|u| u.user == s}}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
+      fuv = fu.map{|fu| fu[1]}.map{|s| PetVideo.where(user_id: s.id).includes(:user)}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
     else
       fufu = []
       fusp = []
@@ -362,18 +362,18 @@ class User < ActiveRecord::Base
     bs = boosted_shelters.map{|b| [self, b, b.created_at, "Favorite"]}
     
     # Watched pets
-    wp = bonds.map{|b| [b.user, b.pet, b.created_at, "Started Following"]}
+    wp = bonds.includes(:user, :pet).map{|b| [b.user, b.pet, b.created_at, "Started Following"]}
     if wp.size > 0
       # Watched pets status changes
       wpst = bonds.map{|b| [b.user, b.pet, b.updated_at, "state", b.pet.pet_state.status]}
       # Watched pets new watchers
-      wwp = wp.map{|wp| wp[1]}.map{|wwp| wwp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]}.reject{|u| u[0] == self}
+      wwp = wp.map{|wp| wp[1]}.map{|wwp| wwp.bonds.includes(:user, :pet)}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]}.reject{|u| u[0] == self}
       # Watched pets comments
-      wm = wwp.map{|wwp| wwp[1].microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
+      wm = wwp.map{|wwp| wwp[1].microposts.includes(:user, :pet)}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
       # Watched pets new photos (also include - eventually - name of person who added media)
-      wpp = wp.map{|wp| wp[1]}.map{|wpp| wpp.pet_photos}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
+      wpp = wp.map{|wp| wp[1]}.map{|wpp| wpp.pet_photos.includes(:user, :pet)}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
       # Watched pets new videos (also include - eventually - name of person who added media)
-      wpv = wp.map{|wp| wp[1]}.map{|wpv| wpv.pet_videos}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
+      wpv = wp.map{|wp| wp[1]}.map{|wpv| wpv.pet_videos.includes(:user, :pet)}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
     else
       wpst = []
       wwp = []
@@ -384,18 +384,18 @@ class User < ActiveRecord::Base
     wpa = wp + wpst + wwp + wm + wpp + wpv
     
     # Sponsored pets
-    sp = pets.map{|p| [self, p, p.created_at, "Added"]}
+    sp = pets.includes(:shelter, :pet_state, pet_photos: :user, pet_videos: :user).map{|p| [self, p, p.created_at, "Added"]}
     if sp.size > 0
       # Sponsored pets status changes
       spst = pets.map{|p| [self, p, p.updated_at, "state", p.pet_state.status]}
       # Sponsored pets new watchers
-      wsp = sp.map{|sp| sp[1]}.map{|wsp| wsp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]}
+      wsp = sp.map{|sp| sp[1]}.map{|wsp| wsp.bonds.includes(:user)}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch"]}
       # Sponsored pets comments
-      sm = wsp.map{|wsp| wsp[1].microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
+      sm = wsp.map{|wsp| wsp[1].microposts.includes(:user, :pet)}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post", mp.content ]}
       # Sponsored pets new photos (also include - eventually - name of person who added media)
-      spp = sp.map{|sp| sp[1]}.map{|spp| spp.pet_photos}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
+      spp = sp.map{|sp| sp[1]}.map{|spp| spp.pet_photos.includes(:pet)}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo", p]}
       # Sponsored pets new videos (also include - eventually - name of person who added media)
-      spv = sp.map{|sp| sp[1]}.map{|spv| spv.pet_videos}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
+      spv = sp.map{|sp| sp[1]}.map{|spv| spv.pet_videos.includes(:pet)}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video", v]}
     else
       spst = []
       wsp = []
@@ -408,17 +408,17 @@ class User < ActiveRecord::Base
     # Check if user is a shelter manager and gather activity for managed pets
     if self.shelter
       # Managed pets
-      mp = self.shelter.pets.map{|p| [p.user, p, p.created_at, "Managed"]}
+      mp = self.shelter.pets.includes(:user).map{|p| [p.user, p, p.created_at, "Managed"]}
       # Managed pets status changes
-      mpst = self.shelter.pets.map{|p| [p.user, p, p.updated_at, "state", p.pet_state.status]}
+      mpst = self.shelter.pets.includes(:pet_state).map{|p| [p.user, p, p.updated_at, "state", p.pet_state.status]}
       # Managed pets new watchers
       wmp = mp.map{|mp| mp[1]}.map{|wmp| wmp.bonds}.map{|x| x}.flatten.map{|b| [b.user, b.pet, b.created_at, "watch managed"]}
       # Managed pets new comments
-      mm = wmp.map{|wmp| wmp[1].microposts}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post managed", mp.content ]}
+      mm = wmp.map{|wmp| wmp[1].microposts.includes(:user, :pet)}.reject{|x| x.empty?}.flatten.map{|mp| [ mp.user, mp.pet, mp.created_at, "post managed", mp.content ]}
       # Managed pets new photos (also include - eventually - name of person who added media)
-      mpp = mp.map{|mp| mp[1]}.map{|mpp| mpp.pet_photos}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo managed", p]}
+      mpp = mp.map{|mp| mp[1]}.map{|mpp| mpp.pet_photos.includes(:pet, :user)}.map{|x| x}.flatten.map{|p| [p.user, p.pet, p.created_at, "photo managed", p]}
       # Managed pets new videos (also include - eventually - name of person who added media)
-      mpv = mp.map{|mp| mp[1]}.map{|mpv| mpv.pet_videos}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video managed", v]}
+      mpv = mp.map{|mp| mp[1]}.map{|mpv| mpv.pet_videos.includes(:pet, :user)}.map{|x| x}.flatten.map{|v| [v.user, v.pet, v.created_at, "video managed", v]}
     else
       mp = []
       mpst = []

@@ -4,23 +4,23 @@
       <td class="adminId"><%= shelter.id %></td>
       <td class="adminSpark">
         <span class="sparklines"><!-- <%= shelter.available_journal %> --></span>
-        <%= shelter.available.count - shelter.absent.count %>
+        <%= shelter.available_count %>
       </td>
       <td class="adminSpark">
         <span class="sparklines"><!-- <%= shelter.absent_journal %> --></span>
-        <%= shelter.absent.count %>
+        <%= shelter.absent_count %>
       </td>
       <td class="adminSpark">
         <span class="sparklines"><!-- <%= shelter.adopted_journal %> --></span>
-        <%= shelter.adopted.count %>
+        <%= shelter.adopted_count %>
       </td>
       <td class="adminSpark">
         <span class="sparklines"><!-- <%= shelter.unavailable_journal %> --></span>
-        <%= shelter.unavailable.count %>
+        <%= shelter.unavailable_count %>
       </td>
       <td class="adminSpark">
         <span class="sparklines"><!-- <%= shelter.fostered_journal %> --></span>
-        <%= shelter.fostered.count %>
+        <%= shelter.fostered_count %>
       </td>
       <td class="adminName"><%= link_to shelter.name, shelter %></td>
     </tr>

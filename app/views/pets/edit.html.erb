@@ -36,9 +36,7 @@
 					 <h2 style="text-align:center;">Updating...</h2>
 					</div>
           <div id="editPhotos">
-            <%= render partial: "edit_photos", 
-                collection: @pet.pet_photos.sort{|a,b| (a.primary == b.primary) ? ((a.id < b.id) ? -1 : 1) : (a.primary ? -1 : 1)}, 
-                as: :f %>
+            <%= render partial: "edit_photos", collection: @pet_photos, as: :f %>
           </div>
           <div class="clearfix"></div>
           <hr>
@@ -52,9 +50,7 @@
             <% if @pet.pet_videos.count == 0 %>
               <p style="font-size:13px;">There are no videos for <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %>.</p>
             <% else %>
-            <%= render partial: "edit_videos", 
-                collection: @pet.pet_videos.sort{|a,b| (a.primary == b.primary) ? ((a.id < b.id) ? -1 : 1) : (a.primary ? -1 : 1)}, 
-                as: :f %>  
+            <%= render partial: "edit_videos", collection: @pet_videos, as: :f %>  
             <% end %>
           </div>
           <div class="clearfix"></div>

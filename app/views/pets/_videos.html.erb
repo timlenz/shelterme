@@ -1,6 +1,6 @@
 <div id="videoDisplay">
 	<div class="innerVideo">
-    <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
+    <% @pet_videos.each_with_index do |m, i| %>
       <% if m.panda_video.encodings["thumbnail"].status == "success" && m.h264.status == "success" %>
         <video id="movie<%= i %>" class="video-js vjs-default-skin<%= i == 0 ? " active" : ''%>" 
           controls preload="auto" width="592" height="333" data-setup='{}' 
@@ -16,10 +16,10 @@
 		  <% end %>
     <% end %>
   </div>
-  <% if @pet.pet_videos.size > 1 %>
+  <% if @pet_videos.size > 1 %>
   <div class="outerVideo">
     <ol>
-    <% @pet.pet_videos.sort_by {|p| p.primary ? 0:1 }.each_with_index do |m, i| %>
+    <% @pet_videos.each_with_index do |m, i| %>
       <% if m.h264.status == "success" %>
       <li class="thumb<%= i == 0 ? " selected" : '' %>">
         <% if m.thumbnail.status == "success" %>

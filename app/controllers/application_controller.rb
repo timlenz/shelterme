@@ -36,7 +36,8 @@ private
   def remote_ip
     if request.remote_ip == '127.0.0.1'
       # Hard coded remote address for testing
-      '65.73.0.1'
+      '50.108.157.197' # NY
+      #'63.198.255.126' # Woodland Hills, CA
     else
       request.remote_ip
     end

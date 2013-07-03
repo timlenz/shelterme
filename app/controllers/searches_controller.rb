@@ -5,8 +5,16 @@ class SearchesController < ApplicationController
   $search = Search.first
   
   def new
+    #
+    # Set location for search in a cascade from most specific to least:
+    # 1) entered value in form
+    # 2) value from location cookie
+    # 3) current user location
+    # 4) geocoder remote ip lookup
+    # 5) failure handling of "mapquest not responding"
+    #
     @search = Search.new
-    @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was MapQuest not responding
+    @current_location = "MapQuest not responding"
     if location.present?
       @current_location = location
     end

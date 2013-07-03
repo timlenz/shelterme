@@ -76,10 +76,18 @@ class SheltersController < ApplicationController
   end
   
   def find
-    @current_location = "Los Angeles, CA" # Temporary fix for LA beta - was "MapQuest not responding"
+    #
+    # Set location for search in a cascade from most specific to least.
+    # If one level doesn't exist or fails to validate then go to next:
+    # 1) entered value in form
+    # 2) value from location cookie
+    # 3) current user location
+    # 4) geocoder remote ip lookup
+    # 5) failure handling of "mapquest not responding"
+    #
+    @current_location = "MapQuest not responding"
     if params[:search].present?
       @current_location = params[:search]
-      cookies[:location] = @current_location
     end
     if (validate_location(@current_location) == false) && (cookies[:location])
       @current_location = cookies[:location]
@@ -95,6 +103,7 @@ class SheltersController < ApplicationController
         @current_location = s[0].city + ", " + s[0].state_code
       end
     end
+    cookies[:location] = @current_location
     if @current_location != "MapQuest not responding"
       nearbys = Shelter.near(@current_location, 70, order: "distance")
       @nearbys = nearbys.limit(5) # limit due to Google Static Map API restriction
