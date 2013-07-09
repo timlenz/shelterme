@@ -1,9 +1,9 @@
 <li class="small-pet-tile <%= f.pet_state.status %>">
   <div class="small-tile-photo">
     <% if f.pet_photos.where(primary: true).size > 0 %>
-      <%= link_to image_tag(f.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_history")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
+      <%= link_to image_tag(f.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_history"), width: "135", height: "90"), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
     <% elsif f.pet_photos.size > 0 %>
-      <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_history")), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
+      <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_history"), width: "135", height: "90"), [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
     <% else %>
       <%= link_to "", [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
     <% end %>
@@ -13,11 +13,11 @@
 		</div>
 	  <% end %>
     <% if f.pet_state.status == 'adopted' %>
-      <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted") %>
+      <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted", width: "31", height: "30") %>
     <% elsif f.pet_state.status == 'absent' %>
-      <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available") %>
+      <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available", width: "31", height: "30") %>
     <% elsif f.pet_state.status == 'unavailable' %>
-      <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable") %>
+      <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable", width: "31", height: "30") %>
     <% end %>
   </div>
   <div class="small-pet-info">

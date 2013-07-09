@@ -11,7 +11,7 @@
       <div class="span12 adminView">
         <div class="adminColumn">
           <h2>
-            <%= image_tag("matchMeIcon.png", alt: "Pets") %>
+            <%= image_tag("matchMeIcon.png", alt: "Pets", width: "65", height: "63") %>
             <%= Pet.all.count %> Pets
           </h2>
           <ul>
@@ -51,7 +51,7 @@
         </div>
         <div class="adminColumn">
           <h2>
-            <%= image_tag("catIcon.png") %> 
+            <%= image_tag("catIcon.png", width: "62", height: "63") %> 
             <%= @cats %> Cats
           </h2>
           <ul>
@@ -87,7 +87,7 @@
         </div>
         <div class="adminColumn">
           <h2>
-            <%= image_tag("dogIcon.png") %> 
+            <%= image_tag("dogIcon.png", width: "65", height: "63") %> 
             <%= @dogs %> Dogs
           </h2>
           <ul>
@@ -123,7 +123,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="adminColumn">
-          <h2><%= image_tag("editProfileIcon.png", alt: "Users") %><%= User.all.count %> Users</h2>
+          <h2><%= image_tag("editProfileIcon.png", alt: "Users", width: "63", height: "63") %><%= User.all.count %> Users</h2>
           <ul>
 	          <li>
 		          <h3>Total <span><%= @users %></span></h3>
@@ -164,7 +164,7 @@
         </div>
         <div class="adminColumn">
           <h2>
-            <%= image_tag("shelterIcon.png", alt: "Shelter") %>
+            <%= image_tag("shelterIcon.png", alt: "Shelter", width: "64", height: "63") %>
             <%= @shelters %> Shelters
           </h2>
           <ul>

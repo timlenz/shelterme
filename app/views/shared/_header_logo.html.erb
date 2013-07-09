@@ -2,26 +2,26 @@
   <% if params[:controller] == 'pets' %>
     <% if params[:action] == 'show' %>
       <% if @pet.species.name == 'dog' %>
-        <%= image_tag("dogIcon.png", alt: "Dog") %>
+        <%= image_tag("dogIcon.png", alt: "Dog", width: "65", height: "63") %>
       <% else %>
-        <%= image_tag("catIcon.png", alt: "Cat") %>
+        <%= image_tag("catIcon.png", alt: "Cat", width: "62", height: "63") %>
       <% end %>
     <% else %>
-      <%= image_tag("dogIcon.png", alt: "Dog") %>
+      <%= image_tag("dogIcon.png", alt: "Dog", width: "65", height: "63") %>
     <% end %>
   <% elsif params[:controller] == 'shelters' %>
-    <%= image_tag("shelterIcon.png", alt: "Shelter") %>
+    <%= image_tag("shelterIcon.png", alt: "Shelter", width: "64", height: "63") %>
   <% elsif params[:controller] == 'users' and params[:action] == 'index'%>
-    <%= image_tag("editProfileIcon.png", alt: "Users") %>
+    <%= image_tag("editProfileIcon.png", alt: "Users", width: "63", height: "63") %>
   <% elsif params[:controller] == 'users' and params[:action] == 'managers'%>
-    <%= image_tag("shelterIcon.png", alt: "Shelter") %>
+    <%= image_tag("shelterIcon.png", alt: "Shelter", width: "64", height: "63") %>
   <% elsif params[:controller] == 'users' %>
     <%= avatar_for @user, size: 63 %>
   <% elsif params[:controller] == 'microposts' %>
-    <%= image_tag("editIcon.png", alt: "Comments") %>
+    <%= image_tag("editIcon.png", alt: "Comments", width: "63", height: "63") %>
   <% elsif params[:controller] == 'pet_photos' %>
-    <%= image_tag("photoIcon.png", alt: "Photos") %>
+    <%= image_tag("photoIcon.png", alt: "Photos", width: "65", height: "63") %>
   <% elsif params[:controller] == 'pet_videos' || (params[:controller] == 'static_pages' && params[:action] == 'tutorial') %>
-    <%= image_tag("videoIcon.png", alt: "Videos") %>
+    <%= image_tag("videoIcon.png", alt: "Videos", width: "65", height: "63") %>
   <% end %>
 </div>

@@ -3,7 +3,7 @@
   <div class="profile-section">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("dogIcon.png")%>
+        <%= image_tag("dogIcon.png", width: "65", height: "63")%>
       </div>
       <div class="headerInfo">
         <h1>My <%= pluralize(@petsCount, 'Sponsored Pet') %></h1>
@@ -11,8 +11,8 @@
     </div>
     <div class="row">
       <div class="span12">
-	      <%= will_paginate @pets %>
         <%= render partial: "shared/pet_tile", collection: @pets, as: :f %>
+        <div class="clearfix"></div>
         <%= will_paginate @pets %>
       </div>
     </div>

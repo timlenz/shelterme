@@ -1,5 +1,5 @@
   <div id="waiting" class="hide">
-   <%= image_tag("spinner.gif")%>
+   <%= image_tag("spinner.gif", width: "55", height: "55")%>
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
@@ -7,16 +7,14 @@
   <div id="results">
     <h2 style="margin-top:10px;">
       <%= pluralize(@search.pets.size, "Pet") %> Found
-	    <% if @search.pets.size > 12 %>
-	    <span style="color:gray;text-transform:lowercase;font-weight:normal;font-size:0.8em;">(12 closest shown)</span>
-		  <% end %>
     </h2>
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
     <div class="clearfix"></div>
+    <%= will_paginate @search_results %>
   </div>
 <% elsif @search.far_species.count > 0 %>
   <div class="findBlurb" style="height:400px;">
-  <h3><%= image_tag("partialMatchFound.png")%></h3><br>
+  <h3><%= image_tag("partialMatchFound.png", width: "337", height: "30")%></h3><br>
   <p>No pets within 50 miles of <%= @search.location %> were an exact match for your search.<br>
     However, we have taken the liberty of finding the best partial matches for you:</p>
   <div class="partialMatch">
@@ -74,10 +72,10 @@
   </div>	
 	  <div class="row">
 	    <div class="noPets">
-	      <%= image_tag("noPetsImage.png") %>
+	      <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
 	    </div>
 	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
-	      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+	      <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
 	    </div>
 	  </div>
   <!--span class="saveSearch">
@@ -87,15 +85,15 @@
   </div-->
 <% else %>
 	<div class="findBlurb" style="height:400px;">
-		<h3><%= image_tag("noPetsFound.png")%></h3><br>
+		<h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
 		<p>Unfortunately, there are no pets available near <%= @search.location ? @search.location : 'your location' %>.</p>
 		<p>Please visit a <%= link_to "local shelter", findshelter_path %> and add pets there to our database.</p>
 	  <div class="row" style="margin-top:110px;">
 	    <div class="noPets">
-	      <%= image_tag("noPetsImage.png") %>
+	      <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
 	    </div>
 	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
-	      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+	      <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
 	    </div>
 	  </div>
 	</div>

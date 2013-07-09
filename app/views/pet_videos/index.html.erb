@@ -8,8 +8,8 @@
       </div>
     </div>
     <div id="pet_videos" class="row">
-      <%= will_paginate %>
       <%= render partial: 'pet_videos', collection: @pet_videos.reverse, as: :f %>
+      <div class="clearfix"></div>
       <%= will_paginate %>
     </div>
   </div>

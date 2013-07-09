@@ -325,6 +325,12 @@ a {
     text-decoration: none;
     color: $orangeDark;
   }
+	&:focus {
+		text-decoration: none;
+		color: $orangeDark;
+		border: none;
+		outline: none;
+	}
 }
 
 .unlink {
@@ -1481,21 +1487,21 @@ ol.activity {
 #photoFader {
   margin-top: 10px;  
   margin-bottom: 5px;
-  width: 592px;
-  height: 394px;
+  width: 594px;
+  height: 392px;
   position: relative;
   overflow: hidden;
   .fader-inner {
-    width: 592px;
-    height: 394px;
+    width: 594px;
+    height: 392px;
     background: url(logo.png) center no-repeat;
   }
   img {
     position: absolute;
     display: none;
     z-index: 1;
-    width: 592px;
-    height: 394px;
+    width: 594px;
+    height: 392px;
     -webkit-top-left-border-radius: 10px;
     -moz-top-left-border-radius: 10px;
     top-left-border-radius: 10px;
@@ -1893,9 +1899,8 @@ ol.activity {
       }
     }
     img {
-      max-height: 100%;
-      max-width: 100%;
       margin: 0 auto;
+			height: 75px;
     }
     .selected, .selected:hover {
       margin-top:0;
@@ -1983,7 +1988,7 @@ ol.activity {
 
 .petLegend {
   height:75px;
-  width: 592px;
+  width: 594px;
   margin-bottom: 20px;
   ul {
     list-style: none;
@@ -2830,7 +2835,7 @@ img.tutorialTease {
 }
 
 .rememberMe {
-  margin: 10px 5px 0 -44px;
+  margin: 10px 5px 0 -3px;
   text-align: left;
   display: inline-block;
   font-size: 11px;
@@ -2842,7 +2847,7 @@ img.tutorialTease {
 }
 
 .forgotPassword {
-  margin-left: -16px;
+  margin-left: 22px;
   font-size: 11px;
   display: block;
 }
@@ -3373,8 +3378,7 @@ input#location {
 }
 
 .pagination {
-  margin: 10px 0 10px 10px;
-	padding-left: 10px;
+  margin: 20px 0 0 0;
 	height: 36px;
 	.previous_page, .current, a, .gap, .next_page {
 		float: left;

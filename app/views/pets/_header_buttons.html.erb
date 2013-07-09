@@ -34,7 +34,7 @@
   <% end %>
 </div>
 <div class="printLogo">
-	<%= image_tag("logo_print.png", alt: "ShelterMe") %>
+	<%= image_tag("logo_print.png", alt: "ShelterMe", width: "128", height: "65") %>
 	<span>ShelterMe.com</span>
 </div>
 
@@ -42,7 +42,7 @@
   <div class="modal-inner">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("shelterIcon.png", alt: "Visit #{ @pet.name != "" ? @pet.name.titleize : @pet.animal_code }") %>
+        <%= image_tag("shelterIcon.png", alt: "Visit #{ @pet.name != "" ? @pet.name.titleize : @pet.animal_code }", width: "64", height: "63") %>
       </div>
       <div class="headerInfo" style="width:385px;">
         <h1>Visit <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1>

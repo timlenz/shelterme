@@ -6,9 +6,9 @@
       <td class="managedName">
 	      <div class="adminPhoto">
 		      <% if f.pet_photos.where(primary: true).size > 0 %>
-		        <%= link_to image_tag(f.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [f.shelter, f] %>
+		        <%= link_to image_tag(f.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [f.shelter, f] %>
 		      <% elsif f.pet_photos.count > 0 %>
-		        <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini")), [f.shelter, f] %>
+		        <%= link_to image_tag(f.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [f.shelter, f] %>
 		      <% else %>
 			      <%= link_to "", [f.shelter, f] %>
 		      <% end %>

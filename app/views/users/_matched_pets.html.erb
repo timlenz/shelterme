@@ -1,29 +1,29 @@
 <% if @user.matchme.size > 0 %>
   <div id="waiting" class="hide">
-   <%= image_tag("spinner.gif")%>
+   <%= image_tag("spinner.gif", width: "55", height: "55")%>
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
   <div id="results">
     <div class="resultsBlurb">
-      <%= image_tag("thisIsHello.png") %>
+      <%= image_tag("thisIsHello.png", width: "215", height: "30") %>
     </div>
     <div id="innerResults">
     <%= render partial: "shared/pet_tile", collection: @user.matchme, as: :f %>
     </div>
     <div class="clearfix"></div><br>
     <div class="resultsBlurb">
-      <%= image_tag("letsGoHome.png") %>
+      <%= image_tag("letsGoHome.png", width: "364", height: "28") %>
     </div>
   </div>
 <% else %>
   <div id="waiting" class="hide">
-   <%= image_tag("spinner.gif")%>
+   <%= image_tag("spinner.gif", width: "55", height: "55")%>
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
   <div class="findBlurb" style="height:400px;">
-  <h3><%= image_tag("waitingByTheDoor.png")%></h3><br>
+  <h3><%= image_tag("waitingByTheDoor.png", width: "483", height: "37")%></h3><br>
   <p>Face it<br>
   This is not dogs and cats<br>
   This is more than that</p>
@@ -39,10 +39,10 @@
   </div>
   <div class="row">
     <div class="noPets" style="margin-top:-30px;margin-left: -10px;">
-      <%= image_tag("noPetsImage.png") %>
+      <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
     </div>
     <div class="cornerLogo" style="margin-bottom: 10px;">
-      <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+      <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
     </div>
   </div>
 <% end %>

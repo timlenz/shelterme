@@ -5,7 +5,7 @@
       <p>Video upload failed. Please delete this and try uploading the video again.</p>
     </div>
     <% elsif f.thumbnail.status == "success" && f.h264.status == "success" %>
-    <%= link_to image_tag(f.thumbnail.screenshots.first), 
+    <%= link_to image_tag(f.thumbnail.screenshots.first, width: "300", height: "200"), 
         [f.pet.shelter, f.pet], 
         title: "Video of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
     <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" %>

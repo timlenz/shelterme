@@ -23,7 +23,7 @@
       <% if m.h264.status == "success" %>
       <li class="thumb<%= i == 0 ? " selected" : '' %>">
         <% if m.thumbnail.status == "success" %>
-        <%= link_to image_tag(m.thumbnail.screenshots.first), "#", id: "thumb#{i}" %>
+        <%= link_to image_tag(m.thumbnail.screenshots.first, height: "75"), "#", id: "thumb#{i}" %>
         <% else %>
           <div class="waiting">
             <p>Not ready just yet...</p>

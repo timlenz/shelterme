@@ -2,7 +2,7 @@
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("photoIcon.png", alt: "Add Photo") %>
+        <%= image_tag("photoIcon.png", alt: "Add Photo", width: "65", height: "63") %>
       </div>
       <div class="headerInfo" style="width:450px;">
         <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
@@ -29,7 +29,7 @@
               <span>Choose Photo</span>
               <%= f.cl_image_upload(:image, tags: "#{@pet.slug}") %>
             </span>
-            <%= image_tag("horiziPhone.png", class: "horiz")%>
+            <%= image_tag("horiziPhone.png", class: "horiz", width: "110", height: "50")%>
             <p>Or drop file here</p>
             <%= f.button :submit, "Upload" %>
           </div>

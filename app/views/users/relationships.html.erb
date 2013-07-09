@@ -3,7 +3,7 @@
   <div class="profile-section">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("editProfileIcon.png")%>
+        <%= image_tag("editProfileIcon.png", width: "63", height: "63")%>
       </div>
       <div class="headerInfo">
         <h1>My <%= pluralize(current_user.relationships.count, 'Followed User') %></h1>

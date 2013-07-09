@@ -2,7 +2,7 @@
 <div class="container">
   <div class="signinDialog">
     <div class="row center">
-      <%= image_tag("createAccount.png", alt: "Please join our community by creating an account", class: "formHeader") %>
+      <%= image_tag("createAccount.png", alt: "Please join our community by creating an account", class: "formHeader", width: "594", height: "27") %>
     </div>
     <br>
     <div class="row">
@@ -10,7 +10,7 @@
         <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <%= f.input :name, label: "Your Name", hint: "Sets your account URL, so choose wisely" %>
-          <%= f.input :location, label: "Your Location", hint: "Not required, but helps to find local results" %>
+          <%= f.input :location, label: "Your Location", hint: "Used to localize results. Enter as City, State." %>
           <%= f.input :email, label: "Your Email", hint: "You'll use this to signin" %>
           <%= f.input :password, required: true, label: "Choose Password", hint: "Must be at least six characters" %>
           <%= f.input :password_confirmation, label: "Re-enter Password" %>
@@ -40,7 +40,7 @@
     <br>
     <div class="row">
       <div class="cornerLogo">
-        <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+        <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
       </div>
     </div>
   </div>

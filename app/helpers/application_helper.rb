@@ -29,7 +29,7 @@ module ApplicationHelper
   def pet_list
     if cookies[:history]
       pets = cookies[:history].split(" ").map{|s| s.to_i }.reverse.uniq
-      pets = pets.map{|p| Pet.where(id: p)}.flatten.first(12)
+      pets = pets.map{|p| Pet.where(id: p).where('pet_state_id != ?', 3)}.flatten.first(12) # Eliminate unavailable pets
     else
       pets = []
     end

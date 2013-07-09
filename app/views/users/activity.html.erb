@@ -3,7 +3,7 @@
   <div class="profile-section">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("editIcon.png")%>
+        <%= image_tag("editIcon.png", width: "63", height: "63")%>
       </div>
       <div class="headerInfo">
         <h1>My Updates</h1>
@@ -11,8 +11,8 @@
     </div>
     <div class="row">
       <div id= "activity" class="fullWidth">
-        <%= will_paginate @activity, style: "visibility: hidden;" %>
         <%= render 'activity_feed' %>
+        <div class="clearfix"></div>
         <%= will_paginate @activity, style: "visibility: hidden;" %>
       </div>
     </div>

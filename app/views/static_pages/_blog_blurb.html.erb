@@ -4,7 +4,7 @@
 	  <div class="landingText blogText"></div>
 	</h3>
   <% unless @image == "none" %>
-  <%= image_tag(@image, class: "sideImage", style:"float:right;") %>
+  <%= image_tag(@image, class: "sideImage", style:"float:right;", width: "114") %>
   <% end %>
   <div class="blurb">
     <h4><%= link_to @title, @link, target: "_blank" %></h4>

@@ -136,7 +136,7 @@ class PetsController < ApplicationController
     canonical_url(pet_url(@pet))
     cookies[:pet_slug] = @pet.slug
     @microposts = @pet.microposts
-    @feed_items = @pet.feed
+    @feed_items = @pet.feed.includes(:user)
     @pet_photos = @pet.pet_photos.includes(:user).sort_by {|p| p.primary ? 0:1 }
     @pet_videos = @pet.pet_videos.includes(:user).sort_by {|p| p.primary ? 0:1 }
     cookies[:delete_managed_pet] = "false"

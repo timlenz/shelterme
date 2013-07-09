@@ -3,9 +3,9 @@
     <% @pet_photos.each_with_index do |m, i| %>
 		  <% cloudinary_url = m.image_url.to_s.gsub!(/upload/,"upload/t_profile")%>
       <% if i == 0 %>
-        <%= image_tag(cloudinary_url, class: "active", title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
+        <%= image_tag(cloudinary_url, class: "active", title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}", width: "594", height: "392") %>
       <% else %>
-        <%= image_tag(cloudinary_url, title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}") %>
+        <%= image_tag(cloudinary_url, title: "Photo contributed by #{m.user ? m.user.name : "Shelter Me"}", width: "594", height: "392") %>
       <% end %>
     <% end %>
   </div>
@@ -15,11 +15,11 @@
 	</div>
   <% end %>
   <% if @pet.pet_state.status == 'adopted' %>
-    <%= image_tag("adoptedBigIcon.png", class: "overlay noPrint", title: "Adopted") %>
+    <%= image_tag("adoptedBigIcon.png", class: "overlay noPrint", title: "Adopted", width: "65", height: "63") %>
   <% elsif @pet.pet_state.status == 'absent' %>
-    <%= image_tag("absentIcon.png", class: "overlay noPrint", title: "Absent") %>
+    <%= image_tag("absentIcon.png", class: "overlay noPrint", title: "Absent", width: "65", height: "63") %>
   <% elsif @pet.pet_state.status == 'unavailable' %>
-    <%= image_tag("unavailableIcon.png", class: "overlay noPrint", title: "Unavailable") %>
+    <%= image_tag("unavailableIcon.png", class: "overlay noPrint", title: "Unavailable", width: "65", height: "63") %>
   <% end %>
   <% if @pet.pet_photos.size > 1 %> 
   <a class="fader-control" href="#prev">&lsaquo;</a>

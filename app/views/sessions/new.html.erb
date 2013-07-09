@@ -3,7 +3,7 @@
   <div class="signinDialog">
     <div class="row">
       <div class="span6 offset3 center">
-        <%= image_tag("pleaseSignin.png", alt: "Welcome back! Please sign in.", class: "formHeader") %>
+        <%= image_tag("pleaseSignin.png", alt: "Welcome back! Please sign in.", class: "formHeader", width: "355", height: "27") %>
         <br><br>
         <%= simple_form_for(:session, url: sessions_path, html: {class: 'form-horizontal' }) do |f| %>
 
@@ -24,7 +24,7 @@
     </div>
     <div class="row">
       <div class="cornerLogo">
-        <%= image_tag("logo_small.png", alt: "Shelter Me") %>
+        <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
       </div>
     </div>
   </div>

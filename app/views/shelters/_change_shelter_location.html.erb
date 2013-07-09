@@ -1,6 +1,6 @@
 <div class="searchButton">
   <%= form_tag findshelter_path, :method => :get do %>
-    <%= label_tag :search, "Enter city or ZIP" %>
+    <%= label_tag :search, "Enter City, State" %>
     <%= text_field_tag :search, params[:search], class: "smallField" %>
     <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
   <% end %>

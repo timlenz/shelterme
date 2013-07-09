@@ -3,7 +3,7 @@
   <div class="profile-section">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("addIcon.png", alt: "Add Pet") %>
+        <%= image_tag("addIcon.png", alt: "Add Pet", width: "65", height: "63") %>
       </div>
       <div class="headerInfo" style="width:385px;">
         <h1>Create a Pet Profile</h1><br>
@@ -11,7 +11,7 @@
       <div class="searchButton" id="addPet">
         <%= form_tag addpet_path, method: 'get' do %>
           <%= label_tag :search, "Enter Animal ID" %>
-          <%= text_field_tag :search, params[:search], class: "smallField", style: "width: " %>
+          <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Add", :animal_code => nil, class: "btn btn-header", style: "width: 70px;", confirm: "" %>
         <% end %>
       </div>
@@ -19,7 +19,7 @@
     <div class="row">
       <div id="results">
         <div class="potentialMatch">
-          <h3><%= image_tag("matchFound.png", class: "formHeader", height: 30, width: 376)%></h3>
+          <h3><%= image_tag("matchFound.png", class: "formHeader", height: "30", width: "376")%></h3>
           <p>There <%= @pets.count == 1 ? "is a pet with an Animal ID" : "are pets with Animal IDs" %> similar to <%= params[:search] %> already in our database.</p>
           <p>If the pet you are trying to add is shown below, please select it and add to its profile.</p>
         </div>

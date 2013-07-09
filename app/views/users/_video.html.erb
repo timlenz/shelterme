@@ -5,7 +5,7 @@
       <p>Video upload failed. Please delete this and try uploading the video again.</p>
     </div>
     <% elsif f.thumbnail.status == "success" && f.h264.status == "success" %>
-    <%= link_to image_tag(f.thumbnail.screenshots.first), [f.pet.shelter, f.pet], title: "#{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code}" %>
+    <%= link_to image_tag(f.thumbnail.screenshots.first, height: "200"), [f.pet.shelter, f.pet], title: "#{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code}" %>
     <% elsif f.thumbnail.status == "fail" or f.h264.status == "fail" %>
     <div class="processing">
       <p><%= f.thumbnail.status == "fail" ? "Thumbnail" : "Video" %> encoding failed.</p>

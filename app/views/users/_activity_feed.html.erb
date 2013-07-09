@@ -17,7 +17,7 @@
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Added' %>
-            <%= image_tag("addIcon.png", class: "icon media") %>
+            <%= image_tag("addIcon.png", class: "icon media", width: "40", height: "40") %>
             <% end %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
@@ -83,7 +83,7 @@
            <span class="action">Selected </span>
            <%= link_to p[1].name, p[1] %>
            <span class="action">as a <%= p[3]%> shelter</span>
-           <%= image_tag("shelterIcon.png", class: "icon media") %>
+           <%= image_tag("shelterIcon.png", class: "icon media", width: "40", height: "40") %>
            <br>
            <span class="time"><%= time_ago_in_words(p[2]) %></span>
          </div>
@@ -117,11 +117,11 @@
             <span class="action"><%= p[4] == 'adopted' ? "has been" : "is now" %></span>
             <span class="status"><%= p[4]%></span>            
             <% if p[4] == 'adopted' %>
-            <%= image_tag("adoptedBigIcon.png", class: "media") %>
+            <%= image_tag("adoptedBigIcon.png", class: "media", width: "40", height: "40") %>
             <% elsif p[4] == 'absent' %>
-            <%= image_tag("absentIcon.png", class: "media") %>
+            <%= image_tag("absentIcon.png", class: "media", width: "40", height: "40") %>
             <% elsif p[4] == 'unavailable' %>
-            <%= image_tag("unavailableIcon.png", class: "media") %>
+            <%= image_tag("unavailableIcon.png", class: "media", width: "40", height: "40") %>
             <% end %>
             <br>
             <span class="time"> <%= time_ago_in_words(p[2]) %></span>
@@ -143,7 +143,7 @@
             <span class="action"> at </span>
             <%= link_to p[1].shelter.name, p[1].shelter, class: "shelter" %>
             <% if p[3] == 'Managed' %>
-            <%= image_tag("addIcon.png", class: "icon media") %>
+            <%= image_tag("addIcon.png", class: "icon media", width: "40", height: "40") %>
             <% end %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
@@ -179,7 +179,7 @@
             <% end %>
             <span class="action">Added a photo of</span>
             <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
-            <%= link_to (image_tag p[4].image_url.to_s.gsub!(/upload/,"upload/t_mini"), class: "media"), [p[1].shelter, p[1]] %>
+            <%= link_to (image_tag p[4].image_url.to_s.gsub!(/upload/,"upload/t_mini"), class: "media", width: "60", height: "40"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>
@@ -197,7 +197,7 @@
             <% end %>
             <span class="action">Added a video of</span>
             <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %>
-            <%= link_to (image_tag p[4].panda_video.encodings["thumbnail"].screenshots.first, class: "media"), [p[1].shelter, p[1]] %>
+            <%= link_to (image_tag p[4].panda_video.encodings["thumbnail"].screenshots.first, class: "media", height: "40"), [p[1].shelter, p[1]] %>
             <br>
             <span class="time"><%= time_ago_in_words(p[2]) %></span>
           </div>

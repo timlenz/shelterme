@@ -6,7 +6,7 @@
   <%= simple_form_for(@user, html: {class: 'form-horizontal' }) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <%= f.input :name %> 
-    <%= f.input :location %>
+    <%= f.input :location, label: "Your Location", hint: "Enter as City, State (e.g., Los Angeles, CA)" %>
     <%= f.input :bio, as: :text %>
     <div id="char_count" class="editUser"></div>
 		<div class="clearfix"></div>

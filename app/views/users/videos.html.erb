@@ -3,7 +3,7 @@
   <div class="profile-section">
     <div class="pageHeader">
       <div class="headerLogo">
-        <%= image_tag("videoIcon.png")%>
+        <%= image_tag("videoIcon.png", width: "65", height: "63")%>
       </div>
       <div class="headerInfo">
         <h1>
@@ -12,7 +12,6 @@
       </div>
     </div>
     <div id="pet_videos" class="row">
-      <%= will_paginate @videos %>
       <%= render partial: "video", collection: @videos.reverse, as: :f %>
       <div class="clearfix"></div>
       <%= will_paginate @videos %>

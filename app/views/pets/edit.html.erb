@@ -3,7 +3,7 @@
   <div class="form-section">
     <div class="pageHeader pageFormHeader">
       <div class="headerLogo">
-        <%= image_tag("editIcon.png", alt: "Edit Pet") %>
+        <%= image_tag("editIcon.png", alt: "Edit Pet", width: "63", height: "63") %>
       </div>
       <div class="headerInfo">
         <h1>Edit <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
@@ -31,7 +31,7 @@
         </div>
         <div class="tab-pane" id="photos">
 	        <div id="waiting" class="hide">
-					 <%= image_tag("spinner.gif")%>
+					 <%= image_tag("spinner.gif", width: "55", height: "55")%>
 					 <br>
 					 <h2 style="text-align:center;">Updating...</h2>
 					</div>

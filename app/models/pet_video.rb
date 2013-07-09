@@ -31,10 +31,6 @@ class PetVideo < ActiveRecord::Base
     @h264 = @panda_video.encodings["h264"]
   end
   
-  def webm
-    @webm = @panda_video.encodings["webm"]
-  end
-  
   def thumbnail
     @thumbnail = @panda_video.encodings["thumbnail"]
   end
