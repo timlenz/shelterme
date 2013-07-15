@@ -700,6 +700,7 @@ footer {
 .tooltip-inner {
 	white-space:pre;
 	max-width:none;
+	font-weight: bold;
 }
 
 /* FRONT PAGE HERO */
@@ -802,6 +803,7 @@ footer {
   position: relative;
   border-bottom: 3px solid $grayLighter;
   height: 78px;
+	padding-left: 4px;
   h1 {
     margin-bottom: 4px;
     padding: 0 10px;
@@ -823,19 +825,6 @@ footer {
   .breed {
     color: gray;
   }
-  .headerLogo {
-    margin-top: 1px;
-    margin-left: 4px;
-    /*width: 65px;*/
-    height: 65px;
-    float: left;
-    overflow: hidden;
-    .avatar {
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
-      border-bottom-radius: 8px;
-    }
-  }
   .headerButtons {
     position: absolute;
     right: 0;
@@ -852,6 +841,9 @@ footer {
   .button {
     float: right;
   }
+	.btn {
+		text-indent: 0;
+	}
   .headerInfo {
     float: left;
     margin-top: 0;
@@ -886,6 +878,19 @@ footer {
 	.new_bond {
 		
 	}
+}
+
+.largeIcon {
+  width: 65px;
+  height: 65px;
+  float: left;
+  overflow: hidden;
+  .avatar {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-bottom-radius: 8px;
+		background-color: white;
+  }
 }
 
 .btn-header {
@@ -1491,6 +1496,13 @@ ol.activity {
   height: 392px;
   position: relative;
   overflow: hidden;
+	.largeIcon {
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		z-index: 4;
+		display: inline-block;
+	}
   .fader-inner {
     width: 594px;
     height: 392px;
@@ -1512,15 +1524,6 @@ ol.activity {
   .active {
     z-index: 3;
     display: inline-block;
-  }
-  .overlay {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    height: 63px;
-    width: auto;
-    display: inline-block;
-    z-index: 5;
   }
 	.corner {
 		width: 74px;
@@ -1677,13 +1680,19 @@ ol.activity {
     -moz-box-shadow:    0px 0px 8px rgba(0, 85, 128, 0.75);
     box-shadow:         0px 0px 8px rgba(0, 85, 128, 0.75);
   }
-  .overlay {
+  .smallIcon {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    height: 30px;
-    width: auto;
+    top: 2px;
+    left: 2px;
+    height: 40px;
+    width: 40px;
 		z-index:5;
+		display: inline-block;
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
   }
 	.corner {
 		width: 40px;
@@ -2442,14 +2451,17 @@ ol.activity {
     -moz-box-shadow:    0px 0px 8px rgba(0, 85, 128, 0.75);
     box-shadow:         0px 0px 8px rgba(0, 85, 128, 0.75);
   }
-  .overlay {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    height: 50px;
-    width: auto;
-		z-index: 5;
-  }
+	.mediumIcon {
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		z-index: 4;
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	}
 	.corner {
 		width: 60px;
 		height: 60px;
@@ -2495,14 +2507,14 @@ ol.activity {
   background: url(logo_small.png) center no-repeat;
   -moz-background-attachment: fixed;
   img {
-  width: 300px;
-  height: 200px;
-  -webkit-border-top-left-radius: 8px;
-  -webkit-border-top-right-radius: 8px;
-  -moz-border-radius-topleft: 8px;
-  -moz-border-radius-topright: 8px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+	  width: 300px;
+	  height: 200px;
+	  -webkit-border-top-left-radius: 8px;
+	  -webkit-border-top-right-radius: 8px;
+	  -moz-border-radius-topleft: 8px;
+	  -moz-border-radius-topright: 8px;
+	  border-top-left-radius: 8px;
+	  border-top-right-radius: 8px;
   }
   a {
     display: block;
@@ -2992,8 +3004,9 @@ img.tutorialTease {
     background-color: $grayLight;
   }
   .userIcon {
-    padding: 10px 10px 0 0;
-    width: 60px;
+    padding: 0;
+		margin-top: 6px;
+		margin-right: 4px;
     float: left;
     p {
       float: left;
@@ -3001,10 +3014,11 @@ img.tutorialTease {
       text-align: center;
       font-size: 11px;
     }
-  }
-  .icon {
-    width: 40px;
-    height: 40px;
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
   }
 }
 
@@ -3034,8 +3048,8 @@ img.tutorialTease {
     }
   }
   .userIcon {
-    padding: 0 5px 0 0;
-    width: 44px;
+    padding: 0;
+		margin-right: 38px;
     float: left;
     p {
       float: left;
@@ -3043,11 +3057,15 @@ img.tutorialTease {
       text-align: center;
       font-size: 11px;
     }
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
   }
-  .icon {
-    width: 40px;
-    height: 40px;
-  }
+	.lastUserIcon {
+		margin-right: 0;
+	}
 }
 
 #relationships {
@@ -3079,22 +3097,23 @@ img.tutorialTease {
     }
   }
   .userIcon {
-    padding: 0 38px 0 0;
-    width: 50px;
+    padding: 0;
+		margin-right: 38px;
     float: left;
     p {
       float: left;
-      width: 50px;
+      width: 40px;
       text-align: center;
       font-size: 12px;
     }
+		a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
   }
   .lastUserIcon {
-    padding-right: 0;
-  }
-  .icon {
-    width: 50px;
-    height: 50px;
+    margin-right: 0;
   }
 }
 
@@ -3859,6 +3878,7 @@ th {
   float: left;
   margin-left: 20px;
   padding-right:0;
+	padding-top: 0;
   width: 930px;
   min-height: 490px;
   .noPets {
@@ -4003,6 +4023,7 @@ th {
 
 .firstColumn {
   margin-left: 26px;
+	height: 190px;
 }
 
 .lastColumn {
@@ -4143,6 +4164,29 @@ ul.typeahead {
   margin: 0px 0px 0px -110px;
   padding: 10px;
   z-index: 999;
+}
+
+#searchIcons {
+	float:right;
+	margin-top:10px;
+	padding-right:10px;
+	.petTile {
+		float:right;
+		margin-left:6px;
+		display:none;
+	}
+	#displayCount {
+		float:right;
+		margin-top: 10px;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 18px;
+		line-height: 25px;
+		text-align: right;
+		width: 100px;
+		display: inline-block;
+		color: $orange;
+	}
 }
 
 /* STATIC PAGES */

@@ -408,7 +408,7 @@ class User < ActiveRecord::Base
     # Check if user is a shelter manager and gather activity for managed pets
     if self.shelter
       # Managed pets
-      mp = self.shelter.pets.includes(:user).map{|p| [p.user, p, p.created_at, "Managed"]}
+      mp = self.shelter.pets.includes(:user, :bonds, :shelter).map{|p| [p.user, p, p.created_at, "Managed"]}
       # Managed pets status changes
       mpst = self.shelter.pets.includes(:pet_state).map{|p| [p.user, p, p.updated_at, "state", p.pet_state.status]}
       # Managed pets new watchers

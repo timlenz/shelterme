@@ -1,9 +1,7 @@
 <div id="addPhoto" class="modal" data-backdrop="static" data-keyboard="false">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
-      <div class="headerLogo">
-        <%= image_tag("photoIcon.png", alt: "Add Photo", width: "65", height: "63") %>
-      </div>
+      <div class="largeIcon photoIcon"></div>
       <div class="headerInfo" style="width:450px;">
         <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
 				<p><span class="file-name"></span></p>

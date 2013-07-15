@@ -1,5 +1,14 @@
 <li>
   <div class="innerComment">
+	  <div class="adminPhoto">
+      <% if micropost.pet.pet_photos.where(primary: true).size > 0 %>
+        <%= link_to image_tag(micropost.pet.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [micropost.pet.shelter, micropost.pet] %>
+      <% elsif micropost.pet.pet_photos.count > 0 %>
+        <%= link_to image_tag(micropost.pet.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [micropost.pet.shelter, micropost.pet] %>
+      <% else %>
+	      <%= link_to "", [micropost.pet.shelter, micropost.pet] %>
+      <% end %>
+    </div>
     <div class="post">
       <%= link_to micropost.pet.name.titleize, [micropost.pet.shelter, micropost.pet] %>
       <span class="time"><%= time_ago_in_words(micropost.created_at) %></span>

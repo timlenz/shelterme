@@ -16,6 +16,7 @@
 #  updated_at      :datetime        not null
 #  user_id         :integer
 #  save_search     :boolean         default(FALSE)
+#  search_string   :string(255)
 #
 
 require 'spec_helper'

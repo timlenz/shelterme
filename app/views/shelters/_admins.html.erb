@@ -4,16 +4,20 @@
     <p><%= link_to f.name, f %><br>
     <%= f.location %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("addIcon.png", class: "icon", width: "40", height: "40"), "#", rel: "tooltip", title: pluralize(f.pets.count, "Sponsored Pet") %><br>
+  <div class="userIcon smallIcon addIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.pets.count, "Sponsored Pet") %>
     <p><%= f.pets.count %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("editIcon.png", class: "icon", width: "40", height: "40"), "#", rel: "tooltip", title: pluralize(f.microposts.count, "Comment") + " Added" %><br>
+  <div class="userIcon smallIcon editIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.microposts.count, "Comment") + " Added" %>
     <p><%= f.microposts.count %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("matchMeIcon.png", class: "icon", width: "40", height: "40"), "#", rel: "tooltip", title: pluralize(f.watched_pets.count, "Followed Pet") %><br>
-    <p><%= f.watched_pets.count %></p>
+  <div class="userIcon smallIcon photoIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(PetPhoto.includes(:user).where(user_id: f.id).size, "Photo") + " Added" %>
+    <p><%= PetPhoto.includes(:user).where(user_id: f.id).size %></p>
+  </div>
+  <div class="userIcon lastUserIcon smallIcon videoIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(PetVideo.includes(:user).where(user_id: f.id).size, "Video") + " Added" %>
+    <p><%= PetVideo.includes(:user).where(user_id: f.id).size %></p>
   </div>
 </div>

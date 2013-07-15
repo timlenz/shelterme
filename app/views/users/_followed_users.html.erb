@@ -4,34 +4,34 @@
     <h1><%= link_to f.name, f %></h1><br>
     <p><%= f.location %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("addIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.pets.size, "Sponsored Pet") %><br>
+  <div class="userIcon smallIcon addIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.pets.size, "Sponsored Pet") %>
     <p><%= f.pets.size %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("editIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.microposts.size, "Comment") + " Added" %><br>
+  <div class="userIcon smallIcon editIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.microposts.size, "Comment") + " Added" %>
     <p><%= f.microposts.size %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("matchMeIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.watched_pets.size, "Followed Pet") %><br>
+  <div class="userIcon smallIcon matchMeIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.watched_pets.size, "Followed Pet") %>
     <p><%= f.watched_pets.size %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("shelterIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.favorites.size, "Favorite Shelter") %><br>
+  <div class="userIcon smallIcon shelterIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.favorites.size, "Favorite Shelter") %>
     <p><%= f.favorites.size %></p>
   </div>
-  <div class="userIcon">
-    <%= link_to image_tag("editProfileIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(f.followed_users.size, "Followed User") %><br>
+  <div class="userIcon smallIcon editProfileIcon">
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(f.followed_users.size, "Followed User") %>
     <p><%= f.followed_users.size %></p>
   </div>
-  <div class="userIcon">
+  <div class="userIcon smallIcon photoIcon">
     <% photos = PetPhoto.includes(:user).select{|u| u.user == f}.size%>
-    <%= link_to image_tag("photoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(photos, "Photo") + " Added" %><br>
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(photos, "Photo") + " Added" %>
     <p><%= photos %></p>
   </div>
-  <div class="userIcon lastUserIcon">
+  <div class="userIcon lastUserIcon smallIcon videoIcon">
     <% videos = PetVideo.includes(:user).select{|u| u.user == f}.size %>
-    <%= link_to image_tag("videoIcon.png", class: "icon"), "#", rel: "tooltip", title: pluralize(videos, "Video") + " Added" %><br>
+    <%= link_to "", "#", rel: "tooltip", title: pluralize(videos, "Video") + " Added" %>
     <p><%= videos %></p>
   </div>
 </li>

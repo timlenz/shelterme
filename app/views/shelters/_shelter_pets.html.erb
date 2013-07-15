@@ -36,7 +36,7 @@
     <li>
       <a href="#shelterAdmin" data-toggle="tab">
         <span class="linkCount">
-          <%= User.all.select{|p| p.manager? && p.shelter_id == @shelter.id }.count %>
+          <%= @shelter.managers.size %>
         </span>
          Managers
       </a>
@@ -67,7 +67,7 @@
         <%= will_paginate @unavailable, param_name: 'unavailable_page' %>
       </div>
       <div class="tab-pane" id="shelterAdmin">
-        <%= render partial: "admins", collection: User.all.select{|p| p.manager? && p.shelter_id == @shelter.id}, as: :f %>
+        <%= render partial: "admins", collection: @managers, as: :f %>
       </div>
       <% end %>
     </div>

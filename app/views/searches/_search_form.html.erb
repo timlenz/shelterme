@@ -8,11 +8,6 @@
       <button type="button" data-toggle="button" class="btn" value="2">Dog</button>
     </div>
     <%= f.hidden_field :species_id, label: false %>
-    <div class="btn-group two-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[gender_id]">
-      <button type="button" data-toggle="button" class="btn" value="2">Female</button>
-      <button type="button" data-toggle="button" class="btn" value="1">Male</button>
-    </div>
-    <%= f.hidden_field :gender_id, label: false %>
     <div class="control-group string optional">
       <label class="string required control-label">Breed</label>
       <div class="controls">
@@ -20,20 +15,12 @@
         <p class="help-block">Start typing and matching breeds will be shown</p>
       </div>
     </div>
-  </div>
-  <div class="btnColumn">
-    <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[age_group]">
-      <button type="button" data-toggle="button" class="btn" value="young">Young</button>
-      <button type="button" data-toggle="button" class="btn" value="adult">Adult</button>
-      <button type="button" data-toggle="button" class="btn" value="senior">Senior</button>
+		<div class="control-group string optional">
+      <label class="string required control-label" style="width:81px;">Name or ID</label>
+      <div class="controls">
+        <%= f.text_field :search_string, style: "width: 200px;" %>
+      </div>
     </div>
-    <%= f.hidden_field :age_group, label: false %>
-    <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[size_id]">
-      <button type="button" data-toggle="button" class="btn" value="1">Small</button>
-      <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
-      <button type="button" data-toggle="button" class="btn" value="3">Large</button>
-    </div>
-    <%= f.hidden_field :size_id, label: false %>
     <div class="control-label findLocation">
       <span id="currentLocation"><%= @current_location %></span>
       &nbsp;&nbsp;
@@ -43,8 +30,27 @@
     </div>
     <div class="changeLocation hidden">
       <%= f.text_field :location, value: @current_location, style: "width:280px;margin-bottom:0;" %>
-      <p class="help-block">Enter as City, State (e.g. Los Angeles, CA)</p>
+      <p class="help-block" style="margin-bottom:0;">Enter as City, State (e.g. Los Angeles, CA)</p>
     </div>
+  </div>
+  <div class="btnColumn">
+	  <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[size_id]">
+	    <button type="button" data-toggle="button" class="btn" value="1">Small</button>
+	    <button type="button" data-toggle="button" class="btn" value="2">Medium</button>
+	    <button type="button" data-toggle="button" class="btn" value="3">Large</button>
+	  </div>
+	  <%= f.hidden_field :size_id, label: false %>
+    <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[age_group]">
+      <button type="button" data-toggle="button" class="btn" value="young">Young</button>
+      <button type="button" data-toggle="button" class="btn" value="adult">Adult</button>
+      <button type="button" data-toggle="button" class="btn" value="senior">Senior</button>
+    </div>
+    <%= f.hidden_field :age_group, label: false %>
+    <div class="btn-group two-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[gender_id]">
+      <button type="button" data-toggle="button" class="btn" value="2">Female</button>
+      <button type="button" data-toggle="button" class="btn" value="1">Male</button>
+    </div>
+    <%= f.hidden_field :gender_id, label: false %>
   </div>
   <div class="btnColumn lastColumn">
     <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="search[energy_level_id]">
@@ -65,9 +71,9 @@
       <button type="button" data-toggle="button" class="btn" value="1">Devoted</button>
     </div>
     <%= f.hidden_field :affection_id, label: false %>
+		<button type="submit", class="btn btn-header", data-remote="true", data-type="json", style="width: 153px;font-size:14px;line-height:22px;" <%= @current_location == "MapQuest not responding" ? 'disabled="true"': '' %> >
+	    <%= image_tag("smallFindIcon.png", style:"margin-top:-4px;", width: "19", height: "17")%>&nbsp; Find Me
+	  </button>
+	  <%= link_to("Reset", findpet_path, class: "btn btn-header", style: "width:85px;font-size:14px;line-height:22px;margin-left:0;")%>
   </div>
-  <button type="submit", class="btn btn-header", data-remote="true", data-type="json", style="width: 153px;font-size:14px;line-height:22px;margin-bottom:10px;margin-right:15px;" <%= @current_location == "MapQuest not responding" ? 'disabled="true"': '' %> >
-    <%= image_tag("smallFindIcon.png", style:"margin-top:-4px;", width: "19", height: "17")%>&nbsp; Find Me
-  </button>
-  <%= link_to("Reset", findpet_path, class: "btn btn-header", style: "width:85px;font-size:14px;line-height:22px;margin-bottom:10px;")%>
 <% end %>

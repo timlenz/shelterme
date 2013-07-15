@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   
   def index
     if signed_in? && current_user.admin?
-      @users = User.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      @users = User.search(params[:search]).paginate(page: params[:page])
     else
       redirect_to root_path
     end
@@ -42,14 +42,6 @@ class UsersController < ApplicationController
     else
       redirect_to root_path
     end
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-  
-  def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
   
   def new
@@ -218,14 +210,6 @@ class UsersController < ApplicationController
     
     def admin_user
       redirect_to(root_path) unless current_user.admin?
-    end
-    
-    def sort_column
-      params[:sort] || "name"
-    end
-
-    def sort_direction
-      params[:direction] || "asc"
     end
     
     def find_user

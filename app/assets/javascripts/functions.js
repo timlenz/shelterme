@@ -345,6 +345,7 @@ $(function(){
     $('div.changeLocation').hide();    
     var updatedLocation = $('[id$=_location]').val();
     $('span#currentLocation').text(updatedLocation);
+		$.cookie("location", updatedLocation);
   };
   
   $('#new_search button[type="submit"], .match-me').click(function(){
@@ -517,6 +518,11 @@ $(function(){
 	        show_cat_colors();
 	        $('[id$=breed_name]').val("")
 	      };
+				// Find Pet search icons
+				if ( $('#new_search').length ) {
+					$('#displayCount').hide();
+					set_search_icons();
+				};
 	    });
 	    if(button.val() == hidden.val()) {
 	      // Set clicked button to active
@@ -535,6 +541,11 @@ $(function(){
 	        set_cat_breeds();
 	        show_cat_colors();
 	      };
+				// Find Pet search icons
+				if ( $('#new_search').length ) {
+					$('#displayCount').hide();
+					set_search_icons();
+				};
 	    };
 	  });
 	});
@@ -565,6 +576,113 @@ $(function(){
     minLength: 2,
     source: $('#search_breed_name').data('autocomplete-source')
   });
+
+	function set_search_icons(){
+		energy = $('input[id$="energy_level_id"]').val();
+		affection = $('input[id$="affection_id"]').val();
+		nature = $('input[id$="nature_id"]').val();
+		species = $('input[id$="species_id"]').val();
+		size = $('input[id$="size_id"]').val();
+		age = $('input[id$="age_group"]').val();
+		gender = $('input[id$="gender_id"]').val();
+		switch(energy) {
+			case "1":
+				var newEnergy = "low";
+				break;
+			case "2":
+				var newEnergy = "mid";
+				break;
+			case "3":
+				var newEnergy = "high";
+				break;
+		};
+		switch(affection) {
+			case "1":
+				var newAffection = "high";
+				break;
+			case "2":
+				var newAffection = "mid";
+				break;
+			case "3":
+				var newAffection = "low";
+				break;
+		};
+		if ( species.length != 0 ) {
+				switch(species) {
+					case "1":
+						var newSpecies = "Cat";
+						break;
+					case "2":
+						var newSpecies = "Dog";
+						break;
+				};
+			if ( nature.length != 0 ) {
+				switch(nature) {
+					case "1":
+						var newNature = "low";
+						break;
+					case "2":
+						var newNature = "mid";
+						break;
+					case "3":
+						var newNature = "high";
+						break;
+				};
+				$('#natureTile').removeClass('lowCatNatureIcon lowDogNatureIcon midCatNatureIcon midDogNatureIcon highCatNatureIcon highDogNatureIcon');
+				$('#natureTile').addClass(newNature + newSpecies + "NatureIcon");
+				$('#natureTile').show();
+			} else {
+				$('#natureTile').hide();
+			};
+			if ( size.length != 0 ) {
+				switch(size) {
+					case "1":
+						var newSize = "low";
+						break;
+					case "2":
+						var newSize = "mid";
+						break;
+					case "3":
+						var newSize = "high";
+						break;
+				};
+				$('#speciesSizeTile').removeClass('lowSizeCatIcon lowSizeDogIcon midSizeCatIcon midSizeDogIcon highSizeCatIcon highSizeDogIcon');
+				$('#speciesSizeTile').addClass(newSize + "Size" + newSpecies + "Icon");
+				$('#speciesSizeTile').show();
+			} else {
+				$('#speciesSizeTile').hide();
+			};
+		};
+		if ( age.length != 0 && gender.length != 0 ) {
+			switch(gender) {
+				case "1":
+					var newGender = "Male";
+					break;
+				case "2":
+					var newGender = "Female";
+					break;
+			};
+			$('#ageGenderTile').removeClass('youngMaleIcon youngFemaleIcon adultMaleIcon adultFemaleIcon seniorMaleIcon seniorFemaleIcon');
+			$('#ageGenderTile').addClass(age + newGender + "Icon");
+			$('#ageGenderTile').show();
+		} else {
+			$('#ageGenderTile').hide();
+		};
+		if ( energy.length != 0 ) {
+			$('#energyTile').removeClass('lowEnergyIcon midEnergyIcon highEnergyIcon');
+			$('#energyTile').addClass(newEnergy + "EnergyIcon");
+			$('#energyTile').show();
+		} else {
+			$('#energyTile').hide();
+		};
+		if ( affection.length != 0 ) {
+			$('#affectionTile').removeClass('lowAffectionIcon midAffectionIcon highAffectionIcon');
+			$('#affectionTile').addClass(newAffection + "AffectionIcon");
+			$('#affectionTile').show();
+		} else {
+			$('#affectionTile').hide();
+		};
+	};
 
   function set_dog_breeds(){
     $('[id$=breed_name]').autocomplete({

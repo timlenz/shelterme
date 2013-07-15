@@ -14,13 +14,7 @@
 		<%= link_to "", "#", rel: "tooltip", title: "#{@pet.created_at < 1.month.ago ? 'Added more than a month ago' : ( @pet.created_at < 1.week.ago ? 'Added in the last month' : 'Newly added' )}" %>
 	</div>
   <% end %>
-  <% if @pet.pet_state.status == 'adopted' %>
-    <%= image_tag("adoptedBigIcon.png", class: "overlay noPrint", title: "Adopted", width: "65", height: "63") %>
-  <% elsif @pet.pet_state.status == 'absent' %>
-    <%= image_tag("absentIcon.png", class: "overlay noPrint", title: "Absent", width: "65", height: "63") %>
-  <% elsif @pet.pet_state.status == 'unavailable' %>
-    <%= image_tag("unavailableIcon.png", class: "overlay noPrint", title: "Unavailable", width: "65", height: "63") %>
-  <% end %>
+  <div class="largeIcon <%= @pet.pet_state.status == 'adopted' ? 'adoptedIcon' : (@pet.pet_state.status == 'absent' ? 'absentIcon' : (@pet.pet_state.status == 'unavailable' ? 'unavailableIcon' : ''))%>"></div>
   <% if @pet.pet_photos.size > 1 %> 
   <a class="fader-control" href="#prev">&lsaquo;</a>
   <a class="next fader-control" href="#next">&rsaquo;</a>

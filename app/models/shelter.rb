@@ -240,6 +240,10 @@ class Shelter < ActiveRecord::Base
     pet_list = pets.where(pet_state_id: 6).size
   end
   
+  def managers
+    users = User.where(manager: true).where(shelter_id: self.id)
+  end
+  
   def available_journal
     newlist = journals.where(pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     oldlist = journals.where(old_pet_state_id: 1).select{|s| s.created_at >= 7.days.ago.beginning_of_day}

@@ -1,0 +1,166 @@
+/* LARGE ICONS */
+/* used for page headers, pet photo slider */
+
+.largeIcon { 
+	background-image: url(largeIcons.png); 
+	background-color: transparent; 
+	background-repeat: no-repeat;
+	width: 65px;
+	height: 65px;
+	&.absent {
+		background-position: 0 0;
+	}
+	&.addIcon {
+		background-position: -66px -66px;
+	}
+	&.adoptedIcon {
+		background-position: 0 -132px;
+	}
+	&.blogIcon {
+		background-position: 0 -66px;
+	}
+	&.catIcon {
+		background-position: 0 -264px;
+	}
+	&.cropIcon {
+		background-position: -66px -132px;
+	}
+	&.dogIcon {
+		background-position: -132px -198px;
+	}
+	&.editIcon {
+		background-position: -132px -66px;
+	}
+	&.editProfileIcon {
+		background-position: -66px -264px;
+	}
+	&.findIcon {
+		background-position: 0 -198px;
+	}
+	&.matchMeIcon {
+		background-position: -132px 0;
+	}
+	&.photoIcon {
+		background-position: -132px -264px;
+	}
+	&.shelterIcon {
+		background-position: -66px -198px;
+	}
+	&.unavailableIcon {
+		background-position: -66px 0;
+	}
+	&.videoIcon {
+		background-position: -132px -132px;
+	}
+}
+
+/* MEDIUM ICONS */
+/* used for pet tiles, followed users */
+
+.mediumIcon { 
+	background-image: url(mediumIcons.png); 
+	background-color: transparent; 
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+	&.absentIcon { 
+		background-position: -102px -153px;
+	}
+	&.addIcon { 
+		background-position: -51px -153px;
+	}
+	&.adoptedIcon { 
+		background-position: -102px -204px;
+	}
+	&.blogIcon { 
+		background-position: -51px -204px;
+	}
+	&.catIcon { 
+		background-position: 0 -153px;
+	}
+	&.cropIcon { 
+		background-position: 0 -204px;
+	}
+	&.dogIcon { 
+		background-position: -51px -51px;
+	}
+	&.editIcon { 
+		background-position: 0 -102px;
+	}
+	&.editProfileIcon { 
+		background-position: 0 -51px;
+	}
+	&.findIcon { 
+		background-position: -102px -51px;
+	}
+	&.matchMeIcon { 
+		background-position: -102px 0;
+	}
+	&.photoIcon { 
+		background-position: -51px -102px;
+	}
+	&.shelterIcon { 
+		background-position: 0 0;
+	}
+	&.unavailableIcon { 
+		background-position: -51px 0;
+	}
+	&.videoIcon { 
+		background-position: -102px -102px;
+	}
+}
+
+/* SMALL ICONS */
+/* used for statistics, history tiles */
+
+.smallIcon { 
+	background-image: url(smallIcons.png); 
+	background-color: transparent; 
+	background-repeat: no-repeat;
+	width: 40px;
+	height: 40px;
+	&.absentIcon { 
+		background-position: 0 -123px;
+	}
+	&.addIcon { 
+		background-position: 0 0;
+	}
+	&.adoptedIcon { 
+		background-position: 0 -82px;
+	}
+	&.blogIcon { 
+		background-position: -82px -41px;
+	}
+	&.catIcon { 
+		background-position: -41px -82px;
+	}
+	&.cropIcon { 
+		background-position: 0 -164px;
+	}
+	&.dogIcon { 
+		background-position: -41px -164px;
+	}
+	&.editIcon { 
+		background-position: -41px -41px;
+	}
+	&.editProfileIcon { 
+		background-position: 0 -41px;
+	}
+	&.findIcon { 
+		background-position: -82px -82px;
+	}
+	&.matchMeIcon { 
+		background-position: -82px 0;
+	}
+	&.photoIcon { 
+		background-position: -82px -164px;
+	}
+	&.shelterIcon { 
+		background-position: -41px -123px;
+	}
+	&.unavailableIcon { 
+		background-position: -41px 0;
+	}
+	&.videoIcon { 
+		background-position: -82px -123px; }
+}

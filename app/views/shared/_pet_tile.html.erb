@@ -12,13 +12,11 @@
 			<%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.created_at < 1.month.ago ? 'Added more than a month ago' : ( f.created_at < 1.week.ago ? 'Added in the last month' : 'Newly added' )}" %>
 		</div>
 	  <% end %>
-    <% if f.pet_state.status == 'adopted' %>
-      <%= image_tag("adoptedBigIcon.png", class: "overlay", title: "Adopted", width: "52", height: "50") %>
-    <% elsif f.pet_state.status == 'absent' %>
-      <%= image_tag("absentIcon.png", class: "overlay", title: "May not be available", width: "52", height: "50") %>
-    <% elsif f.pet_state.status == 'unavailable' %>
-      <%= image_tag("unavailableIcon.png", class: "overlay", title: "Unavailable", width: "52", height: "50") %>
-    <% end %>
+	  <% if f.pet_state.status == 'adopted' || f.pet_state.status == 'absent' || f.pet_state.status == 'unavailable' %>
+    <div class="<%= f.pet_state.status == 'adopted' ? 'mediumIcon adoptedIcon' : (f.pet_state.status == 'absent' ? 'mediumIcon absentIcon' : (f.pet_state.status == 'unavailable' ? 'mediumIcon unavailableIcon' : ''))%>">
+	    <%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.pet_state.status == 'adopted' ? 'Adopted' : (f.pet_state.status == 'absent' ? 'May not be available' : (f.pet_state.status == 'unavailable' ? 'Unavailable' : ''))}" %>
+	  </div>
+	  <% end %>
   </div>
   <div class="pet-icons">
     <ul>

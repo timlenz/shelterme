@@ -2,9 +2,7 @@
 <div class="container content">
   <div class="profile-section">
     <div class="pageHeader">
-      <div class="headerLogo">
-        <%= image_tag("photoIcon.png", width: "65", height: "63")%>
-      </div>
+      <div class="largeIcon photoIcon"></div>
       <div class="headerInfo">
         <h1>
           <%= @photos.count == 0 ? "No Photos" : "My #{pluralize(@photos.count, 'Photo')}" %>

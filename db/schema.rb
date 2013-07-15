@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130617045526) do
+ActiveRecord::Schema.define(:version => 20130709203047) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(:version => 20130617045526) do
     t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
     t.boolean  "save_search",     :default => false
+    t.string   "search_string"
   end
 
   add_index "searches", ["user_id"], :name => "index_searches_on_user_id"

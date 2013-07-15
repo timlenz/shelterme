@@ -37,32 +37,33 @@ class SearchesController < ApplicationController
   end
   
   def update
-    @search = $search
-    @search.update_attributes(params[:search])
-    $search = Search.find(params[:id])
+    if $search.blank?
+      @search.update_attributes(params[:search])
+      $search = Search.find(params[:id])
+    else     
+      @search = $search
+      @search.update_attributes(params[:search])
+      $search = Search.find(params[:id])
+    end
     render :new
+  rescue
+    flash[:notice] = "Whoops. That didn't work. Please try again."
+    redirect_to findpet_path
   end
   
   def create
     @search = Search.create!(params[:search])
     $search = []
     redirect_to @search
+  rescue
+    flash[:notice] = "Whoops. That didn't work. Please try again."
+    redirect_to findpet_path
   end
   
   def show
     @search = Search.find(params[:id])
     $search = @search
     @search_results = @search.pets.paginate(page: params[:page], per_page: 12)
-    if @search.breed_id == nil
-      @local_sb = []
-    else
-      @local_sb = @search.local_species.select{|p| p.primary_breed_id == @search.breed_id || p.secondary_breed_id == @search.breed_id}
-    end
-    @local_sbg = @local_sb.select{|p| p.gender_id == @search.gender_id}
-    @local_sbga = @local_sbg.select{|p| p.age_group == @search.age_group}
-    @local_sbgas = @local_sbga.select{|p| p.size_id == @search.size_id}
-    @local_sbgasa = @local_sbgas.select{|p| p.affection_id == @search.affection_id}
-    @local_sbgasan = @local_sbgasa.select{|p| p.nature_id == @search.nature_id}
     render :new
   rescue
     redirect_to :back and return
