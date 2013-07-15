@@ -1,78 +1,63 @@
 <% if @search.se_str(50).size > 0 or @search.se_str(200).size > 0 or @search.se_str(500).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Search string (se_str)
-    $('#se_str').click(function(){
-      $('#waiting').show();
-      $('input[id^="search"]').not('#search_search_string').not('#search_location').val("");
-      $('#new_search button').removeClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Search string (se_str)
+  $('#se_str').click(function(){
+    $('#waiting').show();
+    $('input[id^="search"]').not('#search_search_string').not('#search_location').val("");
+    $('#new_search button').removeClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('.petTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge_en_af_na(50).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
-    $('#sp_ag_si_ge_en_af_na').click(function(){
-      $('#waiting').show();
-      $('#search_search_string, #search_breed_name').val("");
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){ 
+  // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
+  $('#sp_ag_si_ge_en_af_na').click(function(){
+    $('#waiting').show();
+    $('#search_search_string, #search_breed_name').val("");
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge(50).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender (sp_ag_si_ge)
-    $('#sp_ag_si_ge').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      gender = $('#search_gender_id').val();
-      age = $('#search_age_group').val();
-      size = $('#search_size_id').val();
-      $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#affectionTile, #natureTile, #energyTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, age, size, gender (sp_ag_si_ge)
+  $('#sp_ag_si_ge').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    gender = $('#search_gender_id').val();
+    age = $('#search_age_group').val();
+    size = $('#search_size_id').val();
+    $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile').hide();
+  });
 });
 </script>
 
@@ -80,59 +65,49 @@ $(function(){
 
 <script>
 $(function(){
-  try {  
-    // Species, age, size (sp_ag_si)
-    $('#sp_ag_si').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      age = $('#search_age_group').val();
-      size = $('#search_size_id').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_age_group').not('#search_size_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#affectionTile, #natureTile, #energyTile, #ageGenderTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species, age, size (sp_ag_si)
+  $('#sp_ag_si').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    age = $('#search_age_group').val();
+    size = $('#search_size_id').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_age_group').not('#search_size_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_ge(50).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, gender (sp_ag_ge)
-    $('#sp_ag_ge').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      gender = $('#search_gender_id').val();
-      age = $('#search_age_group').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_age_group').not('#search_gender_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#affectionTile, #natureTile, #energyTile, #speciesSizeTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){ 
+  // Species, age, gender (sp_ag_ge)
+  $('#sp_ag_ge').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    gender = $('#search_gender_id').val();
+    age = $('#search_age_group').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_age_group').not('#search_gender_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile, #speciesSizeTile').hide();
+  });
 });
 </script>
 
@@ -140,61 +115,51 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species, size, gender (sp_si_ge)
-    $('#sp_si_ge').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      gender = $('#search_gender_id').val();
-      size = $('#search_size_id').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_size_id').not('#search_gender_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#affectionTile, #natureTile, #energyTile, #ageGenderTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species, size, gender (sp_si_ge)
+  $('#sp_si_ge').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    gender = $('#search_gender_id').val();
+    size = $('#search_size_id').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_size_id').not('#search_gender_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_en_af_na(50).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, energy level, affection, nature (sp_en_af_na)
-    $('#sp_en_af_na').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      energy = $('#search_energy_level_id').val();
-      affection = $('#search_affection_id').val();
-      nature = $('#search_nature_id').val();
-      $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#speciesSizeTile, #ageGenderTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){ 
+  // Species, energy level, affection, nature (sp_en_af_na)
+  $('#sp_en_af_na').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    energy = $('#search_energy_level_id').val();
+    affection = $('#search_affection_id').val();
+    nature = $('#search_nature_id').val();
+    $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#speciesSizeTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
@@ -202,29 +167,24 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species, energy level, affection (sp_en_af)
-    $('#sp_en_af').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      energy = $('#search_energy_level_id').val();
-      affection = $('#search_affection_id').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_energy_level_id').not('#search_affection_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#natureTile, #speciesSizeTile, #ageGenderTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species, energy level, affection (sp_en_af)
+  $('#sp_en_af').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    energy = $('#search_energy_level_id').val();
+    affection = $('#search_affection_id').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_energy_level_id').not('#search_affection_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#natureTile, #speciesSizeTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
@@ -232,29 +192,24 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species, energy level, nature (sp_en_na)
-    $('#sp_en_na').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      energy = $('#search_energy_level_id').val();
-      nature = $('#search_nature_id').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_energy_level_id').not('#search_nature_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('#affectionTile, #natureTile, #energyTile, #speciesSizeTile, #ageGenderTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species, energy level, nature (sp_en_na)
+  $('#sp_en_na').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    energy = $('#search_energy_level_id').val();
+    nature = $('#search_nature_id').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_energy_level_id').not('#search_nature_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #speciesSizeTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
@@ -262,29 +217,24 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species, affection, nature (sp_af_na)
-    $('#sp_af_na').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      affection = $('#search_affection_id').val();
-      nature = $('#search_nature_id').val();
-      $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_affection_id').not('#search_nature_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });  
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species, affection, nature (sp_af_na)
+  $('#sp_af_na').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    affection = $('#search_affection_id').val();
+    nature = $('#search_nature_id').val();
+    $('input[id^="search"]').not('#search_location').not('#search_species_id').not('#search_affection_id').not('#search_nature_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#energyTile, #ageGenderTile, #speciesSizeTile').hide();
+  });  
 });
 </script>
 
@@ -292,112 +242,91 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species and breed (sp_br)
-    $('#sp_br').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species and breed (sp_br)
+  $('#sp_br').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('.petTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge_en_af_na(200).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
-    $('#sp_ag_si_ge_en_af_na').click(function(){
-      $('#waiting').show();
-      $('#search_search_string, #search_breed_name').val("");
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
+  $('#sp_ag_si_ge_en_af_na').click(function(){
+    $('#waiting').show();
+    $('#search_search_string, #search_breed_name').val("");
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge(200).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender (sp_ag_si_ge)
-    $('#sp_ag_si_ge').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      gender = $('#search_gender_id').val();
-      age = $('#search_age_group').val();
-      size = $('#search_size_id').val();
-      $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){ 
+  // Species, age, size, gender (sp_ag_si_ge)
+  $('#sp_ag_si_ge').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    gender = $('#search_gender_id').val();
+    age = $('#search_age_group').val();
+    size = $('#search_size_id').val();
+    $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_en_af_na(200).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, energy level, affection, nature (sp_en_af_na)
-    $('#sp_en_af_na').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      energy = $('#search_energy_level_id').val();
-      affection = $('#search_affection_id').val();
-      nature = $('#search_nature_id').val();
-      $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, energy level, affection, nature (sp_en_af_na)
+  $('#sp_en_af_na').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    energy = $('#search_energy_level_id').val();
+    affection = $('#search_affection_id').val();
+    nature = $('#search_nature_id').val();
+    $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#speciesSizeTile, #ageGenderTile').hide();
+  });
 });
 </script>
 
@@ -405,112 +334,91 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species and breed (sp_br)
-    $('#sp_br').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+  // Species and breed (sp_br)
+  $('#sp_br').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('.petTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge_en_af_na(500).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
-    $('#sp_ag_si_ge_en_af_na').click(function(){
-      $('#waiting').show();
-      $('#search_search_string, #search_breed_name').val("");
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, age, size, gender, energy level, affection, nature (sp_ag_si_ge_en_af_na)
+  $('#sp_ag_si_ge_en_af_na').click(function(){
+    $('#waiting').show();
+    $('#search_search_string, #search_breed_name').val("");
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+  });
 });
 </script>
 
 <% elsif @search.sp_ag_si_ge(500).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, age, size, gender (sp_ag_si_ge)
-    $('#sp_ag_si_ge').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      gender = $('#search_gender_id').val();
-      age = $('#search_age_group').val();
-      size = $('#search_size_id').val();
-      $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, age, size, gender (sp_ag_si_ge)
+  $('#sp_ag_si_ge').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    gender = $('#search_gender_id').val();
+    age = $('#search_age_group').val();
+    size = $('#search_size_id').val();
+    $('#search_search_string, #search_breed_name, #search_energy_level_id, #search_affection_id, #search_nature_id').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[gender_id]"] button[value="'+ gender +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[age_group]"] button[value="'+ age +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[size_id]"] button[value="'+ size +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#affectionTile, #natureTile, #energyTile').hide();
+  });
 });
 </script>
 
 <% elsif @search.sp_en_af_na(500).size > 0 %>
 
 <script>
-$(function(){
-  try {    
-    // Species, energy level, affection, nature (sp_en_af_na)
-    $('#sp_en_af_na').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      energy = $('#search_energy_level_id').val();
-      affection = $('#search_affection_id').val();
-      nature = $('#search_nature_id').val();
-      $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
-      $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+$(function(){  
+  // Species, energy level, affection, nature (sp_en_af_na)
+  $('#sp_en_af_na').click(function(){
+    $('#waiting').show();
+    species = $('#search_species_id').val();
+    energy = $('#search_energy_level_id').val();
+    affection = $('#search_affection_id').val();
+    nature = $('#search_nature_id').val();
+    $('#search_search_string, #search_breed_name, #search_size_id, #search_gender_id, #search_age_group').val("");
+    $('#new_search button').removeClass('active');
+    $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[energy_level_id]"] button[value="'+ energy +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[affection_id]"] button[value="'+ affection +'"]').addClass('active');
+    $('div.btn-group[data-toggle-name="search[nature_id]"] button[value="'+ nature +'"]').addClass('active');
+    if ( $('.partialMatch span').length ) {
+      nearest = $('.partialMatch span').html();
+      $('#search_location').val(nearest);
+    };
+    $('button[type="submit"]').click();
+	  $('#ageGenderTile, #speciesSizeTile').hide();
+  });
 });
 </script>
 
@@ -518,25 +426,20 @@ $(function(){
 
 <script>
 $(function(){
-  try {
-    // Species and breed (sp_br)
-    $('#sp_br').click(function(){
-      $('#waiting').show();
-      species = $('#search_species_id').val();
-      $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
-      $('#new_search button').removeClass('active');
-      $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
-      if ( $('.partialMatch span').length ) {
-        nearest = $('.partialMatch span').html();
-        $('#search_location').val(nearest);
-      };
-      $('button[type="submit"]').click();
-			$('.petTile').hide();
-    });
-  }
-  catch(e) {
-    alert(e);
-  }
+	// Species and breed (sp_br)
+	$('#sp_br').click(function(){
+	  $('#waiting').show();
+	  species = $('#search_species_id').val();
+	  $('input[id^="search"]').not('#search_species_id').not('#search_breed_name').not('#search_location').val("");
+	  $('#new_search button').removeClass('active');
+	  $('div.btn-group[data-toggle-name="search[species_id]"] button[value="'+ species +'"]').addClass('active');
+	  if ( $('.partialMatch span').length ) {
+	    nearest = $('.partialMatch span').html();
+	    $('#search_location').val(nearest);
+	  };
+	  $('button[type="submit"]').click();
+	  $('.petTile').hide();
+	});
 });
 </script>
 
@@ -557,7 +460,7 @@ $(function(){
        $('#search_location').val(nearest);
      };
      $('button[type="submit"]').click();
-		$('.petTile').hide();
+		 $('.petTile').hide();
    });
 });
 </script>
@@ -578,7 +481,7 @@ $(function(){
        $('#search_location').val(nearest);
      };
      $('button[type="submit"]').click();
-		$('.petTile').hide();
+		 $('.petTile').hide();
    });
 });
 </script>
