@@ -30,13 +30,13 @@ $(function(){
 <% elsif $search.pe(500).size > 0 or $search.se_str(500).size > 0 %>
   <div class="findBlurb" style="height:400px;">
   <h3><%= image_tag("partialMatchFound.png", width: "337", height: "30")%></h3><br>
-  <p>No pets near <%= @search.location %> were an exact match for your search.<br>
+  <p>No available pets near <%= @search.location %> were an exact match for your search.<br>
     However, we have taken the liberty of finding the best partial matches for you:</p>
 
   <%= render 'partial_matches' %>
 
   <div class="row">
-    <div class="noPets" style="margin-top:-50px;margin-left:-95px;">
+    <div class="noPets" style="margin-top:-40px;margin-left:-95px;">
       <%= image_tag("partialMatch.png", width: "345", height: "325") %>
     </div>
     <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
