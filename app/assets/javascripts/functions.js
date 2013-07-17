@@ -54,7 +54,7 @@ $(function(){
     highlightLineColor: '#d54509',
     width: '60px'
   });
-  
+
   // AJAX render of admin index pages, sorting & pagination
   $('#shelters th a, #shelters .pagination a, #users th a, #users .pagination a, #pets th a, #pets .pagination a').bind('click', function () {
     $.getScript(this.href);
@@ -576,6 +576,15 @@ $(function(){
     minLength: 2,
     source: $('#search_breed_name').data('autocomplete-source')
   });
+
+	// Hide search results count on text field interaction
+	$('#search_breed_name').change(function(){
+		$('#displayCount').hide();
+	});
+	
+	$('#search_search_string').click(function(){
+		$('#displayCount').hide();
+	});
 
 	function set_search_icons(){
 		energy = $('input[id$="energy_level_id"]').val();

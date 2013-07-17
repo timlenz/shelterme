@@ -178,11 +178,15 @@ class User < ActiveRecord::Base
               [0, 0.5, 1, 0, 0.5, 1, 0.5, 1, -0.5]]
     mo = [1, 0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 1, -2, 0, 0, 1, 1, -0.5, 0.5, -2, 2, 1, 1,
           1.5, -1.5, 0, -1, 1, 0, -2, 1, -1, 2, 0, 0, 2, 1, 1, 1, 1]      
-    nearbys = Shelter.near(location, 200, order: "distance").map{|s| s.id} if location.present?
+    distance = 100 # start with 100 mile search radius for rural users
+    nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
     if nearbys
+      while nearbys.size > 5 do # shrink search radius until no more than five shelters in nearbys
+        distance -= 10
+        nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
+      end
       scores = Array.new
-      @matches = Pet.order(:name)
-      @matches = @matches.where('shelter_id in (?)', nearbys)
+      @matches = Pet.where('shelter_id in (?)', nearbys)
       @matches = @matches.where(species_id: species_id) if species_id.present?
       @matches = @matches.where(pet_state_id: 1)
       @matches = @matches.where('pet_photos_count > 0') # Don't show any pets that don't have photos
@@ -230,8 +234,8 @@ class User < ActiveRecord::Base
         #recapture just the array of pets, stripping out match values
         @matches = @matches.map{|p| p[0]}
         # sort by closest shelter
-        @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
         @matches = @matches.sample(3)
+        @matches = @matches.sort_by {|s| nearbys.index(s.send(:shelter_id))}
       else
         @matches = []
       end

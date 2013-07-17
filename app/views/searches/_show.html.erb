@@ -3,15 +3,18 @@
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
-<% if $search.pets.size > 0 && @search_results != nil %>
+<% if $search != nil && $search.pets.size > 0 && @search_results != nil %>
+	<span id="resultsCount" style="display:none;">
+	  <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
+	  <%= @search.pets.size %>
+	  <% else %>
+	  <%= pluralize(@search.pets.size, "#{@search.species_id.present? ? (@search.species_id == 1 ? "cat" : "dog") : "pet"}") %>
+	  <% end %>
+	  <% if @search.search_string.present? %>
+	    : <%= @search.search_string %>
+	  <% end %>
+	</span>
   <div id="results">
-    <span id="resultsCount" style="display:none;">
-	    <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
-	    <%= @search.pets.size %>
-	    <% else %>
-      <%= pluralize(@search.pets.size, "#{@search.species_id.present? ? (@search.species_id == 1 ? "cat" : "dog") : "pet"}") %>
-      <% end %>
-    </span>
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
     <div class="clearfix"></div>
     <%= will_paginate @search_results %>
@@ -24,6 +27,8 @@ $(function(){
 		if ( $('#resultsCount').text() != "" ) {
 			$('#displayCount').show().text($('#resultsCount').text());
 		};
+		
+		$('.pagination a').attr('data-remote', 'true');
 });
 </script>
 
@@ -49,7 +54,7 @@ $(function(){
 <% elsif $search.search_string.present? %> <!-- If no matches found for search string, prompt user to enter pet -->
 	<div class="findBlurb" style="height:400px;">
 		<h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
-		<p>No available pets in the extended <%= @search.location ? @search.location : 'your location' %> area have the name or ID <%= $search.search_string %>.<br>Did you enter your search string correctly?</p>
+		<p>No pets in the extended <%= @search.location ? @search.location : 'your location' %> area have the name or ID <%= $search.search_string %>.<br>Did you enter your search string correctly?</p>
     <p>If so, please <%= link_to "add #{@search.search_string}", addpet_path %> to our database.</p>
     <p>Otherwise, perhaps you would like to <%= link_to "add pets", addpet_path %> from your <%= link_to "local shelter", findshelter_path %>&#8230;</p>
 	  <div class="row" style="margin-top:110px;">

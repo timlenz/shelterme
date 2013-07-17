@@ -162,7 +162,7 @@ the closest of which is near <span><%= @search.sp_ag_si_ge(500).first.shelter.ci
 <%= @search.sp_en_af_na(500).size == 1 ? "is a" : "are" %>
 <%= link_to "#{@search.sp_en_af_na(500).size == 1 ? "" : @search.sp_en_af_na(500).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af_na(500).size) : "dog".pluralize(@search.sp_en_af_na(500).size)}", "#", id: "sp_en_af_na" %>
 <% if @search.sp_en_af_na(500).size == 1 %>
-available in <span><%= @search.sp_br(500).first.shelter.city %>, <%= @search.sp_br(500).first.shelter.state %></span>.
+available in <span><%= @search.sp_en_af_na(500).first.shelter.city %>, <%= @search.sp_en_af_na(500).first.shelter.state %></span>.
 <% else %>
 available in the extended <%= @search.location %> area,<br>
 the closest of which is near <span><%= @search.sp_en_af_na(500).first.shelter.city %>, <%= @search.sp_en_af_na(500).first.shelter.state %></span>.

@@ -33,10 +33,11 @@ class Search < ActiveRecord::Base
   def se_str(distance)  # search string by name or animal_code
     nearbys = shelters(distance) 
     if nearbys and search_string.present? # make sure to not return any pets without names
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where('name iLIKE :search OR animal_code iLIKE :search', {search: search_string})
-      pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
+      unless pets.size > 0 and pets.first.animal_code.downcase == search_string.downcase
+        pets = pets.where(pet_state_id: [1,4]) # only show available pets unless search by ID
+      end
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     else
@@ -47,8 +48,7 @@ class Search < ActiveRecord::Base
   def sp_ag_si_ge_en_af_na(distance) # species, age group, size, gender, energy level, affection and nature    
     nearbys = shelters(distance) 
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -64,8 +64,7 @@ class Search < ActiveRecord::Base
   def sp_ag_si_ge(distance)  # species, age group, size and gender
     nearbys = shelters(distance) 
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -80,8 +79,7 @@ class Search < ActiveRecord::Base
   def sp_ag_si(distance)  # species, age group and size
     nearbys = shelters(distance) 
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -96,8 +94,7 @@ class Search < ActiveRecord::Base
   def sp_ag_ge(distance)  # species, age group and gender
     nearbys = shelters(distance) 
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -112,8 +109,7 @@ class Search < ActiveRecord::Base
   def sp_si_ge(distance)  # species, size and gender
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -127,8 +123,7 @@ class Search < ActiveRecord::Base
   def sp_en_af_na(distance) # species, energy level, affection and nature
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -142,8 +137,7 @@ class Search < ActiveRecord::Base
   def sp_en_af(distance) # species, energy level and affection
     nearbys = shelters(distance)  
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -157,8 +151,7 @@ class Search < ActiveRecord::Base
   def sp_en_na(distance) # species, energy level and nature
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -172,8 +165,7 @@ class Search < ActiveRecord::Base
   def sp_af_na(distance) # species, affection and nature
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -187,8 +179,7 @@ class Search < ActiveRecord::Base
   def sp_br(distance) # species and breed
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -202,8 +193,7 @@ class Search < ActiveRecord::Base
   def sp(distance) # species
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(species_id: species_id)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
@@ -216,8 +206,7 @@ class Search < ActiveRecord::Base
   def pe(distance) # any pets, regardless of parameters
     nearbys = shelters(distance)    
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where(pet_state_id: [1,4])  # available and absent pet states
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
@@ -243,8 +232,8 @@ private
   def find_pets
     nearbys = Shelter.near(location, 50, order: "distance").map{|s| s.id} if location.present?
     if nearbys
-      pets = Pet.order(:name)
-      pets = pets.where('shelter_id in (?)', nearbys)
+      pets = Pet.where('shelter_id in (?)', nearbys)
+      # use "%#{search_string}%" to search for partial match
       pets = pets.where('name iLIKE :search OR animal_code iLIKE :search', {search: search_string}) if search_string.present?
       pets = pets.where(species_id: species_id) if species_id.present?
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id) if breed_id.present?
@@ -253,7 +242,11 @@ private
       pets = pets.where(energy_level_id: energy_level_id) if energy_level_id.present?
       pets = pets.where(affection_id: affection_id) if affection_id.present?
       pets = pets.where(nature_id: nature_id) if nature_id.present?
-      pets = pets.where(pet_state_id: [1,4])
+      if pets.size > 0  # only show available pets unless search by ID
+        unless search_string.present? and pets.first.animal_code.downcase == search_string.downcase
+          pets = pets.where(pet_state_id: [1,4])
+        end
+      end
       pets = pets.where('pet_photos_count > 0')
       pets = pets.select{|p| p.age_group == age_group} if age_group.present?
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?
