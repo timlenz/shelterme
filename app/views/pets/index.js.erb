@@ -87,5 +87,9 @@ $('#pets button:not(.active)').click(function(){
   };
   if ( new_value == '5' || new_value == '6' ){
     $('#refugeDetails').show();
-  };
+		$('#refuge_name').val('');
+		$('#refuge_contact').val('');
+  } else {
+		$('#refugeDetails').hide();
+	};
 });

@@ -94,9 +94,13 @@ $(function() {
       root.find(".ui-dialog-title").text("Update " + code + "?");
       $("#petStatusChange .name").text(code);
     };
-    if ( new_value == '5' || new_value == '6' ){
-      $('#refugeDetails').show();
-    };
+	  if ( new_value == '5' || new_value == '6' ){
+	    $('#refugeDetails').show();
+			$('#refuge_name').val('');
+			$('#refuge_contact').val('');
+	  } else {
+			$('#refugeDetails').hide();
+		};
   });
   
   $("#petStatusChange").dialog({
