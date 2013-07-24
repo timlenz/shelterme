@@ -1,8 +1,9 @@
 <div class="control-group string read-only">
   <div class="string control-label">
-    Profile Created
+    Added
   </div>
   <div class="controls">
-    <input type="text" value="<%= @pet.created_at.strftime("%A, %B %d at %I:%M%p") %>" readonly="readonly">
+    <input type="text" value="<%= @pet.created_at.strftime("%A, %B %d %Y at %I:%M%p") %>" readonly="readonly">
+	  <input type="text" value="<%= @pet.created_at %>" readonly="readonly" id="created_at" style="display:none;">
   </div>
 </div>

@@ -13,8 +13,9 @@
       <div class="leftEditForm">
         <%= f.hidden_field :user_id, value: current_user.id %>
         <%= f.input :animal_code, label: "ID", readonly: true %>
-        <%= render 'pets/edit/select_shelter', f: f %>
         <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
+        <%= render 'pets/edit/select_shelter', f: f %>
+        <%= f.input :intake_date, as: :string, label: "Intake Date", hint: "Date pet came to the shelter" %>
         <%= f.label "Species", class: "control-label", required: true %>
         <div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[species_id]">
           <button type="button" data-toggle="button" class="btn" value="1">Cat</button>
@@ -42,7 +43,7 @@
         </div>
         <div class="addInstructions">
           <p>Most of the required information (fields with an *) should be on the pet's cage card. Make your best guess if the information is not available.</p>
-          <p>People respond much better to a name than an ID, so if the pet does not have a name, give it a good one. Need <a href="http://www.petnames.net/" target="_blank">inspiration</a>?</p>
+          <p>People respond much better to a name than an ID, so if the pet does not have a name, please give it a good one. Need <a href="http://www.petnames.net/" target="_blank">inspiration</a>?</p>
           <p>Make sure to spend time interacting with the pet to get a sense of their personality and enter that information as well.</p>
           <p>And please do your best to write a compelling description. That is the best way you can convince people to visit and adopt the pet!</p>
         </div>
@@ -71,12 +72,11 @@
         </div>
         <%= f.hidden_field :affection_id, label: false %>
         <%= f.input :description, as: :text, hint: "Include any additional necessary information here" %>
+	      <%= f.button :submit, "Add Pet", class: "formBtn", style: "width:145px;" %>
+	      <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;margin-left:50px;")%>
 			  <div id="char_count" class="addPet"></div>
       </div>
       <div class="clearfix"></div>
-      <br>
-      <%= f.button :submit, "Add Pet", class: "formBtn", style: "width:145px;" %>
-      <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>
   </div>  

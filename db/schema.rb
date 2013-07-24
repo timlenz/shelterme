@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709203047) do
+ActiveRecord::Schema.define(:version => 20130719155458) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -234,6 +234,9 @@ ActiveRecord::Schema.define(:version => 20130709203047) do
     t.string   "slug"
     t.integer  "pet_photos_count",   :default => 0, :null => false
     t.integer  "bonds_count",        :default => 0, :null => false
+    t.datetime "intake_date"
+    t.string   "refuge_name"
+    t.string   "refuge_contact"
   end
 
   add_index "pets", ["affection_id"], :name => "index_pets_on_affection_id"

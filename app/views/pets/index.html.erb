@@ -9,8 +9,6 @@
       <div class="searchButton">
         <%= form_tag pets_path, :method => 'get', id: "pets_search" do %>
           <%= label_tag :search, "Name or Animal ID" %>
-          <%= hidden_field_tag :direction, params[:direction] %>
-          <%= hidden_field_tag :sort, params[:sort] %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>
         <% end %>
@@ -22,15 +20,33 @@
   </div>
 </div>
 <div id="deletePet">
-  <p>All photos, videos and comments associated with <span class="name"></span> will be destroyed as well and cannot be recovered.<br><br> 
+  <p>This will also delete all data associated with <span class="name"></span>, including photos, videos and comments.<br><br> 
 	Are you sure you want to delete <span class="name"></span>?</p>
-	<div class="hide" style="text-align:center;margin-top:20px;">
-  <%= image_tag("spinner.gif", width: "55", height: "55")%>
+	<div class="hide" style="text-align:center;margin-top:20px;margin-bottom:20px;">
+    <%= image_tag("spinner.gif", width: "55", height: "55")%>
   </div>
 </div>
-<!--div id="petStatusChange">
-	<p>Are you certain you want to change <span class="name"></span>'s status from <span class="current"></span> to <span class="new"></span>?</p>
+<div id="petStatusChange">
+	<p>Are you certain you want to change <span class="name"></span>'s status from <span class="old"></span> to <span class="new"></span>?</p>
+	<div id="refugeDetails">
+		<p>Please enter foster or rescue organization details:</p>
+    <form class="simple_form form-horizontal">
+    	<div class="control-group string optional" style="margin-bottom: 10px;">
+	      <label class="string optional control-label" for="pet_refuge_name">Name</label>
+	      <div class="controls">
+		      <input class="string optional" id="refuge_name" size="50" type="text" value="">
+		    </div>
+		  </div>
+      <div class="control-group string optional" style="margin-bottom: 0;">
+	      <label class="string optional control-label" for="pet_refuge_contact">Contact Info</label>
+	      <div class="controls">
+		      <input class="string optional" id="refuge_contact" size="50" type="text" value="">
+		      <p class="help-block">Phone or email to contact about <span class="name"></span></p>
+		    </div>
+		  </div>
+    </form>
+  </div>
 	<div class="hide" style="text-align:center;margin-top:20px;">
   <%= image_tag("spinner.gif", width: "55", height: "55")%>
 	</div>
-</div-->
+</div>

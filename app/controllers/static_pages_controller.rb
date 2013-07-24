@@ -6,21 +6,20 @@ class StaticPagesController < ApplicationController
         require 'open-uri'
         require 'nokogiri'
         
-        # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
-        force_pet = Pet.where('slug iLIKE ?', "Nala4").where(pet_state_id: 1).first
-        # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
+        # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST
+        # force_pet = Pet.where('slug iLIKE ?', "Nala4").where(pet_state_id: 1).first
         
         if cookies[:featured_pets] && cookies[:featured_shelter] && cookies[:featured_shelter_pets]
           @featured_pets = cookies[:featured_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p, pet_state_id: 1)}.flatten
           
-          # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
-          if force_pet
-            @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
-          end
-          # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
+          # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST
+          # if force_pet
+          #   @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
+          # end
           
           @shelter = Shelter.where(id: cookies[:featured_shelter].to_i).first
           @shelter_pets = cookies[:featured_shelter_pets].split("&").map{|p| p.to_i}.map{|p| Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(id: p, pet_state_id: 1)}.flatten
+
         else  
           #
           # Set location in a cascade from most specific to least.
@@ -51,16 +50,15 @@ class StaticPagesController < ApplicationController
             @pets = Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
             @pets = @pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0') # Don't show any pets without photos
             if @pets.size > 0
-              @featured_pets = @pets.includes(:pet_state).sample(4)
+              @featured_pets = @pets.includes(:pet_state).sample(8)
             
-              # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
-              if force_pet
-                @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
-              end
-              # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST FOR ADY
+              # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST
+              # if force_pet
+              #   @featured_pets = @featured_pets.select{|p| p != force_pet}.sample(3).unshift(force_pet)
+              # end
             
               @shelter = Shelter.find(@pets.includes(:pet_state).map{|sh| sh.shelter_id}.sample)
-              @shelter_pets = @shelter.available.sample(2)
+              @shelter_pets = @shelter.available.sample(4)
               # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
               cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
               cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }
@@ -117,22 +115,22 @@ class StaticPagesController < ApplicationController
     @adopted_pets = Pet.where(pet_state_id: 2).size
     @unavailable_pets = Pet.where(pet_state_id: 3).size
     @absent_pets = Pet.where(pet_state_id: 4).size
-    #@fostered_pets = Pet.where(pet_state_id: 5).size
-    #@rescued_pets = Pet.where(pet_state_id: 6).size
+    @fostered_pets = Pet.where(pet_state_id: 5).size
+    @rescued_pets = Pet.where(pet_state_id: 6).size
     @cats = Pet.where(species_id: 1).size
     @dogs = Pet.where(species_id: 2).size
     @available_cats = Pet.where(species_id: 1, pet_state_id: 1).size
     @adopted_cats = Pet.where(species_id: 1, pet_state_id: 2).size
     @unavailable_cats = Pet.where(species_id: 1, pet_state_id: 3).size
     @absent_cats = Pet.where(species_id: 1, pet_state_id: 4).size
-    #@fostered_cats = Pet.where(species_id: 1, pet_state_id: 5).size
-    #@rescued_cats = Pet.where(species_id: 1, pet_state_id: 6).size
+    @fostered_cats = Pet.where(species_id: 1, pet_state_id: 5).size
+    @rescued_cats = Pet.where(species_id: 1, pet_state_id: 6).size
     @available_dogs = Pet.where(species_id: 2, pet_state_id: 1).size
     @adopted_dogs = Pet.where(species_id: 2, pet_state_id: 2).size
     @unavailable_dogs = Pet.where(species_id: 2, pet_state_id: 3).size
     @absent_dogs = Pet.where(species_id: 2, pet_state_id: 4).size
-    #@fostered_dogs = Pet.where(species_id: 2, pet_state_id: 5).size
-    #@rescued_dogs = Pet.where(species_id: 2, pet_state_id: 6).size
+    @fostered_dogs = Pet.where(species_id: 2, pet_state_id: 5).size
+    @rescued_dogs = Pet.where(species_id: 2, pet_state_id: 6).size
     @users = User.all.size
     @managers = User.where(manager: true).size
     @admins = User.where(admin: true).size
@@ -144,6 +142,8 @@ class StaticPagesController < ApplicationController
     @absent_journal = Shelter.all.map{|s| s.absent_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @adopted_journal = Shelter.all.map{|s| s.adopted_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @unavailable_journal = Shelter.all.map{|s| s.unavailable_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @fostered_journal = Shelter.all.map{|s| s.fostered_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
+    @rescued_journal = Shelter.all.map{|s| s.rescued_journal}.map{|e| e.split(",").map{|s|s.to_i}}.transpose.map{|x| x.reduce(:+)}.map{|j| j }.join ','
     @shelters_state = Shelter.all.map{|n| n.state }.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.reverse
     @open = User.includes(:open_value).map{|u| u.open_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
     @plan = User.includes(:plan_value).map{|u| u.plan_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name

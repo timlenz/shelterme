@@ -56,7 +56,7 @@ $(function(){
   });
 
   // AJAX render of admin index pages, sorting & pagination
-  $('#shelters th a, #shelters .pagination a, #users th a, #users .pagination a, #pets th a, #pets .pagination a').bind('click', function () {
+  $('#managed_pets .pagination a, #pets .pagination a, #shelters .pagination a, #users .pagination a').click(function () {
     $.getScript(this.href);
     return false;
   });
@@ -72,16 +72,6 @@ $(function(){
     var id_check = $('#search').val().replace(/[\W\_]+/, "").replace(" ", "");
     var confirm_message = "You cannot change an ID once you create a pet profile. Is '" + id_check + "' the correct ID?"
     $('input[type="submit"]').attr("data-confirm", confirm_message);
-  });
-
-  // AJAX-like render of managed & admin pet state change (cookie used in controller to redirect view)
-  $('#managed_pets form[id^="edit_pet"], #pets form[id^="edit_pet"]').submit(function () {
-    $.cookie("managed_pets", "true", { expires: 1, path: '/' });
-  });
-
-  // AJAX-like render of managed pet deletion (cookie used in controller to redirect view)
-  $('.managedDelete a').click(function() {
-    $.cookie("delete_managed_pet", "true", { expires: 1, path: '/' });
   });
   
   // AJAX-like render of shelter deletion (cookie used in controller to redirect view)
@@ -420,6 +410,7 @@ $(function(){
 	    var button = $(this);
 	    button.on('click', function(){
 	      current_value = hidden.val();
+				$.cookie("old_pet_state", current_value, { expires: 1, path: '/' }); // Use for pet state change dialogs in All/Managed Pets
 				// Remove highlight required field on selection
 				if ( group.hasClass('btn-required') ) {
 					group.removeClass('btn-required');
@@ -455,58 +446,16 @@ $(function(){
 	      };
 	
 				hidden.val($(this).val());
-				// Submit pet state changes on click for Managed Pets, Admin Pets views
-				if($('#managed_pets, #pets').length) {
-				  $(this).parent().parent().find("input[type=submit]").click();
+
+				// Show rescue / foster details if clicked
+				if ( name == "pet[pet_state_id]" ) {
+					if ( hidden.val() == "5" || hidden.val() == "6" ) {
+						$('#refugeDetails').show();
+					} else {
+						$('#refugeDetails').hide();
+						$('#pet_refuge_name, #pet_refuge_contact').val("");
+					};
 				};
-				// Set cookie when pet state is changed
-				if(name == 'pet[pet_state_id]') {
-				  $.cookie("pet_state_change", current_value, { expires: 1, path: '/' });
-				};
-	      // // Submit pet state changes on click for Managed Pets, Admin Pets views
-	      // 	      if($('#managed_pets, #pets').length && current_value != $(this).val()) {
-	      // 					hidden.val($(this).val());
-	      // 					$(this).parent().parent().find("input[type=submit]").click();
-	      // 					
-	      // 	        statusChangePetLink = "";
-	      // 					$("#petStatusChange").dialog('open');
-	      // 					var root = $("#petStatusChange").parent();
-	      // 					root.find(".ui-dialog-buttonset button").last().focus();
-	      // 					statusChangePetLink = $.trim(form.attr('action'));
-	      // 					var name = $.trim($(this).parents('tr').find(".name").text());
-	      // 					var code = $.trim($(this).parents('tr').find(".adminCode").text());
-	      // 					old_button = group.children('button[value="'+ current_value +'"]');
-	      // 					new_button = button;
-	      // 					hidden_input = hidden;
-	      // 					switch(current_value) {
-	      // 						case "1":
-	      // 							var current = "Available";
-	      // 							break;
-	      // 						case "2":
-	      // 							var current = "Adopted";
-	      // 							break;
-	      // 						case "3":
-	      // 							var current = "Unavailable";
-	      // 							break;
-	      // 						case "4":
-	      // 							var current = "Absent";
-	      // 							break;
-	      // 					};
-	      // 					$("#petStatusChange .current").text(current);
-	      // 					$("#petStatusChange .new").text($(this).text());
-	      // 					if (name.length) {
-	      // 						root.find(".ui-dialog-title").text("Update " + name + "?");
-	      // 						$("#petStatusChange .name").text(name);
-	      // 					} else {
-	      // 						root.find(".ui-dialog-title").text("Update " + code + "?");
-	      // 						$("#petStatusChange .name").text(code);
-	      // 					};
-	      // 	      } else {
-	      // 		
-	      // 					// Set value of clicked element to hidden control for all instances
-	      // 					// other than pet state changes for Managed/All Pet views
-	      // 		      hidden.val($(this).val());
-	      // 				};
 	
 	      // Update pet breed fields based on species selection
 	      if(button.text().toLowerCase() == "dog") {
@@ -546,9 +495,36 @@ $(function(){
 					$('#displayCount').hide();
 					set_search_icons();
 				};
+				// Show rescue / foster details if clicked
+				if ( name == "pet[pet_state_id]" ) {
+					if ( hidden.val() == "5" || hidden.val() == "6" ) {
+						$('#refugeDetails').show();
+					} else {
+						$('#refugeDetails').hide();
+					};
+				};
+				
 	    };
 	  });
 	});
+
+	// Initialize date picker for pet intake date
+	$("#pet_intake_date").datepicker({
+		dateFormat: "yy-mm-dd",
+		maxDate: getMaxDate()
+  });
+
+	function getMaxDate() {
+		if ( $('#created_at').length ) {	// Set maximum selectable date to pet profile creation date
+			var created = new Date($('#created_at').val());
+			var today = new Date();
+			var date_diff = Math.ceil(Math.abs(today - created) / 86400000);
+			var maxDate = "-" + date_diff + "D";
+		} else {
+			var maxDate = "+0D";
+		};
+		return maxDate;
+	}
 
   // Autocomplete text fields
   $('.ui-autocomplete').css('z-index', '2');
@@ -574,8 +550,21 @@ $(function(){
 
   $('#search_breed_name').autocomplete({
     minLength: 2,
-    source: $('#search_breed_name').data('autocomplete-source')
+    source: $('#search_breed_name').data('autocomplete-source'),
+		change: function( event, ui ) {		// Check if entered content is valid and clear if not
+			if ( ui.item == null || ui.item == undefined ) {
+				$('#search_breed_name').val('');
+				// alert('Please select a valid breed');
+				$("#findPetAlert").dialog('open');
+				$(".ui-dialog-title").text("Invalid Breed");
+			};
+		}
   });
+
+	// Prevent Find Pet from being submitted on Enter keypress from breed selection
+	$('#search_breed_name').keypress(function(e){
+	    if ( e.which == 13 ) return false;
+	});
 
 	// Hide search results count on text field interaction
 	$('#search_breed_name').change(function(){

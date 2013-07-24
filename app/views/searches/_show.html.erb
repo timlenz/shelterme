@@ -5,6 +5,7 @@
   </div>
 <% if $search != nil && $search.pets.size > 0 && @search_results != nil %>
 	<span id="resultsCount" style="display:none;">
+		Found
 	  <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
 	  <%= @search.pets.size %>
 	  <% else %>

@@ -114,9 +114,9 @@
         <div class="innerComment">
           <div class="post wide">
             <%= link_to "#{p[1].name != '' ? p[1].name.titleize : p[1].animal_code}", [p[1].shelter, p[1]] %> 
-            <span class="action"><%= p[4] == 'adopted' ? "has been" : "is now" %></span>
-            <span class="status"><%= p[4]%></span>
-            <div class="media smallIcon <%= p[4] == 'adopted' ? 'adoptedIcon' : (p[4] == 'absent' ? 'absentIcon' : 'unavailableIcon')%>"></div>
+            <span class="action"><%= p[4] == 'adopted' ? "has been" : (p[4] == 'fostered' ? 'is being' : (p[4] == 'rescued' ? 'is with a' : (p[4] == 'absent' ? 'may not be' : 'is now'))) %></span>
+            <span class="status"><%= p[4] == 'rescued' ? 'rescue' : (p[4] == 'absent' ? 'available' : p[4]) %></span>
+            <div class="media smallIcon <%= p[4] == 'adopted' ? 'adoptedIcon' : (p[4] == 'absent' ? 'absentIcon' : (p[4] == 'fostered' ? 'fosteredIcon' : (p[4] == 'rescued' ? 'rescuedIcon' : 'unavailableIcon')))%>"></div>
             <br>
             <span class="time"> <%= time_ago_in_words(p[2]) %></span>
           </div>

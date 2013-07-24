@@ -1,44 +1,63 @@
 <li class="subAdmin">
-  <table class="table-condensed">
+  <table class="table-condensed" style="width:894px;">
     <tr>
-      <td class="adminId"><%= pet.id %></td>
-      <td class="adminAdded" style="width:116px"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
-      <td class="adminCode" style="width:86px;"><%= pet.animal_code %></td>
-      <td class="managedName" style="width:198px;">
+      <td style="width:201px;" colspan="2">
 	      <div class="adminPhoto">
 		      <% if pet.pet_photos.where(primary: true).size > 0 %>
-		        <%= link_to image_tag(pet.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [pet.shelter, pet] %>
+		        <%= link_to image_tag(pet.pet_photos.where(primary: true).first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [pet.shelter, pet], target: "_blank" %>
 		      <% elsif pet.pet_photos.count > 0 %>
-		        <%= link_to image_tag(pet.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [pet.shelter, pet] %>
+		        <%= link_to image_tag(pet.pet_photos.first.image_url.to_s.gsub!(/upload/,"upload/t_mini"), width: "60", height: "40"), [pet.shelter, pet], target: "_blank" %>
 		      <% else %>
-			      <%= link_to "", [pet.shelter, pet] %>
+			      <%= link_to "", [pet.shelter, pet], target: "_blank" %>
 		      <% end %>
-				  <% if pet.pet_state.status == 'available' || pet.pet_state.status == 'absent' %>
-				  <div class="corner <%= pet.created_at < 1.month.ago ? 'veteran' : ( pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition"></div>
-				  <% end %>
 	      </div>
-	      <div class="name">
+	      <div style="padding-top:9px;" class="name adminName">
         <% if pet.name != '' %>
-        <%= link_to pet.name.titleize, [pet.shelter, pet] %>
+        <%= link_to pet.name.titleize, [pet.shelter, pet], target: "_blank" %>
         <% else %>
-        <%= link_to "", [pet.shelter, pet] %>
+        <%= link_to "[ ]", [pet.shelter, pet], target: "_blank" %>
         <% end %>
         </div>
       </td>
-      <td class="managedStatus">
-        <%= simple_form_for(pet, html: {class: 'form-horizontal', style: 'width: 300px;' }, remote: true) do |p| %>
-          <div class="btn-group four-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+      <td style="width:89px;text-align:center;" class="adminCode"><%= pet.animal_code %></td>
+      <td style="width:211px;">
+        <div class="adminName" style="width:211px;"><%= link_to pet.shelter.name, pet.shelter, target: "_blank" %></div>
+      </td>
+      <td style="width:169px;">
+        <div class="adminName" style="width:169px;"><%= link_to pet.user.name, pet.user, target: "_blank" %></div>
+      </td>
+      <% if pet.pet_state.status == 'available' or pet.pet_state.status == 'absent' %>
+      <td style="width:123px;text-align:center;" class="<%= pet.created_at < 1.month.ago ? 'veteran' : ( pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Admin"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
+      <td style="text-align:center;border-left:1px solid #ffffff;width:40px;" class="<%= pet.intake_date && pet.intake_date < 1.month.ago ? 'veteranAdmin' : ( pet.intake_date && pet.intake_date < 1.week.ago ? 'middleAdmin' : ( pet.intake_date ? 'newAdmin' : '')) %>"><%= pet.days_in_shelter %></td>
+      <% else %>
+      <td style="width:123px;text-align:center;"><%= pet.created_at.to_date.to_formatted_s(:long) %></td>
+      <td style="width:40px;"></td>
+      <% end %>
+    </tr>
+    <tr>
+	    <td style="width:40px;">
+		    <% if pet.pet_state.status != 'available' %>
+	    	<div class="media smallIcon <%= pet.pet_state.status == 'adopted' ? 'adoptedIcon' : (pet.pet_state.status == 'absent' ? 'absentIcon' : (pet.pet_state.status == 'fostered' ? 'fosteredIcon' : (pet.pet_state.status == 'rescued' ? 'rescuedIcon' : 'unavailableIcon')))%>"></div>
+	      <% end %>
+	    </td>
+    	<td colspan="4" style="padding-top:0;">
+        <%= simple_form_for(pet, html: {class: 'form-horizontal adminStateChange'}, remote: true) do |p| %>
+          <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
             <button type="button" data-toggle="button" class="btn" value="1">Available</button>
-            <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
             <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
             <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+            <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
+            <button type="button" data-toggle="button" class="btn" value="5">Fostered</button>
+            <button type="button" data-toggle="button" class="btn" value="6">Rescued</button>
           </div>
           <%= p.hidden_field :pet_state_id, label: false %>
-          <%= p.button :submit, "Save", class: "hiddenBtn", confirm: "Are you certain you want to change #{pet.name != '' ? pet.name.titleize : pet.animal_code}'s status?" %>
+          <%= p.hidden_field :refuge_name, label: false %>
+          <%= p.hidden_field :refuge_contact, label: false %>
+          <%= p.button :submit, "Save", class: "hiddenBtn" %>
         <% end %>
       </td>
-      <td class="managedDelete">
-        <%= link_to "Delete", [pet.shelter, pet] %>
+      <td colspan="2" class="managedDelete">
+        <%= link_to "Delete #{pet.name.present? ? pet.name.humanize : pet.animal_code}", [pet.shelter, pet], class: "adminName" %>
       </td>
     </tr>
   </table>

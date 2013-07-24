@@ -1,4 +1,4 @@
-<div id="addPhoto" class="modal" data-backdrop="static" data-keyboard="false">
+<div id="addPhoto" class="modal">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
       <div class="largeIcon photoIcon"></div>
@@ -6,7 +6,7 @@
         <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
 				<p><span class="file-name"></span></p>
       </div>
-	    <button class="close" data-dismiss="modal">&times;</button>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     </div>
     <div class="form">
 	    <p>
@@ -51,7 +51,7 @@
 		// Show progress bar on upload start
 		$('.cloudinary-fileupload').bind('fileuploadstart', function() {  
 	  	$('#loadingPhoto, .handhold').show();
-			$('button.close, .filedrop, .form p').hide();
+			$('.filedrop, .form p').hide();
 			$('.cloudinary-fileupload').bind('fileuploadprogress', function(e, data){
 				$('.mediaModal .headerInfo p').text(data.files[0].name);
 				progress = parseInt(data.loaded / data.total * 100, 10);
@@ -70,7 +70,7 @@
 		$('.cloudinary-fileupload').bind('fail', function() {
 			alert("Upload failed.");
 	  	$('#loadingPhoto, .handhold').hide();
-			$('button.close, .filedrop').show();		
+			$('.filedrop').show();		
 		});
 
 		// Submit uploaded photo info to db when uploaded

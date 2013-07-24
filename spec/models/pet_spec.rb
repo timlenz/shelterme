@@ -28,6 +28,9 @@
 #  slug               :string(255)
 #  pet_photos_count   :integer         default(0), not null
 #  bonds_count        :integer         default(0), not null
+#  intake_date        :datetime
+#  refuge_name        :string(255)
+#  refuge_contact     :string(255)
 #
 
 require 'spec_helper'

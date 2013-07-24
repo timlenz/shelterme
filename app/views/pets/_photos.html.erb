@@ -10,12 +10,18 @@
     <% end %>
   </div>
   <% if @pet.pet_state.status == 'available' || @pet.pet_state.status == 'absent' %>
+  <% if @pet.intake_date %>
+  <div class="corner noPrint <%= @pet.intake_date < 1.month.ago ? 'veteran' : ( @pet.intake_date < 1.week.ago ? 'middle' : 'new' ) %>Intake">
+		<%= link_to "#{@pet.days_in_shelter}", "#", rel: "tooltip", title: "Has been at the shelter for #{@pet.days_in_shelter} days" %>
+	</div>
+  <% else %>
   <div class="corner noPrint <%= @pet.created_at < 1.month.ago ? 'veteran' : ( @pet.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
 		<%= link_to "", "#", rel: "tooltip", title: "#{@pet.created_at < 1.month.ago ? 'Added more than a month ago' : ( @pet.created_at < 1.week.ago ? 'Added in the last month' : 'Newly added' )}" %>
 	</div>
+	<% end %>
   <% end %>
   <% if @pet.pet_state.status != 'available' %>
-  <div class="largeIcon <%= @pet.pet_state.status == 'adopted' ? 'adoptedIcon' : (@pet.pet_state.status == 'absent' ? 'absentIcon' : (@pet.pet_state.status == 'unavailable' ? 'unavailableIcon' : ''))%>"></div>
+  <div class="largeIcon <%= @pet.pet_state.status == 'adopted' ? 'adoptedIcon' : (@pet.pet_state.status == 'absent' ? 'absentIcon' : (@pet.pet_state.status == 'unavailable' ? 'unavailableIcon' : (@pet.pet_state.status == 'fostered' ? 'fosteredIcon' : 'rescuedIcon')))%>"></div>
   <% end %>
   <% if @pet.pet_photos.size > 1 %> 
   <a class="fader-control" href="#prev">&lsaquo;</a>

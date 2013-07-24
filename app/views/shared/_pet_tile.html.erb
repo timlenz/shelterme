@@ -8,13 +8,19 @@
       <%= link_to "Please add a photo", [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}", style: "text-align:center;padding-top:30px;" %>
     <% end %>
 	  <% if f.pet_state.status == 'available' || f.pet_state.status == 'absent' %>
+	  <% if f.intake_date %>
+	  <div class="corner noPrint <%= f.intake_date < 1.month.ago ? 'veteran' : ( f.intake_date < 1.week.ago ? 'middle' : 'new' ) %>Intake">
+			<%= link_to "#{f.days_in_shelter}", "#", rel: "tooltip", title: "Has been at the shelter for #{f.days_in_shelter} days" %>
+		</div>
+	  <% else %>
 	  <div class="corner <%= f.created_at < 1.month.ago ? 'veteran' : ( f.created_at < 1.week.ago ? 'middle' : 'new' ) %>Addition">
 			<%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.created_at < 1.month.ago ? 'Added more than a month ago' : ( f.created_at < 1.week.ago ? 'Added in the last month' : 'Newly added' )}" %>
 		</div>
+		<% end %>
 	  <% end %>
-	  <% if f.pet_state.status == 'adopted' || f.pet_state.status == 'absent' || f.pet_state.status == 'unavailable' %>
-    <div class="<%= f.pet_state.status == 'adopted' ? 'mediumIcon adoptedIcon' : (f.pet_state.status == 'absent' ? 'mediumIcon absentIcon' : (f.pet_state.status == 'unavailable' ? 'mediumIcon unavailableIcon' : ''))%>">
-	    <%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.pet_state.status == 'adopted' ? 'Adopted' : (f.pet_state.status == 'absent' ? 'May not be available' : (f.pet_state.status == 'unavailable' ? 'Unavailable' : ''))}" %>
+	  <% if f.pet_state.status != 'available' %>
+    <div class="<%= f.pet_state.status == 'adopted' ? 'mediumIcon adoptedIcon' : (f.pet_state.status == 'absent' ? 'mediumIcon absentIcon' : (f.pet_state.status == 'unavailable' ? 'mediumIcon unavailableIcon' : (f.pet_state.status == 'fostered' ? 'mediumIcon fosteredIcon' : 'mediumIcon rescuedIcon')))%>">
+	    <%= link_to "", [f.shelter, f], rel: "tooltip", title: "#{f.pet_state.status == 'adopted' ? 'Adopted' : (f.pet_state.status == 'absent' ? 'May not be available' : (f.pet_state.status == 'fostered' ? 'Being fostered' : (f.pet_state.status == 'rescued' ? 'With a rescue' : 'Unavailable')))}" %>
 	  </div>
 	  <% end %>
   </div>
@@ -47,7 +53,11 @@
       <% end %>
     </p>
     <p>
-      <%= link_to f.shelter.name, f.shelter, class: "shelter-tile", target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'update') ? "_blank" : "_self"}" %>
+	    <% if f.pet_state.status == 'fostered' || f.pet_state.status == 'rescued' %>
+	    <span style="font-weight:bold;"><%= f.pet_state.status == 'fostered' ? 'Being fostered by ' : 'With '%><%= f.refuge_name %></span>
+	    <% else %>
+	    <%= link_to f.shelter.name, f.shelter, class: "shelter-tile", target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
+	    <% end %>
     </p>
   </div>
   <div class="pet-state">

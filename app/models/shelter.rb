@@ -175,7 +175,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def absent
-    pet_list = pets.where(pet_state_id: 4).where('pet_photos_count > 0')
+    pet_list = pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: 4).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -189,7 +189,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def fostered
-    pet_list = pets.where(pet_state_id: 5).where('pet_photos_count > 0')
+    pet_list = pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: 5).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -203,7 +203,7 @@ class Shelter < ActiveRecord::Base
   end
   
   def rescued
-    pet_list = pets.where(pet_state_id: 6).where('pet_photos_count > 0')
+    pet_list = pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color).where(pet_state_id: 6).where('pet_photos_count > 0')
     if sort_by == "unpopular"
       sorted_pet_list = pet_list.sort{ |p1, p2| p1.bonds.size <=> p2.bonds.size }
     elsif sort_by == "popular"
@@ -217,31 +217,35 @@ class Shelter < ActiveRecord::Base
   end  
   
   def available_count
-    pet_list = pets.where(pet_state_id: 1).size
+    pet_list = pets.where(pet_state_id: 1).where('pet_photos_count > 0').size
   end
 
   def adopted_count
-    pet_list = pets.where(pet_state_id: 2).size
+    pet_list = pets.where(pet_state_id: 2).where('pet_photos_count > 0').size
   end
   
   def unavailable_count
-    pet_list = pets.where(pet_state_id: 3).size
+    pet_list = pets.where(pet_state_id: 3).where('pet_photos_count > 0').size
   end
   
   def absent_count
-    pet_list = pets.where(pet_state_id: 4).size
+    pet_list = pets.where(pet_state_id: 4).where('pet_photos_count > 0').size
   end
   
   def fostered_count
-    pet_list = pets.where(pet_state_id: 5).size
+    pet_list = pets.where(pet_state_id: 5).where('pet_photos_count > 0').size
   end
   
   def rescued_count
-    pet_list = pets.where(pet_state_id: 6).size
+    pet_list = pets.where(pet_state_id: 6).where('pet_photos_count > 0').size
   end
   
   def managers
     users = User.where(manager: true).where(shelter_id: self.id)
+  end
+  
+  def managers_count
+    users = User.where(manager: true).where(shelter_id: self.id).size
   end
   
   def available_journal
@@ -307,6 +311,21 @@ class Shelter < ActiveRecord::Base
   def fostered_journal
     newlist = journals.where(pet_state_id: 5).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     oldlist = journals.where(old_pet_state_id: 5).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    listed = []
+    7.times do |n|
+      listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size
+    end
+    7.times do |n|
+      if n < 6
+        listed[n] = listed[n] + listed[n+1]
+      end
+    end
+    listed = listed.reverse.map{|j| j }.join ','
+  end
+
+  def rescued_journal
+    newlist = journals.where(pet_state_id: 6).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
+    oldlist = journals.where(old_pet_state_id: 6).select{|s| s.created_at >= 7.days.ago.beginning_of_day}
     listed = []
     7.times do |n|
       listed[n] = newlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size - oldlist.select{|s| s.created_at >= (n+1).days.ago.beginning_of_day && s.created_at <= (n+1).days.ago.end_of_day}.size

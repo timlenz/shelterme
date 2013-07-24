@@ -96,10 +96,10 @@ class PetsController < ApplicationController
       if params[:search].present?
         cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
         # Check for match with end of animal ID, not including first character
-        @pets = Pet.where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
+        @pets = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
         @exact_pets = Pet.where('animal_code LIKE ?', "#{cookies[:animal_ID]}")
         if @pets.size > 0
-          cookies[:exclude_shelters] = @exact_pets.map{|p| p.shelter.id.to_s}
+          cookies[:exclude_shelters] = @exact_pets.includes(:shelter).map{|p| p.shelter.id.to_s}
           render 'add_found'
         else
           redirect_to newpet_path
@@ -111,26 +111,6 @@ class PetsController < ApplicationController
       redirect_to join_path
     end
   end
-  
-  #def find
-  #  if params[:location].present?
-  #    @current_location = params[:location]
-  #  elsif cookies[:location]
-  #    @current_location = cookies[:location]
-  #  elsif signed_in? and current_user.location?
-  #    @current_location = current_user.location
-  #  else      
-  #    s = Geocoder.search(remote_ip)
-  #    @current_location = s[0].city + ", " + s[0].state_code
-  #  end
-  #  if params[:find]
-  #    @pets = Pet.where(pet_state_id: 1).first(10)
-  #  end
-  #  @pets = Pet.where(pet_state_id: 1, species_id: 2).where('pet_photos_count > 0')
-  #rescue
-  #  flash[:error] = "Unable to find pets."
-  #  redirect_to :back
-  #end
   
   def show
     canonical_url(pet_url(@pet))
@@ -223,7 +203,7 @@ class PetsController < ApplicationController
   def index
     if signed_in? && current_user.admin?
       cookies[:managed_pets] = "true"
-      @pets = Pet.search(params[:search]).paginate(page: params[:page])
+      @pets = Pet.includes(:user, :pet_state).search(params[:search]).paginate(page: params[:page])
     else
       redirect_to root_path
     end
@@ -260,7 +240,7 @@ class PetsController < ApplicationController
     else
       flash[:error] = "Unable to update pet."
     end  
-    ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
+    # ErrorMailer.error_notification($!,current_user,request.fullpath).deliver
     redirect_to :back
   end
   

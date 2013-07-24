@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
     distance = 100 # start with 100 mile search radius for rural users
     nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
     if nearbys
-      while nearbys.size > 5 do # shrink search radius until no more than five shelters in nearbys
+      while nearbys.size > 3 do # shrink search radius until no more than three shelters in nearbys
         distance -= 10
         nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
       end

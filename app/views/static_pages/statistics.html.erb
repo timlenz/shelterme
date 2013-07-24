@@ -27,6 +27,18 @@
 			        </h3>
             </li>
 	          <li>
+		          <h3>Fostered 
+			          <span style="padding-left: 10px;"><%= @fostered_pets %></span>
+			          <span class="sparklines"><!-- <%= @fostered_journal %> --></span> 
+			        </h3>
+            </li>
+	          <li>
+		          <h3>Rescued 
+			          <span style="padding-left: 10px;"><%= @rescued_pets %></span>
+			          <span class="sparklines"><!-- <%= @rescued_journal %> --></span> 
+			        </h3>
+            </li>
+	          <li>
 		          <h3>Adopted 
 			          <span style="padding-left: 10px;"><%= @adopted_pets %></span>
 			          <span class="sparklines"><!-- <%= @adopted_journal %> --></span> 
@@ -61,6 +73,16 @@
             <li>
 	            <h3>Absent
 		            <span><%= @absent_cats %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Fostered
+		            <span><%= @fostered_cats %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Rescued
+		            <span><%= @rescued_cats %></span>
 		          </h3>
 		        </li>
             <li>
@@ -99,13 +121,23 @@
 		          </h3>
 		        </li>
             <li>
+	            <h3>Fostered
+		            <span><%= @fostered_dogs %></span>
+		          </h3>
+		        </li>
+            <li>
+	            <h3>Rescued
+		            <span><%= @rescued_dogs %></span>
+		          </h3>
+		        </li>
+            <li>
 	            <h3>Adopted
 		            <span><%= @adopted_dogs %></span>
 		          </h3>
 		        </li>
             <li>
 	            <h3>Unavailable
-		            <span><%= @unavailable_dogd %></span>
+		            <span><%= @unavailable_dogs %></span>
 		          </h3>
 		        </li>
             <li>

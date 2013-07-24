@@ -35,9 +35,9 @@ class Search < ActiveRecord::Base
     if nearbys and search_string.present? # make sure to not return any pets without names
       pets = Pet.where('shelter_id in (?)', nearbys)
       pets = pets.where('name iLIKE :search OR animal_code iLIKE :search', {search: search_string})
-      unless pets.size > 0 and pets.first.animal_code.downcase == search_string.downcase
-        pets = pets.where(pet_state_id: [1,4]) # only show available pets unless search by ID
-      end
+      # unless pets.size > 0 and pets.first.animal_code.downcase == search_string.downcase
+      #   pets = pets.where(pet_state_id: [1,4]) # only show available pets unless search by ID
+      # end
       pets = pets.where('pet_photos_count > 0')
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))}
     else
@@ -242,11 +242,12 @@ private
       pets = pets.where(energy_level_id: energy_level_id) if energy_level_id.present?
       pets = pets.where(affection_id: affection_id) if affection_id.present?
       pets = pets.where(nature_id: nature_id) if nature_id.present?
-      if pets.size > 0  # only show available pets unless search by ID
-        unless search_string.present? and pets.first.animal_code.downcase == search_string.downcase
-          pets = pets.where(pet_state_id: [1,4])
-        end
-      end
+      # if pets.size > 0  # only show available pets unless search by ID
+      #   unless search_string.present? and pets.first.animal_code.downcase == search_string.downcase
+      #     pets = pets.where(pet_state_id: [1,4])
+      #   end
+      # end
+      pets = pets.where(pet_state_id: [1,4]) unless search_string.present?
       pets = pets.where('pet_photos_count > 0')
       pets = pets.select{|p| p.age_group == age_group} if age_group.present?
       pets = pets.sort_by {|s| nearbys.index(s.send(:shelter_id))} if location.present?

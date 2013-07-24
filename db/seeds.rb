@@ -83,7 +83,7 @@ end
   Nature.create!(name: var)
 end
 
-["available", "adopted", "unavailable", "absent", "fostered"].each do |var|
+["available", "adopted", "unavailable", "absent", "fostered", "rescued"].each do |var|
   PetState.create!(status: var)
 end
 

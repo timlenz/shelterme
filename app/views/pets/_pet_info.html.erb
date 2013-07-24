@@ -6,6 +6,10 @@
      may not be available
     <% elsif @pet.pet_state.status == 'unavailable' %>
      is no longer available
+    <% elsif @pet.pet_state.status == 'fostered' %>
+     is being fostered
+    <% elsif @pet.pet_state.status == 'rescued' %>
+     is with a rescue
     <% end %></h1><br>
   <p>
     <span class="breed">
@@ -16,8 +20,15 @@
       <% end %>
     </span>
   </p><br>
+  <% if @pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued" %>
+  <p><a data-toggle="modal" href="#visitMe" class="noPrint"><%= @pet.refuge_name %></a>
+	<span class="printText"><%= @pet.refuge_name %></span></p><br>
+	<p><span class="printText"><%= @pet.refuge_contact %></span>
+	</p>
+  <% else %>
   <p><%= link_to @pet.shelter.name, @pet.shelter, class: "noPrint" %>
 	<span class="printText"><%= @pet.shelter.name %></span></p><br>
 	<p><span class="printText"><%= @pet.shelter.street %>, <%= @pet.shelter.city %>, <%= @pet.shelter.state %> <%= @pet.shelter.zipcode %></span>
 	</p>
+	<% end %>
 </div>

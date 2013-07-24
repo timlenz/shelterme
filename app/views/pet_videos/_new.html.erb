@@ -1,4 +1,4 @@
-<div id="addVideo" class="modal" data-backdrop="static" data-keyboard="false">
+<div id="addVideo" class="modal" data-keyboard="true">
   <div class="modal-inner mediaModal">
     <div class="pageHeader">
       <div class="largeIcon videoIcon"></div>
@@ -6,7 +6,7 @@
         <h1>Add a Video of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
 				<p></p>
       </div>
-	    <button class="close" data-dismiss="modal">&times;</button>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     </div>
     <div class="form">
       <p>Horizontal videos work best. Limited to 100 MB. See <%= link_to "tips for great videos", faq_path(anchor: "videoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
@@ -54,7 +54,7 @@
     
     // Hide extra video elements during upload
     $('#new_pet_video :submit').click(function(){
-      $('.mediaModal .text-close, .form p, .filedrop, button.close').hide();
+      $('.form p, .filedrop, button.close').hide();
       $('.mediaModal .handhold').show();
     });
     

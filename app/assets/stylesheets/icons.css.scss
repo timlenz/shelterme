@@ -7,50 +7,56 @@
 	background-repeat: no-repeat;
 	width: 65px;
 	height: 65px;
-	&.absent {
-		background-position: 0 0;
+	&.absentIcon {
+		background-position: -330px -66px;
 	}
 	&.addIcon {
-		background-position: -66px -66px;
+		background-position: -132px -132px;
 	}
 	&.adoptedIcon {
-		background-position: 0 -132px;
+		background-position: -264px -132px;
 	}
 	&.blogIcon {
-		background-position: 0 -66px;
+		background-position: 0 0;
 	}
 	&.catIcon {
-		background-position: 0 -264px;
+		background-position: -66px -66px;
 	}
 	&.cropIcon {
 		background-position: -66px -132px;
 	}
 	&.dogIcon {
-		background-position: -132px -198px;
+		background-position: -198px 0;
 	}
 	&.editIcon {
-		background-position: -132px -66px;
+		background-position: 0 -66px;
 	}
 	&.editProfileIcon {
-		background-position: -66px -264px;
+		background-position: -132px -66px;
 	}
 	&.findIcon {
-		background-position: 0 -198px;
+		background-position: -330px 0;
+	}
+	&.fosteredIcon {
+		background-position: 0 -132px;
 	}
 	&.matchMeIcon {
-		background-position: -132px 0;
+		background-position: -264px 0;
 	}
 	&.photoIcon {
-		background-position: -132px -264px;
+		background-position: -264px -66px;
 	}
-	&.shelterIcon {
-		background-position: -66px -198px;
-	}
-	&.unavailableIcon {
+	&.rescuedIcon {
 		background-position: -66px 0;
 	}
+	&.shelterIcon {
+		background-position: -198px -66px;
+	}
+	&.unavailableIcon {
+		background-position: -198px -132px;
+	}
 	&.videoIcon {
-		background-position: -132px -132px;
+		background-position: -132px 0;
 	}
 }
 
@@ -64,49 +70,55 @@
 	width: 50px;
 	height: 50px;
 	&.absentIcon { 
-		background-position: -102px -153px;
+		background-position: -153px -51px;
 	}
 	&.addIcon { 
-		background-position: -51px -153px;
+		background-position: -204px -51px;
 	}
 	&.adoptedIcon { 
-		background-position: -102px -204px;
+		background-position: -51px 0;
 	}
 	&.blogIcon { 
-		background-position: -51px -204px;
+		background-position: 0 -51px;
 	}
 	&.catIcon { 
-		background-position: 0 -153px;
+		background-position: -51px -102px;
 	}
 	&.cropIcon { 
-		background-position: 0 -204px;
+		background-position: -204px 0;
 	}
 	&.dogIcon { 
-		background-position: -51px -51px;
+		background-position: -153px -102px;
 	}
 	&.editIcon { 
-		background-position: 0 -102px;
+		background-position: -255px 0;
 	}
 	&.editProfileIcon { 
-		background-position: 0 -51px;
+		background-position: -204px -102px;
 	}
 	&.findIcon { 
 		background-position: -102px -51px;
+	}
+	&.fosteredIcon { 
+		background-position: -51px -51px;
 	}
 	&.matchMeIcon { 
 		background-position: -102px 0;
 	}
 	&.photoIcon { 
-		background-position: -51px -102px;
+		background-position: -153px 0;
+	}
+	&.rescuedIcon { 
+		background-position: -102px -102px;
 	}
 	&.shelterIcon { 
 		background-position: 0 0;
 	}
 	&.unavailableIcon { 
-		background-position: -51px 0;
+		background-position: 0 -102px;
 	}
 	&.videoIcon { 
-		background-position: -102px -102px;
+		background-position: -255px -51px;
 	}
 }
 
@@ -120,47 +132,54 @@
 	width: 40px;
 	height: 40px;
 	&.absentIcon { 
-		background-position: 0 -123px;
+		background-position: -164px -41px;
 	}
 	&.addIcon { 
-		background-position: 0 0;
+		background-position: -123px -82px;
 	}
 	&.adoptedIcon { 
-		background-position: 0 -82px;
-	}
-	&.blogIcon { 
-		background-position: -82px -41px;
-	}
-	&.catIcon { 
-		background-position: -41px -82px;
-	}
-	&.cropIcon { 
-		background-position: 0 -164px;
-	}
-	&.dogIcon { 
-		background-position: -41px -164px;
-	}
-	&.editIcon { 
-		background-position: -41px -41px;
-	}
-	&.editProfileIcon { 
-		background-position: 0 -41px;
-	}
-	&.findIcon { 
-		background-position: -82px -82px;
-	}
-	&.matchMeIcon { 
 		background-position: -82px 0;
 	}
-	&.photoIcon { 
-		background-position: -82px -164px;
+	&.blogIcon { 
+		background-position: -123px 0;
 	}
-	&.shelterIcon { 
-		background-position: -41px -123px;
+	&.catIcon { 
+		background-position: -82px -82px;
 	}
-	&.unavailableIcon { 
+	&.cropIcon { 
+		background-position: 0 0;
+	}
+	&.dogIcon { 
+		background-position: -123px -41px;
+	}
+	&.editIcon { 
+		background-position: -41px -82px;
+	}
+	&.editProfileIcon { 
+		background-position: -205px 0;
+	}
+	&.findIcon { 
+		background-position: -41px -41px;
+	}
+	&.fosteredIcon { 
 		background-position: -41px 0;
 	}
+	&.matchMeIcon { 
+		background-position: 0 -82px;
+	}
+	&.photoIcon { 
+		background-position: -164px -82px;
+	}
+	&.rescuedIcon { 
+		background-position: -82px -41px;
+	}
+	&.shelterIcon { 
+		background-position: -205px -41px;
+	}
+	&.unavailableIcon { 
+		background-position: 0 -41px;
+	}
 	&.videoIcon { 
-		background-position: -82px -123px; }
+		background-position: -164px 0;
+	}
 }

@@ -10,21 +10,9 @@ $('div.btn-group[data-toggle-name]').each(function(){
     var button = $(this);
     button.on('click', function(){
       current_value = hidden.val();
-			// Remove highlight required field on selection
-			if ( group.hasClass('btn-required') ) {
-				group.removeClass('btn-required');
-			};
+			$.cookie("old_pet_state", current_value, { expires: 1, path: '/' }); // Use for pet state change dialogs in All/Managed Pets
       // Set value of clicked element to hidden control
       hidden.val($(this).val());
-
-      // Submit pet state changes on click for Managed Pets, Admin Pets views
-      if($('#managed_pets, #pets').length) {
-        $(this).parent().parent().find("input[type=submit]").click();
-      };
-      // Set cookie when pet state is changed
-      if(name == 'pet[pet_state_id]') {
-        $.cookie("pet_state_change", current_value, { expires: 1, path: '/' });
-      };
     });
     if(button.val() == hidden.val()) {
       // Set clicked button to active
@@ -33,3 +21,52 @@ $('div.btn-group[data-toggle-name]').each(function(){
   });
 });
 
+// Submit pet state changes on click for Managed Pets, Admin Pets views
+$('#managed_pets button:not(.active)').click(function(){
+  $("#petStatusChange").dialog('open');
+	$(this).parents('form').find('#pet_refuge_name, #pet_refuge_contact').val('');
+  var root = $("#petStatusChange").parent();
+  root.find(".ui-dialog-buttonset button").last().focus(); // Set focus on "change" button in dialog
+  statusChangeLink = $(this).parents('form').find("input[type=submit]");
+  var name = $.trim($(this).parents('tbody').find(".name").text());
+  var code = $.trim($(this).parents('tbody').find(".adminCode").text());
+  old_value = $.cookie("old_pet_state");
+  old_button = $(this).siblings('button[value="'+ old_value +'"]');
+  new_button = $(this);
+  new_value = $(this).val();
+  hidden_input = $(this).parents('form').find("#pet_pet_state_id");
+	refuge_name = $(this).parents('form').find("#pet_refuge_name");
+	refuge_contact = $(this).parents('form').find("#pet_refuge_contact");
+  switch(old_value) {
+    case "1":
+      var old = "Available";
+      break;
+    case "2":
+      var old = "Adopted";
+      break;
+    case "3":
+      var old = "Unavailable";
+      break;
+    case "4":
+      var old = "Absent";
+      break;
+    case "5":
+      var old = "Fostered";
+      break;
+    case "6":
+      var old = "Rescued";
+      break;
+  };
+  $("#petStatusChange .old").text(old);
+  $("#petStatusChange .new").text($(this).text());
+  if (name.length) {
+    root.find(".ui-dialog-title").text("Update " + name + "?");
+    $("#petStatusChange .name").text(name);
+  } else {
+    root.find(".ui-dialog-title").text("Update " + code + "?");
+    $("#petStatusChange .name").text(code);
+  };
+  if ( new_value == '5' || new_value == '6' ){
+    $('#refugeDetails').show();
+  };
+});

@@ -13,7 +13,7 @@
   <h4>At this Shelter</h4>
   <% if @shelter_pets.count > 0 %>
   <%= render partial: "shared/pet_tile", 
-      collection: @shelter_pets, 
+      collection: @shelter_pets.first(2), 
       as: :f %>
   <% else %>
     <br>

@@ -71,7 +71,7 @@
       <button type="button" data-toggle="button" class="btn" value="1">Devoted</button>
     </div>
     <%= f.hidden_field :affection_id, label: false %>
-		<button type="submit", class="btn btn-header", data-remote="true", data-type="json", style="width: 153px;font-size:14px;line-height:22px;" <%= @current_location == "MapQuest not responding" ? 'disabled="true"': '' %> >
+		<button id="findpet_search" type="submit" class="btn btn-header" data-remote="true" data-type="json" style="width: 153px;font-size:14px;line-height:22px;" <%= @current_location == "MapQuest not responding" ? 'disabled="true"': '' %> >
 	    <%= image_tag("smallFindIcon.png", style:"margin-top:-4px;", width: "19", height: "17")%>&nbsp; Find Me
 	  </button>
 	  <%= link_to("Reset", findpet_path, class: "btn btn-header", style: "width:85px;font-size:14px;line-height:22px;margin-left:0;")%>

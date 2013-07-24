@@ -1,15 +1,19 @@
 <%= simple_form_for(@pet, html: {class: 'form-horizontal' }) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 <div class="leftEditForm">
+	<%= render 'pets/edit/created_at', f: f %>
   <%= render 'pets/edit/code', f: f %>
-  <%= render 'pets/edit/created_at', f: f %>
+  <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
   <% if signed_in? and (current_user.admin? or @pet.user == current_user or
     (current_user.manager? && current_user.shelter_id == @pet.shelter.id))  %>
     <%= render 'pets/edit/select_shelter', f: f %>
   <% else %>
     <%= render 'pets/edit/shelter', f: f %>
-  <% end %>  
-  <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
+  <% end %>
+  <% if signed_in? and (current_user.admin? or @pet.user == current_user or
+    (current_user.manager? && current_user.shelter_id == @pet.shelter.id))  %>
+  <%= f.input :intake_date, as: :string, label: "Intake Date", input_html: {value: "#{@pet.intake_date ? @pet.intake_date.strftime('%Y-%m-%d') : ''}"}, hint: "Date #{@pet.name ? @pet.name : @pet.animal_code} came to the shelter" %>   
+  <% end %> 
   <%= render 'pets/edit/species', f: f %>
   <%= f.label "Gender", class: "control-label", required: true %>
   <div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[gender_id]">
@@ -26,17 +30,7 @@
     <button type="button" data-toggle="button" class="btn" value="3">Large</button>
   </div>
   <%= f.hidden_field :size_id, label: false %>
-  <%= render 'pets/edit/mix', f: f %>
-  <% if signed_in? and (current_user.admin? or current_user.manager?) %>
-    <%= f.label "Status", class: "control-label", required: true %>
-    <div class="btn-group three-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
-      <button type="button" data-toggle="button" class="btn" value="1" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Available</button>
-      <button type="button" data-toggle="button" class="btn" value="4" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Absent</button>
-      <button type="button" data-toggle="button" class="btn" value="2" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Adopted</button>
-      <button type="button" data-toggle="button" class="btn" value="3" style="width:79px;font-size:12px;padding-left:4px;padding-right:4px;">Unavailable</button>
-    </div>
-    <%= f.hidden_field :pet_state_id, label: false %>
-  <% end %>
+	<%= render 'pets/edit/mix', f: f %>
 </div>
 <div class="rightEditForm">
   <%= render 'pets/edit/coat', f: f %>
@@ -47,7 +41,28 @@
   <div id="char_count" class="editPet"></div>
 </div>
 <div class="clearfix"></div>
-<br>
+<% if signed_in? and (current_user.admin? or current_user.manager?) %>
+  <%= f.label "Status", class: "control-label", required: true %>
+  <div class="btn-group btn-graphic three-btn btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+    <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+    <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
+    <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
+    <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
+    <button type="button" data-toggle="button" class="btn" value="5">Fostered</button>
+    <button type="button" data-toggle="button" class="btn" value="6">Rescued</button>
+  </div>
+  <%= f.hidden_field :pet_state_id, label: false %>
+  <div id="refugeDetails">
+    <span>Foster or rescue organization details:</span><br><br>
+    <div style="float:left;margin-right:20px;">
+	  	<%= f.input :refuge_name, label: "Name" %>
+    </div>
+    <div style="float:left;">
+	    <%= f.input :refuge_contact, label: "Contact Info", hint: "Phone or email to contact about #{@pet.name ? @pet.name.titleize : @pet.animal_code}" %>
+    </div>
+  </div>
+<% end %>
+<div class="clearfix"></div>
 <%= f.button :submit, "Save", class: "formBtn", style: "width:145px;" %>
 <%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;padding-top:4px;")%>
 <% end %>

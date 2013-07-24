@@ -2,43 +2,38 @@
   <ul class="nav nav-tabs">
     <li>
       <a href="#dogs" data-toggle="tab">
-        <span class="linkCount">
-          <%= @shelter.available_dogs.count %>
-        </span>
-         Available Dogs
+        <span class="linkCount"><%= @shelter.available_dogs.size %></span> <%= "Dog".pluralize(@shelter.available_dogs.size) %>
       </a>
     </li>
     <li>
       <a href="#cats" data-toggle="tab">
-        <span class="linkCount">
-          <%= @shelter.available_cats.count %>
-        </span>
-         Available Cats
+        <span class="linkCount"><%= @shelter.available_cats.size %></span> <%= "Cat".pluralize(@shelter.available_cats.size) %>
+      </a>
+    </li>
+    <li>
+      <a href="#fostered" data-toggle="tab">
+        <span class="linkCount"><%= @shelter.fostered_count %></span> Fostered
+      </a>
+    </li>
+    <li>
+      <a href="#rescued" data-toggle="tab">
+        <span class="linkCount"><%= @shelter.rescued_count %></span> Rescued
       </a>
     </li>
     <li>
       <a href="#adopted" data-toggle="tab">
-        <span class="linkCount">
-          <%= @shelter.adopted.count %>
-        </span>
-         Adopted Pets
+        <span class="linkCount"><%= @shelter.adopted_count %></span> Adopted
       </a>
     </li>
     <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
     <li>
       <a href="#unavailable" data-toggle="tab">
-        <span class="linkCount">
-          <%= @shelter.unavailable.count %>
-        </span>
-         Unavailable
+        <span class="linkCount"><%= @shelter.unavailable_count %></span> Unavailable
       </a>
     </li>
     <li>
       <a href="#shelterAdmin" data-toggle="tab">
-        <span class="linkCount">
-          <%= @shelter.managers.size %>
-        </span>
-         Managers
+        <span class="linkCount"><%= @shelter.managers_count %></span> <%= "Manager".pluralize(@shelter.managers_count) %>
       </a>
     </li>
     <% end %>
@@ -59,6 +54,16 @@
         <%= render partial: "shared/pet_tile", collection: @adopted, as: :f %>
         <div class="clearfix"></div>
         <%= will_paginate @adopted, param_name: 'adopted_page' %>
+      </div>
+      <div class="tab-pane" id="fostered">
+        <%= render partial: "shared/pet_tile", collection: @fostered, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @fostered, param_name: 'fostered_page' %>
+      </div>
+      <div class="tab-pane" id="rescued">
+        <%= render partial: "shared/pet_tile", collection: @rescued, as: :f %>
+        <div class="clearfix"></div>
+        <%= will_paginate @rescued, param_name: 'rescued_page' %>
       </div>
       <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
       <div class="tab-pane" id="unavailable">

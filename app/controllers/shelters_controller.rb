@@ -35,6 +35,8 @@ class SheltersController < ApplicationController
         @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 12)
         @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
         @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
+        @fostered = @shelter.fostered.paginate(page: params[:unavailable_page], per_page: 12)
+        @rescued = @shelter.rescued.paginate(page: params[:unavailable_page], per_page: 12)
         @managers = @shelter.managers
         cookies[:recent_shelter_id] = @shelter.id
       }
@@ -119,7 +121,7 @@ class SheltersController < ApplicationController
   
   def managed
     if signed_in? and current_user.manager?
-      @pets = current_user.shelter.pets.search(params[:search]).paginate(page: params[:page])
+      @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).paginate(page: params[:page])
       cookies[:managed_pets] == "true"
     elsif signed_in?
       flash[:notice] = "You do not have access to this page."
@@ -134,7 +136,6 @@ class SheltersController < ApplicationController
     accessor = request.fullpath.downcase
     shelter = accessor.match(/\/(.*?)\//)[1]
     @shelter = Shelter.where('slug iLIKE ?', "#{shelter}").first
-    #if accessor == "/WestValley/featured"
     if accessor == "/agoura/featured"
       @pet = Pet.where('slug iLIKE ?', "Madonna").first
       flash[:notice] = "#{@pet.name ? @pet.name : @pet.animal_id} is the featured pet at #{@shelter.name}."

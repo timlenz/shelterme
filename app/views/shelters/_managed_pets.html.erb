@@ -1,11 +1,11 @@
 <div class="span12 adminView">
-  <%= will_paginate @pets %>
   <table class="table table-condensed table-bordered">
     <thead>
-      <th style="width:130px;">Added</th>
-      <th style="width:130px;">Animal ID</th>
-      <th style="width:230px;">Name</th>
-      <th>Status</th>
+	    <th style="width:260px;border-left:none;">Name</th>
+      <th style="width:149px;">Animal ID</th>
+      <th style="width:239px;">Sponsor</th>
+      <th style="width:139px;">Added</th>
+      <th>Stay</th>
     </thead>
     </tr>
   </table>
@@ -16,27 +16,4 @@
   </ul>
   <%= will_paginate @pets %>
 </div>
-
-<script>
-  $(function(){
-    $('div.btn-group[data-toggle-name]').each(function(){
-      var group   = $(this);
-      var form    = group.parents('form').eq(0);
-      var name    = group.attr('data-toggle-name');
-      var hidden  = $('input[name="' + name + '"]', form);
-      $('button', group).each(function(){
-        var button = $(this);
-        button.live('click', function(){
-          hidden.val($(this).val());
-          // Submit pet state changes on click
-          if($('#managed_pets').length) {
-            $(this).parent().parent().find("input[type=submit]").click();
-          };
-        });
-        if(button.val() == hidden.val()) {
-          button.addClass('active');
-        };
-      });
-    });
-  });
-</script>
+<div id="modalTarget"></div>

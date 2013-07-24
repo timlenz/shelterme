@@ -28,6 +28,9 @@
 #  slug               :string(255)
 #  pet_photos_count   :integer         default(0), not null
 #  bonds_count        :integer         default(0), not null
+#  intake_date        :datetime
+#  refuge_name        :string(255)
+#  refuge_contact     :string(255)
 #
 
 class Pet < ActiveRecord::Base
@@ -41,7 +44,8 @@ class Pet < ActiveRecord::Base
                   :size_attributes, :age_period_attributes, 
                   :affection_attributes, :energy_level_attributes, :fur_length_attributes,
                   :nature_attributes, :breed_attributes, :shelter_name,
-                  :primary_breed_name, :secondary_breed_name, :user_id
+                  :primary_breed_name, :secondary_breed_name, :user_id, :intake_date,
+                  :refuge_name, :refuge_contact
   belongs_to :user
   belongs_to :shelter
   belongs_to :size
@@ -105,7 +109,7 @@ class Pet < ActiveRecord::Base
   before_validation :convert_values, on: :create
   before_validation :regenerate_slug, on: :update, if: :name_changed?
 
-  default_scope order: 'pets.created_at DESC'
+  default_scope order: 'pets.created_at DESC, pets.intake_date DESC'
 
   profanity_filter :name, :description
 
@@ -175,6 +179,10 @@ class Pet < ActiveRecord::Base
     return current
   end
   
+  def days_in_shelter
+    days = ((Time.now - self.intake_date) / 86400).round if self.intake_date
+  end
+  
   def self.addpet(addpet) # is this method used anymore? consider deleting it.
     @pet == Pet.where(animal_code: params[:addpet])
     alert(@pet.name)
@@ -219,7 +227,7 @@ class Pet < ActiveRecord::Base
       if search
         find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
       else
-        scoped.includes(:shelter, :pet_state)
+        scoped.includes(:shelter)
       end
     end
     
