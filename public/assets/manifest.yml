@@ -45,8 +45,8 @@ landing_icons.png: landing_icons-e9dc428056250122c976e96043891a6d.png
 landing_icons/index.png: landing_icons-e9dc428056250122c976e96043891a6d.png
 landing_text.png: landing_text-97862d86ee8b014cba08cc81bad3ad02.png
 landing_text/index.png: landing_text-97862d86ee8b014cba08cc81bad3ad02.png
-largeIcons.png: largeIcons-ea8b44c6cdad48166b0a5a13011279b3.png
-largeIcons/index.png: largeIcons-ea8b44c6cdad48166b0a5a13011279b3.png
+largeIconSprite.png: largeIconSprite-ea8b44c6cdad48166b0a5a13011279b3.png
+largeIconSprite/index.png: largeIconSprite-ea8b44c6cdad48166b0a5a13011279b3.png
 letsGoHome.png: letsGoHome-53933d9f16c40706f6f6aa66977028e5.png
 letsGoHome/index.png: letsGoHome-53933d9f16c40706f6f6aa66977028e5.png
 logo.png: logo-8241b2adbe69ffa8937555f3502a7b94.png
@@ -81,8 +81,8 @@ matchFound.png: matchFound-4e3c2eaab5487a91ecb44cc5436f2ddb.png
 matchFound/index.png: matchFound-4e3c2eaab5487a91ecb44cc5436f2ddb.png
 matchMeImage.png: matchMeImage-831c1ed854fd821e2671aacd3343c9c0.png
 matchMeImage/index.png: matchMeImage-831c1ed854fd821e2671aacd3343c9c0.png
-mediumIcons.png: mediumIcons-04133ce6f16e2a00f328890ea3c20e4d.png
-mediumIcons/index.png: mediumIcons-04133ce6f16e2a00f328890ea3c20e4d.png
+mediumIconSprite.png: mediumIconSprite-04133ce6f16e2a00f328890ea3c20e4d.png
+mediumIconSprite/index.png: mediumIconSprite-04133ce6f16e2a00f328890ea3c20e4d.png
 nav.png: nav-56a3345eee16b906b4b23a5aabce1b35.png
 nav/index.png: nav-56a3345eee16b906b4b23a5aabce1b35.png
 navSpinner.gif: navSpinner-a44e4fdc94248041067d7b09d9d32f2f.gif
@@ -119,8 +119,8 @@ smallFindIcon.png: smallFindIcon-604aa00fb28cf7401dd942242998d91c.png
 smallFindIcon/index.png: smallFindIcon-604aa00fb28cf7401dd942242998d91c.png
 smallHeroCat.png: smallHeroCat-eed9dd8a9fc2b6521db73cac848f2a62.png
 smallHeroCat/index.png: smallHeroCat-eed9dd8a9fc2b6521db73cac848f2a62.png
-smallIcons.png: smallIcons-96b28d12de014c33232cffc1ee1609b8.png
-smallIcons/index.png: smallIcons-96b28d12de014c33232cffc1ee1609b8.png
+smallIconSprite.png: smallIconSprite-96b28d12de014c33232cffc1ee1609b8.png
+smallIconSprite/index.png: smallIconSprite-96b28d12de014c33232cffc1ee1609b8.png
 smallMatchIcon.png: smallMatchIcon-398f0575c0f5474df2556597c81bc7ba.png
 smallMatchIcon/index.png: smallMatchIcon-398f0575c0f5474df2556597c81bc7ba.png
 smallShelterIcon.png: smallShelterIcon-a7da5d735dbaff80669d84f4a0d9da2f.png
@@ -163,8 +163,8 @@ watermark.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
 watermark/index.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
 application.js: application-f03eba64956bce0c0f9e58126e41bceb.js
 application/index.js: application-f03eba64956bce0c0f9e58126e41bceb.js
-application.css: application-117c9f2a0fe73d9644be91f36620382e.css
-application/index.css: application-117c9f2a0fe73d9644be91f36620382e.css
+application.css: application-befc303212f9aa3c57e6757703a87152.css
+application/index.css: application-befc303212f9aa3c57e6757703a87152.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png

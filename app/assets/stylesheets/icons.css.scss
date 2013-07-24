@@ -2,7 +2,7 @@
 /* used for page headers, pet photo slider */
 
 .largeIcon { 
-	background-image: url(largeIcons.png); 
+	background-image: url(largeIconSprite.png); 
 	background-color: transparent; 
 	background-repeat: no-repeat;
 	width: 65px;
@@ -64,7 +64,7 @@
 /* used for pet tiles, followed users */
 
 .mediumIcon { 
-	background-image: url(mediumIcons.png); 
+	background-image: url(mediumIconSprite.png); 
 	background-color: transparent; 
 	background-repeat: no-repeat;
 	width: 50px;
@@ -126,7 +126,7 @@
 /* used for statistics, history tiles */
 
 .smallIcon { 
-	background-image: url(smallIcons.png); 
+	background-image: url(smallIconSprite.png); 
 	background-color: transparent; 
 	background-repeat: no-repeat;
 	width: 40px;
