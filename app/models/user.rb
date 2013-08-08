@@ -331,6 +331,26 @@ class User < ActiveRecord::Base
     end
   end
   
+  def pets_count
+    pets = Pet.where(user_id: self.id).size
+  end
+  
+  def watched_pets_count
+    pets = Bond.where(user_id: self.id).size
+  end
+  
+  def microposts_count
+    posts = Micropost.where(user_id: self.id).size
+  end
+  
+  def photo_count
+    photos = PetPhoto.where(user_id: self.id).size
+  end
+  
+  def video_count
+    videos = PetVideo.where(user_id: self.id).size
+  end
+  
   def activity
     # Followed users
     fu = relationships.map{|r| [self, r.followed, r.created_at, "Followed"]}

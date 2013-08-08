@@ -20,7 +20,7 @@
       <% end %>
     </span>
   </p><br>
-  <% if @pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued" %>
+  <% if @pet.refuge_name.present? and (@pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued") %>
   <p><a data-toggle="modal" href="#visitMe" class="noPrint"><%= @pet.refuge_name %></a>
 	<span class="printText"><%= @pet.refuge_name %></span></p><br>
 	<p><span class="printText"><%= @pet.refuge_contact %></span>

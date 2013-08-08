@@ -48,7 +48,13 @@
       <div class="headerButtons">
         <div class="socialItem noPrint" style="width:auto;float:right;">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <% if @pet.pet_state.status == 'fostered' || @pet.pet_state.status == 'rescued' %>
+	        <% if @pet.refuge_name.present? %>
           <a class="btn btn-mini btn-print" style="text-indent:0;margin-top:35px;" href="JavaScript:printModal();"><i class="icon-print"></i> Print</a>
+          <% end %>
+          <% else %>
+          <a class="btn btn-mini btn-print" style="text-indent:0;margin-top:35px;" href="JavaScript:printModal();"><i class="icon-print"></i> Print</a>
+          <% end %>
         </div>
       </div>
     </div>

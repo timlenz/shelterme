@@ -1,3 +1,4 @@
+<% if @pet.refuge_name.present? %>
 <ul>
 	<li style="height:80px;">
 		<div style="margin-left:10px;margin-top:10px;">
@@ -27,3 +28,13 @@
 	  <div class="clearfix"></div>
 	</li>
 </ul>
+<% else %>
+<ul>
+	<li style="height:80px;">
+		<div style="margin-left:10px;margin-top:10px;">
+			<p><%= @pet.name ? @pet.name : @pet.animal_code %> is <%= @pet.pet_state.status == "fostered" ? "being fostered" : "at a rescue" %> and is no longer at <%= link_to @pet.shelter.name, @pet.shelter %>.</p><br><br>
+			<p>Please contact the staff at <%= link_to @pet.shelter.name, @pet.shelter %> for more information.</p>
+		</div>
+	</li>
+</ul>
+<% end %>

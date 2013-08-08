@@ -2,10 +2,12 @@
   <table class="table-condensed">
     <tr>
       <td class="adminId"><%= user.id %></td>
-      <td class="adminAdded"><%= user.created_at.to_date.to_formatted_s(:long) %></td>
-      <td class="adminCode"><%= user.pets.count %></td>
-      <td class="adminCode"><%= user.watched_pets.count %></td>
-      <td class="adminCode"><%= user.boosted_shelters.count %></td>
+      <td class="adminAdded" style="width:123px;"><%= user.created_at.to_date.to_formatted_s(:long) %></td>
+      <td class="adminCode" style="width:61px;"><%= user.pets_count %></td>
+      <td class="adminCode" style="width:61px;"><%= user.watched_pets_count %></td>
+      <td class="adminCode" style="width:61px;"><%= user.microposts_count %></td>
+      <td class="adminCode" style="width:61px;"><%= user.photo_count %></td>
+      <td class="adminCode" style="width:61px;"><%= user.video_count %></td>
       <td class="adminName"><%= avatar_for user, size: 20 %> &nbsp;&nbsp; <%= link_to user.name, user %></td>
       <% if current_user.admin? && !current_user?(user) && !user.admin? %>
       <td class="adminDelete">

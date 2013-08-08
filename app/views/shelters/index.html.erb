@@ -7,7 +7,7 @@
         <h1><%= Shelter.count('id') %> Shelters</h1>
       </div>
       <div class="searchButton">
-        <%= form_tag shelters_path, :method => 'get', id: "shelters_search" do %>
+        <%= form_tag shelters_path, :method => 'get', id: "shelters_search", remote: true do %>
           <%= label_tag :search, "Enter shelter name" %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>

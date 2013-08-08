@@ -4,10 +4,10 @@
     <div class="pageHeader">
       <%= render "shared/header_logo" %>
       <div class="headerInfo" style="width:385px;">
-        <h1><%= User.count('id') %> Users</h1>
+        <h1><%= @users.size %> Users</h1>
       </div>
       <div class="searchButton">
-        <%= form_tag users_path, :method => 'get', id: "users_search" do %>
+        <%= form_tag users_path, :method => 'get', id: "users_search", remote: true do %>
           <%= label_tag :search, "Enter user name" %>
           <%= hidden_field_tag :direction, params[:direction] %>
           <%= hidden_field_tag :sort, params[:sort] %>

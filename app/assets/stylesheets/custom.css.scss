@@ -2860,6 +2860,26 @@ img.tutorialTease {
 	}
 }
 
+.contestPromo {
+	margin: -10px 0;
+	width: 299px;
+	height: 250px;
+	img {
+		border-bottom-radius:12px;
+		-moz-border-radius-bottom:12px;
+		-webkit-border-bottom-radius:12px;
+		border-bottom-radius:12px;
+		-moz-border-radius-bottom:12px;
+		-webkit-border-bottom-radius:12px;
+		border:0;
+	}
+	a {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+}
+
 /* SIGN IN */
 
 .signinDialog {
@@ -3011,8 +3031,8 @@ img.tutorialTease {
 }
 
 .nav-tabs > li > a {
-  padding-right: 30px;
-  padding-left: 30px;
+  padding-right: 20px;
+  padding-left: 20px;
 	padding-top: 7px;
   margin-right: 4px;
   -webkit-border-radius: 8px 8px 0 0;

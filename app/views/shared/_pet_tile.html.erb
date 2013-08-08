@@ -54,7 +54,11 @@
     </p>
     <p>
 	    <% if f.pet_state.status == 'fostered' || f.pet_state.status == 'rescued' %>
+	    <% if f.refuge_name.present? %>
 	    <span style="font-weight:bold;"><%= f.pet_state.status == 'fostered' ? 'Being fostered by ' : 'With '%><%= f.refuge_name %></span>
+	    <% else %>
+	    <span style="font-weight:bold;"><%= f.pet_state.status == 'fostered' ? 'Being fostered' : 'With a rescue'%></span>
+	    <% end %>
 	    <% else %>
 	    <%= link_to f.shelter.name, f.shelter, class: "shelter-tile", target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
 	    <% end %>

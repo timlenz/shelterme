@@ -7,7 +7,7 @@
         <h1><%= Pet.count('id') %> Pets</h1>
       </div>
       <div class="searchButton">
-        <%= form_tag pets_path, :method => 'get', id: "pets_search" do %>
+        <%= form_tag pets_path, :method => 'get', id: "pets_search", remote: true do %>
           <%= label_tag :search, "Name or Animal ID" %>
           <%= text_field_tag :search, params[:search], class: "smallField" %>
           <%= submit_tag "Search", :name => nil, class: "btn btn-header" %>

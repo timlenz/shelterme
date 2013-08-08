@@ -121,7 +121,9 @@ class SheltersController < ApplicationController
   
   def managed
     if signed_in? and current_user.manager?
-      @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).paginate(page: params[:page])
+      sort_arr = ['available', 'absent', 'adopted', 'rescued', 'fostered', 'unavailable']
+      @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).sort_by { |h| sort_arr.index(h.pet_state.status) }.paginate(page: params[:page])
+      # @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).paginate(page: params[:page])
       cookies[:managed_pets] == "true"
     elsif signed_in?
       flash[:notice] = "You do not have access to this page."

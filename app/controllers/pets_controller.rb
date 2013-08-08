@@ -203,7 +203,9 @@ class PetsController < ApplicationController
   def index
     if signed_in? && current_user.admin?
       cookies[:managed_pets] = "true"
-      @pets = Pet.includes(:user, :pet_state).search(params[:search]).paginate(page: params[:page])
+      sort_arr = ['available', 'absent', 'adopted', 'rescued', 'fostered', 'unavailable']
+      @pets = Pet.includes(:user, :pet_state).search(params[:search]).sort_by { |h| sort_arr.index(h.pet_state.status) }.paginate(page: params[:page])
+      # @pets = Pet.includes(:user, :pet_state).search(params[:search]).paginate(page: params[:page])
     else
       redirect_to root_path
     end
