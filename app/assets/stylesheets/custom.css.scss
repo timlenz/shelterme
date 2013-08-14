@@ -3584,6 +3584,7 @@ input#location {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			-o-text-overflow: ellipsis;
+			max-width: 200px;
 		}
     .managedStatus {
       width: 310px;

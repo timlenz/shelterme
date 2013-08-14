@@ -167,8 +167,8 @@ watermark.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
 watermark/index.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
 application.js: application-d6606a81fc11848422b0dcce8b0b7089.js
 application/index.js: application-d6606a81fc11848422b0dcce8b0b7089.js
-application.css: application-18391cff163980040bcd7ed3877a2955.css
-application/index.css: application-18391cff163980040bcd7ed3877a2955.css
+application.css: application-c7877dd2e0e297863db67e28daadf41d.css
+application/index.css: application-c7877dd2e0e297863db67e28daadf41d.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png
