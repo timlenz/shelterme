@@ -72,8 +72,8 @@ class PetsController < ApplicationController
       # Because of the shelter/pet nested routing, must create pet from shelter rather than user
       @shelter = Shelter.find(params[:pet][:shelter_id])
       @pet = @shelter.pets.create(params[:pet])
-      cookies[:exclude_shelters] = ""
       if @pet.save
+        cookies[:exclude_shelters] = ""
         cookies[:duplicate_pet] = "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
         flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added."
@@ -113,7 +113,7 @@ class PetsController < ApplicationController
   end
   
   def show
-    canonical_url(pet_url(@pet))
+    canonical_url(shelter_pet_url(@pet.shelter, @pet))
     cookies[:pet_slug] = @pet.slug
     @microposts = @pet.microposts
     @feed_items = @pet.feed.includes(:user)
@@ -127,7 +127,10 @@ class PetsController < ApplicationController
       cookies.permanent[:history] = cookies[:history] + " " + @pet.id.to_s
     else
       cookies.permanent[:history] = " "
-    end    
+    end   
+    if request.original_url != @canonical_url # redirect messy Facebook share URLs to clean system version
+      redirect to [@pet.shelter, @pet]
+    end
   rescue
     raise ActionController::RoutingError.new('Not Found')
   end

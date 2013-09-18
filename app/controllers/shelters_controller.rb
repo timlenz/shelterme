@@ -35,8 +35,8 @@ class SheltersController < ApplicationController
         @available_cats = @shelter.available_cats.paginate(page: params[:cats_page], per_page: 12)
         @adopted = @shelter.adopted.paginate(page: params[:adopted_page], per_page: 12)
         @unavailable = @shelter.unavailable.paginate(page: params[:unavailable_page], per_page: 12)
-        @fostered = @shelter.fostered.paginate(page: params[:unavailable_page], per_page: 12)
-        @rescued = @shelter.rescued.paginate(page: params[:unavailable_page], per_page: 12)
+        @fostered = @shelter.fostered.paginate(page: params[:fostered_page], per_page: 12)
+        @rescued = @shelter.rescued.paginate(page: params[:rescued_page], per_page: 12)
         @managers = @shelter.managers
         cookies[:recent_shelter_id] = @shelter.id
       }

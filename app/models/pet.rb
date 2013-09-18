@@ -108,6 +108,8 @@ class Pet < ActiveRecord::Base
   before_validation :generate_slug, on: :create
   before_validation :convert_values, on: :create
   before_validation :regenerate_slug, on: :update, if: :name_changed?
+  before_validation :trim_name, on: :create
+  before_validation :retrim_name, on: :update, if: :name_changed?
 
   default_scope order: 'pets.created_at DESC, pets.intake_date DESC'
 
@@ -246,6 +248,14 @@ class Pet < ActiveRecord::Base
     def regenerate_slug
       generate_slug
     end 
+    
+    def trim_name
+      self.name = self.name.squish  # eliminate leading, trailing, double internal, spaces from name
+    end
+    
+    def retrim_name
+      trim_name
+    end
     
     def convert_values
       self.age = age.to_f

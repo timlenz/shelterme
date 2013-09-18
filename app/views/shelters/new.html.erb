@@ -46,10 +46,11 @@
           <%= f.input :thu_hours, label: "Thursday" %>
           <%= f.input :fri_hours, label: "Friday" %>
           <%= f.input :sat_hours, label: "Saturday" %>
+
+	        <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
+	        <%= link_to("Cancel", root_path, style: "float:right;padding-top:4px;")%>
         </div>
         <div class="clearfix"></div>
-        <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
-        <%= link_to("Cancel", root_path, style: "float:right;padding-top:4px;")%>
       <% end %>
     </div>
   </div>  
