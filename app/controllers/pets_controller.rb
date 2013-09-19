@@ -129,7 +129,7 @@ class PetsController < ApplicationController
       cookies.permanent[:history] = " "
     end   
     if request.original_url != @canonical_url # redirect messy Facebook share URLs to clean system version
-      redirect to [@pet.shelter, @pet]
+      redirect_to [@pet.shelter, @pet]
     end
   rescue
     raise ActionController::RoutingError.new('Not Found')
