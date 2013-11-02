@@ -2,7 +2,7 @@
   <div class="tile-photo">
     <%= link_to image_tag(f.image_url.to_s.gsub!(/upload/,"upload/t_tile"), width: "300", height: "200"), 
         [f.pet.shelter, f.pet], 
-        title: "Photo of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code} contributed by #{f.user ?    : "Shelter Me"}" %>
+        title: "Photo of #{f.pet.name != '' ? f.pet.name.titleize : f.pet.animal_code} contributed by #{f.user ? f.user.name : "Shelter Me"}" %>
   </div>
   <% if f.pet.pet_photos.size > 1 %>
     <% if f.primary? %>
