@@ -23,7 +23,7 @@
       <td style="width:240px;">
         <div class="adminName" style="width:240px;">
 			<% if f.user %>
-			<%= link_to   , f.user, target: "_blank" %>
+			<%= link_to f.user.name, f.user, target: "_blank" %>
 			<% else %>
 			<%= link_to "Shelter Me", "#", target: "_blank" %>
 			<% end %>
