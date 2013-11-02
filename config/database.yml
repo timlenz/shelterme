@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: smw_development
+  database: shelterme
   host: localhost
   pool: 5
   username: tjl
@@ -10,7 +10,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: smw_test
+  database: test_shelterme
   host: localhost
   pool: 5
   username: tjl

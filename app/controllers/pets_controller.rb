@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :edit]
+  before_filter :signed_in_user, only: [:create, :edit, :new]
   before_filter :find_pet, only: [:show, :edit, :update, :destroy]
   
   respond_to :html, :js
