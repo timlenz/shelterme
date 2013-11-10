@@ -3,28 +3,35 @@
     <div class="carousel-inner">
       <div class="item active">
         <% if signed_in? %>
-        <%= render "shared/hero2" %>
+        <%= render "shared/hero4" %>
         <% else %>
         <%= render "shared/hero0" %>
+        <% end %>
+      </div>
+      <div class="item">
+        <% if signed_in? %>
+        <%= render "shared/hero0" %>
+        <% else %>
+        <%= render "shared/hero4" %>
+        <% end %>
+      </div>
+      <div class="item">
+        <% if signed_in? %>
+        <%= render "shared/hero1" %>
+        <% else %>
+        <%= render "shared/hero1" %>
+        <% end %>
+      </div>
+      <div class="item">
+        <% if signed_in? %>
+        <%= render "shared/hero2" %>
+        <% else %>
+        <%= render "shared/hero2" %>
         <% end %>
       </div>
       <div class="item">
         <% if signed_in? %>
         <%= render "shared/hero3" %>
-        <% else %>
-        <%= render "shared/hero1" %>
-        <% end %>
-      </div>
-      <div class="item">
-        <% if signed_in? %>
-        <%= render "shared/hero0" %>
-        <% else %>
-        <%= render "shared/hero2" %>
-        <% end %>
-      </div>
-      <div class="item">
-        <% if signed_in? %>
-        <%= render "shared/hero1" %>
         <% else %>
         <%= render "shared/hero3" %>
         <% end %>
