@@ -240,7 +240,7 @@ class Pet < ActiveRecord::Base
         self.slug = animal_code.parameterize.titleize.gsub(" ","")
       end
       # exclude self before checking if slug already exists; if so, append rand number; repeat
-      while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
+      while Pet.where(slug: self.slug).reject{|p| p.downcase == self.downcase}.size > 0 do
         self.slug = self.slug + Random.rand(1..9).to_s
       end
     end
