@@ -235,12 +235,12 @@ class Pet < ActiveRecord::Base
     
     def generate_slug
       if name != ""
-        self.slug = name.parameterize.titleize.gsub(" ","")
+        self.slug = name.parameterize.downcase.titleize.gsub(" ","")
       else
-        self.slug = animal_code.parameterize.titleize.gsub(" ","")
+        self.slug = animal_code.parameterize.downcase.titleize.gsub(" ","")
       end
       # exclude self before checking if slug already exists; if so, append rand number; repeat
-      while Pet.where(slug: self.slug).reject{|p| p.lower == self.lower}.size > 0 do
+      while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
         self.slug = self.slug + Random.rand(1..9).to_s
       end
     end
