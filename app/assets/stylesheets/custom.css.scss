@@ -2215,7 +2215,7 @@ ol.activity {
   background-image: url(photoClickBkg.png), linear-gradient(top, white, #e6e6e6);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6', GradientType=0);
-  &:hover {
+  &:hover, &:focus {
     background-position: 0 0;
     -webkit-transition: 0;
     -moz-transition: 0;
@@ -2234,7 +2234,7 @@ ol.activity {
   background-image: url(videoClickBkg.png), linear-gradient(top, white, #e6e6e6);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6', GradientType=0);
-  &:hover {
+  &:hover, &:focus {
     background-position: 0 0;
     -webkit-transition: 0;
     -moz-transition: 0;
