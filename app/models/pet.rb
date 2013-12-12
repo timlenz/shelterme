@@ -105,11 +105,11 @@ class Pet < ActiveRecord::Base
   validate :check_color_match
   validate :check_breed_match
   
+  before_validation :trim_name, on: :create
   before_validation :generate_slug, on: :create
   before_validation :convert_values, on: :create
-  before_validation :regenerate_slug, on: :update, if: :name_changed?
-  before_validation :trim_name, on: :create
   before_validation :retrim_name, on: :update, if: :name_changed?
+  before_validation :regenerate_slug, on: :update, if: :name_changed?
 
   default_scope order: 'pets.created_at DESC, pets.intake_date DESC'
 
@@ -235,9 +235,9 @@ class Pet < ActiveRecord::Base
     
     def generate_slug
       if name != ""
-        self.slug = name.parameterize.downcase.titleize.gsub(" ","")
+        self.slug = name.parameterize.gsub("-","").downcase.titleize
       else
-        self.slug = animal_code.parameterize.downcase.titleize.gsub(" ","")
+        self.slug = animal_code.parameterize.gsub("-","").downcase.titleize
       end
       # exclude self before checking if slug already exists; if so, append rand number; repeat
       while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
