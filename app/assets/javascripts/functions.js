@@ -149,16 +149,16 @@ $(function(){
 		$.cookie("pet_slug", pet_slug, { path: '/'});
 	});
   
-  // Hide Add Media buttons if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
+  // Hide Add Media buttons if user agent is iPad - added iPhone|iPod|Android until mobile apps ready
   if ( $('.addMedia').length ) {
-    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad|Tablet/i) != null ) {
+    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
       $('.mediaButtons input').prop('disabled', true);
     };
   };
   
   // Hide Add Pet, Add Photo, Add Video if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
   if ( $('#addPet, .addMedia').length) {
-    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad|Tablet/i) != null ) {
+    if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
       $('#addPet, .addMedia .mediaButtons, .addMedia p:first').hide();
 			$('#tabletAlert').show();
     };

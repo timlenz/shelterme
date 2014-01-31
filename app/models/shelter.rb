@@ -40,7 +40,7 @@ class Shelter < ActiveRecord::Base
   has_many :journals
   
   validates :name, presence: true, 
-                   length: { maximum: 50 },
+                   length: { maximum: 60 },
                    uniqueness: { case_sensitive: false }
   validates :description, length: { maximum: 770 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

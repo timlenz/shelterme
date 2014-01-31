@@ -133,6 +133,8 @@ smallMatchIcon.png: smallMatchIcon-398f0575c0f5474df2556597c81bc7ba.png
 smallMatchIcon/index.png: smallMatchIcon-398f0575c0f5474df2556597c81bc7ba.png
 smallShelterIcon.png: smallShelterIcon-a7da5d735dbaff80669d84f4a0d9da2f.png
 smallShelterIcon/index.png: smallShelterIcon-a7da5d735dbaff80669d84f4a0d9da2f.png
+smvideocontest.png: smvideocontest-14e8ec47c03ba4f61bcbbe0245730155.png
+smvideocontest/index.png: smvideocontest-14e8ec47c03ba4f61bcbbe0245730155.png
 spinner.gif: spinner-039270171d17458671b619c01a8d643c.gif
 spinner/index.gif: spinner-039270171d17458671b619c01a8d643c.gif
 splashCat.png: splashCat-e52d917d895a5d3807ed8fd26873fa5b.png
@@ -171,10 +173,10 @@ watchFilmBtn.png: watchFilmBtn-acd2d1d48125e86b529ed67bc7934077.png
 watchFilmBtn/index.png: watchFilmBtn-acd2d1d48125e86b529ed67bc7934077.png
 watermark.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
 watermark/index.png: watermark-c8a46f9df25f7efef291e52a71f80335.png
-application.js: application-c2bfea9b97296ab96a40f0fde8594035.js
-application/index.js: application-c2bfea9b97296ab96a40f0fde8594035.js
-application.css: application-8b007cbdab06dc4d837aa96d7f696d9f.css
-application/index.css: application-8b007cbdab06dc4d837aa96d7f696d9f.css
+application.js: application-3e1e75a783d4f96a29f47d4b099fcd8c.js
+application/index.js: application-3e1e75a783d4f96a29f47d4b099fcd8c.js
+application.css: application-fc04baa3ff095d4699763dd4494b1072.css
+application/index.css: application-fc04baa3ff095d4699763dd4494b1072.css
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_0_aaaaaa_40x100/index.png: jquery-ui/ui-bg_flat_0_aaaaaa_40x100-afb45073956444a693886e93e5f0cc1f.png
 jquery-ui/ui-bg_flat_75_ffffff_40x100.png: jquery-ui/ui-bg_flat_75_ffffff_40x100-8cb8e5bb566068655bf42236d95abe6b.png
