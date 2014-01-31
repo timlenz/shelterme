@@ -314,7 +314,7 @@ $(function(){
     var element = document.querySelector('.headerInfo h1');
     var default_height = 36;
     if (element.offsetHeight > default_height) {
-      $('.headerInfo h1').css('font-size','22px');
+      $('.headerInfo h1').css('font-size','20px');
     };
   };
   
