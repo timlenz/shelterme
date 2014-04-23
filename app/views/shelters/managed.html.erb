@@ -23,21 +23,32 @@
 <div id="petStatusChange">
 	<p>Are you certain you want to change <span class="name"></span>'s status from <span class="old"></span> to <span class="new"></span>?</p>
 	<div id="refugeDetails">
-		<p>Please enter foster or rescue organization details:</p>
+		<p>Please enter contact information:</p>
     <form class="simple_form form-horizontal">
     	<div class="control-group string optional" style="margin-bottom: 10px;">
-	      <label class="string optional control-label" for="pet_refuge_name">Name</label>
+	      <label class="string optional control-label" for="pet_refuge_name">Organization</label>
 	      <div class="controls">
-		      <input class="string optional" id="refuge_name" size="50" type="text" value="">
-		    </div>
+		    <input class="string optional" id="refuge_name" size="50" type="text" value="">
 		  </div>
-      <div class="control-group string optional" style="margin-bottom: 0;">
-	      <label class="string optional control-label" for="pet_refuge_contact">Contact Info</label>
+		</div>
+    	<div class="control-group string optional" style="margin-bottom: 10px;">
+	      <label class="string optional control-label" for="pet_refuge_person">Contact</label>
 	      <div class="controls">
-		      <input class="string optional" id="refuge_contact" size="50" type="text" value="">
-		      <p class="help-block">Phone or email to contact about <span class="name"></span></p>
-		    </div>
+		    <input class="string optional" id="refuge_person" size="50" type="text" value="">
 		  </div>
+		</div>
+    	<div class="control-group string optional" style="margin-bottom: 10px;">
+	      <label class="string optional control-label" for="pet_refuge_email">Email</label>
+	      <div class="controls">
+		    <input class="string optional" id="refuge_email" size="50" type="text" value="">
+		  </div>
+		</div>
+    	<div class="control-group string optional" style="margin-bottom: 0;">
+	      <label class="string optional control-label" for="pet_refuge_phone">Phone</label>
+	      <div class="controls">
+		    <input class="string optional" id="refuge_phone" size="50" type="text" value="">
+		  </div>
+		</div>
     </form>
   </div>
 </div>

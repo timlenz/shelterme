@@ -24,7 +24,7 @@ $('div.btn-group[data-toggle-name]').each(function(){
 // Submit pet state changes on click for Managed Pets, Admin Pets views
 $('#managed_pets button:not(.active)').click(function(){
   $("#petStatusChange").dialog('open');
-	$(this).parents('form').find('#pet_refuge_name, #pet_refuge_contact').val('');
+  $(this).parents('form').find('#pet_refuge_name, #pet_refuge_person, #pet_refuge_email, #pet_refuge_phone').val('');
   var root = $("#petStatusChange").parent();
   root.find(".ui-dialog-buttonset button").last().focus(); // Set focus on "change" button in dialog
   statusChangeLink = $(this).parents('form').find("input[type=submit]");
@@ -35,8 +35,10 @@ $('#managed_pets button:not(.active)').click(function(){
   new_button = $(this);
   new_value = $(this).val();
   hidden_input = $(this).parents('form').find("#pet_pet_state_id");
-	refuge_name = $(this).parents('form').find("#pet_refuge_name");
-	refuge_contact = $(this).parents('form').find("#pet_refuge_contact");
+  refuge_name = $(this).parents('form').find("#pet_refuge_name");
+  refuge_person = $(this).parents('form').find("#pet_refuge_person");
+  refuge_email = $(this).parents('form').find("#pet_refuge_email");
+  refuge_phone = $(this).parents('form').find("#pet_refuge_phone");
   switch(old_value) {
     case "1":
       var old = "Available";
@@ -68,8 +70,10 @@ $('#managed_pets button:not(.active)').click(function(){
   };
   if ( new_value == '5' || new_value == '6' ){
     $('#refugeDetails').show();
-		$('#refuge_name').val('');
-		$('#refuge_contact').val('');
+	$('#refuge_name').val('');
+	$('#refuge_person').val('');
+	$('#refuge_email').val('');
+	$('#refuge_phone').val('');
   } else {
 		$('#refugeDetails').hide();
 	};

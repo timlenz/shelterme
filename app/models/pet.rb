@@ -30,7 +30,9 @@
 #  bonds_count        :integer         default(0), not null
 #  intake_date        :datetime
 #  refuge_name        :string(255)
-#  refuge_contact     :string(255)
+#  refuge_email       :string(255)
+#  refuge_person      :string(255)
+#  refuge_phone       :string(255)
 #
 
 class Pet < ActiveRecord::Base
@@ -45,7 +47,7 @@ class Pet < ActiveRecord::Base
                   :affection_attributes, :energy_level_attributes, :fur_length_attributes,
                   :nature_attributes, :breed_attributes, :shelter_name,
                   :primary_breed_name, :secondary_breed_name, :user_id, :intake_date,
-                  :refuge_name, :refuge_contact
+                  :refuge_name, :refuge_person, :refuge_email, :refuge_phone
   belongs_to :user
   belongs_to :shelter
   belongs_to :size

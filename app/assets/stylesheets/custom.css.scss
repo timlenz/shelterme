@@ -640,6 +640,10 @@ footer {
     font-size: 11px;
     text-align: center;
     width: 100%;
+	a {
+		color:white;
+		text-transform:none;
+	}
   }
   .quote {
     width: 620px;
@@ -1232,7 +1236,7 @@ input[disabled="disabled"], input.disabled {
 
 .close {
   border: none;
-	background: transparent;
+  background: transparent;
 }
 
 .fullEditForm {
@@ -3325,8 +3329,9 @@ img.tutorialTease {
 
 #refugeDetails {
 	display: none;
-	height: 100px;
+	height: 170px;
 	margin-bottom: 10px;
+	padding-top:10px;
 	span {
 		font-weight: bold;
 	}
@@ -3851,10 +3856,17 @@ th {
 	.close {
 	  border: none;
 	  background-color: none;
+	  font-size:30px;
+	  font-weight:normal;
 		&:hover {
 		  background-color: none;
 		}
 	}
+}
+
+.close {
+	font-size:30px;
+	font-weight:normal;
 }
 
 /* ADD PETS */

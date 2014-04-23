@@ -58,12 +58,14 @@
           </div>
           <%= p.hidden_field :pet_state_id, label: false %>
           <%= p.hidden_field :refuge_name, label: false %>
-          <%= p.hidden_field :refuge_contact, label: false %>
+          <%= p.hidden_field :refuge_person, label: false %>
+          <%= p.hidden_field :refuge_email, label: false %>
+          <%= p.hidden_field :refuge_phone, label: false %>
           <%= p.button :submit, "Save", class: "hiddenBtn" %>
         <% end %>
       </td>
       <td colspan="2" class="managedDelete">
-        <%= link_to "Delete #{pet.name.present? ? pet.name.humanize : pet.animal_code}", [pet.shelter, pet], class: "adminName" %>
+        <%= link_to "Delete #{pet.name.present? ? pet.name.titleize : pet.animal_code}", [pet.shelter, pet], class: "adminName" %>
       </td>
     </tr>
   </table>

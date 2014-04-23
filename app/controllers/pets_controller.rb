@@ -35,7 +35,8 @@ class PetsController < ApplicationController
       end
     end
     @nearbys = Array.new
-    @nearbys = Shelter.near(@current_location, 70, order: "distance").limit(15)
+    @nearbys = Shelter.near(@current_location + ", US", 70, order: "distance").limit(15)
+    # added ", US" as hack around Geonames location conflation issues
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.size > 0
@@ -143,9 +144,9 @@ class PetsController < ApplicationController
     elsif accessor == "/la"
       @current_location = "Los Angeles"
     end
-    nearbys = Shelter.near(@current_location, 50, order: "distance").map{|s| s.id}
+    nearbys = Shelter.near(@current_location + ", US", 50, order: "distance").map{|s| s.id}
     unless nearbys.size > 0
-      nearbys = Shelter.near(@current_location, 200, order: "distance").map{|s| s.id}
+      nearbys = Shelter.near(@current_location + ", US", 200, order: "distance").map{|s| s.id}
     end
     if nearbys.size > 0
       pets = Pet.order(:name) # IS THIS NECESSARY?
@@ -165,22 +166,22 @@ class PetsController < ApplicationController
   def edit
     #
     # Set location for pet in a cascade from most specific to least:
-    # 1) current pet location
-    # 2) value from location cookie
+    # 1) value from location cookie
+    # 2) current pet location
     # 3) current user location
     #
     cookies[:managed_pets] = "false"
     cookies[:photo] = "edit"
     @pet_photos = @pet.pet_photos.includes(:user).sort_by {|p| p.primary ? 0:1 }
     @pet_videos = @pet.pet_videos.includes(:user).sort_by {|p| p.primary ? 0:1 }
-    if @pet
-      @current_location = @pet.shelter.city + ", " + @pet.shelter.state
-    elsif !cookies[:location].blank?
+    if !cookies[:location].blank?
       @current_location = cookies[:location]
+    elsif @pet
+      @current_location = @pet.shelter.city + ", " + @pet.shelter.state
     else
       @current_location = current_user.location
     end
-    @nearbys = Shelter.near(@current_location, 50, order: "distance")
+    @nearbys = Shelter.near(@current_location + ", US", 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.size > 0

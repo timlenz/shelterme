@@ -30,7 +30,9 @@
 #  bonds_count        :integer         default(0), not null
 #  intake_date        :datetime
 #  refuge_name        :string(255)
-#  refuge_contact     :string(255)
+#  refuge_email       :string(255)
+#  refuge_person      :string(255)
+#  refuge_phone       :string(255)
 #
 
 require 'spec_helper'

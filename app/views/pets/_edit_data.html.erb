@@ -53,12 +53,17 @@
   </div>
   <%= f.hidden_field :pet_state_id, label: false %>
   <div id="refugeDetails">
-    <span>Foster or rescue organization details:</span><br><br>
     <div style="float:left;margin-right:20px;">
-	  	<%= f.input :refuge_name, label: "Name" %>
+	  	<%= f.input :refuge_name, label: "Organization" %>
     </div>
     <div style="float:left;">
-	    <%= f.input :refuge_contact, label: "Contact Info", hint: "Phone or email to contact about #{@pet.name ? @pet.name.titleize : @pet.animal_code}" %>
+	    <%= f.input :refuge_person, label: "Contact" %>
+    </div>
+    <div style="float:left;margin-right:20px;">
+	  	<%= f.input :refuge_email, label: "Email" %>
+    </div>
+    <div style="float:left;">
+	    <%= f.input :refuge_phone, label: "Phone" %>
     </div>
   </div>
 <% end %>

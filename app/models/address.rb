@@ -24,6 +24,13 @@ class Address < ActiveRecord::Base
   validates :zipcode, presence: true
   validates :shelter_id, presence: true
   
-  geocoded_by :street
-  after_validation :geocode, if: :street_changed? #Generalize to changes in any element of the Address
+  # geocoded_by :street
+  # after_validation :geocode, if: :street_changed? #Generalize to changes in any element of the Address
+  
+  geocoded_by :full_street_address
+  after_validation :geocode, if: lambda { :street_changed || :city_changed? || :state_changed? }
+  
+  def full_street_address
+    [street, city, state].compact.join(', ')
+  end
 end

@@ -453,7 +453,7 @@ $(function(){
 						$('#refugeDetails').show();
 					} else {
 						$('#refugeDetails').hide();
-						$('#pet_refuge_name, #pet_refuge_contact').val("");
+						$('#pet_refuge_name, #pet_refuge_email').val("");
 					};
 				};
 	

@@ -20,10 +20,13 @@
       <% end %>
     </span>
   </p><br>
-  <% if @pet.refuge_name.present? and (@pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued") %>
-  <p><a data-toggle="modal" href="#visitMe" class="noPrint"><%= @pet.refuge_name %></a>
-	<span class="printText"><%= @pet.refuge_name %></span></p><br>
-	<p><span class="printText"><%= @pet.refuge_contact %></span>
+  <% if @pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued" %>
+    <p>
+	  <a data-toggle="modal" href="#visitMe" class="noPrint"><%= @pet.refuge_name != "" ? @pet.refuge_name : @pet.refuge_person %></a>
+	  <span class="printText"><%= @pet.refuge_name != "" ? @pet.refuge_name : @pet.refuge_person %></span>
+    </p><br>
+	<p>
+	  <span class="printText"><%= @pet.refuge_email %>  <%= @pet.refuge_phone %></span>
 	</p>
   <% else %>
   <p><%= link_to @pet.shelter.name, @pet.shelter, class: "noPrint" %>

@@ -1,4 +1,4 @@
-<% if @pet.refuge_name.present? %>
+<% if @pet.refuge_name.present? || @pet.refuge_person.present? %>
 <ul>
 	<li style="height:80px;">
 		<div style="margin-left:10px;margin-top:10px;">
@@ -6,15 +6,33 @@
 			<p>Please contact the <%= @pet.pet_state.status == "fostered" ? "foster" : "rescue" %> directly:</p>
 		</div>
 	</li>
-	<li style="height:50px;">
+	<li style="height:80px;">
 	  <div class="modalElement modalStep">
 	    <div class="listCircle">1</div>
 	    <h2>Contact</h2>
 	  </div>
 	  <div class="modalElement modalInfo">
-		  <p><span class="noPrint"><%= @pet.refuge_name %></span>
-			<span class="printText"><%= @pet.refuge_name %></span></p><br>
-	    <p><%= @pet.refuge_contact %></p>
+		<% if @pet.refuge_name.present? %>
+		<p><span class="noPrint"><%= @pet.refuge_name %></span>
+		  <span class="printText"><%= @pet.refuge_name %></span>
+	    </p><br>
+		<% end %>
+		<% if @pet.refuge_person.present? %>
+		<p>
+		  <span class="noPrint"><%= @pet.refuge_person %></span>
+		  <span class="printText"><%= @pet.refuge_person %></span>
+		</p><br>
+		<% end %>
+		<% if @pet.refuge_email.present? %>
+	    <p>
+		  <%= @pet.refuge_email %>
+		</p><br>
+		<% end %>
+		<% if @pet.refuge_phone.present? %>
+		<p>
+		  <%= @pet.refuge_phone %>
+	    </p>
+		<% end %>
 	  </div>
 	</li>
 	<li style="height:40px;">

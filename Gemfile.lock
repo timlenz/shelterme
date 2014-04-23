@@ -103,7 +103,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
-    geocoder (1.1.6)
+    geocoder (1.2.0)
     growl (1.0.3)
     guard (1.7.0)
       formatador (>= 0.2.4)

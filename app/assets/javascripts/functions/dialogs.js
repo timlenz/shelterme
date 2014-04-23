@@ -52,7 +52,7 @@ $(function() {
   // Submit pet state changes on click for Managed Pets, Admin Pets views
   $('#pets button:not(.active), #managed_pets button:not(.active)').click(function(){
     $("#petStatusChange").dialog('open');
-		$(this).parents('form').find('#pet_refuge_name, #pet_refuge_contact').val('');
+    $(this).parents('form').find('#pet_refuge_name, #pet_refuge_person, #pet_refuge_email, #pet_refuge_phone').val('');
     var root = $("#petStatusChange").parent();
     root.find(".ui-dialog-buttonset button").last().focus(); // Set focus on "change" button in dialog
     statusChangeLink = $(this).parents('form').find("input[type=submit]");
@@ -63,8 +63,10 @@ $(function() {
     new_button = $(this);
     new_value = $(this).val();
     hidden_input = $(this).parents('form').find("#pet_pet_state_id");
-		refuge_name = $(this).parents('form').find("#pet_refuge_name");
-		refuge_contact = $(this).parents('form').find("#pet_refuge_contact");
+	refuge_name = $(this).parents('form').find("#pet_refuge_name");
+	refuge_person = $(this).parents('form').find("#pet_refuge_person");
+	refuge_email = $(this).parents('form').find("#pet_refuge_email");
+	refuge_phone = $(this).parents('form').find("#pet_refuge_phone");
     switch(old_value) {
       case "1":
         var old = "Available";
@@ -96,11 +98,13 @@ $(function() {
     };
 	  if ( new_value == '5' || new_value == '6' ){
 	    $('#refugeDetails').show();
-			$('#refuge_name').val('');
-			$('#refuge_contact').val('');
+		$('#refuge_name').val('');
+		$('#refuge_person').val('');
+		$('#refuge_email').val('');
+		$('#refuge_phone').val('');
 	  } else {
-			$('#refugeDetails').hide();
-		};
+		$('#refugeDetails').hide();
+	  };
   });
   
   $("#petStatusChange").dialog({
@@ -121,12 +125,14 @@ $(function() {
       },
       "Change": function() {
         $.cookie("pet_state_change", new_value, { expires: 1, path: '/' }); // tracks pet state change for journaling
-				$.cookie("managed_pets", "true", { expires: 1, path: '/' }); // used in controller to redirect view
-				refuge_name.val($('#refuge_name').val());
-				refuge_contact.val($('#refuge_contact').val());
-				$('#search').val('');	// clear search dialog
+		$.cookie("managed_pets", "true", { expires: 1, path: '/' }); // used in controller to redirect view
+		refuge_name.val($('#refuge_name').val());
+		refuge_person.val($('#refuge_person').val());
+		refuge_email.val($('#refuge_email').val());
+		refuge_phone.val($('#refuge_phone').val());
+		$('#search').val('');	// clear search dialog
         $(this).dialog("close");	// must close dialog before firing click event
-				statusChangeLink.click();
+		statusChangeLink.click();
       }
     }
   });
@@ -134,15 +140,15 @@ $(function() {
 	// Find Pet invalid breed selection
 	$('#findPetAlert').dialog({
 		autoOpen: false,
-    resizable: false,
-    draggable: false,
+    	resizable: false,
+    	draggable: false,
 		width: 400,
-    modal: true,
+    	modal: true,
 		buttons: {
-      Ok: function() {
-        $( this ).dialog( "close" );
-      }
-    }
+      	  	Ok: function() {
+        	  $( this ).dialog( "close" );
+      		}
+    	}
 	});
 
 });
