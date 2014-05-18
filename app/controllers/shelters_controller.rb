@@ -25,7 +25,11 @@ class SheltersController < ApplicationController
       end
     else
       ShelterMailer.submit_shelter(@shelter, (signed_in? ? current_user : "")).deliver
-      flash[:notice] = "Thank you!<br/><br/> We will review the information and inform you when the shelter has been added.".html_safe
+      if signed_in?
+        flash[:notice] = "Thank you!<br/><br/> We will review your submitted shelter information and inform you when the shelter has been added.".html_safe
+      else
+        flash[:notice] = "Thank you!<br/><br/> We will review your submitted shelter information and add the shelter soon.".html_safe
+      end
       redirect_to root_path and return
     end
   rescue
