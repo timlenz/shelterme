@@ -3,7 +3,7 @@
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
-<% if $search != nil && $search.pets.size > 0 && @search_results != nil %>
+<% if $search.present? && $search.pets.present? && @search_results.present? %>
 	<span id="resultsCount" style="display:none;">
 		Found
 	  <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
@@ -33,7 +33,7 @@ $(function(){
 });
 </script>
 
-<% elsif $search.pe(500).size > 0 or $search.se_str(500).size > 0 %>
+<% elsif $search.pe(500).present? or $search.se_str(500).present? %>
   <div class="findBlurb" style="height:400px;">
   <h3><%= image_tag("partialMatchFound.png", width: "337", height: "30")%></h3><br>
   <p>No available pets near <%= @search.location %> were an exact match for your search.<br>

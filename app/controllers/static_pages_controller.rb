@@ -41,9 +41,10 @@ class StaticPagesController < ApplicationController
             @location = s[0].city + ", " + s[0].state_code
           end
           cookies[:location] = @location
-          shelters = Shelter.near(@location, 70, order: "distance")
+          # added + ", US" as hack around Geonames location conflation issues with Canada & California
+          shelters = Shelter.near(@location + ", US", 70, order: "distance")
           unless shelters.size > 0
-            shelters = Shelter.near(@location, 200, order: "distance")
+            shelters = Shelter.near(@location + ", US", 200, order: "distance")
           end
           nearbys = shelters.map{|s| s.id}
           if @location != "MapQuest not responding" && nearbys.size > 0
@@ -101,6 +102,7 @@ class StaticPagesController < ApplicationController
   rescue
     @featured_pets = []
     @shelter = []
+    cookies[:location] = "MapQuest not responding"
     flash[:notice] = "There are no shelters near your location."
   end
   

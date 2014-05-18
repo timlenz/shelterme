@@ -127,7 +127,7 @@ class PetsController < ApplicationController
     if cookies[:history]
       cookies.permanent[:history] = cookies[:history] + " " + @pet.id.to_s
     else
-      cookies.permanent[:history] = " "
+      cookies.permanent[:history] = @pet.id.to_s
     end   
     if request.original_url != @canonical_url # redirect messy Facebook share URLs to clean system version
       redirect_to [@pet.shelter, @pet]

@@ -179,18 +179,19 @@ class User < ActiveRecord::Base
     mo = [1, 0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 1, -2, 0, 0, 1, 1, -0.5, 0.5, -2, 2, 1, 1,
           1.5, -1.5, 0, -1, 1, 0, -2, 1, -1, 2, 0, 0, 2, 1, 1, 1, 1]      
     distance = 100 # start with 100 mile search radius for rural users
-    nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
+    # added ", US" as hack around Geonames location conflation issues
+    nearbys = Shelter.near(location + ", US", distance, order: "distance").map{|s| s.id} if location.present?
     if nearbys
       while nearbys.size > 3 do # shrink search radius until no more than three shelters in nearbys
         distance -= 10
-        nearbys = Shelter.near(location, distance, order: "distance").map{|s| s.id} if location.present?
+        nearbys = Shelter.near(location + ", US", distance, order: "distance").map{|s| s.id} if location.present?
       end
       scores = Array.new
       @matches = Pet.where('shelter_id in (?)', nearbys)
       @matches = @matches.where(species_id: species_id) if species_id.present?
       @matches = @matches.where(pet_state_id: 1)
       @matches = @matches.where('pet_photos_count > 0') # Don't show any pets that don't have photos
-      if !@matches.blank?
+      if @matches.present?
         # Calculate match scores for pets in array against user's characteristics
         @matches = @matches.each_with_index do |p, i|
           n_col = p_char.index(p.nature.name)

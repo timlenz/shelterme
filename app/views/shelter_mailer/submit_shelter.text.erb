@@ -1,9 +1,11 @@
-At <%= Time.now.strftime("%I:%M %p on %b %d, %Y") %>, <%= @user.name %> submitted information for this new shelter.
+At <%= Time.now.strftime("%I:%M %p on %b %d, %Y") %>, <%= @user.present? ? @user.name : "an anonymous user" %> submitted information for this new shelter.
 
 Please take the following steps:
   1. Confirm that the shelter is indeed a valid shelter and not already in the system
   2. Add the shelter to the system
+  <% if @user.present? %>
   3. Email <%= @user.name %> at <%= @user.email %> to inform them of the addition
+  <% end %>
 	
 The submitted shelter information:
 

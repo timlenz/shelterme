@@ -6,12 +6,17 @@ class SheltersController < ApplicationController
   respond_to :html, :js
   
   def new
-    @shelter = Shelter.new
+    # if signed_in? 
+      @shelter = Shelter.new
+    # else
+    #   flash[:notice] = "You must be signed in to access this page."
+    #   redirect_to signin_path
+    # end
   end
   
   def create
     @shelter = Shelter.new(params[:shelter])
-    if current_user.admin?
+    if signed_in? and current_user.admin?
       if @shelter.save
         flash[:success] = "The shelter #{@shelter.name} has been added."
         redirect_to @shelter
@@ -19,8 +24,8 @@ class SheltersController < ApplicationController
         render 'new'
       end
     else
-      ShelterMailer.submit_shelter(@shelter, current_user).deliver
-      flash[:notice] = "Thank you! We will review the information and inform you when the shelter has been added."
+      ShelterMailer.submit_shelter(@shelter, (signed_in? ? current_user : "")).deliver
+      flash[:notice] = "Thank you!<br/><br/> We will review the information and inform you when the shelter has been added.".html_safe
       redirect_to root_path and return
     end
   rescue
@@ -39,6 +44,12 @@ class SheltersController < ApplicationController
         @rescued = @shelter.rescued.paginate(page: params[:rescued_page], per_page: 12)
         @managers = @shelter.managers
         cookies[:recent_shelter_id] = @shelter.id
+      }
+      format.csv {
+        send_data Shelter.to_csv(@shelter.pets), type: "text/csv", filename: "#{@shelter.slug}Pets#{Date.current()}"
+      }
+      format.csvb {
+        send_data Shelter.to_full_csv(@shelter.pets), type: "text/csv", filename: "#{@shelter.slug}PetsFull#{Date.current()}"
       }
     end
   rescue

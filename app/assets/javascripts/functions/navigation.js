@@ -30,8 +30,15 @@ $(function(){
     $('.navLogo').show();
   });
 
-	// Hide nav spinner on spawned window link click
+  // Hide nav spinner on spawned window link click
 	$('a[target^="t"], a[target="_blank"]').click(function(){
+    $('.navSpinner').hide();
+    $('.navLogo').show();
+  });
+  
+  // Hide nav spinner on pet list export click
+	$('.headerEdit .pet-export').click(function(){
+	alert("This may take a few minutes. Please wait for the file to download. Do not navigate away from this page.");
     $('.navSpinner').hide();
     $('.navLogo').show();
   });

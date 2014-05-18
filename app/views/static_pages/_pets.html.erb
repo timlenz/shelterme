@@ -1,6 +1,6 @@
 <div class="featured-pets">
   <h2 class="landingText featuredPetsText"></h2>
-  <% if @featured_pets.size > 0 %>
+  <% if @featured_pets.present? %>
   <%= render partial: "shared/pet_tile", 
       collection: @featured_pets.first(4), 
       as: :f %>

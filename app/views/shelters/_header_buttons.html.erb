@@ -2,7 +2,11 @@
   <div class="headerEdit">
     <% if signed_in? and (current_user.admin? or (current_user.manager? && current_user.shelter_id == @shelter.id)) %>
       <%= link_to "Edit shelter", edit_shelter_path(@shelter), class: "btn btn-header btn-warning btn-admin" %>
+      <%= link_to "Pet list", shelter_path(format: "csv"), class: "pet-export", style: "line-height:26px; padding-right:30px;" %>
     <% end %>
+	<% if signed_in? and current_user.admin? %>
+      <%= link_to "Pet data", shelter_path(format: "csvb"), class: "pet-export", style: "line-height:26px; padding-right:20px;" %>
+	<% end %>
     <% if signed_in? and ((current_user.manager? && current_user.shelter_id != @shelter.id) or !current_user.manager?) and !current_user.admin? %>
       <a href="mailto:admin@shelterme.com?subject=Please make <%= current_user.name %> a manager for <%=@shelter.name%>&body=(Please provide proof of your affiliation with the shelter)" target="_blank">Request manager access</a>
     <% end %>

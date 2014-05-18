@@ -144,6 +144,7 @@ class UsersController < ApplicationController
           @current_location = s[0].city + ", " + s[0].state_code
         end
       end
+      # Call explicit @user.matchme functionality here rather than in matched_pets partial
       cookies[:location] = @current_location
     else
       flash[:notice] = "You must be signed in to access this page."

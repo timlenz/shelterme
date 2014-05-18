@@ -92,7 +92,7 @@ ShelterMe::Application.routes.draw do
   match '/mobile',            to: 'static_pages#home'
 
   # Put these at the bottom to avoid over-riding the explicit routes above
-  resources :shelters, path: "", except: [:create, :new, :index]
+  resources :shelters, path: "", except: [:create, :new, :index, :download]
   resources :shelters, only: [:create, :new, :show, :edit, :destroy]
   resources :shelters, path: "", only: [] do
     resources :pets, path: "", only: [:create, :new, :show, :edit, :destroy]
