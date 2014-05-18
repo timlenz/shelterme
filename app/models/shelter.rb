@@ -95,18 +95,17 @@ class Shelter < ActiveRecord::Base
   
   def self.to_full_csv(pets)
     CSV.generate do |csv|
-      csv << ["Notes", "ID", "Name", "Added", "Updated", "Sponsor", "Sponsor Email", "Size", "Gender",
-              "Species", "Status", "Weight", "Current Age", "Age Group", "Affection", "Energy Level",
-              "Nature", "Fur Length", "Primary Color", "Secondary Color", "Primary Breed",
-              "Secondary Breed", "Intake Date", "Days in Shelter", "Rescue/Foster Name", "Contact Person",
-              "Contact Email", "Contact Phone", "Description"]
+      csv << ["Notes", "ID", "Name", "Slug", "Status", "Added", "Updated", "Intake Date", "Days in Shelter", 
+              "Sponsor", "Sponsor Email", "Size", "Gender", "Species", "Weight", "Current Age", "Age Group", 
+              "Affection", "Energy Level", "Nature", "Fur Length", "Primary Color", "Secondary Color", "Primary Breed",
+              "Secondary Breed", "Rescue/Foster Name", "Contact Person", "Contact Email", "Contact Phone", "Description"]
       pets.each do |p|
-        csv << ['', p.animal_code, p.name, p.created_at, p.updated_at, p.user.name, p.user.email,
-                p.size.name, p.gender.sex, p.species.name, p.pet_state.status, p.weight, p.current_age.pluralize,
-                p.age_group, p.affection.name, p.energy_level.level, p.nature.name, p.fur_length.length,
-                p.primary_color.color, p.secondary_color ? p.secondary_color.color : '', p.primary_breed.name,
-                p.secondary_breed ? p.secondary_breed.name : '', p.slug, p.intake_date, p.days_in_shelter, 
-                p.refuge_name, p.refuge_person, p.refuge_email, p.refuge_phone, p.description]
+        csv << ['', p.animal_code, p.name, p.slug, p.pet_state.status, p.created_at, p.updated_at, p.intake_date, 
+                p.days_in_shelter, p.user.name, p.user.email, p.size.name, p.gender.sex, p.species.name, 
+                p.weight, p.current_age.pluralize, p.age_group, p.affection.name, p.energy_level.level, p.nature.name, 
+                p.fur_length.length, p.primary_color.color, p.secondary_color ? p.secondary_color.color : '', p.primary_breed.name,
+                p.secondary_breed ? p.secondary_breed.name : '', p.refuge_name, p.refuge_person, p.refuge_email, p.refuge_phone, 
+                p.description]
       end
     end
   end
