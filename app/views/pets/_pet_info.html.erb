@@ -21,13 +21,20 @@
     </span>
   </p><br>
   <% if @pet.pet_state.status == "fostered" || @pet.pet_state.status == "rescued" %>
+    <% if @pet.refuge_name.present? || @pet.refuge_person.present? %>
     <p>
+      <% if @pet.pet_state.status == "fostered" %>
+	  <%= @pet.refuge_name.present? ? "at: " : "by: " %>
+	  <% else %>
+      <%= @pet.refuge_name.present? ? "at: " : "with: " %>
+	  <% end %>
 	  <a data-toggle="modal" href="#visitMe" class="noPrint"><%= @pet.refuge_name != "" ? @pet.refuge_name : @pet.refuge_person %></a>
 	  <span class="printText"><%= @pet.refuge_name != "" ? @pet.refuge_name : @pet.refuge_person %></span>
     </p><br>
 	<p>
 	  <span class="printText"><%= @pet.refuge_email %>  <%= @pet.refuge_phone %></span>
 	</p>
+	<% end %>
   <% else %>
   <p><%= link_to @pet.shelter.name, @pet.shelter, class: "noPrint" %>
 	<span class="printText"><%= @pet.shelter.name %></span></p><br>
