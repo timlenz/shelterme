@@ -176,7 +176,12 @@ class PetsController < ApplicationController
   end
 
   def edit
+    # Find pet, even if name has been changed, and redirect to new name
     @pet = Pet.find params[:id]
+    if request.path != edit_shelter_pet_path(@pet.shelter, @pet)
+      redirect_to edit_shelter_pet_path(@pet.shelter, @pet), status: :moved_permanently
+      flash[:notice] = "#{@pet.name} is the new name for #{request.path.gsub(/\/edit/, '').gsub(/.*\//, '').gsub(/\d*\z/, '').titleize.rstrip}."
+    end
     #
     # Set location for pet in a cascade from most specific to least:
     # 1) value from location cookie
