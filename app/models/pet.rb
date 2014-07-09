@@ -84,7 +84,7 @@ class Pet < ActiveRecord::Base
   accepts_nested_attributes_for :secondary_color
   accepts_nested_attributes_for :fur_length
   
-  validates :name, length: { maximum: 40 }
+  validates :name, length: { maximum: 40 }, presence: true
   validates :description, presence: true, length: { maximum: 800 }
   validates :user_id, presence: true
   validates :size_id, presence: true
@@ -116,6 +116,9 @@ class Pet < ActiveRecord::Base
   default_scope order: 'pets.created_at DESC, pets.intake_date DESC'
 
   profanity_filter :name, :description
+  
+  extend FriendlyId
+  friendly_id :slug, use: :history
 
   def to_param
     slug
@@ -236,11 +239,12 @@ class Pet < ActiveRecord::Base
     end
     
     def generate_slug
-      if name != ""
-        self.slug = name.parameterize.gsub("-","").downcase.titleize
-      else
-        self.slug = animal_code.parameterize.gsub("-","").downcase.titleize
-      end
+      # if name != ""
+      #   self.slug = name.parameterize.gsub("-","").downcase.titleize
+      # else
+      #   self.slug = animal_code.parameterize.gsub("-","").downcase.titleize
+      # end
+      self.slug = name.parameterize.gsub("-","")
       # exclude self before checking if slug already exists; if so, append rand number; repeat
       while Pet.where(slug: self.slug).reject{|p| p == self}.size > 0 do
         self.slug = self.slug + Random.rand(1..9).to_s

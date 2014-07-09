@@ -1,15 +1,15 @@
-<% provide(:title, "Edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}") %> 
+<% provide(:title, "Edit #{@pet.name != "" ? @pet.name : @pet.animal_code}") %> 
 <div class="container content">
   <div class="form-section">
     <div class="pageHeader pageFormHeader">
       <div class="largeIcon editIcon"></div>
       <div class="headerInfo">
-        <h1>Edit <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
+        <h1>Edit <%= @pet.name != "" ? @pet.name : @pet.animal_code %></h1><br>
       </div>
       <% if current_user.admin? %>
       <div class="headerButtons" style="right:10px;">
         <div class="headerEdit">
-          <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}?", class: "btn btn-header btn-warning btn-admin" %>
+          <%= link_to "Delete pet", @pet, method: :delete, confirm: "Are you certain you want to delete #{@pet.name != "" ? @pet.name : @pet.animal_code}?", class: "btn btn-header btn-warning btn-admin" %>
         </div>
       </div>
       <% end %>
@@ -28,11 +28,11 @@
           <%= render "edit_data" %>
         </div>
         <div class="tab-pane" id="photos">
-	        <div id="waiting" class="hide">
-					 <%= image_tag("spinner.gif", width: "55", height: "55")%>
-					 <br>
-					 <h2 style="text-align:center;">Updating...</h2>
-					</div>
+          <div id="waiting" class="hide">
+           <%= image_tag("spinner.gif", width: "55", height: "55")%>
+           <br>
+           <h2 style="text-align:center;">Updating...</h2>
+          </div>
           <div id="editPhotos">
             <%= render partial: "edit_photos", collection: @pet_photos, as: :f %>
           </div>
@@ -41,12 +41,12 @@
           <%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;")%>
           <% if (@pet.pet_photos.find{|p| p.user == current_user }) && @pet.user != current_user && !current_user.admin? %>
           <p style="font-size:13px;color:#853a18;">You may only delete photos that you have uploaded.<p>
-	        <% end %>
+          <% end %>
         </div>
         <div class="tab-pane" id="videos">
           <div id="editVideos">
             <% if @pet.pet_videos.count == 0 %>
-              <p style="font-size:13px;">There are no videos for <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %>.</p>
+              <p style="font-size:13px;">There are no videos for <%= @pet.name != "" ? @pet.name : @pet.animal_code %>.</p>
             <% else %>
             <%= render partial: "edit_videos", collection: @pet_videos, as: :f %>  
             <% end %>
@@ -56,7 +56,7 @@
           <%= link_to("Back to pet profile", [@pet.shelter, @pet], style: "float:right;")%>
           <% if (@pet.pet_videos.find{|p| p.user == current_user }) && @pet.user != current_user && !current_user.admin? %>
           <p style="font-size:13px;color:#853a18;">You may only delete videos that you have uploaded.<p>
-	        <% end %>
+          <% end %>
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@
     <div class="pageHeader">
       <div class="largeIcon photoIcon"></div>
       <div class="headerInfo" style="width:450px;">
-        <h1>Add a Photo of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
-				<p><span class="file-name"></span></p>
+        <h1>Add a Photo of <%= @pet.name != "" ? @pet.name : @pet.animal_code %></h1><br>
+		<p><span class="file-name"></span></p>
       </div>
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     </div>
@@ -12,7 +12,7 @@
 	    <p>
 		  <% if @pet.pet_photos.size == 0 %>
 		  <span style="color:#d54509;font-weight:bold;">
-		  <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %> will not be visible on the site without a photo. Please add one now.</span></p><p>
+		  <%= @pet.name != "" ? @pet.name : @pet.animal_code %> will not be visible on the site without a photo. Please add one now.</span></p><p>
 	    <% end %>
       Horizontal photos work best, as vertical photos will be cropped automatically to fit. Limited to 5000x5000 and 20 MB. See <%= link_to "detailed photo info and tips", faq_path(anchor: "photoTips"), style: "line-height:28px;font-size:12px;", target: "_blank" %>.</p>
       <div class="handhold" style="display:none;text-align:center;margin-bottom:20px;">

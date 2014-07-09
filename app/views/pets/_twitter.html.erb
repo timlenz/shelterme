@@ -1,7 +1,7 @@
 <!-- TWITTER SHARE /-->
 
 <div class="socialItem noPrint">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%=request.protocol+request.host_with_port+request.fullpath%>" data-text="<%= @pet.name ? @pet.name.titleize : "Great pet" %> on ShelterMe.com. <%= truncate(@pet.description, length: 100) %>">Tweet</a>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%=request.protocol+request.host_with_port+request.fullpath%>" data-text="<%= @pet.name ? @pet.name : "Great pet" %> on ShelterMe.com. <%= truncate(@pet.description, length: 100) %>">Tweet</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
 

@@ -7,9 +7,6 @@
       <a href="#watched" data-toggle="tab"><span class="linkCount"><%= @user.watched_pets.size %></span> Followed <%= "Pet".pluralize(@user.watched_pets.size) %></a>
     </li>
     <li>
-      <a href="#followed" data-toggle="tab"><span class="linkCount"><%= @user.followed_users.size %></span> Followed <%= "User".pluralize(@user.followed_users.size) %></a>
-    </li>
-    <li>
       <a href="#comments" data-toggle="tab"><span class="linkCount"><%= @user.microposts.size %></span> <%= "Comment".pluralize(@user.microposts.size) %></a>
     </li>
   </ul>
@@ -24,13 +21,6 @@
         <%= render partial: "shared/pet_tile", collection: @watched, as: :f %>
         <div class="clearfix"></div>
         <%= will_paginate @watched, param_name: 'watched_page' %>
-      </div>
-      <div class="tab-pane" id="followed">
-        <ul>
-        <%= render partial: "followed_users", collection: @followed, as: :f %>
-          <div class="clearfix"></div>
-          <%= will_paginate @followed, param_name: 'followed_page' %>
-        </ul>
       </div>
       <div class="tab-pane" id="comments">
         <% if @user.microposts.any? %>

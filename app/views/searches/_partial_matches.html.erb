@@ -1,21 +1,21 @@
 <div class="partialMatch">
 <p>There
 	
-<% if @search.se_str(50).size > 0 %>
+<% if @search.se_str(20).size > 0 %>
 	
-<%= @search.se_str(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.se_str(50).size == 1 ? "" : @search.se_str(50).size} #{"pet".pluralize(@search.se_str(50).size)} with the #{@search.se_str(50).first.name.downcase == @search.search_string.downcase ? "name" : "ID"} #{@search.search_string}", "#", id: "se_str" %> 
+<%= @search.se_str(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.se_str(20).size == 1 ? "" : @search.se_str(20).size} #{"pet".pluralize(@search.se_str(20).size)} with the #{@search.se_str(20).first.name.downcase == @search.search_string.downcase ? "name" : "ID"} #{@search.search_string}", "#", id: "se_str" %> 
 available near <span><%= @search.location %></span>.
 	
-<% elsif @search.se_str(200).size > 0 %>	
+<% elsif @search.se_str(100).size > 0 %>	
 	
-<%= @search.se_str(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.se_str(200).size == 1 ? "" : @search.se_str(200).size} #{"pet".pluralize(@search.se_str(200).size)} with the #{@search.se_str(200).first.name.downcase == @search.search_string.downcase ? "name" : "ID"} #{@search.search_string}", "#", id: "se_str" %>
-<% if @search.se_str(200).size == 1 %>
-available in <span><%= @search.se_str(200).first.shelter.city %>, <%= @search.se_str(200).first.shelter.state %></span>.
+<%= @search.se_str(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.se_str(100).size == 1 ? "" : @search.se_str(100).size} #{"pet".pluralize(@search.se_str(100).size)} with the #{@search.se_str(100).first.name.downcase == @search.search_string.downcase ? "name" : "ID"} #{@search.search_string}", "#", id: "se_str" %>
+<% if @search.se_str(100).size == 1 %>
+available in <span><%= @search.se_str(100).first.shelter.city %>, <%= @search.se_str(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.se_str(200).first.shelter.city %>, <%= @search.se_str(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.se_str(100).first.shelter.city %>, <%= @search.se_str(100).first.shelter.state %></span>.
 <% end %>
 
 <% elsif @search.se_str(500).size > 0 %>	
@@ -29,109 +29,109 @@ available in the extended <%= @search.location %> area,<br>
 the closest of which is near <span><%= @search.se_str(500).first.shelter.city %>, <%= @search.se_str(500).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.sp_ag_si_ge_en_af_na(50).size > 0 %>
+<% elsif @search.sp_ag_si_ge_en_af_na(20).size > 0 %>
 
-<%= @search.sp_ag_si_ge_en_af_na(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_si_ge_en_af_na(50).size == 1 ? "" : @search.sp_ag_si_ge_en_af_na(50).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge_en_af_na(50).size) : "dog".pluralize(@search.sp_ag_si_ge_en_af_na(50).size)} #{@search.sp_ag_si_ge_en_af_na(50).size == 1 ? "who is" : "who are"} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}", "#", id: "sp_ag_si_ge_en_af_na" %>
+<%= @search.sp_ag_si_ge_en_af_na(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_si_ge_en_af_na(20).size == 1 ? "" : @search.sp_ag_si_ge_en_af_na(20).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge_en_af_na(20).size) : "dog".pluralize(@search.sp_ag_si_ge_en_af_na(20).size)} #{@search.sp_ag_si_ge_en_af_na(20).size == 1 ? "who is" : "who are"} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}", "#", id: "sp_ag_si_ge_en_af_na" %>
 <br>available near <%= @search.location %>.
 	
-<% elsif @search.sp_ag_si_ge(50).size > 0 %>
+<% elsif @search.sp_ag_si_ge(20).size > 0 %>
 
-<%= @search.sp_ag_si_ge(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_si_ge(50).size == 1 ? "" : @search.sp_ag_si_ge(50).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge(50).size) : "dog".pluralize(@search.sp_ag_si_ge(50).size)}", "#", id: "sp_ag_si_ge" %>
+<%= @search.sp_ag_si_ge(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_si_ge(20).size == 1 ? "" : @search.sp_ag_si_ge(20).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge(20).size) : "dog".pluralize(@search.sp_ag_si_ge(20).size)}", "#", id: "sp_ag_si_ge" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_ag_si(50).size > 0 %>  
+<% elsif @search.sp_ag_si(20).size > 0 %>  
 
-<%= @search.sp_ag_si(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_si(50).size == 1 ? "" : @search.sp_ag_si(50).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si(50).size) : "dog".pluralize(@search.sp_ag_si(50).size)}", "#", id: "sp_ag_si" %>
+<%= @search.sp_ag_si(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_si(20).size == 1 ? "" : @search.sp_ag_si(20).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si(20).size) : "dog".pluralize(@search.sp_ag_si(20).size)}", "#", id: "sp_ag_si" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_ag_ge(50).size > 0 %>
+<% elsif @search.sp_ag_ge(20).size > 0 %>
 
-<%= @search.sp_ag_ge(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_ge(50).size == 1 ? "" : @search.sp_ag_ge(50).size} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_ge(50).size) : "dog".pluralize(@search.sp_ag_ge(50).size)}", "#", id: "sp_ag_ge" %>
+<%= @search.sp_ag_ge(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_ge(20).size == 1 ? "" : @search.sp_ag_ge(20).size} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_ge(20).size) : "dog".pluralize(@search.sp_ag_ge(20).size)}", "#", id: "sp_ag_ge" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_si_ge(50).size > 0 %> 
+<% elsif @search.sp_si_ge(20).size > 0 %> 
 
-<%= @search.sp_si_ge(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_si_ge(50).size == 1 ? "" : @search.sp_si_ge(50).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_si_ge(50).size) : "dog".pluralize(@search.sp_si_ge(50).size)}", "#", id: "sp_si_ge" %>
+<%= @search.sp_si_ge(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_si_ge(20).size == 1 ? "" : @search.sp_si_ge(20).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_si_ge(20).size) : "dog".pluralize(@search.sp_si_ge(20).size)}", "#", id: "sp_si_ge" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_en_af_na(50).size > 0 %>
+<% elsif @search.sp_en_af_na(20).size > 0 %>
 
-<%= @search.sp_en_af_na(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_en_af_na(50).size == 1 ? "" : @search.sp_en_af_na(50).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af_na(50).size) : "dog".pluralize(@search.sp_en_af_na(50).size)}", "#", id: "sp_en_af_na" %>
+<%= @search.sp_en_af_na(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_en_af_na(20).size == 1 ? "" : @search.sp_en_af_na(20).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af_na(20).size) : "dog".pluralize(@search.sp_en_af_na(20).size)}", "#", id: "sp_en_af_na" %>
 available near <%= @search.location %>.asdf
 
-<% elsif @search.sp_en_af(50).size > 0 %>  
+<% elsif @search.sp_en_af(20).size > 0 %>  
 
-<%= @search.sp_en_af(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_en_af(50).size == 1 ? "" : @search.sp_en_af(50).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af(50).size) : "dog".pluralize(@search.sp_en_af(50).size)}", "#", id: "sp_en_af" %>
+<%= @search.sp_en_af(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_en_af(20).size == 1 ? "" : @search.sp_en_af(20).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af(20).size) : "dog".pluralize(@search.sp_en_af(20).size)}", "#", id: "sp_en_af" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_en_na(50).size > 0 %>	
+<% elsif @search.sp_en_na(20).size > 0 %>	
 
-<%= @search.sp_en_na(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_en_na(50).size == 1 ? "" : @search.sp_en_na(50).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")} and #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_na(50).size) : "dog".pluralize(@search.sp_en_na(50).size)}", "#", id: "sp_en_na" %>
+<%= @search.sp_en_na(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_en_na(20).size == 1 ? "" : @search.sp_en_na(20).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")} and #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_na(20).size) : "dog".pluralize(@search.sp_en_na(20).size)}", "#", id: "sp_en_na" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_af_na(50).size > 0 %>	
+<% elsif @search.sp_af_na(20).size > 0 %>	
 
-<%= @search.sp_af_na(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_af_na(50).size == 1 ? "" : @search.sp_af_na(50).size} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_af_na(50).size) : "dog".pluralize(@search.sp_af_na(50).size)}", "#", id: "sp_af_na" %>
+<%= @search.sp_af_na(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_af_na(20).size == 1 ? "" : @search.sp_af_na(20).size} #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_af_na(20).size) : "dog".pluralize(@search.sp_af_na(20).size)}", "#", id: "sp_af_na" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_br(50).size > 0 %>	
+<% elsif @search.sp_br(20).size > 0 %>	
 
-<%= @search.sp_br(50).size == 1 ? ( (%[a e i o u].include? @search.breed.name[0,1].downcase) ? "is an" : "is a" ) : "are" %>
-<%= link_to "#{@search.sp_br(50).size == 1 ? "" : @search.sp_br(50).size} #{@search.breed.name.pluralize(@search.sp_br(50).size)}", "#", id: "sp_br" %>
+<%= @search.sp_br(20).size == 1 ? ( (%[a e i o u].include? @search.breed.name[0,1].downcase) ? "is an" : "is a" ) : "are" %>
+<%= link_to "#{@search.sp_br(20).size == 1 ? "" : @search.sp_br(20).size} #{@search.breed.name.pluralize(@search.sp_br(20).size)}", "#", id: "sp_br" %>
 available near <%= @search.location %>.
 
-<% elsif @search.sp_ag_si_ge_en_af_na(200).size > 0 %>
+<% elsif @search.sp_ag_si_ge_en_af_na(100).size > 0 %>
 
-<%= @search.sp_ag_si_ge_en_af_na(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_si_ge_en_af_na(200).size == 1 ? "" : @search.sp_ag_si_ge_en_af_na(200).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge_en_af_na(200).size) : "dog".pluralize(@search.sp_ag_si_ge_en_af_na(200).size)} #{@search.sp_ag_si_ge_en_af_na(200).size == 1 ? "who is" : "who are"} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}", "#", id: "sp_ag_si_ge_en_af_na" %>
+<%= @search.sp_ag_si_ge_en_af_na(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_si_ge_en_af_na(100).size == 1 ? "" : @search.sp_ag_si_ge_en_af_na(100).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge_en_af_na(100).size) : "dog".pluralize(@search.sp_ag_si_ge_en_af_na(100).size)} #{@search.sp_ag_si_ge_en_af_na(100).size == 1 ? "who is" : "who are"} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")}", "#", id: "sp_ag_si_ge_en_af_na" %>
 <br>
-<% if @search.sp_ag_si_ge_en_af_na(200).size == 1 %>
-available in <span><%= @search.sp_ag_si_ge_en_af_na(200).first.shelter.city %>, <%= @search.sp_ag_si_ge_en_af_na(200).first.shelter.state %></span>.
+<% if @search.sp_ag_si_ge_en_af_na(100).size == 1 %>
+available in <span><%= @search.sp_ag_si_ge_en_af_na(100).first.shelter.city %>, <%= @search.sp_ag_si_ge_en_af_na(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.sp_ag_si_ge_en_af_na(200).first.shelter.city %>, <%= @search.sp_ag_si_ge_en_af_na(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.sp_ag_si_ge_en_af_na(100).first.shelter.city %>, <%= @search.sp_ag_si_ge_en_af_na(100).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.sp_ag_si_ge(200).size > 0 %>
+<% elsif @search.sp_ag_si_ge(100).size > 0 %>
 
-<%= @search.sp_ag_si_ge(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_ag_si_ge(200).size == 1 ? "" : @search.sp_ag_si_ge(200).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge(200).size) : "dog".pluralize(@search.sp_ag_si_ge(200).size)}", "#", id: "sp_ag_si_ge" %>
-<% if @search.sp_ag_si_ge(200).size == 1 %>
-available in <span><%= @search.sp_ag_si_ge(200).first.shelter.city %>, <%= @search.sp_ag_si_ge(200).first.shelter.state %></span>.
+<%= @search.sp_ag_si_ge(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_ag_si_ge(100).size == 1 ? "" : @search.sp_ag_si_ge(100).size} #{@search.size_id == 1 ? "small" : (@search.size_id == 2 ? "medium" : "large")} #{@search.age_group} #{(@search.gender_id == 1 ? "male" : "female")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_ag_si_ge(100).size) : "dog".pluralize(@search.sp_ag_si_ge(100).size)}", "#", id: "sp_ag_si_ge" %>
+<% if @search.sp_ag_si_ge(100).size == 1 %>
+available in <span><%= @search.sp_ag_si_ge(100).first.shelter.city %>, <%= @search.sp_ag_si_ge(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.sp_ag_si_ge(200).first.shelter.city %>, <%= @search.sp_ag_si_ge(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.sp_ag_si_ge(100).first.shelter.city %>, <%= @search.sp_ag_si_ge(100).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.sp_en_af_na(200).size > 0 %>
+<% elsif @search.sp_en_af_na(100).size > 0 %>
 
-<%= @search.sp_en_af_na(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp_en_af_na(200).size == 1 ? "" : @search.sp_en_af_na(200).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af_na(200).size) : "dog".pluralize(@search.sp_en_af_na(200).size)}", "#", id: "sp_en_af_na" %>
-<% if @search.sp_en_af_na(200).size == 1 %>
-available in <span><%= @search.sp_en_af_na(200).first.shelter.city %>, <%= @search.sp_en_af_na(200).first.shelter.state %></span>.
+<%= @search.sp_en_af_na(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp_en_af_na(100).size == 1 ? "" : @search.sp_en_af_na(100).size} #{@search.energy_level_id == 1 ? "relaxed" : (@search.energy_level_id == 2 ? "moderate" : "energetic")}, #{@search.nature_id == 1 ? "submissive" : (@search.nature_id == 2 ? "playful" : "confident")} and #{@search.affection_id == 1 ? "devoted" : (@search.affection_id == 2 ? "friendly" : "reserved")} #{@search.species_id == 1 ? "cat".pluralize(@search.sp_en_af_na(100).size) : "dog".pluralize(@search.sp_en_af_na(100).size)}", "#", id: "sp_en_af_na" %>
+<% if @search.sp_en_af_na(100).size == 1 %>
+available in <span><%= @search.sp_en_af_na(100).first.shelter.city %>, <%= @search.sp_en_af_na(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.sp_en_af_na(200).first.shelter.city %>, <%= @search.sp_en_af_na(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.sp_en_af_na(100).first.shelter.city %>, <%= @search.sp_en_af_na(100).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.sp_br(200).size > 0 %>
+<% elsif @search.sp_br(100).size > 0 %>
 
-<%= @search.sp_br(200).size == 1 ? ( (%[a e i o u].include? @search.breed.name[0,1].downcase) ? "is an" : "is a" ) : "are" %>
-<%= link_to "#{@search.sp_br(200).size == 1 ? "" : @search.sp_br(200).size} #{@search.breed.name.pluralize(@search.sp_br(200).size)}", "#", id: "sp_br" %>
-<% if @search.sp_br(200).size == 1 %>
-available in <span><%= @search.sp_br(200).first.shelter.city %>, <%= @search.sp_br(200).first.shelter.state %></span>.
+<%= @search.sp_br(100).size == 1 ? ( (%[a e i o u].include? @search.breed.name[0,1].downcase) ? "is an" : "is a" ) : "are" %>
+<%= link_to "#{@search.sp_br(100).size == 1 ? "" : @search.sp_br(100).size} #{@search.breed.name.pluralize(@search.sp_br(100).size)}", "#", id: "sp_br" %>
+<% if @search.sp_br(100).size == 1 %>
+available in <span><%= @search.sp_br(100).first.shelter.city %>, <%= @search.sp_br(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.sp_br(200).first.shelter.city %>, <%= @search.sp_br(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.sp_br(100).first.shelter.city %>, <%= @search.sp_br(100).first.shelter.state %></span>.
 <% end %>
 	
 <% elsif @search.sp_ag_si_ge_en_af_na(500).size > 0 %>
@@ -179,21 +179,21 @@ available in the extended <%= @search.location %> area,<br>
 the closest of which is near <span><%= @search.sp_br(500).first.shelter.city %>, <%= @search.sp_br(500).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.sp(50).size > 0 %>
+<% elsif @search.sp(20).size > 0 %>
 
-<%= @search.sp(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp(50).size == 1 ? "" : @search.sp(50).size} #{@search.species_id == 1 ? "cat".pluralize(@search.sp(50).size) : "dog".pluralize(@search.sp(50).size)}", "#", id: "sp" %>
+<%= @search.sp(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp(20).size == 1 ? "" : @search.sp(20).size} #{@search.species_id == 1 ? "cat".pluralize(@search.sp(20).size) : "dog".pluralize(@search.sp(20).size)}", "#", id: "sp" %>
 available near <%= @search.location %>.
 	
-<% elsif @search.sp(200).size > 0 %>
+<% elsif @search.sp(100).size > 0 %>
 
-<%= @search.sp(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.sp(200).size == 1 ? "" : @search.sp(200).size} #{@search.species_id == 1 ? "cat".pluralize(@search.sp(200).size) : "dog".pluralize(@search.sp(200).size)}", "#", id: "sp" %>
-<% if @search.sp(200).size == 1 %>
-available in <span><%= @search.sp(200).first.shelter.city %>, <%= @search.sp(200).first.shelter.state %></span>.
+<%= @search.sp(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.sp(100).size == 1 ? "" : @search.sp(100).size} #{@search.species_id == 1 ? "cat".pluralize(@search.sp(100).size) : "dog".pluralize(@search.sp(100).size)}", "#", id: "sp" %>
+<% if @search.sp(100).size == 1 %>
+available in <span><%= @search.sp(100).first.shelter.city %>, <%= @search.sp(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.sp(200).first.shelter.city %>, <%= @search.sp(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.sp(100).first.shelter.city %>, <%= @search.sp(100).first.shelter.state %></span>.
 <% end %>
 
 <% elsif @search.sp(500).size > 0 %>
@@ -207,24 +207,24 @@ available in the extended <%= @search.location %> area,<br>
 the closest of which is near <span><%= @search.sp(500).first.shelter.city %>, <%= @search.sp(500).first.shelter.state %></span>.
 <% end %>
 
-<% elsif @search.pe(50).size > 0 %>
+<% elsif @search.pe(20).size > 0 %>
 
-<%= @search.pe(50).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.pe(50).size == 1 ? "" : @search.pe(50).size} #{"pet".pluralize(@search.pe(50).size)}", "#", id: "pe" %>
+<%= @search.pe(20).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.pe(20).size == 1 ? "" : @search.pe(20).size} #{"pet".pluralize(@search.pe(20).size)}", "#", id: "pe" %>
 available near <%= @search.location %>.
 
-<% elsif @search.pe(200).size > 0 %>
+<% elsif @search.pe(100).size > 0 %>
 
-<%= @search.pe(200).size == 1 ? "is a" : "are" %>
-<%= link_to "#{@search.pe(200).size == 1 ? "" : @search.pe(200).size} #{"pet".pluralize(@search.pe(200).size)}", "#", id: "pe" %>
-<% if @search.pe(200).size == 1 %>
-available in <span><%= @search.pe(200).first.shelter.city %>, <%= @search.pe(200).first.shelter.state %></span>.
+<%= @search.pe(100).size == 1 ? "is a" : "are" %>
+<%= link_to "#{@search.pe(100).size == 1 ? "" : @search.pe(100).size} #{"pet".pluralize(@search.pe(100).size)}", "#", id: "pe" %>
+<% if @search.pe(100).size == 1 %>
+available in <span><%= @search.pe(100).first.shelter.city %>, <%= @search.pe(100).first.shelter.state %></span>.
 <% else %>
 available in the greater <%= @search.location %> area,<br>
-the closest of which is near <span><%= @search.pe(200).first.shelter.city %>, <%= @search.pe(200).first.shelter.state %></span>.
+the closest of which is near <span><%= @search.pe(100).first.shelter.city %>, <%= @search.pe(100).first.shelter.state %></span>.
 <% end %>
 
-<% else %>
+<% elsif @search.pe(500).size > 0 %>
 
 <%= @search.pe(500).size == 1 ? "is a" : "are" %>
 <%= link_to "#{@search.pe(500).size == 1 ? "" : @search.pe(500).size} #{"pet".pluralize(@search.pe(500).size)}", "#", id: "pe" %>
@@ -234,6 +234,11 @@ available in <span><%= @search.pe(500).first.shelter.city %>, <%= @search.pe(500
 available in the greater <%= @search.location %> area,<br>
 the closest of which is near <span><%= @search.pe(500).first.shelter.city %>, <%= @search.pe(500).first.shelter.state %></span>.
 <% end %>
+
+<% else %>
+
+Whoops! We couldn't find any partial matches, either.</p>
+<p>Please visit a <%= link_to "local shelter", findshelter_path %> and <%= link_to "add pets", addpet_path %> there to our database.
 
 <% end %>
 

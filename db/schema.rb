@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422212731) do
+ActiveRecord::Schema.define(:version => 20140703181619) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -111,6 +111,17 @@ ActiveRecord::Schema.define(:version => 20140422212731) do
   add_index "favorites", ["shelter_id"], :name => "index_favorites_on_shelter_id"
   add_index "favorites", ["user_id", "shelter_id"], :name => "index_favorites_on_user_id_and_shelter_id", :unique => true
   add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
+
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "fur_colors", :force => true do |t|
     t.string   "color"
@@ -326,8 +337,8 @@ ActiveRecord::Schema.define(:version => 20140422212731) do
     t.text     "description"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "precedence_id", :default => 1
     t.string   "street"
     t.string   "city"
@@ -343,6 +354,7 @@ ActiveRecord::Schema.define(:version => 20140422212731) do
     t.string   "fri_hours"
     t.string   "sat_hours"
     t.string   "slug"
+    t.boolean  "access",        :default => false
   end
 
   add_index "shelters", ["precedence_id", "created_at"], :name => "index_shelters_on_precedence_id_and_created_at"

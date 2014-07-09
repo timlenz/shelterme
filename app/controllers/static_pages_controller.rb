@@ -51,7 +51,7 @@ class StaticPagesController < ApplicationController
             @pets = Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
             @pets = @pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0') # Don't show any pets without photos
             if @pets.size > 0
-              @featured_pets = @pets.includes(:pet_state).sample(8)
+              @featured_pets = @pets.includes(:pet_state).sample(12)
             
               # TEMPORARY HACK TO ADD A SPECIFIC PET TO LIST
               # if force_pet
@@ -59,7 +59,7 @@ class StaticPagesController < ApplicationController
               # end
             
               @shelter = Shelter.find(@pets.includes(:pet_state).map{|sh| sh.shelter_id}.sample)
-              @shelter_pets = @shelter.available.sample(4)
+              @shelter_pets = @shelter.available.sample(12)
               # Add cache support for featured shelter across the site - and calculate once per day per location (if possible)
               cookies[:featured_pets] = { value: @featured_pets.map{|p| p.id}, expires: 1.day.from_now }
               cookies[:featured_shelter] = { value: @shelter.id, expires: 1.day.from_now }

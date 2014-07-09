@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.includes(:user, pet: :shelter).paginate(page: params[:microposts_page], per_page: 36)
     @sponsored = @user.pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:sponsored_page], per_page: 12)
     @watched = @user.watched_pets.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).paginate(page: params[:watched_page], per_page: 12)
-    @followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
+    #@followed = @user.followed_users.paginate(page: params[:followed_page], per_page: 12)
     cookies[:matchme] = "false"
     if @user.shelter.blank?
       @pseudo_boosted = (@user.watched_pets.includes(:shelter).map{|p| p.shelter} + @user.pets.includes(:shelter).map{|p| p.shelter})

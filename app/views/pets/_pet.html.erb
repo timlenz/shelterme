@@ -13,7 +13,7 @@
         </div>
         <div style="padding-top:9px;" class="name adminName">
         <% if pet.name != '' %>
-        <%= link_to pet.name.titleize, [pet.shelter, pet], target: "_blank" %>
+        <%= link_to pet.name, [pet.shelter, pet], target: "_blank" %>
         <% else %>
         <%= link_to "[ ]", [pet.shelter, pet], target: "_blank" %>
         <% end %>
@@ -65,7 +65,7 @@
         <% end %>
       </td>
       <td colspan="2" class="managedDelete">
-        <%= link_to "Delete #{pet.name.present? ? pet.name.titleize : pet.animal_code}", [pet.shelter, pet], class: "adminName" %>
+        <%= link_to "Delete #{pet.name.present? ? pet.name : pet.animal_code}", [pet.shelter, pet], class: "adminName" %>
       </td>
     </tr>
   </table>

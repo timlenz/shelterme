@@ -43,7 +43,7 @@
     <div class="pageHeader">
       <div class="largeIcon shelterIcon"></div>
       <div class="headerInfo" style="width:385px;">
-        <h1>Visit <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1>
+        <h1>Visit <%= @pet.name != "" ? @pet.name : @pet.animal_code %></h1>
       </div>
       <div class="headerButtons">
         <div class="socialItem noPrint" style="width:auto;float:right;">

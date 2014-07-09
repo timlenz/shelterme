@@ -72,9 +72,10 @@
         </div>
         <%= f.hidden_field :affection_id, label: false %>
         <%= f.input :description, as: :text, hint: "Include any additional necessary information here" %>
-	      <%= f.button :submit, "Add Pet", class: "formBtn", style: "width:145px;" %>
-	      <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;margin-left:50px;")%>
-			  <div id="char_count" class="addPet"></div>
+        <div id="char_count" class="addPet"></div>
+        <div class="clearfix"></div>
+        <%= f.button :submit, "Add Pet", class: "formBtn", style: "width:145px;" %>
+        <%= link_to("Cancel", addpet_path, style: "float:right;padding-top:4px;margin-left:50px;")%>
       </div>
       <div class="clearfix"></div>
       <% end %>

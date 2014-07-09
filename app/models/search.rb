@@ -231,7 +231,7 @@ private
 
   def find_pets
     # added ", US" as hack around Geonames location conflation issues
-    nearbys = Shelter.near(location + ", US", 50, order: "distance").map{|s| s.id} if location.present?
+    nearbys = Shelter.near(location + ", US", 20, order: "distance").map{|s| s.id} if location.present?
     if nearbys
       pets = Pet.where('shelter_id in (?)', nearbys)
       # use "%#{search_string}%" to search for partial match

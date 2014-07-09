@@ -1,5 +1,5 @@
 <div class="addMedia noPrint">
-  <p>Please contribute your photos and videos of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></p>
+  <p>Please contribute your photos and videos of <%= @pet.name != "" ? @pet.name : @pet.animal_code %></p>
   <div class="mediaButtons">
     <% if signed_in? %>
     <%= button_to('      Add Photo', addphoto_path, remote: true, class: "btn", id: "photoClick") %>

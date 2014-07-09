@@ -103,6 +103,8 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
     geocoder (1.2.0)
     growl (1.0.3)
     guard (1.7.0)
@@ -274,6 +276,7 @@ DEPENDENCIES
   debugger
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
+  friendly_id (~> 4.0.10)
   geocoder
   growl (= 1.0.3)
   guard-rspec (= 0.5.5)

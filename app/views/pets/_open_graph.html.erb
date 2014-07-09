@@ -1,4 +1,4 @@
-<meta property="og:title" content="<%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %> | <%= @pet.shelter.name %> @ Shelter Me" />
+<meta property="og:title" content="<%= @pet.name != "" ? @pet.name : @pet.animal_code %> | <%= @pet.shelter.name %> @ Shelter Me" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<%=@canonical_url%>" />
 <meta property="og:description" content="<%= truncate(@pet.description, length: 300, separator: '.') %>" />

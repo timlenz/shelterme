@@ -22,6 +22,7 @@ gem 'net-scp', '1.1.0'
 gem 'nokogiri'
 gem 'cloudinary'
 gem 'active_attr'
+gem 'friendly_id', '~> 4.0.10'
 
 group :development do
   gem 'rspec-rails', '2.9.0'

@@ -24,6 +24,7 @@
 #  fri_hours     :string(255)
 #  sat_hours     :string(255)
 #  slug          :string(255)
+#  access        :boolean         default(FALSE)
 #
 
 require 'spec_helper'

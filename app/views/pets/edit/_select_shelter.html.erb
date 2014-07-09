@@ -4,5 +4,6 @@
   <div class="wrapper">
     <%= f.text_field :location, name: "", value: "#{ @current_location ? @current_location : (@pet.shelter.city + ", " + @pet.shelter.state) }" %>
     <button type="button" class="btn btn-header" id="updateLocation" style="margin-left:12px;">Change</button>
+	<p class="help-block" style="margin-bottom:0;">Enter as City, State (e.g. Los Angeles, CA)</p>
   </div>
 </div>

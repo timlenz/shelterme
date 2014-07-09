@@ -14,7 +14,16 @@
           <%= f.input :name %> 
           <%= f.input :phone %>
           <%= f.input :description, as: :text %>
+          <div id="char_count" class="addShelter"></div>
+          <div class="clearfix"></div>
           <% if signed_in? && current_user.admin? %>
+		  <%= f.label "Limit access", class: "control-label", required: true %>
+		  <div class="btn-group two-btn btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[access]">
+		    <button type="button" data-toggle="button" class="btn" value="f">No</button>
+		    <button type="button" data-toggle="button" class="btn" value="t">Yes</button>
+		  </div>
+          <p class="help-block" style="margin-top:-15px;margin-bottom:10px;">Selecting "Yes" limits pet addition to managers</p>
+		  <%= f.hidden_field :access, label: false, value: "f" %>
           <%= f.label "Precedence", class: "control-label", required: true %>
           <div class="btn-group four-btn-full btn-graphic btn-two-column" data-toggle="buttons-radio" data-toggle-name="shelter[precedence_id]">
             <button type="button" data-toggle="button" class="btn" value="1">Newest</button>
@@ -24,7 +33,6 @@
           </div>
           <p class="help-block" style="margin-top:-15px;">Set the display order for your pets</p>
           <%= f.hidden_field :precedence_id, label: false %>
-          <div id="char_count" class="addShelter"></div>
           <% end %>
           <% unless signed_in? && current_user.admin? %>
             <div class="addInstructions" style="height:90px;">
@@ -47,8 +55,8 @@
           <%= f.input :fri_hours, label: "Friday" %>
           <%= f.input :sat_hours, label: "Saturday" %>
 
-	        <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
-	        <%= link_to("Cancel", root_path, style: "float:right;padding-top:4px;")%>
+          <%= f.button :submit, "Add Shelter", class: "formBtn", style: "width:145px;" %>
+          <%= link_to("Cancel", root_path, style: "float:right;padding-top:4px;")%>
         </div>
         <div class="clearfix"></div>
       <% end %>

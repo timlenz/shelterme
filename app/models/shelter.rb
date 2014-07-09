@@ -24,13 +24,14 @@
 #  fri_hours     :string(255)
 #  sat_hours     :string(255)
 #  slug          :string(255)
+#  access        :boolean         default(FALSE)
 #
 
 class Shelter < ActiveRecord::Base
   attr_accessible :description, :email, :name, :phone, :precedence_id,
                   :rank, :street, :city, :state, :zipcode, :latitude, :longitude,
                   :sun_hours, :mon_hours, :tue_hours, :wed_hours, :thu_hours,
-                  :fri_hours, :sat_hours, :slug
+                  :fri_hours, :sat_hours, :slug, :access
   
   belongs_to :precedence
   has_many :favorites, dependent: :destroy

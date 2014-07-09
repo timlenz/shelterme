@@ -27,7 +27,7 @@
   <div class="small-pet-info">
     <h3>
       <% if f.name != "" %>
-      <%= link_to f.name.titleize, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
+      <%= link_to f.name, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
       <% else %>
       <%= link_to f.animal_code, [f.shelter, f], target: "#{params[:controller] == 'searches' or (params[:controller] == 'users' and params[:action] == 'matchme') ? "_blank" : "_self"}" %>
       <% end %>

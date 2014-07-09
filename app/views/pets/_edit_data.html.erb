@@ -1,7 +1,7 @@
 <%= simple_form_for(@pet, html: {class: 'form-horizontal' }) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 <div class="leftEditForm">
-	<%= render 'pets/edit/created_at', f: f %>
+  <%= render 'pets/edit/created_at', f: f %>
   <%= render 'pets/edit/code', f: f %>
   <%= f.input :name, hint: "Give the pet a name if it does not have one" %>
   <% if signed_in? and (current_user.admin? or @pet.user == current_user or
@@ -30,7 +30,7 @@
     <button type="button" data-toggle="button" class="btn" value="3">Large</button>
   </div>
   <%= f.hidden_field :size_id, label: false %>
-	<%= render 'pets/edit/mix', f: f %>
+  <%= render 'pets/edit/mix', f: f %>
 </div>
 <div class="rightEditForm">
   <%= render 'pets/edit/coat', f: f %>
@@ -54,16 +54,16 @@
   <%= f.hidden_field :pet_state_id, label: false %>
   <div id="refugeDetails">
     <div style="float:left;margin-right:20px;">
-	  	<%= f.input :refuge_name, label: "Organization" %>
+      <%= f.input :refuge_name, label: "Organization" %>
     </div>
     <div style="float:left;">
-	    <%= f.input :refuge_person, label: "Contact" %>
+      <%= f.input :refuge_person, label: "Contact" %>
     </div>
     <div style="float:left;margin-right:20px;">
-	  	<%= f.input :refuge_email, label: "Email" %>
+      <%= f.input :refuge_email, label: "Email" %>
     </div>
     <div style="float:left;">
-	    <%= f.input :refuge_phone, label: "Phone" %>
+      <%= f.input :refuge_phone, label: "Phone" %>
     </div>
   </div>
 <% end %>

@@ -4,7 +4,7 @@
     <div class="pageHeader pageFormHeader">
       <div class="largeIcon cropIcon"></div>
       <div class="headerInfo">
-        <h1>Crop Photo of <%= @pet_photo.pet.name != '' ? @pet_photo.pet.name.titleize : @pet_photo.pet.animal_code %></h1><br>
+        <h1>Crop Photo of <%= @pet_photo.pet.name != '' ? @pet_photo.pet.name : @pet_photo.pet.animal_code %></h1><br>
       </div>
     </div>
     <div class="fullEditForm">

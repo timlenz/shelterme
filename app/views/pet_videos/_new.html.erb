@@ -3,7 +3,7 @@
     <div class="pageHeader">
       <div class="largeIcon videoIcon"></div>
       <div class="headerInfo" style="width:450px;">
-        <h1>Add a Video of <%= @pet.name != "" ? @pet.name.titleize : @pet.animal_code %></h1><br>
+        <h1>Add a Video of <%= @pet.name != "" ? @pet.name : @pet.animal_code %></h1><br>
 				<p></p>
       </div>
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

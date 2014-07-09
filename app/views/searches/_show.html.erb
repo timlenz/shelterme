@@ -3,37 +3,42 @@
    <br>
    <h2 style="text-align:center;">Searching...</h2>
   </div>
-<% if $search.present? && $search.pets.present? && @search_results.present? %>
-	<span id="resultsCount" style="display:none;">
-		Found
-	  <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
-	  <%= @search.pets.size %>
-	  <% else %>
-	  <%= pluralize(@search.pets.size, "#{@search.species_id.present? ? (@search.species_id == 1 ? "cat" : "dog") : "pet"}") %>
-	  <% end %>
-	  <% if @search.search_string.present? %>
-	    : <%= @search.search_string %>
-	  <% end %>
-	</span>
+  
+<%# Display exact matches for search terms %>
+<% if $search && $search.pets.present? && @search_results.present? %>
+
+  <span id="resultsCount" style="display:none;">
+    Found
+    <% if @search.species_id.present? && (@search.size_id.present? || @search.nature_id.present?) %>
+    <%= @search.pets.size %>
+    <% else %>
+    <%= pluralize(@search.pets.size, "#{@search.species_id.present? ? (@search.species_id == 1 ? "cat" : "dog") : "pet"}") %>
+    <% end %>
+    <% if @search.search_string.present? %>
+      : <%= @search.search_string %>
+    <% end %>
+  </span>
   <div id="results">
     <%= render partial: "shared/pet_tile", collection: @search_results, as: :f %>
     <div class="clearfix"></div>
     <%= will_paginate @search_results %>
   </div>
 
-<script>
-$(function(){
-    $('[rel=tooltip]').tooltip();
+  <script>
+  $(function(){
+      $('[rel=tooltip]').tooltip();
 
-		if ( $('#resultsCount').text() != "" ) {
-			$('#displayCount').show().text($('#resultsCount').text());
-		};
-		
-		$('.pagination a').attr('data-remote', 'true');
-});
-</script>
+      if ( $('#resultsCount').text() != "" ) {
+        $('#displayCount').show().text($('#resultsCount').text());
+      };
+    
+      $('.pagination a').attr('data-remote', 'true');
+  });
+  </script>
 
-<% elsif $search.pe(500).present? or $search.se_str(500).present? %>
+<%# If no exact matches for search terms found, look for partial matches %>
+<% elsif $search && (($search.pe(500).present? && $search.pe(500).size > 0) or ($search.se_str(500).present? && $search.se_str(500).size > 0)) %>
+
   <div class="findBlurb" style="height:400px;">
   <h3><%= image_tag("partialMatchFound.png", width: "337", height: "30")%></h3><br>
   <p>No available pets near <%= @search.location %> were an exact match for your search.<br>
@@ -50,37 +55,41 @@ $(function(){
     </div>
   </div>
 
-<%= render 'quick_links' %>
+  <%= render 'quick_links' %>
 
-<% elsif $search.search_string.present? %> <!-- If no matches found for search string, prompt user to enter pet -->
-	<div class="findBlurb" style="height:400px;">
-		<h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
-		<p>No pets in the extended <%= @search.location ? @search.location : 'your location' %> area have the name or ID <%= $search.search_string %>.<br>Did you enter your search string correctly?</p>
+<%# If no matches found for search string, prompt user to enter pet %>
+<% elsif $search && $search.search_string.present? %>
+
+  <div class="findBlurb" style="height:400px;">
+    <h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
+    <p>No pets in the extended <%= @search.location ? @search.location : 'your location' %> area have the name or ID <%= $search.search_string %>.<br>Did you enter your search string correctly?</p>
     <p>If so, please <%= link_to "add #{@search.search_string}", addpet_path %> to our database.</p>
     <p>Otherwise, perhaps you would like to <%= link_to "add pets", addpet_path %> from your <%= link_to "local shelter", findshelter_path %>&#8230;</p>
-	  <div class="row" style="margin-top:110px;">
-	    <div class="noPets">
-	      <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
-	    </div>
-	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
-	      <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
-	    </div>
-	  </div>
-	</div>
+    <div class="row" style="margin-top:110px;">
+      <div class="noPets">
+        <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
+      </div>
+      <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
+        <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
+      </div>
+    </div>
+  </div>
 
-<% else %> <!-- If no partial matches found, then admit defeat -->
-	<div class="findBlurb" style="height:400px;">
-		<h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
-		<p>Unfortunately, there are no pets available in the extended <%= @search.location ? @search.location : 'your location' %> area.</p>
-		<p>Please visit a <%= link_to "local shelter", findshelter_path %> and <%= link_to "add pets", addpet_path %> there to our database.</p>
-	  <div class="row" style="margin-top:110px;">
-	    <div class="noPets">
-	      <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
-	    </div>
-	    <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
-	      <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
-	    </div>
-	  </div>
-	</div>
+<%# If no partial matches found, then admit defeat %>
+<% else %> 
+
+  <div class="findBlurb" style="height:400px;">
+    <h3><%= image_tag("noPetsFound.png", width: "166", height: "27")%></h3><br>
+    <p>Unfortunately, there are no pets available in the extended <%= @search.location ? @search.location : 'your location' %> area.</p>
+    <p>Please visit a <%= link_to "local shelter", findshelter_path %> and <%= link_to "add pets", addpet_path %> there to our database.</p>
+    <div class="row" style="margin-top:110px;">
+      <div class="noPets">
+        <%= image_tag("noPetsImage.png", width: "418", height: "253") %>
+      </div>
+      <div class="cornerLogo" style="margin-bottom: 10px;margin-right: -40px;">
+        <%= image_tag("logo_small.png", alt: "Shelter Me", width: "97", height: "49") %>
+      </div>
+    </div>
+  </div>
 <% end %>
 

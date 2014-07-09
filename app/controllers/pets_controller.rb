@@ -1,6 +1,7 @@
 class PetsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :edit, :new]
-  before_filter :find_pet, only: [:show, :edit, :update, :destroy]
+  # before_filter :find_pet, only: [:show, :edit, :update, :destroy]
+  before_filter :find_pet, only: :show # Move find pet to individual actions because of friendly id slug history
   
   respond_to :html, :js
   
@@ -35,7 +36,7 @@ class PetsController < ApplicationController
       end
     end
     @nearbys = Array.new
-    @nearbys = Shelter.near(@current_location + ", US", 70, order: "distance").limit(15)
+    @nearbys = Shelter.near(@current_location + ", US", 20, order: "distance").limit(15)
     # added ", US" as hack around Geonames location conflation issues
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
@@ -46,11 +47,22 @@ class PetsController < ApplicationController
         @nearbys = @nearbys << recent_shelter
       end
     end
+    # Check for restricted access shelters and remove from list if current user not a manager there (non-admin users)
+    if @nearbys.find{|s| s.access == true} && !current_user.admin?
+      # Check if current user is a manager for a restricted shelter in the list
+      if current_user.manager? && @nearbys.select{|s| s.access == true}.map{|i| i.id}.include?(current_user.shelter_id)
+        # Eliminate all restricted shelters for which the current user is not a manager
+        @nearbys = @nearbys.reject!{|s| s.access == true && s.id != current_user.shelter_id}
+      else
+        # Otherwise, eliminate all restricted shelters
+        @nearbys.reject!{|s| s.access == true}
+      end
+    end
     # if pets with same ID have been found, remove their shelters from the list of available shelters
     unless cookies[:exclude_shelters].blank?
       exclude_shelters = cookies[:exclude_shelters].split("&").map{|s| s.to_i}.uniq
       exclude_shelters = exclude_shelters.map{|s| Shelter.select{|x| x.id == s}}.flatten
-      @nearbys = @nearbys.reject{|s| exclude_shelters.include? s }
+      @nearbys.reject!{|s| exclude_shelters.include? s }
     end
     # can't add a pet if there aren't any shelters available
     if @nearbys.size == 0
@@ -66,7 +78,7 @@ class PetsController < ApplicationController
   def create
     # Check to see if user has navigated backwards to new pet form before resubmitting
     if cookies[:duplicate_pet] == "true"
-      flash[:notice] = "#{params[:pet][:name] != "" ? params[:pet][:name].titleize : params[:pet][:animal_code]} has been added already."
+      flash[:notice] = "#{params[:pet][:name] != "" ? params[:pet][:name] : params[:pet][:animal_code]} has been added already."
       @shelter = Shelter.find(params[:pet][:shelter_id])
       redirect_to @shelter and return
     else
@@ -77,7 +89,7 @@ class PetsController < ApplicationController
         cookies[:exclude_shelters] = ""
         cookies[:duplicate_pet] = "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, nil) # record pet state to journal ("available" by default)
-        flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been added."
+        flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been added."
         redirect_to [@shelter, @pet]
       else
         flash[:error] = "Please enter all required information."
@@ -95,7 +107,7 @@ class PetsController < ApplicationController
       cookies[:animal_ID] = ''
       cookies[:duplicate_pet] = "false"
       if params[:search].present?
-        cookies[:animal_ID] = params[:search].parameterize.titleize.gsub(" ","")
+        cookies[:animal_ID] = params[:search]#.parameterize.titleize.gsub(" ","")
         # Check for match with end of animal ID, not including first character
         @pets = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where('animal_code LIKE ?', "%#{cookies[:animal_ID][1..-1]}")
         @exact_pets = Pet.where('animal_code LIKE ?', "#{cookies[:animal_ID]}")
@@ -144,15 +156,15 @@ class PetsController < ApplicationController
     elsif accessor == "/la"
       @current_location = "Los Angeles"
     end
-    nearbys = Shelter.near(@current_location + ", US", 50, order: "distance").map{|s| s.id}
+    nearbys = Shelter.near(@current_location + ", US", 20, order: "distance").map{|s| s.id}
     unless nearbys.size > 0
-      nearbys = Shelter.near(@current_location + ", US", 200, order: "distance").map{|s| s.id}
+      nearbys = Shelter.near(@current_location + ", US", 100, order: "distance").map{|s| s.id}
     end
     if nearbys.size > 0
       pets = Pet.order(:name) # IS THIS NECESSARY?
       pets = pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0')
       @pet = pets[Random.rand(0..(pets.size-1))]
-      flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} is your featured pet."
+      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} is your featured pet."
       redirect_to [@pet.shelter, @pet]
     else
       flash[:error] = "There are no pets available near you."
@@ -164,6 +176,7 @@ class PetsController < ApplicationController
   end
 
   def edit
+    @pet = Pet.find params[:id]
     #
     # Set location for pet in a cascade from most specific to least:
     # 1) value from location cookie
@@ -181,7 +194,7 @@ class PetsController < ApplicationController
     else
       @current_location = current_user.location
     end
-    @nearbys = Shelter.near(@current_location + ", US", 50, order: "distance")
+    @nearbys = Shelter.near(@current_location + ", US", 20, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.size > 0
@@ -195,9 +208,20 @@ class PetsController < ApplicationController
     unless shelter_check
       @nearbys = @nearbys << @pet.shelter
     end
+    # Check for restricted access shelters and remove from list if current user not a manager there (non-admin users)
+    if @nearbys.find{|s| s.access == true} && !current_user.admin?
+      # Check if current user is a manager for a restricted shelter in the list
+      if @nearbys.select{|s| s.access == true}.map{|i| i.id}.include?(current_user.shelter_id)
+        # Eliminate all restricted shelters for which the current user is not a manager
+        @nearbys = @nearbys.reject!{|s| s.access == true && s.id != current_user.shelter_id}
+      else
+        # Otherwise, eliminate all restricted shelters
+        @nearbys.reject!{|s| s.access == true}
+      end
+    end
   rescue
     if @pet
-      flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+      flash[:error] = "Unable to edit #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     else
       flash[:error] = "Unable to edit pet."
     end  
@@ -218,6 +242,7 @@ class PetsController < ApplicationController
   end
   
   def update
+    @pet = Pet.find params[:id]
     if @pet.update_attributes(params[:pet])
       if cookies[:managed_pets] == "true"
         @pet.journalize!(@pet.shelter, @pet.pet_state, old_pet_state: cookies[:pet_state_change])
@@ -232,16 +257,17 @@ class PetsController < ApplicationController
             PetMailer.absent_pet(@pet,current_user).deliver
             cookies[:absent_pet_submit] = "false"
           end
-          flash[:success] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been updated."
+          flash[:success] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been updated."
         end
         redirect_to [@pet.shelter, @pet]
       end
     else
       redirect_to :back
+      flash[:error] = "Please enter all required information."
     end
   rescue
     if @pet
-      flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+      flash[:error] = "Unable to update #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     else
       flash[:error] = "Unable to update pet."
     end  
@@ -250,17 +276,23 @@ class PetsController < ApplicationController
   end
   
   def destroy
-    @pet.destroy
-    flash[:notice] = "#{@pet.name != "" ? @pet.name.titleize : @pet.animal_code} has been deleted."
-    if cookies[:delete_managed_pet] == "true"
-      redirect_to :back
-      cookies[:delete_managed_pet] = "false"
+    @pet = Pet.find params[:id]
+    if signed_in? && current_user.admin?
+      @pet.destroy
+      flash[:notice] = "#{@pet.name != "" ? @pet.name : @pet.animal_code} has been deleted."
+      if cookies[:delete_managed_pet] == "true"
+        redirect_to :back
+        cookies[:delete_managed_pet] = "false"
+      else
+        redirect_to root_path
+      end
     else
-      redirect_to root_path
+      flash[:error] = "Unable to delete pet."
+      redirect_to :back
     end
   rescue
     if @pet
-      flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name.titleize : @pet.animal_code}."
+      flash[:error] = "Unable to delete #{@pet.name != "" ? @pet.name : @pet.animal_code}."
     else
       flash[:error] = "Unable to delete pet."
     end  
@@ -278,7 +310,15 @@ class PetsController < ApplicationController
     end
     
     def find_pet
-      @pet = Pet.where('slug iLIKE ?', "#{params[:id]}").first # CASE INSENSITIVE LOOKUP
+      # @pet = Pet.where('slug iLIKE ?', "#{params[:id]}").first # CASE INSENSITIVE LOOKUP
+      # now uses Friendly ID's modified finder method
+      @pet = Pet.find params[:id]
+      if request.path != shelter_pet_path(@pet.shelter, @pet)
+        redirect_to shelter_pet_path(@pet.shelter, @pet), status: :moved_permanently
+        flash[:notice] = "#{@pet.name} is the new name for #{request.path.gsub(/.*\//, '').gsub(/\d*\z/, '').titleize.rstrip}."
+      end
+    rescue
+      @pet = Pet.find params[:id].downcase
     end
 end
 
