@@ -150,19 +150,19 @@ $(function(){
 	});
 	
 	// Hide Add Media buttons if user agent is iPad - added iPhone|iPod|Android until mobile apps ready
-	if ( $('.addMedia').length ) {
-		if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
-			$('.mediaButtons input').prop('disabled', true);
-		};
-	};
+	// if ( $('.addMedia').length ) {
+	// 	if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
+	// 		$('.mediaButtons input').prop('disabled', true);
+	// 	};
+	// };
 	
 	// Hide Add Pet, Add Photo, Add Video if user agent is iPad (and other tablets) - added iPhone|iPod|Android until mobile apps ready
-	if ( $('#addPet, .addMedia').length) {
-		if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
-			$('#addPet, .addMedia .mediaButtons, .addMedia p:first').hide();
-			$('#tabletAlert').show();
-		};
-	};
+	// if ( $('#addPet, .addMedia').length) {
+	// 	if ( navigator.userAgent.match(/iPhone|iPod|Android|iPad/i) != null ) {
+	// 		$('#addPet, .addMedia .mediaButtons, .addMedia p:first').hide();
+	// 		$('#tabletAlert').show();
+	// 	};
+	// };
 
 	// Set Shelter Exclusion cookie if adding non-redundant pet ID after redundant result found
 	// explicitly prevents the exclusion of shelters from potential pet shelter locations
