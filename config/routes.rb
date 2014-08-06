@@ -90,6 +90,7 @@ ShelterMe::Application.routes.draw do
   match '/statistics',        to: 'static_pages#statistics'
   match '/tutorial',          to: 'static_pages#tutorial'
   match '/mobile',            to: 'static_pages#home'
+  match '/events',            to: 'static_pages#events'
 
   # Put these at the bottom to avoid over-riding the explicit routes above
   resources :shelters, path: "", except: [:create, :new, :index, :download]
