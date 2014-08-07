@@ -46,6 +46,7 @@
         <div class="tab-pane" id="dogs">
           <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
           <div class="clearfix"></div>
+		  <br>More profiles coming soon.
           <%= will_paginate @available_dogs, param_name: 'dogs_page' %>
         </div>
         <div class="tab-pane" id="cats">        
