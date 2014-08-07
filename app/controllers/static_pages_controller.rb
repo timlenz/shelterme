@@ -155,4 +155,11 @@ class StaticPagesController < ApplicationController
     @clean = User.includes(:clean_value).map{|u| u.clean_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
     @energy = User.includes(:energy_value).map{|u| u.energy_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
   end
+  
+  def events
+    dogs = [9802, 9805, 9819, 9686, 9656, 9569]
+    cats = []
+    @available_dogs = Pet.where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)
+    @available_cats = Pet.where(id: cats).paginate(page: params[:cats_page], per_page: 12)
+  end
 end

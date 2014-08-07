@@ -36,7 +36,7 @@ class PetsController < ApplicationController
       end
     end
     @nearbys = Array.new
-    @nearbys = Shelter.near(@current_location + ", US", 20, order: "distance").limit(15)
+    @nearbys = Shelter.near(@current_location + ", US", 50, order: "distance").limit(15)
     # added ", US" as hack around Geonames location conflation issues
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
@@ -65,7 +65,7 @@ class PetsController < ApplicationController
       @nearbys.reject!{|s| exclude_shelters.include? s }
     end
     # can't add a pet if there aren't any shelters available
-    if @nearbys.size == 0
+    if @nearbys.nil? || @nearbys.size == 0
       flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end

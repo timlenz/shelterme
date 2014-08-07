@@ -12,10 +12,11 @@
     </div>
     <div class="row">
       <div class="shelterDetails">
-        <div class="shelterBlurb">
-		  More than 100 pets will be available for adoption at the grand opening of the Pet Food Express in Rolling Hills Estates.<br><br>
+        <div class="shelterBlurb" style="height:230px;">
+		  More than 100 pets will be available for adoption at the grand opening of Pet Food Express in Rolling Hills Estates.<br><br>
 		  Saturday, August 9th, 10 AM - 4 PM<br><br>
-		  Discounted adoption fees: $55 for dogs and $45 for cats. Includes spay/neuter, microchip and vaccinations.
+		  Discounted adoption fees: $55 for dogs (normally $125) and $45 for cats (normally $115). Includes spay/neuter, microchip and vaccinations.<br><br>
+		  Pet Food Express is paying the County shelters $50 for every pet they bring to the adoption event and paying an additional $100 for every pet that gets adopted, plus $100 for every pet adopted at County shelters for an entire week.
         </div>
       </div>
       <div class="rightColumn">
@@ -43,16 +44,15 @@
     <div class="possibleScroll">
       <div class="tab-content fullContent">
         <div class="tab-pane" id="dogs">
-          <!--%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %-->
-		  The profiles of the pets will be posted on Thursday.
+          <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
           <div class="clearfix"></div>
-          <!--%= will_paginate @available_dogs, param_name: 'dogs_page' %-->
+          <%= will_paginate @available_dogs, param_name: 'dogs_page' %>
         </div>
         <div class="tab-pane" id="cats">        
-          <!--%= render partial: "shared/pet_tile", collection: @available_cats, as: :f %-->
-		  The profiles of the pets will be posted on Thursday.
+          <%= render partial: "shared/pet_tile", collection: @available_cats, as: :f %>
           <div class="clearfix"></div>
-          <!--%= will_paginate @available_cats, param_name: 'cats_page' %-->
+		  <br>More profiles coming soon.
+          <%= will_paginate @available_cats, param_name: 'cats_page' %>
         </div>
       </div>
     </div>
