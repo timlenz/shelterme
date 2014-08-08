@@ -51,22 +51,23 @@ class PetsController < ApplicationController
     if @nearbys.find{|s| s.access == true} && !current_user.admin?
       # Check if current user is a manager for a restricted shelter in the list
       if current_user.manager? && @nearbys.select{|s| s.access == true}.map{|i| i.id}.include?(current_user.shelter_id)
+        debugger
         # Eliminate all restricted shelters for which the current user is not a manager
-        @nearbys = @nearbys.reject!{|s| s.access == true && s.id != current_user.shelter_id}
+        @nearbys = @nearbys.reject{|s| (s.access == true && s.id != current_user.shelter_id)}
       else
         # Otherwise, eliminate all restricted shelters
         @nearbys.reject!{|s| s.access == true}
       end
     end
     # if pets with same ID have been found, remove their shelters from the list of available shelters
-    unless cookies[:exclude_shelters].blank?
+    if cookies[:exclude_shelters].to_i > 0
       exclude_shelters = cookies[:exclude_shelters].split("&").map{|s| s.to_i}.uniq
       exclude_shelters = exclude_shelters.map{|s| Shelter.select{|x| x.id == s}}.flatten
       @nearbys.reject!{|s| exclude_shelters.include? s }
     end
     # can't add a pet if there aren't any shelters available
     if @nearbys.nil? || @nearbys.size == 0
-      flash[:notice] = "There are no shelters nearby. Please either change your location or add a shelter below."
+      flash[:notice] = "There are no shelters nearby that allow the public to add pets. Please either change your location or add a shelter below."
       redirect_to findshelter_path
     end
   rescue
