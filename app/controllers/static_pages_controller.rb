@@ -157,7 +157,7 @@ class StaticPagesController < ApplicationController
   end
   
   def events
-    dogs = [9802, 9805, 9819, 9686, 9656, 9569, 9854, 9856, 9855]
+    dogs = [9802, 9805, 9819, 9686, 9656, 9569, 9854, 9856, 9855, 9865, 9867, 9866, 9868, 9870, 9869, 9872]
     cats = [9863, 9859, 9857, 9858, 9864]
     @available_dogs = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)
     @available_cats = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: cats).paginate(page: params[:cats_page], per_page: 12)
