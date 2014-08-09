@@ -4,58 +4,13 @@
     <div class="pageHeader">
 	  <div class="largeIcon shelterIcon"></div>
 	  <div class="headerInfo">
-	    <h1>Pet Food Express</h1><br>
-	    <p>27341 Hawthorne Blvd, Rolling Hills Estates, CA 90274</p>
-	  	<br>
-	    <p>(across from the Peninsula Shopping Center)</p>
+	    <h1>Events</h1><br>
+	    <p>(click banners below for more details &amp; lists of available pets)</p>
 	  </div>
     </div>
-    <div class="row">
-      <div class="shelterDetails">
-        <div class="shelterBlurb" style="height:230px;">
-		  More than 100 pets will be available for adoption at the grand opening of Pet Food Express in Rolling Hills Estates.<br><br>
-		  Saturday, August 9th, 10 AM - 4 PM<br><br>
-		  Discounted adoption fees: $55 for dogs (normally $125) and $45 for cats (normally $115). Includes spay/neuter, microchip and vaccinations.<br><br>
-		  Pet Food Express is paying the County shelters $50 for every pet they bring to the adoption event and paying an additional $100 for every pet that gets adopted, plus $100 for every pet adopted at County shelters for an entire week.
-        </div>
-      </div>
-      <div class="rightColumn">
-		<div class="map">
-		  <a href="https://maps.google.com/maps?q=27341+Hawthorne+Blvd+Rolling+Hills+Estates+CA" target="_blank">
-		    <img src="https://maps.googleapis.com/maps/api/staticmap?size=290x230&markers=icon:http://assets.shelterme.com/mapIcon.png|shadow:false%7Clabel:A%7C27341+Hawthorne+Blvd,Rolling+Hills+Estates,CA&zoom=14&&sensor=false&key=AIzaSyBhRhKDSxCbsS-gmm9KT6O6n_Zy6JjS8_g" width="100%" height="100%">
-		  </a>
-		</div>
-      </div>
-    </div>
-  </div>  
-  <div class="profile-section">
-    <ul class="nav nav-tabs">
-      <li>
-        <a href="#dogs" data-toggle="tab">
-          <span class="linkCount"></span> Dogs
-        </a>
-      </li>
-      <li>
-        <a href="#cats" data-toggle="tab">
-          <span class="linkCount"></span> Cats
-        </a>
-      </li>
-    </ul>
-    <div class="possibleScroll">
-      <div class="tab-content fullContent">
-        <div class="tab-pane" id="dogs">
-          <%= render partial: "shared/pet_tile", collection: @available_dogs, as: :f %>
-          <div class="clearfix"></div>
-		  <br>More profiles coming soon.
-          <%= will_paginate @available_dogs, param_name: 'dogs_page' %>
-        </div>
-        <div class="tab-pane" id="cats">        
-          <%= render partial: "shared/pet_tile", collection: @available_cats, as: :f %>
-          <div class="clearfix"></div>
-		  <br>More profiles coming soon.
-          <%= will_paginate @available_cats, param_name: 'cats_page' %>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="row" style="margin-top:20px;">
+		<%= link_to image_tag('RollingHills_8_9.jpg'), events_8_9_path, {style:"margin:0 9px 0 20px;float:left;"} %>
+		<%= link_to image_tag('RollingHills_8_10.jpg'), events_8_10_path, {style:"margin:0 0 0 9px;float:right;"} %>
+	</div>
+  </div> 
 </div>

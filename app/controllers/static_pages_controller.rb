@@ -156,9 +156,16 @@ class StaticPagesController < ApplicationController
     @energy = User.includes(:energy_value).map{|u| u.energy_value}.compact.inject(Hash.new(0)) {|hash, val| hash[val] += 1; hash}.entries.sort_by{|k,v| v}.last.first.name
   end
   
-  def events
+  def events_8_9
     dogs = [9802, 9805, 9819, 9686, 9656, 9569, 9854, 9856, 9855, 9865, 9867, 9866, 9868, 9870, 9869, 9872]
     cats = [9863, 9859, 9857, 9858, 9864]
+    @available_dogs = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)
+    @available_cats = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: cats).paginate(page: params[:cats_page], per_page: 12)
+  end
+  
+  def events_8_10
+    dogs = [9833, 9827, 9822, 9823, 9831, 9830, 9396, 9595, 9570]
+    cats = [9536]
     @available_dogs = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)
     @available_cats = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: cats).paginate(page: params[:cats_page], per_page: 12)
   end
