@@ -84,10 +84,10 @@ class Shelter < ActiveRecord::Base
   
   def self.to_csv(pets)
     CSV.generate do |csv|
-      csv << ["Notes", "ID", "Name", "Slug", "Status", "Added", "Updated", "Intake Date", "Days in Shelter", 
+      csv << ["Notes", "ID", "Name", "Slug", "Species", "Status", "Added", "Updated", "Intake Date", "Days in Shelter", 
               "Sponsor", "Sponsor Email", "Rescue/Foster Name", "Contact Person", "Contact Email", "Contact Phone"]
       pets.each do |p|
-        csv << ['', p.animal_code, p.name, p.slug, p.pet_state.status, p.created_at, p.updated_at, 
+        csv << ['', p.animal_code, p.name, p.slug, p.species.name, p.pet_state.status, p.created_at, p.updated_at, 
                 p.intake_date, p.days_in_shelter, p.user.name, p.user.email, p.refuge_name, p.refuge_person, 
                 p.refuge_email, p.refuge_phone]
       end

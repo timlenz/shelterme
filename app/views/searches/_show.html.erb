@@ -5,7 +5,7 @@
   </div>
   
 <%# Display exact matches for search terms %>
-<% if $search && $search.pets.present? && @search_results.present? %>
+<% if $search.present? && $search.pets.present? %>
 
   <span id="resultsCount" style="display:none;">
     Found

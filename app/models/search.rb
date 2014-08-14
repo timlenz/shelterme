@@ -34,7 +34,7 @@ class Search < ActiveRecord::Base
     nearbys = shelters(distance) 
     if nearbys and search_string.present? # make sure to not return any pets without names
       pets = Pet.where('shelter_id in (?)', nearbys)
-      pets = pets.where('name iLIKE :search OR animal_code iLIKE :search', {search: search_string})
+      pets = pets.where('name iLIKE :search OR animal_code iLIKE :search or slug iLIKE :search', {search: search_string})
       # unless pets.size > 0 and pets.first.animal_code.downcase == search_string.downcase
       #   pets = pets.where(pet_state_id: [1,4]) # only show available pets unless search by ID
       # end
@@ -235,7 +235,7 @@ private
     if nearbys
       pets = Pet.where('shelter_id in (?)', nearbys)
       # use "%#{search_string}%" to search for partial match
-      pets = pets.where('name iLIKE :search OR animal_code iLIKE :search', {search: search_string}) if search_string.present?
+      pets = pets.where('name iLIKE :search OR animal_code iLIKE :search or slug iLIKE :search', {search: search_string}) if search_string.present?
       pets = pets.where(species_id: species_id) if species_id.present?
       pets = pets.where('(primary_breed_id = ?) OR (secondary_breed_id = ?)', breed_id, breed_id) if breed_id.present?
       pets = pets.where(gender_id: gender_id) if gender_id.present?

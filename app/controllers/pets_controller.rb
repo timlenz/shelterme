@@ -200,7 +200,7 @@ class PetsController < ApplicationController
     else
       @current_location = current_user.location
     end
-    @nearbys = Shelter.near(@current_location + ", US", 20, order: "distance")
+    @nearbys = Shelter.near(@current_location + ", US", 50, order: "distance")
     if cookies[:recent_shelter_id].to_i > 0
       recent_shelter = Shelter.where(id: cookies[:recent_shelter_id].to_i).first
       if @nearbys.size > 0
@@ -209,10 +209,6 @@ class PetsController < ApplicationController
       else
         @nearbys = @nearbys << recent_shelter
       end
-    end
-    shelter_check = @nearbys.find{|s| s.id == @pet.shelter.id }
-    unless shelter_check
-      @nearbys = @nearbys << @pet.shelter
     end
     # Check for restricted access shelters and remove from list if current user not a manager there (non-admin users)
     if @nearbys.find{|s| s.access == true} && !current_user.admin?
@@ -224,6 +220,17 @@ class PetsController < ApplicationController
         # Otherwise, eliminate all restricted shelters
         @nearbys.reject!{|s| s.access == true}
       end
+    end
+    # Eliminate shelters with pets having the same animal_code as the current pet (can't have two pets with same id at a shelter)
+    conflict_shelters = Pet.where('shelter_id in (?)', @nearbys).where('animal_code iLIKE ?', @pet.animal_code).includes(:shelter).map{|p| p.shelter}
+    if conflict_shelters.size > 1
+      conflict_shelters.reject!{|s| s.id == @pet.shelter_id}
+      @nearbys = @nearbys.reject{|s| conflict_shelters.include? s}
+    end
+    # Make sure pet's current shelter is in list of shelters
+    shelter_check = @nearbys.find{|s| s.id == @pet.shelter_id }
+    unless shelter_check.present?
+      @nearbys = @nearbys << @pet.shelter
     end
   rescue
     if @pet

@@ -13,7 +13,7 @@
 	      </div>
 	      <div style="padding-top:9px;" class="name adminName">
         <% if f.name != '' %>
-        <%= link_to f.name.titleize, [f.shelter, f], target: "_blank" %>
+        <%= link_to f.name, [f.shelter, f], target: "_blank" %>
         <% else %>
         <%= link_to "[ ]", [f.shelter, f], target: "_blank" %>
         <% end %>
@@ -46,12 +46,12 @@
       <td colspan="3" class="center">
         <%= simple_form_for(f, html: {class: 'form-horizontal adminStateChange' }, remote: true) do |p| %>
           <div class="btn-group three-btn btn-graphic" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
+            <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
             <button type="button" data-toggle="button" class="btn" value="1">Available</button>
+            <button type="button" data-toggle="button" class="btn" value="6">Rescued</button>
+            <button type="button" data-toggle="button" class="btn" value="5">Fostered</button>
             <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
             <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
-            <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
-            <button type="button" data-toggle="button" class="btn" value="5">Fostered</button>
-            <button type="button" data-toggle="button" class="btn" value="6">Rescued</button>
           </div>
           <%= p.hidden_field :pet_state_id, label: false %>
           <%= p.hidden_field :refuge_name, label: false %>

@@ -232,7 +232,7 @@ class Pet < ActiveRecord::Base
     
     def self.search(search)
       if search
-        find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search', {search: "%#{search}%"}])
+        find(:all, conditions: ['name iLIKE :search OR animal_code iLIKE :search OR slug iLIKE :search', {search: "%#{search}%"}])
       else
         scoped.includes(:shelter)
       end

@@ -42,12 +42,12 @@ class StaticPagesController < ApplicationController
           end
           cookies[:location] = @location
           # added + ", US" as hack around Geonames location conflation issues with Canada & California
-          shelters = Shelter.near(@location + ", US", 70, order: "distance")
+          shelters = Shelter.near(@location + ", US", 20, order: "distance")
           unless shelters.size > 0
-            shelters = Shelter.near(@location + ", US", 200, order: "distance")
+            shelters = Shelter.near(@location + ", US", 100, order: "distance")
           end
           nearbys = shelters.map{|s| s.id}
-          if @location != "MapQuest not responding" && nearbys.size > 0
+          if @location != "MapQuest not responding" && nearbys.present?
             @pets = Pet.includes(:pet_state, :gender, :size, :species, :fur_length, :energy_level, :nature, :affection, :secondary_breed, :primary_breed, :age_period, :shelter, :primary_color, :secondary_color)
             @pets = @pets.where('shelter_id in (?)', nearbys).where(pet_state_id: 1).where('pet_photos_count > 0') # Don't show any pets without photos
             if @pets.size > 0
@@ -68,10 +68,12 @@ class StaticPagesController < ApplicationController
               @featured_pets = []
               @shelter_pets = []
               @shelter = shelters.first
+              flash[:notice] = "Unable to find any pets near #{@location}."
             end
           else
             @featured_pets = []
             @shelter = []
+            flash[:notice] = "Unable to find any shelters near #{@location}."
           end
         end
         # TEMPORARY HACK IN LIEU OF ASYNCHRONOUS LOADING & MEMCACHING OF BLOG CONTENT
@@ -157,6 +159,7 @@ class StaticPagesController < ApplicationController
   end
   
   def events_8_9
+    redirect_to events_path
     dogs = [9802, 9805, 9819, 9686, 9656, 9569, 9854, 9856, 9855, 9865, 9867, 9866, 9868, 9870, 9869, 9872, 9882, 9879, 9881, 9880, 9883]
     cats = [9863, 9859, 9857, 9858, 9864]
     @available_dogs = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)
@@ -164,6 +167,7 @@ class StaticPagesController < ApplicationController
   end
   
   def events_8_10
+    redirect_to events_path
     dogs = [9833, 9827, 9822, 9823, 9831, 9830, 9396, 9595, 9570]
     cats = [9536]
     @available_dogs = Pet.includes(:shelter, :pet_state, :age_period, :gender, :size, :species, :secondary_color, :fur_length, :primary_color, :energy_level, :nature, :affection, :secondary_breed, :primary_breed).where(id: dogs).paginate(page: params[:dogs_page], per_page: 12)

@@ -23,6 +23,7 @@ gem 'nokogiri'
 gem 'cloudinary'
 gem 'active_attr'
 gem 'friendly_id', '~> 4.0.10'
+gem 'rails_12factor'
 
 group :development do
   gem 'rspec-rails', '2.9.0'

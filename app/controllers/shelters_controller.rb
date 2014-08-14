@@ -50,7 +50,7 @@ class SheltersController < ApplicationController
         cookies[:recent_shelter_id] = @shelter.id
       }
       format.csv {
-        send_data Shelter.to_csv(@shelter.pets), type: "text/csv", filename: "#{@shelter.slug}Pets#{Date.current()}"
+        send_data Shelter.to_csv(@shelter.pets.sort_by{|s| [s.species_id, s.pet_state]}), type: "text/csv", filename: "#{@shelter.slug}Pets#{Date.current()}"
       }
       format.csvb {
         send_data Shelter.to_full_csv(@shelter.pets), type: "text/csv", filename: "#{@shelter.slug}PetsFull#{Date.current()}"
@@ -137,7 +137,7 @@ class SheltersController < ApplicationController
   
   def managed
     if signed_in? and current_user.manager?
-      sort_arr = ['available', 'absent', 'adopted', 'rescued', 'fostered', 'unavailable']
+      sort_arr = ['absent', 'available', 'rescued', 'fostered', 'adopted', 'unavailable']
       @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).sort_by { |h| sort_arr.index(h.pet_state.status) }.paginate(page: params[:page])
       # @pets = current_user.shelter.pets.includes(:pet_state, :user).search(params[:search]).paginate(page: params[:page])
       cookies[:managed_pets] == "true"
