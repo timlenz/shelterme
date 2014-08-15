@@ -40,12 +40,12 @@
 <div class="clearfix"></div>
 <%= f.label "Status", class: "control-label", required: true %>
 <div class="btn-group btn-graphic three-btn btn-two-column" data-toggle="buttons-radio" data-toggle-name="pet[pet_state_id]">
-  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
-  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
-  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
   <button type="button" data-toggle="button" class="btn" value="4">Absent</button>
+  <button type="button" data-toggle="button" class="btn" value="1">Available</button>
   <button type="button" data-toggle="button" class="btn" value="5">Fostered</button>
   <button type="button" data-toggle="button" class="btn" value="6">Rescued</button>
+  <button type="button" data-toggle="button" class="btn" value="2">Adopted</button>
+  <button type="button" data-toggle="button" class="btn" value="3">Unavailable</button>
 </div>
 <%= f.hidden_field :pet_state_id, label: false %>
 <div id="refugeDetails">

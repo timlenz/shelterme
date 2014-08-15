@@ -215,10 +215,10 @@ class PetsController < ApplicationController
       # Check if current user is a manager for a restricted shelter in the list
       if @nearbys.select{|s| s.access == true}.map{|i| i.id}.include?(current_user.shelter_id)
         # Eliminate all restricted shelters for which the current user is not a manager
-        @nearbys = @nearbys.reject!{|s| s.access == true && s.id != current_user.shelter_id}
+        @nearbys = @nearbys.reject{|s| s.access == true && s.id != current_user.shelter_id}
       else
         # Otherwise, eliminate all restricted shelters
-        @nearbys.reject!{|s| s.access == true}
+        @nearbys = @nearbys.reject{|s| s.access == true}
       end
     end
     # Eliminate shelters with pets having the same animal_code as the current pet (can't have two pets with same id at a shelter)
